@@ -10,6 +10,7 @@
         <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
         <item name="cardViewStyle">@style/CardView</item>
         <item name="floatingActionButtonStyle">@style/Widget.Design.FloatingActionButton</item>
+        <!--<item name="android:windowBackground">@drawable/launch_screen</item>-->
 
 
     </style>

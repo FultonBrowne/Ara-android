@@ -1,3 +1,4 @@
+![alt text](https://circleci.com/gh/andromeda-software/Ara-android/tree/master.svg?style=svg)
 # What is Ara?
 Ara is a advanced AI and ML system that can run on everthing from iot devices to massive servers. it is also free and open source under the GNU General Public License (see the file LICENSE for more info).
 # What is Ara android?

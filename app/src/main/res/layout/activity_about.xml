@@ -40,9 +40,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/ic_launcher_background"
+        app:backgroundTint="@color/colorAccent"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@mipmap/ic_launcher_foreground" />
 
 </android.support.design.widget.CoordinatorLayout>

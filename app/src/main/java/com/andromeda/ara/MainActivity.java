@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
+        adapter ca = new adapter(createList(30));
+        recList.setAdapter(ca);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -48,6 +50,18 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+    private List<info> createList(int size) {
+
+        List<info> result = new ArrayList<info>();
+        for (int i=1; i <= size; i++) {
+            ContactInfo ci = new info();
+            ci.name = info.NAME_PREFIX + i;
+            ci.surname = info.SURNAME_PREFIX + i;
+            ci.email = info.EMAIL_PREFIX + i + "@test.com";
+
+            result.add(ci);
+
+        }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

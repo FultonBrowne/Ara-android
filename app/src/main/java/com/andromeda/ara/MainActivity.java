@@ -50,18 +50,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-    private List<info> createList(int size) {
 
-        List<info> result = new ArrayList<info>();
-        for (int i=1; i <= size; i++) {
-            ContactInfo ci = new info();
-            ci.name = info.NAME_PREFIX + i;
-            ci.surname = info.SURNAME_PREFIX + i;
-            ci.email = info.EMAIL_PREFIX + i + "@test.com";
-
-            result.add(ci);
-
-        }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -76,6 +65,20 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    private List<ContactInfo> createList(int size) {
+
+        List<ContactInfo> result = new ArrayList<ContactInfo>();
+        for (int i=1; i <= size; i++) {
+            ContactInfo ci = new ContactInfo();
+            ci.name = ContactInfo.NAME_PREFIX + i;
+            ci.surname = ContactInfo.SURNAME_PREFIX + i;
+            ci.email = ContactInfo.EMAIL_PREFIX + i + "@test.com";
+
+            result.add(ci);
+
+        }
+
+        return result;
 
 }
 }

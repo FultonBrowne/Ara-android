@@ -13,7 +13,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.andromeda.ara.MainActivity"
     tools:showIn="@layout/activity_main">
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -41,7 +41,7 @@
             android:layout_height="match_parent"
             android:id="@+id/cardList"></android.support.v7.widget.RecyclerView>
      </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
 </RelativeLayout>

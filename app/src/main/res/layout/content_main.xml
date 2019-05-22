@@ -27,13 +27,13 @@
                 android:background="#424242"
                 app:cardBackgroundColor="@color/colorBack"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="100dp"
+
                 app:cardPreventCornerOverlap="false"
                 app:contentPadding="8dp">
 
-                <android.support.v7.widget.SearchView.SearchAutoComplete
+                <SearchView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"></SearchView>
             </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.RecyclerView

@@ -9,27 +9,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
+        app:fabSize="auto"
+        android:layout_marginBottom="@dimen/fab_margin"
         app:srcCompat="@drawable/xbutton" />
 
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="@android:dimen/app_icon_size"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="58dip"
-        app:layout_anchorGravity="bottom">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            >
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/image"/>
-        </LinearLayout>
-    </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

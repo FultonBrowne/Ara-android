@@ -15,6 +15,7 @@
         <activity android:name=".voiceActivity">
             <intent-filter>
                 <category android:name="android.intent.category." />
+                <category android:name="android.intent.action.ASSIST"/>
             </intent-filter>
         </activity>
         <activity

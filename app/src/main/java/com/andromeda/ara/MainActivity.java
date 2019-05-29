@@ -16,17 +16,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
-        recList.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(RecyclerView.VERTICAL);
-        recList.setLayoutManager(llm);
-        adapter ca = new adapter(createList(30));
-        recList.setAdapter(ca);
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -67,20 +64,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    private List<info> createList(int size) {
-
-        List<info> result = new ArrayList<info>();
-        for (int i=1; i <= size; i++) {
-            info ci = new info();
-            ci.name = info.NAME_PREFIX + i;
-            ci.surname = info.SURNAME_PREFIX + i;
-            ci.email = info.EMAIL_PREFIX + i + "@test.com";
-
-            result.add(ci);
-
-        }
-
-        return result;
-
-}
 }

@@ -16,31 +16,11 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#424242"
-                app:cardBackgroundColor="@color/colorBack"
-                app:cardCornerRadius="8dp"
-
-                app:cardPreventCornerOverlap="false"
-                app:contentPadding="8dp">
-
-                <SearchView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></SearchView>
-            </androidx.cardview.widget.CardView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/cardList"></androidx.recyclerview.widget.RecyclerView>
-     </LinearLayout>
+        <include
+            layout="@layout/fragment_item_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

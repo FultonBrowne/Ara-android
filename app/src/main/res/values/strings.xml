@@ -173,4 +173,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="image">Camera</string>
+    <string-array name="front">Hello @array/pref_example_list_values</string-array>
 </resources>

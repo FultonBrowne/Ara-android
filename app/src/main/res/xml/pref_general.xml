@@ -13,6 +13,7 @@
         android:defaultValue="@string/pref_default_display_name"
         android:inputType="textCapWords"
         android:key="example_text"
+        android:entryValues="@string/greet"
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:singleLine="true"

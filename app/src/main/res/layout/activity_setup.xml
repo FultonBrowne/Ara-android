@@ -13,6 +13,7 @@
         android:ems="10"
         android:inputType="textPersonName|textCapWords"
         android:text="@string/prompt_firstname"
+        android:entryValues="@string/greet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -175,6 +175,7 @@
     </string>
     <string name="image">Camera</string>
     <string-array name="front">Hello @array/pref_example_list_values</string-array>
+
     <string name="title_activity_setup">Setup</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -186,4 +187,13 @@
     <string name="login_failed">"Login failed"</string>
     <string name="prompt_firstname">First name</string>
     <string name="welcome1">Welcome to Ara! To start what is your first name?</string>
+    <string name="done">finish and open Ara</string>
+    <string name="themeMode" />
+    <string name="theme">Force dark theme</string>
+    <array name="themeList">
+        <item>Dark</item>
+        <item>Light</item>
+        <item>Battery saver</item>
+        <item>System default</item>
+    </array>
 </resources>

@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences prefs = getSharedPreferences("example_list", MODE_PRIVATE);
+        theme(SharedPreferences);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

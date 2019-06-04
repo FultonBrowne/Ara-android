@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -15,6 +16,8 @@ import android.content.Intent;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.UiModeManager.MODE_NIGHT_YES;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -22,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        SharedPreferences prefs = getSharedPreferences("example_list", MODE_PRIVATE);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -42,6 +45,21 @@ public class MainActivity extends AppCompatActivity {
     }
     public void about(MenuItem menuItem){
         startActivity(new Intent(this, com.andromeda.ara.about.class));
+    }
+    public void theme(String theme){
+        if (theme == "Dark"){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        else if (theme == "Light"){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        }
+        else if (theme == "Battery saver") {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+        }
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        }
     }
 
     @Override

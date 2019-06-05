@@ -1,7 +1,10 @@
 package com.andromeda.ara;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import com.andromeda.ara.dummy.DummyContent;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +16,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,16 +25,23 @@ import static android.app.UiModeManager.MODE_NIGHT_YES;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private ItemFragment mItemFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPreferences prefs = getSharedPreferences("example_list", MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("com.andromeda.ara.SettingActivity", MODE_PRIVATE);
+        String prefs2 = prefs.getString("example_list" ,"MODE_PRIVATE");
+        theme(prefs2);
+
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+// Get access to the custom title view
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbarthing);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -83,4 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

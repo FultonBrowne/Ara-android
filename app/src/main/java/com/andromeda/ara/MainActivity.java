@@ -9,6 +9,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -23,9 +24,9 @@ import java.util.List;
 
 import static android.app.UiModeManager.MODE_NIGHT_YES;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ItemFragment.OnListFragmentInteractionListener{
 
-    private ItemFragment mItemFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +48,13 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Speak now", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Speak now", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+                popupuiListDialogFragment.newInstance(5);
             }
         });
     }
+
     public void yourMethodName(MenuItem menuItem){
         startActivity(new Intent(this, com.andromeda.ara.SettingsActivity.class));
     }
@@ -97,4 +100,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+
+    }
 }

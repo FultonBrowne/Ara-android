@@ -3,6 +3,7 @@ package com.andromeda.ara;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+
 public class voiceActivity extends AppCompatActivity {
 
     @Override

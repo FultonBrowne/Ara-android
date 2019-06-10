@@ -15,6 +15,7 @@ import java.util.Locale;
 
 
 
+
 public class HotWord extends VoiceInteractionService {
     static final String TAG = "MainInteractionService";
 
@@ -28,7 +29,12 @@ public class HotWord extends VoiceInteractionService {
                 @Override
         public void onDetected(AlwaysOnHotwordDetector.EventPayload eventPayload) {
                         Log.i(TAG, "onDetected");
-                    ;
+                    Intent i = new Intent();
+                    i.setClass(getApplicationContext(), MainActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+
+
 
                 }
 

@@ -198,4 +198,5 @@
         <item>Battery saver</item>
         <item>System default</item>
     </array>
+    <string name="url">https://feeds.foxnews.com/foxnews/latest</string>
 </resources>

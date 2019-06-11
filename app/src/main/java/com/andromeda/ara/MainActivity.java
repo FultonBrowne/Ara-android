@@ -26,7 +26,9 @@ import static android.app.UiModeManager.MODE_NIGHT_YES;
 
 public class MainActivity extends AppCompatActivity implements ItemFragment.OnListFragmentInteractionListener{
 
-
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,26 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
         SharedPreferences prefs = getSharedPreferences("com.andromeda.ara.SettingActivity", MODE_PRIVATE);
         String prefs2 = prefs.getString("example_list" ,"MODE_PRIVATE");
         theme(prefs2);
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // specify an adapter (see also next example)
+        //mAdapter = new MyItemRecyclerViewAdapter(DummyContent.ITEMS,);
+        recyclerView.setAdapter(mAdapter);
+        //RecyclerView rec = findViewById(R.id.list);
+        //RecyclerView.Adapter adapter = new MyItemRecyclerViewAdapter(1, MyItemRecyclerViewAdapter.ViewHolder );
+
+        //rec.setAdapter();
+
+       // ItemFragment.newInstance(5);
+
+
+
+
 
 
 
@@ -50,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
             public void onClick(View view) {
                 /*Snackbar.make(view, "Speak now", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
-                popupuiListDialogFragment.newInstance(5);
+                popupuiListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
             }
         });
     }

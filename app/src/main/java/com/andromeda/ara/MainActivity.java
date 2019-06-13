@@ -66,29 +66,23 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe1);
 
         theme(prefs2);
-        // in content do not change the layout size of the RecyclerView
+
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setAdapter(new Adapter(mFeedModelList));
 
-        // use a linear layout manager
+
         layoutManager = new LinearLayoutManager(this);
 
 
-        // specify an adapter (see also next example)
-        //mAdapter = new MyItemRecyclerViewAdapter(DummyContent.ITEMS,);
+
         recyclerView.setAdapter(mAdapter);
-        //RecyclerView rec = findViewById(R.id.list);
-        //RecyclerView.Adapter adapter = new MyItemRecyclerViewAdapter(1, MyItemRecyclerViewAdapter.ViewHolder );
 
-        //rec.setAdapter();
-
-       // ItemFragment.newInstance(5);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-// Get access to the custom title view
+
         TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbarthing);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -100,11 +94,13 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
                 popupuiListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
             }
         });
+        
     }
 
     public void yourMethodName(MenuItem menuItem){
         startActivity(new Intent(this, com.andromeda.ara.SettingsActivity.class));
     }
+
     public List<RssFeedModel> parseFeed(InputStream inputStream) throws XmlPullParserException,
             IOException {
         String title = null;
@@ -204,13 +200,7 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-    //mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener();
 
-
- //       @Override
- //       public void onRefresh () {
- //       new FetchFeedTask().execute((Void) null);
- //   }
 
 
 

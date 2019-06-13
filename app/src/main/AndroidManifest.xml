@@ -21,7 +21,8 @@
         <service
             android:name=".HotWord"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"
+            ></service>
 
         <activity android:name=".setup" />
         <activity android:name=".voiceActivity">

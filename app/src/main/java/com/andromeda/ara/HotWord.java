@@ -2,20 +2,20 @@ package com.andromeda.ara;
 
 
 import android.content.Intent;
+import android.os.Build;
 import android.service.voice.AlwaysOnHotwordDetector;
 import android.service.voice.VoiceInteractionService;
 import android.util.Log;
 import android.app.IntentService;
 
 
-
-
+import androidx.annotation.RequiresApi;
 
 import java.util.Locale;
 
 
 
-
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class HotWord extends VoiceInteractionService {
     static final String TAG = "MainInteractionService";
 

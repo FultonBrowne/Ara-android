@@ -23,6 +23,7 @@
             android:enabled="true"
             android:exported="true"
             ></service>
+        <service android:name=".MainInteractionSessionService" />
 
         <activity android:name=".setup" />
         <activity android:name=".voiceActivity">

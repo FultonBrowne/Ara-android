@@ -1,13 +1,36 @@
-![alt text](https://circleci.com/gh/andromeda-software/Ara-android/tree/master.svg?style=svg) [![Build Status](https://dev.azure.com/Andromeda-soft/ara-android/_apis/build/status/ara-Android-CI?branchName=master)](https://dev.azure.com/Andromeda-soft/ara-android/_build/latest?definitionId=1&branchName=master)
-# What is Ara?
-Ara is a advanced AI and ML system that can run on everthing from iot devices to massive servers. it is also free and open source under the GNU General Public License (see the file LICENSE for more info).
-# What is Ara android?
-Ara android is the ara system in the form of a open source voice assistant. This app will be avilable as source code here, on are website (soon), and on Google Play (soon).
-# Timeline
-This summer we are planing a first alpha, a beta in the fall, and a rc and final version in 2020.
-# What you can do
-After the first beta is released i could use help with bug tracking and translation. For now just tell your friends and add your ideas to the issue tracker.
+<h1 align="center">Welcome to Ara-android 👋</h1>
+<p>
+  <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">
+    <img alt="License:  GPL-3.0" src="https://img.shields.io/badge/License- GPL-3.0-yellow.svg" target="_blank" />
+  </a>
+</p>
 
-Thanks :)
-Andromeda Software
+> an ai app for almost any android phone. Using the latest ai tools ,of course.
 
+## Install
+
+```sh
+npm install
+```
+
+## Author
+
+👤 **Fulton Browne**
+
+* Github: [@andromeda-software](https://github.com/andromeda-software)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/andromeda-software/Ara-android/issues).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2019 [Fulton Browne](https://github.com/andromeda-software).<br />
+This project is [ GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) licensed.
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

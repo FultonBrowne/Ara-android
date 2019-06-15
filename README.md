@@ -7,11 +7,7 @@
 
 > an ai app for almost any android phone. Using the latest ai tools ,of course.
 
-## Install
 
-```sh
-npm install
-```
 
 ## Author
 

@@ -22,8 +22,13 @@
             android:name=".HotWord"
             android:enabled="true"
             android:exported="true"
-            ></service>
-        <service android:name=".MainInteractionSessionService" />
+            android:permission="android.permission.BIND_VOICE_INTERACTION"
+            android:process=":interactor"/>
+        <service android:name=".MainInteractionSessionService"
+            android:permission="android.permission.BIND_VOICE_INTERACTION"
+            android:process=":session"/>
+        <service android:name=".MainAraRS"
+            />
 
         <activity android:name=".setup" />
         <activity android:name=".voiceActivity">

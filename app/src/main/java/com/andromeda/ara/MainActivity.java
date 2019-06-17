@@ -39,7 +39,7 @@ import static android.app.UiModeManager.MODE_NIGHT_YES;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
-public class MainActivity extends AppCompatActivity implements ItemFragment.OnListFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity{
 
 
 
@@ -62,21 +62,19 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
         setContentView(R.layout.activity_main);
         SharedPreferences prefs = getSharedPreferences("com.andromeda.ara.SettingActivity", MODE_PRIVATE);
         String prefs2 = prefs.getString("example_list" ,"MODE_PRIVATE");
-        new FetchFeedTask().execute((Void) null);
+        //new FetchFeedTask().execute((Void) null);
+        recyclerView = (RecyclerView) findViewById(R.id.list);
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe1);
 
-        theme(prefs2);
-
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setAdapter(new Adapter(mFeedModelList));
-
-
-        layoutManager = new LinearLayoutManager(this);
 
 
 
-        recyclerView.setAdapter(mAdapter);
+
+
+        //theme(prefs2);
+
+
+        //recyclerView.setAdapter(new Adapter(mFeedModelList));
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -219,11 +217,7 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
     }
 
 
-    @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
-
-    }
     public class FetchFeedTask extends AsyncTask<Void, Void, Boolean> {
 
         private String urlLink;
@@ -231,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
         @Override
         protected void onPreExecute() {
 
-            urlLink = "https://feeds.foxnews.com/foxnews/latest";
+            urlLink = "feeds.foxnews.com/foxnews/latest";
         }
 
         @Override
@@ -260,9 +254,9 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
             mSwipeLayout.setRefreshing(false);
 
             if (success) {
-                mFeedTitleTextView.setText("Feed Title: " + mFeedTitle);
-                mFeedDescriptionTextView.setText("Feed Description: " + mFeedDescription);
-                mFeedLinkTextView.setText("Feed Link: " + mFeedLink);
+                mFeedTitleTextView.setText(mFeedTitle);
+                mFeedDescriptionTextView.setText( mFeedDescription);
+                mFeedLinkTextView.setText( mFeedLink);
                 // Fill RecyclerView
                 recyclerView.setAdapter(new Adapter(mFeedModelList));
             } else {

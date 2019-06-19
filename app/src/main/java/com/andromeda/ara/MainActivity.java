@@ -29,6 +29,7 @@ import android.widget.Toast;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -65,9 +66,10 @@ public class MainActivity extends AppCompatActivity{
         
         recyclerView = (RecyclerView) findViewById(R.id.list);
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe1);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setAdapter(new Adapter(mFeedModelList));
+        //recyclerView.setAdapter(new Adapter(mFeedModelList));
         new FetchFeedTask().execute((Void) null);
 
 
@@ -103,8 +105,7 @@ public class MainActivity extends AppCompatActivity{
         startActivity(new Intent(this, com.andromeda.ara.SettingsActivity.class));
     }
 
-    public List<RssFeedModel> parseFeed(InputStream inputStream) throws XmlPullParserException,
-            IOException {
+    public List<RssFeedModel> parseFeed(InputStream inputStream) throws XmlPullParserException, IOException {
         String title = null;
         String link = null;
         String description = null;
@@ -121,24 +122,24 @@ public class MainActivity extends AppCompatActivity{
                 int eventType = xmlPullParser.getEventType();
 
                 String name = xmlPullParser.getName();
-                if(name == null)
+                if (name == null)
                     continue;
 
-                if(eventType == XmlPullParser.END_TAG) {
-                    if(name.equalsIgnoreCase("item")) {
+                if (eventType == XmlPullParser.END_TAG) {
+                    if (name.equalsIgnoreCase("item")) {
                         isItem = false;
                     }
                     continue;
                 }
 
                 if (eventType == XmlPullParser.START_TAG) {
-                    if(name.equalsIgnoreCase("item")) {
+                    if (name.equalsIgnoreCase("item")) {
                         isItem = true;
                         continue;
                     }
                 }
 
-                Log.d("MyXmlParser", "Parsing name ==> " + name);
+                Log.d("MainActivity", "Parsing name ==> " + name);
                 String result = "";
                 if (xmlPullParser.next() == XmlPullParser.TEXT) {
                     result = xmlPullParser.getText();
@@ -154,14 +155,13 @@ public class MainActivity extends AppCompatActivity{
                 }
 
                 if (title != null && link != null && description != null) {
-                    if(isItem) {
+                    if (isItem) {
                         RssFeedModel item = new RssFeedModel(title, link, description);
                         items.add(item);
-                    }
-                    else {
-                        mFeedTitle = title;
-                        mFeedLink = link;
-                        mFeedDescription = description;
+                    } else {
+                        mFeedTitle = "err";
+                        mFeedLink = "err";
+                        mFeedDescription = "err";
                     }
 
                     title = null;
@@ -176,6 +176,9 @@ public class MainActivity extends AppCompatActivity{
             inputStream.close();
         }
     }
+
+
+
 
     public void about(MenuItem menuItem){
         startActivity(new Intent(this, com.andromeda.ara.about.class));

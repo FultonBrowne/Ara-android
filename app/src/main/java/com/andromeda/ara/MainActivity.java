@@ -62,9 +62,10 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         SharedPreferences prefs = getSharedPreferences("com.andromeda.ara.SettingActivity", MODE_PRIVATE);
         String prefs2 = prefs.getString("example_list" ,"MODE_PRIVATE");
-        new FetchFeedTask().execute((Void) null);
+        
         recyclerView = (RecyclerView) findViewById(R.id.list);
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe1);
+        new FetchFeedTask().execute((Void) null);
 
 
 

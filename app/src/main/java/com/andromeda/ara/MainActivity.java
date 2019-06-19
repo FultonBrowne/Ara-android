@@ -161,10 +161,10 @@ public class MainActivity extends AppCompatActivity{
                         mFeedDescription = description;
                     }
 
-                    title = null;
+                    /**title = null;
                     link = null;
                     description = null;
-                    isItem = false;
+                    isItem = false;**/
                 }
             }
 

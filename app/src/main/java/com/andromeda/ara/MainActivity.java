@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity{
         @Override
         protected void onPreExecute() {
 
-            urlLink = "feeds.foxnews.com/foxnews/latest";
+            urlLink = "https://xkcd.com/rss.xml";
         }
 
         @Override

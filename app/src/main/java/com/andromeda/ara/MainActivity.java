@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity{
         
         recyclerView = (RecyclerView) findViewById(R.id.list);
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe1);
+        recyclerView.setAdapter(new Adapter(mFeedModelList));
         new FetchFeedTask().execute((Void) null);
 
 

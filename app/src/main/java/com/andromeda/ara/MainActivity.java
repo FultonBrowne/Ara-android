@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity{
         
         recyclerView = (RecyclerView) findViewById(R.id.list);
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe1);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         recyclerView.setAdapter(new Adapter(mFeedModelList));
         new FetchFeedTask().execute((Void) null);
 
@@ -162,10 +164,10 @@ public class MainActivity extends AppCompatActivity{
                         mFeedDescription = description;
                     }
 
-                    /**title = null;
+                    title = null;
                     link = null;
                     description = null;
-                    isItem = false;**/
+                    isItem = false;
                 }
             }
 

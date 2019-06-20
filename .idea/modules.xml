@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Ara-android.iml" filepath="$PROJECT_DIR$/Ara-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ara.iml" filepath="$PROJECT_DIR$/ara.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rome-1.0/rome-1.0.iml" filepath="$PROJECT_DIR$/rome-1.0/rome-1.0.iml" />
     </modules>
   </component>
 </project>

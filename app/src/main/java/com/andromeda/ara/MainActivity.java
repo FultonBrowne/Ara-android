@@ -15,6 +15,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import java.net.URL;
+import java.io.InputStreamReader;
+
+import com.rometools.rome.feed.synd.SyndEntry;
+import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.io.FeedException;
+import com.rometools.rome.io.SyndFeedInput;
+import com.rometools.rome.io.SyndFeedOutput;
+import com.rometools.rome.io.XmlReader;
+
+
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -40,8 +51,7 @@ import static android.app.UiModeManager.MODE_NIGHT_YES;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
-public class MainActivity extends AppCompatActivity{
-
+public class MainActivity extends AppCompatActivity {
 
 
     private RecyclerView recyclerView;
@@ -62,18 +72,14 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences prefs = getSharedPreferences("com.andromeda.ara.SettingActivity", MODE_PRIVATE);
-        String prefs2 = prefs.getString("example_list" ,"MODE_PRIVATE");
-        
+        String prefs2 = prefs.getString("example_list", "MODE_PRIVATE");
+
         recyclerView = (RecyclerView) findViewById(R.id.list);
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe1);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //recyclerView.setAdapter(new Adapter(mFeedModelList));
-        new FetchFeedTask().execute((Void) null);
-
-
-
+        recyclerView.setAdapter(new Adapter(mFeedModelList));
 
 
 
@@ -101,100 +107,43 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    public void yourMethodName(MenuItem menuItem){
+    public void yourMethodName(MenuItem menuItem) {
         startActivity(new Intent(this, com.andromeda.ara.SettingsActivity.class));
     }
 
-    public List<RssFeedModel> parseFeed(InputStream inputStream) throws XmlPullParserException, IOException {
-        String title = null;
-        String link = null;
-        String description = null;
-        boolean isItem = false;
+    public List<RssFeedModel> parseFeed() throws IOException, FeedException {
+        URL feed = new URL("https://xkcd.com/rss.xml");
         List<RssFeedModel> items = new ArrayList<>();
-
         try {
-            XmlPullParser xmlPullParser = Xml.newPullParser();
-            xmlPullParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-            xmlPullParser.setInput(inputStream, null);
+            SyndFeedInput input = new SyndFeedInput();
+            SyndFeed feedAllData = input.build(new XmlReader(feed));
 
-            //xmlPullParser.nextTag();
-            while (xmlPullParser.next() != XmlPullParser.END_DOCUMENT) {
-                int eventType = xmlPullParser.getEventType();
+            mFeedDescription = feedAllData.getDescription();
+            mFeedTitle = feedAllData.getTitle();
+            mFeedLink = feedAllData.getLink();
 
-                String name = xmlPullParser.getName();
-                if (name == null)
-                    continue;
+        } catch (IOException I) {
 
-                if (eventType == XmlPullParser.END_TAG) {
-                    if (name.equalsIgnoreCase("item")) {
-                        isItem = false;
-                    }
-                    continue;
-                }
-
-                if (eventType == XmlPullParser.START_TAG) {
-                    if (name.equalsIgnoreCase("item")) {
-                        isItem = true;
-                        continue;
-                    }
-                }
-
-                Log.d("MainActivity", "Parsing name ==> " + name);
-                String result = "";
-                if (xmlPullParser.next() == XmlPullParser.TEXT) {
-                    result = xmlPullParser.getText();
-                    xmlPullParser.nextTag();
-                }
-
-                if (name.equalsIgnoreCase("title")) {
-                    title = result;
-                } else if (name.equalsIgnoreCase("link")) {
-                    link = result;
-                } else if (name.equalsIgnoreCase("description")) {
-                    description = result;
-                }
-
-                if (title != null && link != null && description != null) {
-                    if (isItem) {
-                        RssFeedModel item = new RssFeedModel(title, link, description);
-                        items.add(item);
-                    } else {
-                        mFeedTitle = "err";
-                        mFeedLink = "err";
-                        mFeedDescription = "err";
-                    }
-
-                    title = null;
-                    link = null;
-                    description = null;
-                    isItem = false;
-                }
-            }
-
-            return items;
-        } finally {
-            inputStream.close();
         }
+
+
+        return items;
     }
 
 
-
-
-    public void about(MenuItem menuItem){
+    public void about(MenuItem menuItem) {
         startActivity(new Intent(this, com.andromeda.ara.about.class));
     }
-    public void theme(String theme){
-        if (theme == "Dark"){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
-        else if (theme == "Light"){
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        }
-        else if (theme == "Battery saver") {
+    public void theme(String theme) {
+        if (theme == "Dark") {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else if (theme == "Light") {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        } else if (theme == "Battery saver") {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-        }
-        else {
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         }
     }
@@ -205,8 +154,6 @@ public class MainActivity extends AppCompatActivity{
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-
 
 
     @Override
@@ -222,58 +169,6 @@ public class MainActivity extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-    public class FetchFeedTask extends AsyncTask<Void, Void, Boolean> {
-
-        private String urlLink;
-
-        @Override
-        protected void onPreExecute() {
-
-            urlLink = "https://xkcd.com/rss.xml";
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            if (TextUtils.isEmpty(urlLink))
-                return false;
-
-            try {
-                if(!urlLink.startsWith("http://") && !urlLink.startsWith("https://"))
-                    urlLink = "http://" + urlLink;
-
-                URL url = new URL(urlLink);
-                InputStream inputStream = url.openConnection().getInputStream();
-                mFeedModelList = parseFeed(inputStream);
-                return true;
-            } catch (IOException e) {
-                Log.e(TAG, "Error", e);
-            } catch (XmlPullParserException e) {
-                Log.e(TAG, "Error", e);
-            }
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            mSwipeLayout.setRefreshing(false);
-
-            if (success) {
-                mFeedTitleTextView.setText(mFeedTitle);
-                mFeedDescriptionTextView.setText( mFeedDescription);
-                mFeedLinkTextView.setText( mFeedLink);
-                // Fill RecyclerView
-                recyclerView.setAdapter(new Adapter(mFeedModelList));
-            } else {
-                Toast.makeText(MainActivity.this,
-                        "Enter a valid Rss feed url",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
 
 
 

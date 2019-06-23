@@ -26,7 +26,7 @@ import com.rometools.rome.io.SyndFeedOutput;
 import com.rometools.rome.io.XmlReader;
 
 
-
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
@@ -71,8 +71,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        StrictMode.ThreadPolicy policy = new
+                StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         SharedPreferences prefs = getSharedPreferences("com.andromeda.ara.SettingActivity", MODE_PRIVATE);
         String prefs2 = prefs.getString("example_list", "MODE_PRIVATE");
+        parseFeed();
 
         recyclerView = (RecyclerView) findViewById(R.id.list);
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe1);
@@ -111,10 +115,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, com.andromeda.ara.SettingsActivity.class));
     }
 
-    public List<RssFeedModel> parseFeed() throws IOException, FeedException {
-        URL feed = new URL("https://xkcd.com/rss.xml");
+    public List<RssFeedModel> parseFeed() {
+
         List<RssFeedModel> items = new ArrayList<>();
         try {
+            URL feed = new URL("https://xkcd.com/rss.xml");
+            feed.openConnection();
+
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feedAllData = input.build(new XmlReader(feed));
 
@@ -122,12 +129,23 @@ public class MainActivity extends AppCompatActivity {
             mFeedTitle = feedAllData.getTitle();
             mFeedLink = feedAllData.getLink();
 
-        } catch (IOException I) {
+        } catch (IOException e) {
+            mFeedLink = "err";
+            mFeedTitle = "err";
+            mFeedDescription = "err";
+
+        }
+        catch (FeedException e) {
+            mFeedLink = "err";
+            mFeedTitle = "err";
+            mFeedDescription = "err";
 
         }
 
 
-        return items;
+
+        items = mFeedModelList;
+        return mFeedModelList;
     }
 
 

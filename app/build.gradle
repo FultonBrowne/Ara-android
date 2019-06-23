@@ -39,4 +39,7 @@ dependencies {
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
     implementation 'com.google.android.material:material:1.1.0-alpha06'
     implementation group: 'com.rometools', name: 'rome', version: '1.5.0'
+    // https://mvnrepository.com/artifact/org.jdom/jdom2
+    //implementation group: 'org.jdom', name: 'jdom2', version: '2.0.6'
+
 }

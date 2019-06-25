@@ -23,19 +23,17 @@
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_VOICE_INTERACTION"
-            android:process=":interactor"/>
+            android:process=":interactor"><meta-data android:name="android.voice_interaction"
+            android:resource="@xml/interaction_service" /></service>
         <service android:name=".MainInteractionSessionService"
             android:permission="android.permission.BIND_VOICE_INTERACTION"
             android:process=":session"/>
         <service android:name=".MainAraRS"
-            />
+            ><meta-data android:name="android.speech" android:resource="@xml/recognition_service" /></service>
 
         <activity android:name=".setup" />
         <activity android:name=".voiceActivity">
-            <intent-filter>
-                <category android:name="android.intent.category." />
-                <category android:name="android.intent.action.ASSIST" />
-            </intent-filter>
+            
         </activity>
         <activity
             android:name=".about"

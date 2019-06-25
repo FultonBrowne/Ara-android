@@ -10,6 +10,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.util.TimeUtils;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +29,7 @@ import com.rometools.rome.io.XmlReader;
 
 import android.os.StrictMode;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.Xml;
 import android.view.View;
@@ -44,14 +46,16 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static android.app.UiModeManager.MODE_NIGHT_YES;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements popupuiListDialogFragment.Listener {
 
 
     private RecyclerView recyclerView;
@@ -67,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     public String mFeedDescription;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("com.andromeda.ara.SettingActivity", MODE_PRIVATE);
         String prefs2 = prefs.getString("example_list", "MODE_PRIVATE");
         parseFeed();
+
 
         recyclerView = (RecyclerView) findViewById(R.id.list);
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe1);
@@ -117,8 +123,21 @@ public class MainActivity extends AppCompatActivity {
 
     public List<RssFeedModel> parseFeed() {
 
-        List<RssFeedModel> items = new ArrayList<>();
-        try {
+        List<RssFeedModel> items = new ArrayList<>(1);
+        String[] item1 = {
+                    "infotest1"
+            };
+        String[] item2 = {
+                "infotest1"
+        };
+        String[] item3 = {
+                "infotest1"
+        };
+
+
+
+
+        /**try {
             URL feed = new URL("https://xkcd.com/rss.xml");
             feed.openConnection();
 
@@ -143,9 +162,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+**/
 
-        items = mFeedModelList;
-        return mFeedModelList;
+        return items;
     }
 
 
@@ -189,5 +208,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onpopupuiClicked(int position) {
 
+    }
 }

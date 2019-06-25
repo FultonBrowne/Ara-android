@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+
 public class Adapter
         extends RecyclerView.Adapter<Adapter.FeedModelViewHolder> {
 
@@ -37,15 +38,19 @@ public class Adapter
 
     @Override
     public void onBindViewHolder(FeedModelViewHolder holder, int position) {
-        final RssFeedModel rssFeedModel = mRssFeedModels.get(position);
-        ((TextView)holder.rssFeedView.findViewById(R.id.item_number)).setText(rssFeedModel.title);
-        ((TextView)holder.rssFeedView.findViewById(R.id.content)).setText(rssFeedModel.description);
-        ((TextView)holder.rssFeedView.findViewById(R.id.url2)).setText(rssFeedModel.link);
+        //final RssFeedModel rssFeedModel = mRssFeedModels.get(position);
+        //((TextView)holder.rssFeedView.findViewById(R.id.item_number)).setText(rssFeedModel.title);
+        //((TextView)holder.rssFeedView.findViewById(R.id.content)).setText(rssFeedModel.description);
+        //((TextView)holder.rssFeedView.findViewById(R.id.url2)).setText(rssFeedModel.link);
+        ((TextView)holder.rssFeedView.findViewById(R.id.item_number)).setText(R.string.test);
+        ((TextView)holder.rssFeedView.findViewById(R.id.content)).setText(R.string.test);
+        ((TextView)holder.rssFeedView.findViewById(R.id.url2)).setText(R.string.test);
     }
 
     @Override
     public int getItemCount() {
-        return mRssFeedModels.size();
+        //return mRssFeedModels.size();
+        return 1;
     }
 }
 

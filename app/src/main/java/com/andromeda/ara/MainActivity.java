@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     public String mFeedDescription;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         StrictMode.setThreadPolicy(policy);
         SharedPreferences prefs = getSharedPreferences("com.andromeda.ara.SettingActivity", MODE_PRIVATE);
         String prefs2 = prefs.getString("example_list", "MODE_PRIVATE");
-        parseFeed();
+
 
 
         recyclerView = (RecyclerView) findViewById(R.id.list);
@@ -89,8 +88,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setAdapter(new Adapter(mFeedModelList));
 
+        recyclerView.setAdapter(new Adapter(parseFeed()));
 
 
         //theme(prefs2);
@@ -121,12 +120,12 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         startActivity(new Intent(this, com.andromeda.ara.SettingsActivity.class));
     }
 
-    public List<RssFeedModel> parseFeed() {
+   /** public List<RssFeedModel> parseFeed() {
 
-        List<RssFeedModel> items = new ArrayList<>(1);
+
         String[] item1 = {
-                    "infotest1"
-            };
+                "infotest1"
+        };
         String[] item2 = {
                 "infotest1"
         };
@@ -135,37 +134,36 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         };
 
 
-
-
         /**try {
-            URL feed = new URL("https://xkcd.com/rss.xml");
-            feed.openConnection();
+         URL feed = new URL("https://xkcd.com/rss.xml");
+         feed.openConnection();
 
-            SyndFeedInput input = new SyndFeedInput();
-            SyndFeed feedAllData = input.build(new XmlReader(feed));
+         SyndFeedInput input = new SyndFeedInput();
+         SyndFeed feedAllData = input.build(new XmlReader(feed));
 
-            mFeedDescription = feedAllData.getDescription();
-            mFeedTitle = feedAllData.getTitle();
-            mFeedLink = feedAllData.getLink();
+         mFeedDescription = feedAllData.getDescription();
+         mFeedTitle = feedAllData.getTitle();
+         mFeedLink = feedAllData.getLink();
 
-        } catch (IOException e) {
-            mFeedLink = "err";
-            mFeedTitle = "err";
-            mFeedDescription = "err";
+         RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, );
+         mList.add(rssFeedModel);
 
-        }
-        catch (FeedException e) {
-            mFeedLink = "err";
-            mFeedTitle = "err";
-            mFeedDescription = "err";
+         } catch (IOException e) {
+         mFeedLink = "err";
+         mFeedTitle = "err";
+         mFeedDescription = "err";
 
-        }
+         }
+         catch (FeedException e) {
+         mFeedLink = "err";
+         mFeedTitle = "err";
+         mFeedDescription = "err";
 
+         }
 
-**/
 
         return items;
-    }
+    }**/
 
 
     public void about(MenuItem menuItem) {
@@ -212,4 +210,42 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     public void onpopupuiClicked(int position) {
 
     }
+    public static List<RssFeedModel> parseFeed() {
+         String mFeedTitle;
+         String mFeedLink;
+         String mFeedDescription;
+        List<RssFeedModel> items = new ArrayList<>();
+        try{
+            URL feed = new URL("https://xkcd.com/rss.xml");
+            feed.openConnection();
+
+            SyndFeedInput input = new SyndFeedInput();
+            SyndFeed feedAllData = input.build(new XmlReader(feed));
+
+             mFeedDescription = feedAllData.getDescription();
+             mFeedTitle = feedAllData.getTitle();
+             mFeedLink = feedAllData.getLink();
+
+
+
+
+    } catch (IOException e) {
+        mFeedLink = "err";
+        mFeedTitle = "err";
+        mFeedDescription = "err";
+
+    }
+               catch (FeedException e) {
+        mFeedLink = "err";
+        mFeedTitle = "err";
+        mFeedDescription = "err";
+
+    }
+        RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle);
+        items.add(rssFeedModel);
+        return items;
+
+
 }
+}
+

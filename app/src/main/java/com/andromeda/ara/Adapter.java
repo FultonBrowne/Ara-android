@@ -13,7 +13,7 @@ import java.util.List;
 public class Adapter
         extends RecyclerView.Adapter<Adapter.FeedModelViewHolder> {
 
-    private List<RssFeedModel> mRssFeedModels;
+    private List<RssFeedModel> mRssFeedModels = RssClass.getFeedList();
 
     public static class FeedModelViewHolder extends RecyclerView.ViewHolder {
         private View rssFeedView;

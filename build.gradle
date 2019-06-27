@@ -13,7 +13,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.4.1'
         classpath 'com.google.android.material:material:1.1.0-alpha06'
         // https://mvnrepository.com/artifact/com.rometools/rome
-        classpath group: 'com.rometools', name: 'rome', version: '1.5.0'
+        //classpath group: 'com.rometools', name: 'rome', version: '1.5.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

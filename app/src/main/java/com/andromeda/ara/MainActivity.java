@@ -39,6 +39,8 @@ import android.content.Intent;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -216,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
          String mFeedDescription;
         List<RssFeedModel> items = new ArrayList<>();
         try{
-            URL feed = new URL("https://xkcd.com/rss.xml");
+            URL feed = new URL("https://www.espn.com/espn/rss/news/rss.xml");
             feed.openConnection();
 
             SyndFeedInput input = new SyndFeedInput();
@@ -229,12 +231,14 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
 
+
     } catch (IOException e) {
         mFeedLink = "err";
         mFeedTitle = "err";
         mFeedDescription = "err";
 
     }
+
                catch (FeedException e) {
         mFeedLink = "err";
         mFeedTitle = "err";

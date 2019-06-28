@@ -200,4 +200,5 @@
     </array>
     <string name="url">https://feeds.foxnews.com/foxnews/latest</string>
     <string name="test">test</string>
+    <string name="hello1">hello</string>
 </resources>

@@ -32,7 +32,8 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/toolbarthing"/>
+                android:id="@+id/toolbarthing"
+                android:text="@string/hello1"/>
         </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

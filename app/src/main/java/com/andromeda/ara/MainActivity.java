@@ -15,7 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.rometools.rome.feed.synd.SyndContent;
+import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.feed.synd.SyndLink;
+import com.rometools.rome.feed.synd.SyndPerson;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         String mFeedTitle;
         String mFeedLink;
         String mFeedDescription;
+        List<SyndEntry> mTest;
         List<RssFeedModel> items = new ArrayList<>();
         try {
             URL feed = new URL("https://www.espn.com/espn/rss/news/rss.xml");
@@ -42,13 +47,17 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feedAllData = input.build(new InputStreamReader(feed.openStream()));
-            feedAllData.getEntries();
+            mTest = feedAllData.getEntries();
             mFeedDescription = feedAllData.getDescription();
             mFeedTitle = feedAllData.getTitle();
             mFeedLink = feedAllData.getLink();
 
 
-        } catch (IOException e) {
+
+
+
+        }
+        catch (IOException e) {
             mFeedLink = "err";
             mFeedTitle = "err";
             mFeedDescription = "err";

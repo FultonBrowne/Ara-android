@@ -28,13 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_collapseMode="pin"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/toolbarthing"
-                android:text="@string/hello1"/>
-        </androidx.appcompat.widget.Toolbar>
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 

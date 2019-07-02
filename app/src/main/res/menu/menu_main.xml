@@ -9,6 +9,13 @@
         app:showAsAction="never"
         android:onClick="yourMethodName"/>
     <item
+        android:id="@+id/app_bar_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:orderInCategory="101"
+        android:title="@string/app_name"
+        app:showAsAction="always"
+        app:actionViewClass="android.widget.SearchView" />
+    <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
         android:title="@string/action_about"

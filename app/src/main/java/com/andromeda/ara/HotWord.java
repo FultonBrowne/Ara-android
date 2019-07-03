@@ -6,63 +6,58 @@ import android.os.Build;
 import android.service.voice.AlwaysOnHotwordDetector;
 import android.service.voice.VoiceInteractionService;
 import android.util.Log;
-import android.app.IntentService;
-
 
 import androidx.annotation.RequiresApi;
 
 import java.util.Locale;
 
 
-
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class HotWord extends VoiceInteractionService {
     static final String TAG = "MainInteractionService";
-
-            private final AlwaysOnHotwordDetector.Callback mHotwordCallback = new AlwaysOnHotwordDetector.Callback() {
+    private AlwaysOnHotwordDetector mHotwordDetector;
+    private final AlwaysOnHotwordDetector.Callback mHotwordCallback = new AlwaysOnHotwordDetector.Callback() {
         @Override
         public void onAvailabilityChanged(int status) {
-                        Log.i(TAG, "onAvailabilityChanged(" + status + ")");
-                        hotwordAvailabilityChangeHelper(status);
-                    }
+            Log.i(TAG, "onAvailabilityChanged(" + status + ")");
+            hotwordAvailabilityChangeHelper(status);
+        }
 
-                @Override
+        @Override
         public void onDetected(AlwaysOnHotwordDetector.EventPayload eventPayload) {
-                        Log.i(TAG, "onDetected");
-                    Intent i = new Intent();
-                    i.setClass(getApplicationContext(), MainActivity.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(i);
+            Log.i(TAG, "onDetected");
+            Intent i = new Intent();
+            i.setClass(getApplicationContext(), MainActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
 
 
+        }
 
-                }
-
-                @Override
+        @Override
         public void onError() {
-                        Log.i(TAG, "onError");
-                    }
+            Log.i(TAG, "onError");
+        }
 
-                @Override
+        @Override
         public void onRecognitionPaused() {
-                        Log.i(TAG, "onRecognitionPaused");
-                   }
+            Log.i(TAG, "onRecognitionPaused");
+        }
 
-                @Override
+        @Override
         public void onRecognitionResumed() {
-                        Log.i(TAG, "onRecognitionResumed");
-                   }
+            Log.i(TAG, "onRecognitionResumed");
+        }
     };
 
-            private AlwaysOnHotwordDetector mHotwordDetector;
     @Override
-    public void onReady(){
+    public void onReady() {
         super.onReady();
 
 
-               mHotwordDetector = createAlwaysOnHotwordDetector(
-                               "Hey Ara", Locale.forLanguageTag("en-US"), mHotwordCallback);
-           }
+        mHotwordDetector = createAlwaysOnHotwordDetector(
+                "Hey Ara", Locale.forLanguageTag("en-US"), mHotwordCallback);
+    }
 
     private void hotwordAvailabilityChangeHelper(int availability) {
         Log.i(TAG, "Hotword availability = " + availability);
@@ -89,9 +84,6 @@ public class HotWord extends VoiceInteractionService {
                 break;
         }
     }
-
-
-
 
 
 }

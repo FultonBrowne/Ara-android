@@ -6,7 +6,6 @@ import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,18 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
-import com.rometools.rome.feed.synd.SyndLink;
-import com.rometools.rome.feed.synd.SyndPerson;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
+import com.rometools.rome.io.XmlReader;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -35,42 +32,59 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
     public SwipeRefreshLayout mSwipeLayout;
 
-    public static List<RssFeedModel> parseFeed() {
+    public static List<RssFeedModel> parseFeed() throws IOException {
         String mFeedTitle;
         String mFeedLink;
         String mFeedDescription;
         List<SyndEntry> mTest;
         List<RssFeedModel> items = new ArrayList<>();
+        XmlReader xmlReader = null;
         try {
             URL feed = new URL("https://www.espn.com/espn/rss/news/rss.xml");
+
+
             feed.openConnection();
+            xmlReader = new XmlReader(feed);
 
             SyndFeedInput input = new SyndFeedInput();
-            SyndFeed feedAllData = input.build(new InputStreamReader(feed.openStream()));
+            SyndFeed feedAllData = new SyndFeedInput().build(xmlReader);
             mTest = feedAllData.getEntries();
             mFeedDescription = feedAllData.getDescription();
             mFeedTitle = feedAllData.getTitle();
             mFeedLink = feedAllData.getLink();
+            for (Iterator iterator = feedAllData.getEntries().iterator(); iterator
+                    .hasNext(); ) {
+                SyndEntry syndEntry = (SyndEntry) iterator.next();
+                mFeedDescription = syndEntry.getComments();
+                mFeedTitle = syndEntry.getTitle();
+                mFeedLink = syndEntry.getLink();
+                RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle);
+                items.add(rssFeedModel);
 
 
+            }
 
 
-
-
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             mFeedLink = "err";
             mFeedTitle = "err";
             mFeedDescription = "err";
+            RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle);
+            items.add(rssFeedModel);
 
         } catch (FeedException e) {
             mFeedLink = "err";
             mFeedTitle = "err";
             mFeedDescription = "err";
+            RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle);
+            items.add(rssFeedModel);
 
+        } finally {
+            if (xmlReader != null)
+                xmlReader.close();
         }
-        RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle);
-        items.add(rssFeedModel);
+
+
         return items;
 
 
@@ -86,7 +100,13 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         RecyclerView recyclerView = findViewById(R.id.list);
         mSwipeLayout = findViewById(R.id.swipe1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new Adapter(parseFeed()));
+        try {
+
+
+            recyclerView.setAdapter(new Adapter(parseFeed()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);

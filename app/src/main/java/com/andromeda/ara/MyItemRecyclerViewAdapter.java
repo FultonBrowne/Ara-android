@@ -1,11 +1,11 @@
 package com.andromeda.ara;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.andromeda.ara.ItemFragment.OnListFragmentInteractionListener;
 import com.andromeda.ara.dummy.DummyContent.DummyItem;
@@ -26,7 +26,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         mValues = items;
         mListener = listener;
     }
-
 
 
     @Override

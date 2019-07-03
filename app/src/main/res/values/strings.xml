@@ -190,7 +190,7 @@
     <string name="done">finish and open Ara</string>
     <string name="themeMode" />
     <string name="theme">Force dark theme</string>
-<string name="keytheme">list_preference_1</string>
+    <string name="keytheme">list_preference_1</string>
     <string name="default1">System default</string>
     <array name="themeList">
         <item>Dark</item>

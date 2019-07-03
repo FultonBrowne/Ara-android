@@ -1,10 +1,5 @@
 package com.andromeda.ara;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -13,8 +8,11 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.io.IOException;
 
@@ -27,13 +25,12 @@ public class voiceActivity extends AppCompatActivity implements popupuiListDialo
     private RecordButton recordButton = null;
     private MediaRecorder recorder = null;
 
-    private PlayButton   playButton = null;
+    private PlayButton playButton = null;
     private MediaPlayer player = null;
 
     // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted = false;
-    private String [] permissions = {Manifest.permission.RECORD_AUDIO};
-
+    private String[] permissions = {Manifest.permission.RECORD_AUDIO};
 
 
     @Override
@@ -52,15 +49,16 @@ public class voiceActivity extends AppCompatActivity implements popupuiListDialo
         }
 
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
+        switch (requestCode) {
             case REQUEST_RECORD_AUDIO_PERMISSION:
-                permissionToRecordAccepted  = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                permissionToRecordAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 break;
         }
-        if (!permissionToRecordAccepted ) finish();
+        if (!permissionToRecordAccepted) finish();
 
     }
 
@@ -118,6 +116,11 @@ public class voiceActivity extends AppCompatActivity implements popupuiListDialo
         recorder = null;
     }
 
+    @Override
+    public void onpopupuiClicked(int position) {
+
+    }
+
     class RecordButton extends androidx.appcompat.widget.AppCompatButton {
         boolean mStartRecording = true;
 
@@ -160,11 +163,5 @@ public class voiceActivity extends AppCompatActivity implements popupuiListDialo
             setText("Start playing");
             setOnClickListener(clicker);
         }
-    }
-
-
-    @Override
-    public void onpopupuiClicked(int position) {
-
     }
 }

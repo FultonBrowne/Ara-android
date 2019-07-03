@@ -1,8 +1,8 @@
 package com.andromeda.ara;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class setup extends AppCompatActivity {
 

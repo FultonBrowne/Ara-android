@@ -3,10 +3,6 @@ package com.andromeda.ara;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.service.voice.AlwaysOnHotwordDetector;
-
-
-import java.util.Locale;
 
 public class VoiceSearch extends Service {
     public VoiceSearch() {

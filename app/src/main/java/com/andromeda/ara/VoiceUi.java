@@ -1,4 +1,5 @@
 package com.andromeda.ara;
+
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
@@ -11,9 +12,13 @@ import androidx.annotation.RequiresApi;
 public class VoiceUi extends VoiceInteractionSession
 
         //implements View.OnClickListener
-        {
-            View mContentView;
+{
+    View mContentView;
 
+
+    public VoiceUi(Context context) {
+        super(context);
+    }
 
     @Override
     public void onCreate() {
@@ -22,16 +27,11 @@ public class VoiceUi extends VoiceInteractionSession
         am.setWatchHeapLimit(40 * 1024 * 1024);
     }
 
-    public VoiceUi(Context context) {
-                super(context);
-            }
+    @Override
+    public View onCreateContentView() {
+        mContentView = getLayoutInflater().inflate(R.layout.voiceuitest, null);
+        return mContentView;
 
 
-            @Override
-            public View onCreateContentView(){
-                mContentView = getLayoutInflater().inflate(R.layout.voiceuitest, null);
-                return mContentView;
-
-
-            }
-        }
+    }
+}

@@ -11,9 +11,9 @@
     <EditTextPreference
         android:capitalize="words"
         android:defaultValue="@string/pref_default_display_name"
+        android:entryValues="@string/greet"
         android:inputType="textCapWords"
         android:key="example_text"
-        android:entryValues="@string/greet"
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:singleLine="true"
@@ -30,7 +30,6 @@
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
         android:title="@string/pref_title_add_friends_to_messages" />
-
 
 
 </PreferenceScreen>

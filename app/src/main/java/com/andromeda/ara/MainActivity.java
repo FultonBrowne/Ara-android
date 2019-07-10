@@ -1,12 +1,14 @@
 package com.andromeda.ara;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,10 +26,10 @@ import com.rometools.rome.io.XmlReader;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.time.*;
 
 
 public class MainActivity extends AppCompatActivity implements popupuiListDialogFragment.Listener {
@@ -112,6 +114,24 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         getSupportActionBar().setTitle(mTime);
         StrictMode.setThreadPolicy(policy);
         RecyclerView recyclerView = findViewById(R.id.list);
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent browserIntent = null;
+                try {
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(parseFeed().get(position).link));
+                    startActivity(browserIntent);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                Toast.makeText(getApplicationContext(),"tagged",Toast.LENGTH_SHORT).show();
+
+            }
+        }));
         mSwipeLayout = findViewById(R.id.swipe1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         try {
@@ -196,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -212,24 +233,42 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
     @Override
     public void onpopupuiClicked(int position) {
+        Intent browserIntent = null;
+        try {
+            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(parseFeed().get(position).link));
+            startActivity(browserIntent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
+
     @RequiresApi(26)
-    public String time(){
+    public String time() {
 
         int mHour = LocalTime.now().getHour();
-        if (mHour < 12){
+        if (mHour < 12) {
             mTime = "Good morning";
-        }
-        else if (mHour >= 12 && mHour < 16){
+        } else if (mHour >= 12 && mHour < 16) {
             mTime = "good afternoon";
 
-        }
-        else{
+        } else {
             mTime = "Good evening";
         }
         return mTime;
 
     }
+
+
 }
+
+
+
+
+
+
+
+
+
 

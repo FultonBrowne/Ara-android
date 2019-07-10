@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     public String time(){
 
         int mHour = LocalTime.now().getHour();
-        if (mHour > 12){
+        if (mHour < 12){
             mTime = "Good morning";
         }
         else{

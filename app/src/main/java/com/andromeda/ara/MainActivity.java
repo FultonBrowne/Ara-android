@@ -1,12 +1,14 @@
 package com.andromeda.ara;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,17 +27,21 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.time.*;
 
 
 public class MainActivity extends AppCompatActivity implements popupuiListDialogFragment.Listener {
 
 
     public SwipeRefreshLayout mSwipeLayout;
+    String mTime = "hello";
+    Toolbar mActionBarToolbar;
 
     public static List<RssFeedModel> parseFeed() throws IOException {
         String mFeedTitle;
         String mFeedLink;
         String mFeedDescription;
+
         List<SyndEntry> mTest;
         List<RssFeedModel> items = new ArrayList<>();
         XmlReader xmlReader = null;
@@ -55,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             for (Iterator iterator = feedAllData.getEntries().iterator(); iterator
                     .hasNext(); ) {
                 SyndEntry syndEntry = (SyndEntry) iterator.next();
-                mFeedDescription = syndEntry.getComments();
+                mFeedDescription = syndEntry.getDescription().getValue();
                 mFeedTitle = syndEntry.getTitle();
                 mFeedLink = syndEntry.getLink();
                 RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle);
@@ -90,12 +96,20 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            time();
+        }
+        mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mActionBarToolbar.setTitle("My title");
+        setSupportActionBar(mActionBarToolbar);
+        getSupportActionBar().setTitle(mTime);
         StrictMode.setThreadPolicy(policy);
         RecyclerView recyclerView = findViewById(R.id.list);
         mSwipeLayout = findViewById(R.id.swipe1);
@@ -198,6 +212,19 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
     @Override
     public void onpopupuiClicked(int position) {
+
+    }
+    @RequiresApi(26)
+    public String time(){
+
+        int mHour = LocalTime.now().getHour();
+        if (mHour > 12){
+            mTime = "Good morning";
+        }
+        else{
+            mTime = "Good evening";
+        }
+        return mTime;
 
     }
 }

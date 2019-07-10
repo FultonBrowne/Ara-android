@@ -221,6 +221,10 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         if (mHour < 12){
             mTime = "Good morning";
         }
+        else if (mHour >= 12 && mHour < 16){
+            mTime = "good afternoon";
+
+        }
         else{
             mTime = "Good evening";
         }

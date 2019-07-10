@@ -15,8 +15,11 @@ public class Adapter
 
     private List<RssFeedModel> mRssFeedModels; //= MainActivity.RssClass.getFeedList();
 
+    //private final OnItemClickListener listener;
+
     public Adapter(List<RssFeedModel> rssFeedModels) {
         mRssFeedModels = rssFeedModels;
+
     }
 
     @Override
@@ -24,8 +27,13 @@ public class Adapter
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item, parent, false);
         FeedModelViewHolder holder = new FeedModelViewHolder(v);
+
         return holder;
     }
+    public interface OnItemClickListener {
+        void onItemClick(RssFeedModel item);
+    }
+
 
     @Override
     public void onBindViewHolder(FeedModelViewHolder holder, int position) {

@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             mTest = feedAllData.getEntries();
             mFeedDescription = feedAllData.getDescription();
             mFeedTitle = feedAllData.getTitle();
-            mFeedLink = feedAllData.getLink();
+            mFeedLink = feedAllData.getTitle();
             for (Iterator iterator = feedAllData.getEntries().iterator(); iterator
                     .hasNext(); ) {
                 SyndEntry syndEntry = (SyndEntry) iterator.next();

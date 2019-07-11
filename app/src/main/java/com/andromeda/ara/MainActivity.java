@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
             @Override
             public void onLongClick(View view, int position) {
-                Toast.makeText(getApplicationContext(),"tagged",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "tagged", Toast.LENGTH_SHORT).show();
 
             }
         }));
@@ -257,6 +259,9 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             mTime = "Good evening";
         }
         return mTime;
+
+    }
+    public void search(){
 
     }
 

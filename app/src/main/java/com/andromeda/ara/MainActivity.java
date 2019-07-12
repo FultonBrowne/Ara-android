@@ -1,5 +1,7 @@
 package com.andromeda.ara;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     public SwipeRefreshLayout mSwipeLayout;
     String mTime = "hello";
     Toolbar mActionBarToolbar;
+    private RecyclerView.Adapter mAdapter;
+    List<RssFeedModel> rssFeedModel1;
 
     public static List<RssFeedModel> parseFeed() throws IOException {
         String mFeedTitle;
@@ -136,10 +141,16 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         }));
         mSwipeLayout = findViewById(R.id.swipe1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         try {
+            rssFeedModel1 = (parseFeed());
+            mAdapter = new Adapter(rssFeedModel1);
+
+            recyclerView.setAdapter(mAdapter);
 
 
-            recyclerView.setAdapter(new Adapter(parseFeed()));
+
+            //recyclerView.setAdapter(new Adapter(parseFeed()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -215,6 +226,36 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search)
+                .getActionView();
+        if (null != searchView) {
+            searchView.setSearchableInfo(searchManager
+                    .getSearchableInfo(getComponentName()));
+            searchView.setIconifiedByDefault(true);
+        }
+
+        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            public boolean onQueryTextChange(String newText) {
+                // this is your adapter that will be filtered
+                return true;
+            }
+
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
+                String input = query;
+                RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
+                rssFeedModel1.add(0,rssFeedModel2);
+                mAdapter.notifyDataSetChanged();
+
+
+
+                return true;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
+
         return true;
     }
 

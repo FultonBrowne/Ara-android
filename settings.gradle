@@ -1,1 +1,1 @@
-include ':app', ':rome-1.0'
+include ':app', ':rome-1.0', ':WolframAlpha-1.1'

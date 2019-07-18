@@ -54,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         XmlReader xmlReader = null;
         try {
             URL feed = new URL("https://www.espn.com/espn/rss/news/rss.xml");
+            //URL feed = new URL("http://localhost:8000/test");
+
+
+
 
 
             feed.openConnection();
@@ -125,12 +129,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             @Override
             public void onClick(View view, int position) {
                 Intent browserIntent = null;
-                try {
-                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(parseFeed().get(position).link));
-                    startActivity(browserIntent);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
+                startActivity(browserIntent);
             }
 
             @Override

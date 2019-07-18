@@ -1,5 +1,7 @@
 package com.andromeda.ara;
 
+import android.media.Image;
+
 import com.wolfram.alpha.WAEngine;
 import com.wolfram.alpha.WAException;
 import com.wolfram.alpha.WAPlainText;
@@ -13,6 +15,7 @@ import java.util.List;
 public class Wolfram {
     String title;
     String info;
+    String link;
     List<RssFeedModel> Out;
 
 
@@ -20,7 +23,7 @@ public class Wolfram {
     public RssFeedModel Wolfram1(String input){
         WAEngine engine = new WAEngine();
         engine.setAppID("HEPHXJ-8EHWK2GA2X");
-        engine.addFormat("plaintext");
+        //engine.addFormat("plaintext");
 
         // Create the query.
         WAQuery query = engine.createQuery();
@@ -45,6 +48,9 @@ public class Wolfram {
                             for (Object element : subpod.getContents()) {
                                 if (element instanceof WAPlainText) {
                                     info = ((WAPlainText) element).getText();
+                                    link = queryResult.getQuery().toWebsiteURL();
+                                    ;
+
 
                                 }
                             }
@@ -58,7 +64,7 @@ public class Wolfram {
         } catch (WAException e) {
             e.printStackTrace();
         }
-        RssFeedModel rssFeedModel = new RssFeedModel(info, "wolfram.com", title);
+        RssFeedModel rssFeedModel = new RssFeedModel(info, link, title);
         return rssFeedModel;
 
     }

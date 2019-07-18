@@ -20,7 +20,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <uses-library android:name="org.apache.http.legacy" android:required="true" />
+        <receiver android:name=".NewAppWidget2">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/new_app_widget2_info" />
+        </receiver>
+
+        <activity android:name=".NewAppWidget2ConfigureActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="true" />
 
         <service
             android:name=".HotWord"
@@ -43,9 +61,7 @@
         </service>
 
         <activity android:name=".setup" />
-        <activity android:name=".voiceActivity">
-
-        </activity>
+        <activity android:name=".voiceActivity"></activity>
         <activity
             android:name=".about"
             android:label="@string/title_activity_about"

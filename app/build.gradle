@@ -30,6 +30,8 @@ dependencies {
     androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha01', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    implementation "com.mikepenz:materialdrawer:6.1.1"
+    implementation "com.mikepenz:iconics-views:4.0.1-b01"     //FontAwesome
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'com.google.android.material:material:1.1.0-alpha07'
     testImplementation 'junit:junit:4.12'

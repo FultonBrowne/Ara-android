@@ -21,6 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
@@ -41,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     public SwipeRefreshLayout mSwipeLayout;
     String mTime = "hello";
     Toolbar mActionBarToolbar;
+    private Drawer result = null;
+
     private RecyclerView.Adapter mAdapter;
     List<RssFeedModel> rssFeedModel1;
 
@@ -112,14 +120,47 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         setContentView(R.layout.activity_main);
 
 
+
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             time();
         }
         mActionBarToolbar = findViewById(R.id.toolbar);
-        mActionBarToolbar.setTitle("My title");
         setSupportActionBar(mActionBarToolbar);
+
+
+        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("home");
+        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName("tags");
+
+//create the drawer and remember the `Drawer` result object
+        result = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(mActionBarToolbar)
+                .withTranslucentStatusBar(true)
+                .addDrawerItems(
+                        item1,
+                        new DividerDrawerItem(),
+                        item2,
+                        new SecondaryDrawerItem().withName("home")
+                )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        return false;
+                        // do something with the clicked item :D
+                    }
+
+
+                })
+                .build();
+
+
+
+
+
+        mActionBarToolbar.setTitle("My title");
+
         getSupportActionBar().setTitle(mTime);
         StrictMode.setThreadPolicy(policy);
         RecyclerView recyclerView = findViewById(R.id.list);
@@ -130,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
                 startActivity(browserIntent);
             }
+
 
             @Override
             public void onLongClick(View view, int position) {
@@ -241,8 +283,28 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         if (id == R.id.action_settings) {
             return true;
         }
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
 
-        return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+
+    }
+    @Override
+    public void onBackPressed() {
+        //handle the back press :D close the drawer first and if the drawer is closed close the activity
+        if (result != null && result.isDrawerOpen()) {
+            result.closeDrawer();}
+            else if (result != null && !result.isDrawerOpen()){
+                result.openDrawer();
+        }
+         else {
+            super.onBackPressed();
+        }
     }
 
     @Override

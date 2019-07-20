@@ -1,12 +1,17 @@
 package com.andromeda.ara;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 
@@ -41,6 +46,16 @@ public class Adapter
         ((TextView) holder.rssFeedView.findViewById(R.id.item_number)).setText(rssFeedModel.title);
         ((TextView) holder.rssFeedView.findViewById(R.id.content)).setText(rssFeedModel.description);
         ((TextView) holder.rssFeedView.findViewById(R.id.url2)).setText(rssFeedModel.link);
+        if (rssFeedModel.image != "") {
+            InputStream is = null;
+            try {
+                is = (InputStream) new URL(rssFeedModel.image).getContent();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Drawable draw = Drawable.createFromStream(is, "src name");
+             holder.rssFeedView.findViewById(R.id.item_image_view).setBackground(draw);
+        }
         //((TextView)holder.rssFeedView.findViewById(R.id.item_number)).setText(R.string.test);
         //((TextView)holder.rssFeedView.findViewById(R.id.content)).setText(R.string.test);
         //((TextView)holder.rssFeedView.findViewById(R.id.url2)).setText(R.string.test);

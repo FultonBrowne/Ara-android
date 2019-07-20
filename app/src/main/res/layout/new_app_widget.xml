@@ -45,7 +45,7 @@
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/colorAccent"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/info"

@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
     public static List<RssFeedModel> parseFeed() throws IOException {
         String mFeedTitle;
+        String mFeedImage;
         String mFeedLink;
         String mFeedDescription;
 
@@ -65,17 +66,14 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feedAllData = new SyndFeedInput().build(xmlReader);
-            mTest = feedAllData.getEntries();
-            mFeedDescription = feedAllData.getDescription();
-            mFeedTitle = feedAllData.getTitle();
-            mFeedLink = feedAllData.getTitle();
             for (Iterator iterator = feedAllData.getEntries().iterator(); iterator
                     .hasNext(); ) {
                 SyndEntry syndEntry = (SyndEntry) iterator.next();
                 mFeedDescription = syndEntry.getDescription().getValue();
                 mFeedTitle = syndEntry.getTitle();
                 mFeedLink = syndEntry.getLink();
-                RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle);
+
+                RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "");
                 items.add(rssFeedModel);
 
 
@@ -86,14 +84,14 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             mFeedLink = "err";
             mFeedTitle = "err";
             mFeedDescription = "err";
-            RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle);
+            RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "");
             items.add(rssFeedModel);
 
         } catch (FeedException e) {
             mFeedLink = "err";
             mFeedTitle = "err";
             mFeedDescription = "err";
-            RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle);
+            RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "");
             items.add(rssFeedModel);
 
         } finally {
@@ -119,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             time();
         }
-        mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mActionBarToolbar = findViewById(R.id.toolbar);
         mActionBarToolbar.setTitle("My title");
         setSupportActionBar(mActionBarToolbar);
         getSupportActionBar().setTitle(mTime);
@@ -128,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Intent browserIntent = null;
+                Intent browserIntent;
                 browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
                 startActivity(browserIntent);
             }
@@ -140,6 +138,25 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             }
         }));
         mSwipeLayout = findViewById(R.id.swipe1);
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try {
+                    rssFeedModel1.clear();
+                   List<RssFeedModel> items2= (parseFeed());
+                    rssFeedModel1 = (parseFeed());
+                    rssFeedModel1.addAll(items2);
+                    mAdapter.notifyDataSetChanged();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         try {
@@ -170,52 +187,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         startActivity(new Intent(this, com.andromeda.ara.SettingsActivity.class));
     }
 
-    /**
-     * public List<RssFeedModel> parseFeed() {
-     * <p>
-     * <p>
-     * String[] item1 = {
-     * "infotest1"
-     * };
-     * String[] item2 = {
-     * "infotest1"
-     * };
-     * String[] item3 = {
-     * "infotest1"
-     * };
-     * <p>
-     * <p>
-     * /**try {
-     * URL feed = new URL("https://xkcd.com/rss.xml");
-     * feed.openConnection();
-     * <p>
-     * SyndFeedInput input = new SyndFeedInput();
-     * SyndFeed feedAllData = input.build(new XmlReader(feed));
-     * <p>
-     * mFeedDescription = feedAllData.getDescription();
-     * mFeedTitle = feedAllData.getTitle();
-     * mFeedLink = feedAllData.getLink();
-     * <p>
-     * RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, );
-     * mList.add(rssFeedModel);
-     * <p>
-     * } catch (IOException e) {
-     * mFeedLink = "err";
-     * mFeedTitle = "err";
-     * mFeedDescription = "err";
-     * <p>
-     * }
-     * catch (FeedException e) {
-     * mFeedLink = "err";
-     * mFeedTitle = "err";
-     * mFeedDescription = "err";
-     * <p>
-     * }
-     * <p>
-     * <p>
-     * return items;
-     * }
-     **/
 
 
     public void about(MenuItem menuItem) {
@@ -276,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
     @Override
     public void onpopupuiClicked(int position) {
-        Intent browserIntent = null;
+        Intent browserIntent;
         try {
             browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(parseFeed().get(position).link));
             startActivity(browserIntent);

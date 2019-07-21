@@ -21,12 +21,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
@@ -48,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     String mTime = "hello";
     Toolbar mActionBarToolbar;
     private Drawer result = null;
+
 
     private RecyclerView.Adapter mAdapter;
     List<RssFeedModel> rssFeedModel1;
@@ -126,27 +133,68 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             time();
         }
+
         mActionBarToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
+        RecyclerView recyclerView = findViewById(R.id.list);
 
 
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("home");
         SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName("tags");
+        SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName("food");
+
+
+
+
 
 //create the drawer and remember the `Drawer` result object
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(mActionBarToolbar)
+
                 .withTranslucentStatusBar(true)
                 .addDrawerItems(
                         item1,
                         new DividerDrawerItem(),
                         item2,
-                        new SecondaryDrawerItem().withName("home")
+                        item3
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if (drawerItem.getIdentifier() == 1){
+                            Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
+                            try {
+                                RecyclerView recyclerView = findViewById(R.id.list);
+                                rssFeedModel1 = (parseFeed());
+                                mAdapter = new Adapter(rssFeedModel1);
+
+                                recyclerView.setAdapter(mAdapter);
+
+
+
+                                //recyclerView.setAdapter(new Adapter(parseFeed()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else if (drawerItem.getIdentifier() == 2){
+                            Toast.makeText(getApplicationContext(), "number 2", Toast.LENGTH_SHORT).show();
+                            try {
+                                RecyclerView recyclerView = findViewById(R.id.list);
+                                rssFeedModel1 = (parseFeed());
+                                mAdapter = new TagAdapter(rssFeedModel1);
+
+                                recyclerView.setAdapter(mAdapter);
+
+
+
+                                //recyclerView.setAdapter(new Adapter(parseFeed()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
                         return false;
                         // do something with the clicked item :D
                     }
@@ -155,15 +203,9 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 })
                 .build();
 
-
-
-
-
-        mActionBarToolbar.setTitle("My title");
-
         getSupportActionBar().setTitle(mTime);
         StrictMode.setThreadPolicy(policy);
-        RecyclerView recyclerView = findViewById(R.id.list);
+
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {

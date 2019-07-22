@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                             Toast.makeText(getApplicationContext(), "number 2", Toast.LENGTH_SHORT).show();
 
                             RecyclerView recyclerView = findViewById(R.id.list);
-                            cursor.close();
+
 
                             if( cursor != null && cursor.moveToFirst() ){
                              title1 = cursor.getString(1);

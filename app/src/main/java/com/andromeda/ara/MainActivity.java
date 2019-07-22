@@ -3,10 +3,12 @@ package com.andromeda.ara;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,9 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -47,6 +48,8 @@ import java.util.Iterator;
 import java.util.List;
 
 
+
+
 public class MainActivity extends AppCompatActivity implements popupuiListDialogFragment.Listener {
 
 
@@ -54,10 +57,12 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     String mTime = "hello";
     Toolbar mActionBarToolbar;
     private Drawer result = null;
+    String title1;
+    String web1;
 
 
     private RecyclerView.Adapter mAdapter;
-    List<RssFeedModel> rssFeedModel1;
+    List<RssFeedModel> rssFeedModel1 = new ArrayList<>();
 
     public static List<RssFeedModel> parseFeed() throws IOException {
         String mFeedTitle;
@@ -133,24 +138,49 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             time();
         }
+        final tagManager main53 = new tagManager(this);
+        main53.open();
+        final Cursor cursor = main53.fetch();
 
         mActionBarToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
         RecyclerView recyclerView = findViewById(R.id.list);
+        String test1 = PreferenceManager.getDefaultSharedPreferences(this).getString("example_text", "defaultStringIfNothingFound");
 
 
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("home");
         SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName("tags");
         SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName("food");
+        // lose dis if crash
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                //.withHeaderBackground(R.drawable.back)
+
+                .addProfiles(
+                        new ProfileDrawerItem().withName("name").withEmail("email@gmail.com").withIcon(getResources().getDrawable(R.drawable.example_appwidget_preview))
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        return false;
+                    }
+                })
+                .build();
 
 
 
+
+
+
+
+//Now create your drawer and pass the AccountHeader.Result
 
 
 //create the drawer and remember the `Drawer` result object
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(mActionBarToolbar)
+               .withAccountHeader(headerResult)
 
                 .withTranslucentStatusBar(true)
                 .addDrawerItems(
@@ -166,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                             Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
                             try {
                                 RecyclerView recyclerView = findViewById(R.id.list);
+
                                 rssFeedModel1 = (parseFeed());
                                 mAdapter = new Adapter(rssFeedModel1);
 
@@ -180,20 +211,45 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         }
                         else if (drawerItem.getIdentifier() == 2){
                             Toast.makeText(getApplicationContext(), "number 2", Toast.LENGTH_SHORT).show();
-                            try {
-                                RecyclerView recyclerView = findViewById(R.id.list);
-                                rssFeedModel1 = (parseFeed());
-                                mAdapter = new TagAdapter(rssFeedModel1);
 
-                                recyclerView.setAdapter(mAdapter);
-
-
-
-                                //recyclerView.setAdapter(new Adapter(parseFeed()));
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                            RecyclerView recyclerView = findViewById(R.id.list);
+                            cursor.close();
+                            Cursor c2 = main53.fetch();
+                            if( c2 != null && c2.moveToFirst() ){
+                             title1 = c2.getString(1);
+                             web1 = c2.getString(2);}
+                            else{
+                                 title1 = "nothing";
+                                 web1 = "reload app";
                             }
+                            RssFeedModel test = new RssFeedModel( title1, web1, "","");
+                            rssFeedModel1.clear();
+                            rssFeedModel1.add(test);
+                            mAdapter = new Adapter(rssFeedModel1);
+
+
+                            recyclerView.setAdapter(mAdapter);
+
+
+                            //recyclerView.setAdapter(new Adapter(parseFeed()));
+
                         }
+                        else if (drawerItem.getIdentifier() == 3) {
+                            Toast.makeText(getApplicationContext(), "number 3", Toast.LENGTH_SHORT).show();
+                            RecyclerView recyclerView = findViewById(R.id.list);
+
+
+                            RssFeedModel test = new RssFeedModel( "food", "zomato.com", "food near you coming soon","");
+                            rssFeedModel1.clear();
+                            rssFeedModel1.add(test);
+                            mAdapter = new Adapter(rssFeedModel1);
+
+                            recyclerView.setAdapter(mAdapter);
+
+
+                            //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        }
+
 
                         return false;
                         // do something with the clicked item :D
@@ -217,6 +273,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
             @Override
             public void onLongClick(View view, int position) {
+              insert(rssFeedModel1.get(position).title, rssFeedModel1.get(position).link,main53);
+
                 Toast.makeText(getApplicationContext(), "tagged", Toast.LENGTH_SHORT).show();
 
             }
@@ -348,6 +406,13 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             super.onBackPressed();
         }
     }
+     void insert(String main, String link, tagManager main53){
+
+        main53.open();
+        main53.insert(main, link);
+
+                main53.close();
+}
 
     @Override
     public void onpopupuiClicked(int position) {

@@ -214,10 +214,10 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
                             RecyclerView recyclerView = findViewById(R.id.list);
                             cursor.close();
-                            Cursor c2 = main53.fetch();
-                            if( c2 != null && c2.moveToFirst() ){
-                             title1 = c2.getString(1);
-                             web1 = c2.getString(2);}
+
+                            if( cursor != null && cursor.moveToFirst() ){
+                             title1 = cursor.getString(1);
+                             web1 = cursor.getString(2);}
                             else{
                                  title1 = "nothing";
                                  web1 = "reload app";

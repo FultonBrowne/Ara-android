@@ -227,7 +227,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                                 while (!cursor.isAfterLast()) {
                              title1 = cursor.getString(1);
                              web1 = cursor.getString(2);
-                             test.add(title1,web1,"","");
+                             test.Add(title1,web1,"","");
+
 
                                     cursor.moveToNext();}}
                             else{
@@ -237,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                             }
                             RssFeedModel test = new RssFeedModel( title1, web1, "","");
                             rssFeedModel1.clear();
-                            rssFeedModel1.add(test);
+                            rssFeedModel1.Add(test);
                             mAdapter = new Adapter(rssFeedModel1);
 
 

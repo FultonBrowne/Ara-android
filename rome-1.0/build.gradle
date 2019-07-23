@@ -2,7 +2,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.41'
 }
 configurations.maybeCreate("default")
-artifacts.add("default", file('WolframAlpha-1.1.jar'))
+artifacts.add("default", file('rome-1.0.jar'))
 repositories {
     mavenCentral()
 }

@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     private Drawer result = null;
     String title1;
     String web1;
+    RssFeedModel test = new RssFeedModel( "", "", "","");
 
 
     private RecyclerView.Adapter mAdapter;
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final tagManager main53 = new tagManager(this);
-        RssFeedModel test = new RssFeedModel( "", "", "","");
+
 
 
 

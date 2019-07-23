@@ -221,18 +221,21 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
                             if( cursor != null && cursor.moveToFirst() ){
+                                rssFeedModel1.clear();
                                 cursor.moveToFirst();
 
                                 while (!cursor.isAfterLast()) {
                              title1 = cursor.getString(1);
                              web1 = cursor.getString(2);
                                     test = new RssFeedModel( title1, web1, "","");
+                                   // rssFeedModel1.clear();
                                     rssFeedModel1.add(test);
                                     cursor.moveToNext();}}
                             else{
                                  title1 = "nothing";
                                  web1 = "reload app";
                                 test = new RssFeedModel( title1, web1, "","");
+                                //rssFeedModel1.clear();
                                 rssFeedModel1.add(test);
 
                             }

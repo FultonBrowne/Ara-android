@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final tagManager main53 = new tagManager(this);
+        RssFeedModel test = new RssFeedModel( "", "", "","");
 
 
 
@@ -216,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                             main53.open();
                             //final Cursor cursor = main53.fetch();
                             Cursor  cursor = main53.fetch();
-                            RssFeedModel test = new RssFeedModel( "", "", "","");
+                            //RssFeedModel test = new RssFeedModel( "", "", "","");
 
 
 

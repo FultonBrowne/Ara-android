@@ -130,6 +130,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final tagManager main53 = new tagManager(this);
+
 
 
 
@@ -138,9 +140,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             time();
         }
-        final tagManager main53 = new tagManager(this);
-        main53.open();
-        final Cursor cursor = main53.fetch();
+
 
         mActionBarToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
@@ -213,11 +213,18 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                             Toast.makeText(getApplicationContext(), "number 2", Toast.LENGTH_SHORT).show();
 
                             RecyclerView recyclerView = findViewById(R.id.list);
+                            main53.open();
+                            //final Cursor cursor = main53.fetch();
+                            Cursor  cursor = main53.fetch();
+
 
 
                             if( cursor != null && cursor.moveToFirst() ){
+                                cursor.moveToFirst();
+                                while (!cursor.isAfterLast()) {
                              title1 = cursor.getString(1);
-                             web1 = cursor.getString(2);}
+                             web1 = cursor.getString(2);
+                                    cursor.moveToNext();}}
                             else{
                                  title1 = "nothing";
                                  web1 = "reload app";
@@ -410,8 +417,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
         main53.open();
         main53.insert(main, link);
-
-                main53.close();
+        main53.close();
 }
 
     @Override

@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class tagged extends SQLiteOpenHelper {
 
     // Table Name
-    public static final String TABLE_NAME = "COUNTRIES";
+    public static final String TABLE_NAME = "TAGGED";
 
     // Table columns
     public static final String _ID = "_id";

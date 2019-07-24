@@ -5,9 +5,7 @@ class search {
         var main1: RssFeedModel
         main1 = RssFeedModel("","","","")
         if (mode == 1){
-
-
-
+            main1 =  Wolfram().Wolfram1(mainval)
         }
         return main1
     }

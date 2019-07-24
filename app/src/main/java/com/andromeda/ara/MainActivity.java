@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     private Drawer result = null;
     String title1;
     String web1;
+    RssFeedModel test222 = new search().main("hi",1);
 
 
     private RecyclerView.Adapter mAdapter;

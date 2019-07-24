@@ -14,12 +14,12 @@ import android.widget.EditText
  */
 class NewAppWidget2ConfigureActivity : Activity() {
     internal var mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
-    internal var mAppWidgetText: EditText
+    internal var mAppWidgetText: EditText = findViewById<View>(R.id.appwidget_text) as EditText
     internal var mOnClickListener: View.OnClickListener = View.OnClickListener {
         val context = this@NewAppWidget2ConfigureActivity
 
         // When the button is clicked, store the string locally
-        val widgetText = mAppWidgetText.text.toString()
+       val widgetText = mAppWidgetText.text.toString()
         saveTitlePref(context, mAppWidgetId, widgetText)
 
         // It is the responsibility of the configuration activity to update the app widget

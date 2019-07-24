@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     private Drawer result = null;
     String title1;
     String web1;
-    RssFeedModel test222 = new search().main("hi",1);
+    //RssFeedModel test222 = new search().main("hi",1);
+    public int mode;
 
 
     private RecyclerView.Adapter mAdapter;
@@ -194,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem.getIdentifier() == 1){
+                            mode =1;
                             Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
                             try {
                                 RecyclerView recyclerView = findViewById(R.id.list);

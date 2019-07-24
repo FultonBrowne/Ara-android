@@ -8,7 +8,7 @@ class search {
             main1 =  Wolfram().Wolfram1(mainval)
         }
         if (mode == 2){
-            main1 = GetFood().search(mainval)
+            //main1 = GetFood().search(mainval)
         }
         return main1
     }

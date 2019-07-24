@@ -2,7 +2,10 @@ buildscript {
     ext.kotlin_version = '1.3.31'
 
     repositories {
+        mavenCentral()
         jcenter()
+        maven { url 'https://jitpack.io' }
+        maven { url 'http://dl.bintray.com/jetbrains/spek'}
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -57,12 +60,15 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation "com.mikepenz:materialdrawer:7.0.0-alpha4i"
+// https://mvnrepository.com/artifact/khttp/khttp
+    implementation group: 'khttp', name: 'khttp', version: '0.1.0'
 
    // implementation 'com.mikepenz:google-material-typeface:3.0.1.2.original@aar'
 
 
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+    implementation 'io.github.ranga543:yelp-fusion-client:0.1.4'
 
     implementation 'com.google.android.material:material:1.1.0-alpha07'
     testImplementation 'junit:junit:4.12'
@@ -74,6 +80,7 @@ dependencies {
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
     implementation 'com.google.android.material:material:1.1.0-alpha07'
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
+
     implementation project(path: ':WolframAlpha-1.1')
     implementation group: 'com.rometools', name: 'rome', version: '1.12.0'
     // https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient

@@ -25,6 +25,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         packagingOptions {
             exclude 'META-INF/DEPENDENCIES'
             exclude 'META-INF/LICENSE'
@@ -85,6 +86,7 @@ dependencies {
     implementation group: 'com.rometools', name: 'rome', version: '1.12.0'
     // https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient
     implementation group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     // https://mvnrepository.com/artifact/org.jdom/jdom2
     //implementation group: 'org.jdom', name: 'jdom2', version: '2.0.6'

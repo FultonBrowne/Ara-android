@@ -40,8 +40,17 @@ class food {
                 title=response.body().businesses[i].name
                 web=response.body().businesses[i].url
                 image=response.body().businesses[i].imageUrl
+                val stars = response.body().businesses[i].rating
+                val open = response.body().businesses[i].isClosed
+                val stars1 = "$stars stars"
+                if (open){
+                    info = stars1 + System.lineSeparator() + " closed now"
+                }
+                else{
+                    info = stars1 + System.lineSeparator() + " open now"
+                }
 
-                rssFeedModel1.add(RssFeedModel(title,web,info,image))
+                rssFeedModel1.add(RssFeedModel(info,web,title,image))
                 }
             }
 

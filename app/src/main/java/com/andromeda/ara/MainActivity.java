@@ -1,9 +1,12 @@
 package com.andromeda.ara;
 
+import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -24,6 +27,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -49,14 +55,15 @@ import java.util.Iterator;
 import java.util.List;
 
 
-
-
 public class MainActivity extends AppCompatActivity implements popupuiListDialogFragment.Listener {
 
 
     public SwipeRefreshLayout mSwipeLayout;
+    double lat;
+    double log;
     String mTime = "hello";
     Toolbar mActionBarToolbar;
+    private FusedLocationProviderClient fusedLocationClient;
     private Drawer result = null;
     String title1;
     String web1;
@@ -79,9 +86,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         try {
             URL feed = new URL("https://www.espn.com/espn/rss/news/rss.xml");
             //URL feed = new URL("http://localhost:8000/test");
-
-
-
 
 
             feed.openConnection();
@@ -134,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final tagManager main53 = new tagManager(this);
+
 
 
 
@@ -263,13 +268,14 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                             RssFeedModel test = new RssFeedModel( "food", "zomato.com", "food near you coming soon","");
                             rssFeedModel1.clear();
                             rssFeedModel1.add(test);
-                            LocationManager locationManager = (LocationManager)
-                                    getSystemService(Context.LOCATION_SERVICE);
 
 
 
 
-                            ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
+
+                          ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
+
+                            //ArrayList<RssFeedModel> main352 = new food().getFood(Double.toString(log),Double.toString(lat));
                             rssFeedModel1 = main352;
                             mAdapter = new Adapter(rssFeedModel1);
 

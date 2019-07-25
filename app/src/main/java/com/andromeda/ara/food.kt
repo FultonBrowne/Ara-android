@@ -10,6 +10,10 @@ import java.util.HashMap
 import retrofit2.Call
 import retrofit2.Response
 import java.util.ArrayList
+import android.R.attr.x
+import java.nio.file.Files.size
+
+
 
 class food {
     fun getFood(log: String, lat: String): ArrayList<RssFeedModel> {
@@ -30,20 +34,18 @@ class food {
             var info:String = "err"
             var web:String = "err"
             var image:String = "err"
-            if (response.isSuccessful && count2 >= count){
-            while (count <= count2){
-               title = response.body().businesses[count2].name
-                web = response.body().businesses[count2].url
-                image = response.body().businesses[count2].imageUrl
+            if (count2 <= count){
+               // rssFeedModel1.add(ArrayList)
+            for (i in 0  until 19) {
+                title=response.body().businesses[i].name
+                web=response.body().businesses[i].url
+                image=response.body().businesses[i].imageUrl
                 rssFeedModel1.add(RssFeedModel(title,web,info,image))
-               // count2 + 1
+                }
             }
 
-
-
-            }
             else {
-                rssFeedModel1.add(RssFeedModel("err","err","err","err"))
+                rssFeedModel1.add(RssFeedModel("err1","err","err","err"))
             }
 
 

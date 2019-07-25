@@ -269,8 +269,9 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
 
-                            ArrayList<RssFeedModel> main352 = new food().getFood("1","1");
-                            mAdapter = new Adapter(main352);
+                            ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
+                            rssFeedModel1 = main352;
+                            mAdapter = new Adapter(rssFeedModel1);
 
                             recyclerView.setAdapter(mAdapter);
 

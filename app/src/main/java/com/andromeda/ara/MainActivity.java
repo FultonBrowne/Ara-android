@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -227,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                                 cursor.moveToFirst();
 
                                 while (!cursor.isAfterLast()) {
+                                    rssFeedModel1.clear();
                              title1 = cursor.getString(1);
                              web1 = cursor.getString(2);
                                     test = new RssFeedModel( title1, web1, "","");
@@ -237,6 +239,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                                  web1 = "reload app";
                                 test = new RssFeedModel( title1, web1, "","");
                                 rssFeedModel1.add(test);
+
+
 
                             }
                             //RssFeedModel test = new RssFeedModel( title1, web1, "","");
@@ -259,7 +263,14 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                             RssFeedModel test = new RssFeedModel( "food", "zomato.com", "food near you coming soon","");
                             rssFeedModel1.clear();
                             rssFeedModel1.add(test);
-                            mAdapter = new Adapter(rssFeedModel1);
+                            LocationManager locationManager = (LocationManager)
+                                    getSystemService(Context.LOCATION_SERVICE);
+
+
+
+
+                            ArrayList<RssFeedModel> main352 = new food().getFood("1","1");
+                            mAdapter = new Adapter(main352);
 
                             recyclerView.setAdapter(mAdapter);
 

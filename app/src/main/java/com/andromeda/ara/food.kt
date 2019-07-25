@@ -28,7 +28,7 @@ class food {
 
             val call = yelpFusionApi.getBusinessSearch(params)
             val response = call.execute()
-            val count = response.body().total
+            val count = response.body().total - 1
             var count2 = 1
             var title:String = "err"
             var info:String = "err"
@@ -36,10 +36,11 @@ class food {
             var image:String = "err"
             if (count2 <= count){
                // rssFeedModel1.add(ArrayList)
-            for (i in 0  until 19) {
+            for (i in 0  until response.body().businesses.size) {
                 title=response.body().businesses[i].name
                 web=response.body().businesses[i].url
                 image=response.body().businesses[i].imageUrl
+
                 rssFeedModel1.add(RssFeedModel(title,web,info,image))
                 }
             }

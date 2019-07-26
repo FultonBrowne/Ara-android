@@ -28,6 +28,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     private FusedLocationProviderClient fusedLocationClient;
     private Drawer result = null;
     String title1;
+
     String web1;
     //RssFeedModel test222 = new search().main("hi",1);
     public int mode;
@@ -138,6 +140,9 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final tagManager main53 = new tagManager(this);
+
+
+
 
 
 
@@ -273,9 +278,9 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
 
-                          ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
+                          //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
 
-                            //ArrayList<RssFeedModel> main352 = new food().getFood(Double.toString(log),Double.toString(lat));
+                            ArrayList<RssFeedModel> main352 = new food().getFood(Double.toString(locl.longitude),Double.toString(locl.latitude));
                             rssFeedModel1 = main352;
                             mAdapter = new Adapter(rssFeedModel1);
 
@@ -476,6 +481,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         return mTime;
 
     }
+
+
 
 
 

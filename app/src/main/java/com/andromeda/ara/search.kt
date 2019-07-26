@@ -1,14 +1,16 @@
 package com.andromeda.ara
 
 class search {
-    fun main(mainval: String, mode:Int): RssFeedModel{
-        var main1: RssFeedModel
-        main1 = RssFeedModel("","","","")
+    fun main(mainval: String, mode:Int): ArrayList<RssFeedModel>{
+        var main1 : ArrayList<RssFeedModel> = java.util.ArrayList()
+        main1.add(RssFeedModel("","","",""))
         if (mode == 1){
-            main1 =  Wolfram().Wolfram1(mainval)
+            main1.clear()
+            main1.add(Wolfram().Wolfram1(mainval))
         }
         if (mode == 2){
-            //main1 = GetFood().search(mainval)
+            main1.clear()
+            main1 = food().searchfood(locl.longitude.toString(),locl.latitude.toString(), mainval)
         }
         return main1
     }

@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
     public SwipeRefreshLayout mSwipeLayout;
+    int searchmode = 1;
     double lat;
     double log;
     String mTime = "hello";
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
     String web1;
     //RssFeedModel test222 = new search().main("hi",1);
-    public int mode;
+    public int mode = 1;
 
 
     private RecyclerView.Adapter mAdapter;
@@ -206,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem.getIdentifier() == 1){
-                            mode =1;
+                            mode = 1;
                             Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
                             try {
                                 RecyclerView recyclerView = findViewById(R.id.list);
@@ -266,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
                         }
                         else if (drawerItem.getIdentifier() == 3) {
+                            mode = 2;
                             Toast.makeText(getApplicationContext(), "number 3", Toast.LENGTH_SHORT).show();
                             RecyclerView recyclerView = findViewById(R.id.list);
 
@@ -397,8 +399,9 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             public boolean onQueryTextSubmit(String query) {
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 String input = query;
-                RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
-                rssFeedModel1.add(0,rssFeedModel2);
+                //RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
+                ArrayList <RssFeedModel> rssFeedModel2 = (new search().main(query, mode));
+                rssFeedModel1.addAll(0,rssFeedModel2);
                 mAdapter.notifyDataSetChanged();
 
 

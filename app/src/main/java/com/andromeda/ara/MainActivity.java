@@ -165,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("home");
         SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName("tags");
         SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName("food");
+        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(4).withName("shopping");
         // lose dis if crash
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -201,7 +202,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         item1,
                         new DividerDrawerItem(),
                         item2,
-                        item3
+                        item3,
+                        item4
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -232,6 +234,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                             //final Cursor cursor = main53.fetch();
                             Cursor  cursor = main53.fetch();
                             RssFeedModel test = new RssFeedModel( "", "", "","");
+
 
 
 
@@ -283,6 +286,31 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                           //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
 
                             ArrayList<RssFeedModel> main352 = new food().getFood(Double.toString(locl.longitude),Double.toString(locl.latitude));
+                            rssFeedModel1 = main352;
+                            mAdapter = new Adapter(rssFeedModel1);
+
+                            recyclerView.setAdapter(mAdapter);
+
+
+                            //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        }
+                        else if (drawerItem.getIdentifier() == 4) {
+                            mode = 3;
+                            Toast.makeText(getApplicationContext(), "number 4", Toast.LENGTH_SHORT).show();
+                            RecyclerView recyclerView = findViewById(R.id.list);
+
+
+                            RssFeedModel test = new RssFeedModel( "food", "zomato.com", "food near you coming soon","");
+                            rssFeedModel1.clear();
+
+
+
+
+
+
+                            //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
+
+                            ArrayList<RssFeedModel> main352 = new shopping().getShops(Double.toString(locl.longitude),Double.toString(locl.latitude));
                             rssFeedModel1 = main352;
                             mAdapter = new Adapter(rssFeedModel1);
 

@@ -8,9 +8,13 @@ class search {
             main1.clear()
             main1.add(Wolfram().Wolfram1(mainval))
         }
-        if (mode == 2){
+       else if (mode == 2){
             main1.clear()
             main1 = food().searchfood(locl.longitude.toString(),locl.latitude.toString(), mainval)
+        }
+        else if (mode == 3){
+            main1.clear()
+            main1 = shopping().SearchShops(locl.longitude.toString(),locl.latitude.toString(), mainval)
         }
         return main1
     }

@@ -25,10 +25,11 @@ class food {
             val yelpFusionApi = apiFactory.createAPI("TysaYZNEZB4aK1JhLAMT0BCeG0sdxDffcoFmnFnsEcVN5U9d4YA3UeRnrrw0FovvCsmWIalZQwexcPAqecflXv51tAXEtctkOgrdD3CIUculH7ieskJc6fKTguo4XXYx")
             params["latitude"] = lat
             params["longitude"] = log
+            params["categories"] = "food"
 
             val call = yelpFusionApi.getBusinessSearch(params)
             val response = call.execute()
-            val count = response.body().total - 1
+            val count = response.body().total
             var count2 = 1
             var title:String = "err"
             var info:String = "err"
@@ -80,6 +81,7 @@ class food {
             params["latitude"] = lat
             params["longitude"] = log
             params["term"] = phrase
+            params["categories"] = "food"
 
             val call = yelpFusionApi.getBusinessSearch(params)
             val response = call.execute()
@@ -97,12 +99,13 @@ class food {
                     image=response.body().businesses[i].imageUrl
                     val stars = response.body().businesses[i].rating
                     val open = response.body().businesses[i].isClosed
+                    val info1 = response.body().businesses[i].text
                     val stars1 = "$stars stars"
                     if (open){
-                        info = stars1 + System.lineSeparator() + " closed now"
+                        info = stars1 + System.lineSeparator() + " closed now"  + System.lineSeparator() + info1
                     }
                     else{
-                        info = stars1 + System.lineSeparator() + " open now"
+                        info = stars1 + System.lineSeparator() + " open now"  + System.lineSeparator() + info1
                     }
 
                     main.add(RssFeedModel(info,web,title,image))

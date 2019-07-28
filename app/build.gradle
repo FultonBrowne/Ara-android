@@ -23,6 +23,7 @@ android {
         applicationId "com.andromeda.ara"
         minSdkVersion 19
         targetSdkVersion 28
+        vectorDrawables.useSupportLibrary = true
         versionCode 1
         versionName "1.0"
         multiDexEnabled true

@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName("tags");
         SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName("food");
         SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(4).withName("shopping");
+        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5).withName("agenda");
         // lose dis if crash
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -203,7 +204,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         new DividerDrawerItem(),
                         item2,
                         item3,
-                        item4
+                        item4,
+                        item5
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override

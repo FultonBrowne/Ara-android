@@ -22,6 +22,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final tagManager main53 = new tagManager(this);
+        final Context ctx = this;
 
 
 
@@ -154,11 +156,15 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             time();
         }
+        ActivityCompat.requestPermissions(MainActivity.this,
+                new String[]{Manifest.permission.READ_CALENDAR},
+                1);
 
 
         mActionBarToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
         RecyclerView recyclerView = findViewById(R.id.list);
+
         String test1 = PreferenceManager.getDefaultSharedPreferences(this).getString("example_text", "defaultStringIfNothingFound");
 
 
@@ -313,6 +319,34 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                             //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
 
                             ArrayList<RssFeedModel> main352 = new shopping().getShops(Double.toString(locl.longitude),Double.toString(locl.latitude));
+                            rssFeedModel1 = main352;
+                            mAdapter = new Adapter(rssFeedModel1);
+
+                            recyclerView.setAdapter(mAdapter);
+
+
+                            //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        }
+                        else if (drawerItem.getIdentifier() == 5) {
+                            mode = 3;
+                            Toast.makeText(getApplicationContext(), "number 5", Toast.LENGTH_SHORT).show();
+                            RecyclerView recyclerView = findViewById(R.id.list);
+
+
+                            RssFeedModel test = new RssFeedModel( "food", "zomato.com", "food near you coming soon","");
+                            rssFeedModel1.clear();
+                            ActivityCompat.requestPermissions(MainActivity.this,
+                                    new String[]{Manifest.permission.READ_CALENDAR},
+                                    1);
+
+
+
+
+
+
+                            //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
+
+                            ArrayList<RssFeedModel> main352 = (ArrayList<RssFeedModel>) calUtility.readCalendarEvent(ctx);
                             rssFeedModel1 = main352;
                             mAdapter = new Adapter(rssFeedModel1);
 

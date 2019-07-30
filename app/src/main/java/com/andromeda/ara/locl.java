@@ -56,7 +56,7 @@ public class locl implements LocationListener {
             }
             latitude = location.getLatitude();
             longitude = location.getLongitude();
-            // Toast.makeText(ctx,"latitude: "+latitude+" longitude: "+longitude,Toast.LENGTH_LONG).show();
+            Toast.makeText(ctx,"latitude: "+latitude+" longitude: "+longitude,Toast.LENGTH_LONG).show();
 
 
         }
@@ -64,6 +64,7 @@ public class locl implements LocationListener {
         {
 
             Toast.makeText(ctx,"Exception "+ex, Toast.LENGTH_LONG).show();
+
         }
     }
     @Nullable

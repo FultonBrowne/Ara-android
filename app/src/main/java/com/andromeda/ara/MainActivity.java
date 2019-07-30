@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         String mFeedLink;
         String mFeedDescription;
 
+
         List<SyndEntry> mTest;
         List<RssFeedModel> items = new ArrayList<>();
         XmlReader xmlReader = null;
@@ -159,6 +160,14 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         ActivityCompat.requestPermissions(MainActivity.this,
                 new String[]{Manifest.permission.READ_CALENDAR},
                 1);
+        ActivityCompat.requestPermissions(MainActivity.this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                1);
+        ActivityCompat.requestPermissions(MainActivity.this,
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                1);
+
+
 
 
         mActionBarToolbar = findViewById(R.id.toolbar);
@@ -293,6 +302,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
                           //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
 
+
+                            new locl(ctx);
                             ArrayList<RssFeedModel> main352 = new food().getFood(Double.toString(locl.longitude),Double.toString(locl.latitude));
                             rssFeedModel1 = main352;
                             mAdapter = new Adapter(rssFeedModel1);
@@ -318,7 +329,9 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
                             //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
 
-                            ArrayList<RssFeedModel> main352 = new shopping().getShops(Double.toString(locl.longitude),Double.toString(locl.latitude));
+
+                            new locl(ctx);
+                            ArrayList<RssFeedModel> main352 = new shopping().getShops(Double.toString((locl.longitude)),Double.toString((locl.latitude)));
                             rssFeedModel1 = main352;
                             mAdapter = new Adapter(rssFeedModel1);
 

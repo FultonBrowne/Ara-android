@@ -4,10 +4,7 @@ import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.location.Location;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,11 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -56,11 +49,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+
 
 public class MainActivity extends AppCompatActivity implements popupuiListDialogFragment.Listener {
 
 
     public SwipeRefreshLayout mSwipeLayout;
+    private final int REQUEST_LOCATION_PERMISSION = 1;
+
     int searchmode = 1;
     double lat;
     double log;
@@ -144,12 +142,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         setContentView(R.layout.activity_main);
         final tagManager main53 = new tagManager(this);
         final Context ctx = this;
-
-
-
-
-
-
+        requestLocationPermission();
 
 
         StrictMode.ThreadPolicy policy = new
@@ -160,14 +153,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         ActivityCompat.requestPermissions(MainActivity.this,
                 new String[]{Manifest.permission.READ_CALENDAR},
                 1);
-        ActivityCompat.requestPermissions(MainActivity.this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                1);
-        ActivityCompat.requestPermissions(MainActivity.this,
-                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                1);
-
-
+        ;
 
 
         mActionBarToolbar = findViewById(R.id.toolbar);
@@ -199,11 +185,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 .build();
 
 
-
-
-
-
-
 //Now create your drawer and pass the AccountHeader.Result
 
 
@@ -211,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(mActionBarToolbar)
-               .withAccountHeader(headerResult)
+                .withAccountHeader(headerResult)
 
                 .withTranslucentStatusBar(true)
                 .addDrawerItems(
@@ -225,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        if (drawerItem.getIdentifier() == 1){
+                        if (drawerItem.getIdentifier() == 1) {
                             mode = 1;
                             Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
                             try {
@@ -237,40 +218,36 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                                 recyclerView.setAdapter(mAdapter);
 
 
-
                                 //recyclerView.setAdapter(new Adapter(parseFeed()));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                        }
-                        else if (drawerItem.getIdentifier() == 2){
+                        } else if (drawerItem.getIdentifier() == 2) {
                             Toast.makeText(getApplicationContext(), "number 2", Toast.LENGTH_SHORT).show();
 
                             RecyclerView recyclerView = findViewById(R.id.list);
                             main53.open();
                             //final Cursor cursor = main53.fetch();
-                            Cursor  cursor = main53.fetch();
-                            RssFeedModel test = new RssFeedModel( "", "", "","");
+                            Cursor cursor = main53.fetch();
+                            RssFeedModel test = new RssFeedModel("", "", "", "");
 
 
-
-
-                            if( cursor != null && cursor.moveToFirst() ){
+                            if (cursor != null && cursor.moveToFirst()) {
                                 cursor.moveToFirst();
 
                                 while (!cursor.isAfterLast()) {
                                     rssFeedModel1.clear();
-                             title1 = cursor.getString(1);
-                             web1 = cursor.getString(2);
-                                    test = new RssFeedModel( title1, web1, "","");
+                                    title1 = cursor.getString(1);
+                                    web1 = cursor.getString(2);
+                                    test = new RssFeedModel(title1, web1, "", "");
                                     rssFeedModel1.add(test);
-                                    cursor.moveToNext();}}
-                            else{
-                                 title1 = "nothing";
-                                 web1 = "reload app";
-                                test = new RssFeedModel( title1, web1, "","");
+                                    cursor.moveToNext();
+                                }
+                            } else {
+                                title1 = "nothing";
+                                web1 = "reload app";
+                                test = new RssFeedModel(title1, web1, "", "");
                                 rssFeedModel1.add(test);
-
 
 
                             }
@@ -285,53 +262,22 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
                             //recyclerView.setAdapter(new Adapter(parseFeed()));
 
-                        }
-                        else if (drawerItem.getIdentifier() == 3) {
+                        } else if (drawerItem.getIdentifier() == 3) {
                             mode = 2;
                             Toast.makeText(getApplicationContext(), "number 3", Toast.LENGTH_SHORT).show();
                             RecyclerView recyclerView = findViewById(R.id.list);
 
 
-                            RssFeedModel test = new RssFeedModel( "food", "zomato.com", "food near you coming soon","");
+                            RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
                             rssFeedModel1.clear();
                             rssFeedModel1.add(test);
-
-
-
-
-
-                          //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
-
-
-                            new locl(ctx);
-                            ArrayList<RssFeedModel> main352 = new food().getFood(Double.toString(locl.longitude),Double.toString(locl.latitude));
-                            rssFeedModel1 = main352;
-                            mAdapter = new Adapter(rssFeedModel1);
-
-                            recyclerView.setAdapter(mAdapter);
-
-
-                            //recyclerView.setAdapter(new Adapter(parseFeed()));
-                        }
-                        else if (drawerItem.getIdentifier() == 4) {
-                            mode = 3;
-                            Toast.makeText(getApplicationContext(), "number 4", Toast.LENGTH_SHORT).show();
-                            RecyclerView recyclerView = findViewById(R.id.list);
-
-
-                            RssFeedModel test = new RssFeedModel( "food", "zomato.com", "food near you coming soon","");
-                            rssFeedModel1.clear();
-
-
-
-
 
 
                             //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
 
 
                             new locl(ctx);
-                            ArrayList<RssFeedModel> main352 = new shopping().getShops(Double.toString((locl.longitude)),Double.toString((locl.latitude)));
+                            ArrayList<RssFeedModel> main352 = new food().getFood(Double.toString(locl.longitude), Double.toString(locl.latitude));
                             rssFeedModel1 = main352;
                             mAdapter = new Adapter(rssFeedModel1);
 
@@ -339,22 +285,39 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
                             //recyclerView.setAdapter(new Adapter(parseFeed()));
-                        }
-                        else if (drawerItem.getIdentifier() == 5) {
+                        } else if (drawerItem.getIdentifier() == 4) {
+                            mode = 3;
+                            Toast.makeText(getApplicationContext(), "number 4", Toast.LENGTH_SHORT).show();
+                            RecyclerView recyclerView = findViewById(R.id.list);
+
+
+                            RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
+                            rssFeedModel1.clear();
+
+
+                            //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
+
+
+                            new locl(ctx);
+                            ArrayList<RssFeedModel> main352 = new shopping().getShops(Double.toString((locl.longitude)), Double.toString((locl.latitude)));
+                            rssFeedModel1 = main352;
+                            mAdapter = new Adapter(rssFeedModel1);
+
+                            recyclerView.setAdapter(mAdapter);
+
+
+                            //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        } else if (drawerItem.getIdentifier() == 5) {
                             mode = 3;
                             Toast.makeText(getApplicationContext(), "number 5", Toast.LENGTH_SHORT).show();
                             RecyclerView recyclerView = findViewById(R.id.list);
 
 
-                            RssFeedModel test = new RssFeedModel( "food", "zomato.com", "food near you coming soon","");
+                            RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
                             rssFeedModel1.clear();
                             ActivityCompat.requestPermissions(MainActivity.this,
                                     new String[]{Manifest.permission.READ_CALENDAR},
                                     1);
-
-
-
-
 
 
                             //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
@@ -392,7 +355,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
             @Override
             public void onLongClick(View view, int position) {
-              insert(rssFeedModel1.get(position).title, rssFeedModel1.get(position).link,main53);
+                insert(rssFeedModel1.get(position).title, rssFeedModel1.get(position).link, main53);
 
                 Toast.makeText(getApplicationContext(), "tagged", Toast.LENGTH_SHORT).show();
 
@@ -404,7 +367,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             public void onRefresh() {
                 try {
                     rssFeedModel1.clear();
-                   List<RssFeedModel> items2= (parseFeed());
+                    List<RssFeedModel> items2 = (parseFeed());
                     rssFeedModel1 = (parseFeed());
                     rssFeedModel1.addAll(items2);
                     mAdapter.notifyDataSetChanged();
@@ -416,8 +379,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         });
 
 
-
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         try {
@@ -425,7 +386,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             mAdapter = new Adapter(rssFeedModel1);
 
             recyclerView.setAdapter(mAdapter);
-
 
 
             //recyclerView.setAdapter(new Adapter(parseFeed()));
@@ -439,6 +399,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             @Override
             public void onClick(View view) {
                 popupuiListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
+                new voiceInput().main(ctx);
             }
         });
 
@@ -447,7 +408,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     public void yourMethodName(MenuItem menuItem) {
         startActivity(new Intent(this, com.andromeda.ara.SettingsActivity.class));
     }
-
 
 
     public void about(MenuItem menuItem) {
@@ -477,10 +437,9 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 String input = query;
                 //RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
-                ArrayList <RssFeedModel> rssFeedModel2 = (new search().main(query, mode));
-                rssFeedModel1.addAll(0,rssFeedModel2);
+                ArrayList<RssFeedModel> rssFeedModel2 = (new search().main(query, mode));
+                rssFeedModel1.addAll(0, rssFeedModel2);
                 mAdapter.notifyDataSetChanged();
-
 
 
                 return true;
@@ -514,24 +473,25 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
     }
+
     @Override
     public void onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
         if (result != null && result.isDrawerOpen()) {
-            result.closeDrawer();}
-            else if (result != null && !result.isDrawerOpen()){
-                result.openDrawer();
-        }
-         else {
+            result.closeDrawer();
+        } else if (result != null && !result.isDrawerOpen()) {
+            result.openDrawer();
+        } else {
             super.onBackPressed();
         }
     }
-     void insert(String main, String link, tagManager main53){
+
+    void insert(String main, String link, tagManager main53) {
 
         main53.open();
         main53.insert(main, link);
         main53.close();
-}
+    }
 
     @Override
     public void onpopupuiClicked(int position) {
@@ -562,9 +522,23 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
 
-
+    @AfterPermissionGranted(REQUEST_LOCATION_PERMISSION)
+    public void requestLocationPermission() {
+        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            //Toast.makeText(this, "Permission already granted", Toast.LENGTH_SHORT).show();
+        } else {
+            EasyPermissions.requestPermissions(this, "Please grant the location permission", REQUEST_LOCATION_PERMISSION, perms);
+        }
+    }
 
 
 }

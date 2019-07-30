@@ -5,6 +5,8 @@ import org.tensorflow.lite.Interpreter
 import java.nio.channels.FileChannel.MapMode.READ_ONLY
 import android.content.res.AssetFileDescriptor
 import android.content.res.AssetManager
+import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import java.io.FileInputStream
 import java.io.IOException
 import java.nio.ByteBuffer
@@ -17,7 +19,7 @@ class voiceInput {
 
     @Throws(IOException::class)
 
-    private fun loadModelFile(assets: AssetManager, modelFilename: String): MappedByteBuffer {
+    protected fun loadModelFile(assets: AssetManager, modelFilename: String, ctx: Context): MappedByteBuffer {
         val fileDescriptor = assets.openFd(modelFilename)
         val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
         val fileChannel = inputStream.channel
@@ -27,9 +29,10 @@ class voiceInput {
     }
     fun main(Act: Context){
         var assetManager = Act.assets
-        var mp = "conv_actions_frozen"
+        var mp = "conv_actions_frozen.tflite"
 
-        val tflite = Interpreter(loadModelFile(assetManager, mp))
+        val tflite = Interpreter(loadModelFile(assetManager, mp, Act))
+        Toast.makeText(Act,"connected", Toast.LENGTH_LONG)
         
 
 

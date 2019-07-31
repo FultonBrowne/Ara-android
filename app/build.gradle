@@ -5,12 +5,13 @@ buildscript {
         mavenCentral()
         jcenter()
         maven { url 'https://jitpack.io' }
-        maven { url 'http://dl.bintray.com/jetbrains/spek'}
+        maven { url 'http://dl.bintray.com/jetbrains/spek' }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -50,16 +51,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/tf'] } }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'
+    // https://mvnrepository.com/artifact/org.tensorflow/tensorflow-lite
+    //implementation group: 'org.tensorflow', name: 'tensorflow-lite', version: '1.10.0'
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0-rc01'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'org.tensorflow:tensorflow-lite:+'
+    implementation 'org.tensorflow:tensorflow-lite:1.14.0'
+    implementation 'org.tensorflow:tensorflow-android:+'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha01', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -67,7 +77,7 @@ dependencies {
 // https://mvnrepository.com/artifact/khttp/khttp
     implementation group: 'khttp', name: 'khttp', version: '0.1.0'
 
-   // implementation 'com.mikepenz:google-material-typeface:3.0.1.2.original@aar'
+    // implementation 'com.mikepenz:google-material-typeface:3.0.1.2.original@aar'
 
 
     implementation 'androidx.core:core-ktx:1.0.2'

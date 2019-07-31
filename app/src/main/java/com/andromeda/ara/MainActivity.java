@@ -4,12 +4,17 @@ import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,7 +53,9 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
+import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -56,8 +63,36 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MainActivity extends AppCompatActivity implements popupuiListDialogFragment.Listener {
 
 
+    private static final String LOG_TAG ="e" ;
     public SwipeRefreshLayout mSwipeLayout;
+    short[] recordingBuffer = new short[RECORDING_LENGTH];
+    int recordingOffset = 0;
+    boolean shouldContinue = true;
+    private Thread recordingThread;
+    boolean shouldContinueRecognition = true;
+    private Thread recognitionThread;
+    private final ReentrantLock recordingBufferLock = new ReentrantLock();
+    private TensorFlowInferenceInterface inferenceInterface;
+    private List<String> labels = new ArrayList<String>();
+    private List<String> displayedLabels = new ArrayList<>();
+    private voiceInput recognizeCommands = null;
     private final int REQUEST_LOCATION_PERMISSION = 1;
+    private static final int SAMPLE_RATE = 16000;
+    private static final int SAMPLE_DURATION_MS = 1000;
+    private static final int RECORDING_LENGTH = (int) (SAMPLE_RATE * SAMPLE_DURATION_MS / 1000);
+    private static final long AVERAGE_WINDOW_DURATION_MS = 500;
+    private static final float DETECTION_THRESHOLD = 0.70f;
+    private static final int SUPPRESSION_MS = 1500;
+    private static final int MINIMUM_COUNT = 3;
+    private static final long MINIMUM_TIME_BETWEEN_SAMPLES_MS = 30;
+    private static final String LABEL_FILENAME = "file:///android_asset/tf/saved_model.txt";
+    private static final String MODEL_FILENAME = "saved_model.pb";
+    private static final String INPUT_DATA_NAME = "decoded_sample_data:0";
+    private static final String SAMPLE_RATE_NAME = "decoded_sample_data:1";
+    private static final String OUTPUT_SCORES_NAME = "labels_softmax";
+
+    // UI elements.
+    private static final int REQUEST_RECORD_AUDIO = 13;
 
     int searchmode = 1;
     double lat;
@@ -65,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     String mTime = "hello";
     Toolbar mActionBarToolbar;
     private FusedLocationProviderClient fusedLocationClient;
-    private Drawer result = null;
+    private Drawer result1 = null;
     String title1;
 
     String web1;
@@ -173,6 +208,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 .withActivity(this)
                 //.withHeaderBackground(R.drawable.back)
 
+
                 .addProfiles(
                         new ProfileDrawerItem().withName("name").withEmail("email@gmail.com").withIcon(getResources().getDrawable(R.drawable.example_appwidget_preview))
                 )
@@ -189,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
 //create the drawer and remember the `Drawer` result object
-        result = new DrawerBuilder()
+        result1 = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
@@ -399,7 +435,22 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             @Override
             public void onClick(View view) {
                 popupuiListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
-                new voiceInput().main(ctx);
+                recognizeCommands =
+                        new voiceInput(
+                                labels,
+                                AVERAGE_WINDOW_DURATION_MS,
+                                DETECTION_THRESHOLD,
+                                SUPPRESSION_MS,
+                                MINIMUM_COUNT,
+                                MINIMUM_TIME_BETWEEN_SAMPLES_MS);
+
+                // Load the TensorFlow model.
+                inferenceInterface = new TensorFlowInferenceInterface(getAssets(), MODEL_FILENAME);
+
+                // Start the recording and recognition threads.
+                requestMicrophonePermission();
+                startRecording();
+                startRecognition();
             }
         });
 
@@ -477,10 +528,10 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     @Override
     public void onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (result != null && result.isDrawerOpen()) {
-            result.closeDrawer();
-        } else if (result != null && !result.isDrawerOpen()) {
-            result.openDrawer();
+        if (result1 != null && result1.isDrawerOpen()) {
+            result1.closeDrawer();
+        } else if (result1 != null && !result1.isDrawerOpen()) {
+            result1.openDrawer();
         } else {
             super.onBackPressed();
         }
@@ -539,6 +590,187 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             EasyPermissions.requestPermissions(this, "Please grant the location permission", REQUEST_LOCATION_PERMISSION, perms);
         }
     }
+    private void requestMicrophonePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(
+                    new String[]{android.Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_AUDIO);
+        }
+
+    }
+    public synchronized void startRecording() {
+        if (recordingThread != null) {
+            return;
+        }
+        shouldContinue = true;
+        recordingThread =
+                new Thread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                record();
+                            }
+                        });
+        recordingThread.start();
+    }
+
+    public synchronized void stopRecording() {
+        if (recordingThread == null) {
+            return;
+        }
+        shouldContinue = false;
+        recordingThread = null;
+    }
+
+    private void record() {
+        android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
+
+        // Estimate the buffer size we'll need for this device.
+        int bufferSize =
+                AudioRecord.getMinBufferSize(
+                        SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
+        if (bufferSize == AudioRecord.ERROR || bufferSize == AudioRecord.ERROR_BAD_VALUE) {
+            bufferSize = SAMPLE_RATE * 2;
+        }
+        short[] audioBuffer = new short[bufferSize / 2];
+
+        AudioRecord record =
+                new AudioRecord(
+                        MediaRecorder.AudioSource.DEFAULT,
+                        SAMPLE_RATE,
+                        AudioFormat.CHANNEL_IN_MONO,
+                        AudioFormat.ENCODING_PCM_16BIT,
+                        bufferSize);
+
+        if (record.getState() != AudioRecord.STATE_INITIALIZED) {
+            Log.e(LOG_TAG, "Audio Record can't initialize!");
+            return;
+        }
+
+        record.startRecording();
+
+        Log.v(LOG_TAG, "Start recording");
+
+        // Loop, gathering audio data and copying it to a round-robin buffer.
+        while (shouldContinue) {
+            int numberRead = record.read(audioBuffer, 0, audioBuffer.length);
+            int maxLength = recordingBuffer.length;
+            int newRecordingOffset = recordingOffset + numberRead;
+            int secondCopyLength = Math.max(0, newRecordingOffset - maxLength);
+            int firstCopyLength = numberRead - secondCopyLength;
+            // We store off all the data for the recognition thread to access. The ML
+            // thread will copy out of this buffer into its own, while holding the
+            // lock, so this should be thread safe.
+            recordingBufferLock.lock();
+            try {
+                System.arraycopy(audioBuffer, 0, recordingBuffer, recordingOffset, firstCopyLength);
+                System.arraycopy(audioBuffer, firstCopyLength, recordingBuffer, 0, secondCopyLength);
+                recordingOffset = newRecordingOffset % maxLength;
+            } finally {
+                recordingBufferLock.unlock();
+            }
+        }
+
+        record.stop();
+        record.release();
+    }
+
+    public synchronized void startRecognition() {
+        if (recognitionThread != null) {
+            return;
+        }
+        shouldContinueRecognition = true;
+        recognitionThread =
+                new Thread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                recognize();
+                            }
+                        });
+        recognitionThread.start();
+    }
+
+    public synchronized void stopRecognition() {
+        if (recognitionThread == null) {
+            return;
+        }
+        shouldContinueRecognition = false;
+        recognitionThread = null;
+    }
+
+    private void recognize() {
+        Log.v(LOG_TAG, "Start recognition");
+
+        short[] inputBuffer = new short[RECORDING_LENGTH];
+        float[] floatInputBuffer = new float[RECORDING_LENGTH];
+        float[] outputScores = new float[labels.size()];
+        String[] outputScoresNames = new String[] {OUTPUT_SCORES_NAME};
+        int[] sampleRateList = new int[] {SAMPLE_RATE};
+
+        // Loop, grabbing recorded data and running the recognition model on it.
+        while (shouldContinueRecognition) {
+            // The recording thread places data in this round-robin buffer, so lock to
+            // make sure there's no writing happening and then copy it to our own
+            // local version.
+            recordingBufferLock.lock();
+            try {
+                int maxLength = recordingBuffer.length;
+                int firstCopyLength = maxLength - recordingOffset;
+                int secondCopyLength = recordingOffset;
+                System.arraycopy(recordingBuffer, recordingOffset, inputBuffer, 0, firstCopyLength);
+                System.arraycopy(recordingBuffer, 0, inputBuffer, firstCopyLength, secondCopyLength);
+            } finally {
+                recordingBufferLock.unlock();
+            }
+
+            // We need to feed in float values between -1.0f and 1.0f, so divide the
+            // signed 16-bit inputs.
+            for (int i = 0; i < RECORDING_LENGTH; ++i) {
+                floatInputBuffer[i] = inputBuffer[i] / 32767.0f;
+            }
+
+            // Run the model.
+            inferenceInterface.feed(SAMPLE_RATE_NAME, sampleRateList);
+            inferenceInterface.feed(INPUT_DATA_NAME, floatInputBuffer, RECORDING_LENGTH, 1);
+            inferenceInterface.run(outputScoresNames);
+            inferenceInterface.fetch(OUTPUT_SCORES_NAME, outputScores);
+
+            // Use the smoother to figure out if we've had a real recognition event.
+            long currentTime = System.currentTimeMillis();
+            final voiceInput.RecognitionResult result =
+                    recognizeCommands.processLatestResults(outputScores, currentTime);
+
+            runOnUiThread(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            // If we do have a new command, highlight the right list entry.
+
+                            if (!result.getFoundCommand().startsWith("_") && result.isNewCommand()) {
+                                int labelIndex = -1;
+                                for (int i = 0; i < labels.size(); ++i) {
+                                    if (labels.get(i).equals(result.getFoundCommand())) {
+                                        labelIndex = i;
+                                    }
+                                }
+                               // final View labelView = labelsListView.getChildAt(labelIndex - 2);
+
+
+                            }
+                        }
+                    });
+            try {
+                // We don't need to run too frequently, so snooze for a bit.
+                Thread.sleep(MINIMUM_TIME_BETWEEN_SAMPLES_MS);
+            } catch (InterruptedException e) {
+                // Ignore
+            }
+        }
+
+        Log.v(LOG_TAG, "End recognition");
+    }
+
+
 
 
 }

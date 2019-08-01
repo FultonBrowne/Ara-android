@@ -1,8 +1,9 @@
-package com.andromeda.ara;
+package com.andromeda.ara.util;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import com.andromeda.ara.RssFeedModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

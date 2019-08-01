@@ -1,5 +1,7 @@
 package com.andromeda.ara
 
+import com.andromeda.ara.util.locl
+
 class search {
     fun main(mainval: String, mode:Int): ArrayList<RssFeedModel>{
         var main1 : ArrayList<RssFeedModel> = java.util.ArrayList()
@@ -10,11 +12,11 @@ class search {
         }
        else if (mode == 2){
             main1.clear()
-            main1 = food().searchfood(locl.longitude.toString(),locl.latitude.toString(), mainval)
+            main1 = food().searchfood(locl.longitude.toString(), locl.latitude.toString(), mainval)
         }
         else if (mode == 3){
             main1.clear()
-            main1 = shopping().SearchShops(locl.longitude.toString(),locl.latitude.toString(), mainval)
+            main1 = shopping().SearchShops(locl.longitude.toString(), locl.latitude.toString(), mainval)
         }
         return main1
     }

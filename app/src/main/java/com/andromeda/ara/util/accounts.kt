@@ -1,4 +1,4 @@
-package com.andromeda.ara
+package com.andromeda.ara.util
 
 class accounts {
     fun GetAccountList(id : String){

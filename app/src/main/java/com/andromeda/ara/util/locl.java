@@ -28,7 +28,8 @@ public class locl implements LocationListener {
     boolean isGPSEnabled = false;
     boolean isNetworkEnabled = false;
     public static double longitude;
-    locl(Context ctx) {
+
+    public locl(Context ctx) {
         this.ctx = ctx;
         try {
             locationManager = (LocationManager) ctx.getSystemService(LOCATION_SERVICE);

@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
@@ -46,15 +48,19 @@ import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
+import org.tensorflow.lite.Interpreter;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 
@@ -70,10 +76,11 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     boolean shouldContinueRecognition = true;
     private Thread recognitionThread;
     private final ReentrantLock recordingBufferLock = new ReentrantLock();
+    private RecognizeCommands recognizeCommands = null;
     private TensorFlowInferenceInterface inferenceInterface;
     private List<String> labels = new ArrayList<String>();
     private List<String> displayedLabels = new ArrayList<>();
-    private voiceInput recognizeCommands = null;
+    //private voiceInput recognizeCommands = null;
     private final int REQUEST_LOCATION_PERMISSION = 1;
     private static final int SAMPLE_RATE = 16000;
     private static final int SAMPLE_DURATION_MS = 1000;
@@ -81,13 +88,25 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     private static final long AVERAGE_WINDOW_DURATION_MS = 500;
     private static final float DETECTION_THRESHOLD = 0.70f;
     private static final int SUPPRESSION_MS = 1500;
+    private Interpreter tfLite;
     private static final int MINIMUM_COUNT = 3;
     private static final long MINIMUM_TIME_BETWEEN_SAMPLES_MS = 30;
-    private static final String LABEL_FILENAME = "file:///android_asset/tf/saved_model.txt";
-    private static final String MODEL_FILENAME = "saved_model.pb";
+    private static final String LABEL_FILENAME = "file:///android_asset/conv_actions_labels.txt";
+    private static final String MODEL_FILENAME = "file:///android_asset/conv_actions_frozen.tflite";
     private static final String INPUT_DATA_NAME = "decoded_sample_data:0";
     private static final String SAMPLE_RATE_NAME = "decoded_sample_data:1";
     private static final String OUTPUT_SCORES_NAME = "labels_softmax";
+
+    private static MappedByteBuffer loadModelFile(AssetManager assets, String modelFilename)
+            throws IOException {
+        AssetFileDescriptor fileDescriptor = assets.openFd(modelFilename);
+        FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
+        FileChannel fileChannel = inputStream.getChannel();
+        long startOffset = fileDescriptor.getStartOffset();
+        long declaredLength = fileDescriptor.getDeclaredLength();
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength);
+    }
+
 
     // UI elements.
     private static final int REQUEST_RECORD_AUDIO = 13;
@@ -176,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         final tagManager main53 = new tagManager(this);
         final Context ctx = this;
         requestLocationPermission();
+
 
 
         StrictMode.ThreadPolicy policy = new
@@ -432,9 +452,29 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                popupuiListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
+
+
+                // Start the recording and recognition thread
+                String actualLabelFilename = LABEL_FILENAME.split("file:///android_asset/", -1)[1];
+                Log.i(LOG_TAG, "Reading labels from: " + actualLabelFilename);
+                BufferedReader br = null;
+                try {
+                    br = new BufferedReader(new InputStreamReader(getAssets().open(actualLabelFilename)));
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        labels.add(line);
+                        if (line.charAt(0) != '_') {
+                            displayedLabels.add(line.substring(0, 1).toUpperCase() + line.substring(1));
+                        }
+                    }
+                    br.close();
+                } catch (IOException e) {
+                    throw new RuntimeException("Problem reading label file!", e);
+                }
+
+                // Set up an object to smooth recognition results to increase accuracy.
                 recognizeCommands =
-                        new voiceInput(
+                        new RecognizeCommands(
                                 labels,
                                 AVERAGE_WINDOW_DURATION_MS,
                                 DETECTION_THRESHOLD,
@@ -442,13 +482,21 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                                 MINIMUM_COUNT,
                                 MINIMUM_TIME_BETWEEN_SAMPLES_MS);
 
-                // Load the TensorFlow model.
-                inferenceInterface = new TensorFlowInferenceInterface(getAssets(), MODEL_FILENAME);
+                String actualModelFilename = MODEL_FILENAME.split("file:///android_asset/", -1)[1];
+                try {
+                    tfLite = new Interpreter(loadModelFile(getAssets(), actualModelFilename));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+                tfLite.resizeInput(0, new int[]{RECORDING_LENGTH, 1});
+                tfLite.resizeInput(1, new int[]{1});
 
                 // Start the recording and recognition threads.
                 requestMicrophonePermission();
                 startRecording();
                 startRecognition();
+
             }
         });
 
@@ -594,7 +642,32 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                     new String[]{android.Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_AUDIO);
         }
 
+
     }
+    public synchronized void startRecognition() {
+        if (recognitionThread != null) {
+            return;
+        }
+        shouldContinueRecognition = true;
+        recognitionThread =
+                new Thread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                recognize();
+                            }
+                        });
+        recognitionThread.start();
+    }
+
+    public synchronized void stopRecognition() {
+        if (recognitionThread == null) {
+            return;
+        }
+        shouldContinueRecognition = false;
+        recognitionThread = null;
+    }
+
     public synchronized void startRecording() {
         if (recordingThread != null) {
             return;
@@ -609,14 +682,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                             }
                         });
         recordingThread.start();
-    }
-
-    public synchronized void stopRecording() {
-        if (recordingThread == null) {
-            return;
-        }
-        shouldContinue = false;
-        recordingThread = null;
     }
 
     private void record() {
@@ -672,41 +737,26 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         record.release();
     }
 
-    public synchronized void startRecognition() {
-        if (recognitionThread != null) {
+    public synchronized void stopRecording() {
+        if (recordingThread == null) {
             return;
         }
-        shouldContinueRecognition = true;
-        recognitionThread =
-                new Thread(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                recognize();
-                            }
-                        });
-        recognitionThread.start();
-    }
-
-    public synchronized void stopRecognition() {
-        if (recognitionThread == null) {
-            return;
-        }
-        shouldContinueRecognition = false;
-        recognitionThread = null;
+        shouldContinue = false;
+        recordingThread = null;
     }
 
     private void recognize() {
+
         Log.v(LOG_TAG, "Start recognition");
 
         short[] inputBuffer = new short[RECORDING_LENGTH];
-        float[] floatInputBuffer = new float[RECORDING_LENGTH];
-        float[] outputScores = new float[labels.size()];
-        String[] outputScoresNames = new String[] {OUTPUT_SCORES_NAME};
+        float[][] floatInputBuffer = new float[RECORDING_LENGTH][1];
+        float[][] outputScores = new float[1][labels.size()];
         int[] sampleRateList = new int[] {SAMPLE_RATE};
 
         // Loop, grabbing recorded data and running the recognition model on it.
         while (shouldContinueRecognition) {
+            long startTime = new Date().getTime();
             // The recording thread places data in this round-robin buffer, so lock to
             // make sure there's no writing happening and then copy it to our own
             // local version.
@@ -724,34 +774,36 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             // We need to feed in float values between -1.0f and 1.0f, so divide the
             // signed 16-bit inputs.
             for (int i = 0; i < RECORDING_LENGTH; ++i) {
-                floatInputBuffer[i] = inputBuffer[i] / 32767.0f;
+                floatInputBuffer[i][0] = inputBuffer[i] / 32767.0f;
             }
 
+            Object[] inputArray = {floatInputBuffer, sampleRateList};
+            Map<Integer, Object> outputMap = new HashMap<>();
+            outputMap.put(0, outputScores);
+
             // Run the model.
-            inferenceInterface.feed(SAMPLE_RATE_NAME, sampleRateList);
-            inferenceInterface.feed(INPUT_DATA_NAME, floatInputBuffer, RECORDING_LENGTH, 1);
-            inferenceInterface.run(outputScoresNames);
-            inferenceInterface.fetch(OUTPUT_SCORES_NAME, outputScores);
+            tfLite.runForMultipleInputsOutputs(inputArray, outputMap);
 
             // Use the smoother to figure out if we've had a real recognition event.
             long currentTime = System.currentTimeMillis();
-            final voiceInput.RecognitionResult result =
-                    recognizeCommands.processLatestResults(outputScores, currentTime);
-
+            final RecognizeCommands.RecognitionResult result =
+                    recognizeCommands.processLatestResults(outputScores[0], currentTime);
+            // lastProcessingTimeMs = new Date().getTime() - startTime;
             runOnUiThread(
                     new Runnable() {
                         @Override
                         public void run() {
-                            // If we do have a new command, highlight the right list entry.
 
-                            if (!result.getFoundCommand().startsWith("_") && result.isNewCommand()) {
+                            //inferenceTimeTextView.setText(lastProcessingTimeMs + " ms");
+
+                            // If we do have a new command, highlight the right list entry.
+                            if (!result.foundCommand.startsWith("_") && result.isNewCommand) {
                                 int labelIndex = -1;
                                 for (int i = 0; i < labels.size(); ++i) {
-                                    if (labels.get(i).equals(result.getFoundCommand())) {
+                                    if (labels.get(i).equals(result.foundCommand)) {
                                         labelIndex = i;
                                     }
                                 }
-                               // final View labelView = labelsListView.getChildAt(labelIndex - 2);
 
 
                             }
@@ -767,8 +819,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
         Log.v(LOG_TAG, "End recognition");
     }
-
-
 
 
 }

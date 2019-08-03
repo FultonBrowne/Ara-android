@@ -44,6 +44,9 @@ android {
 
         //vectorDrawables.useSupportLibrary = true
     }
+    aaptOptions {
+        noCompress "tflite"
+    }
 
     buildTypes {
         release {
@@ -70,7 +73,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'org.tensorflow:tensorflow-lite:1.14.0'
-    implementation 'org.tensorflow:tensorflow-android:+'
+    implementation 'org.tensorflow:tensorflow-android:1.13.1'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha01', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -78,7 +81,7 @@ dependencies {
 // https://mvnrepository.com/artifact/khttp/khttp
     implementation group: 'khttp', name: 'khttp', version: '0.1.0'
 
-    // implementation 'com.mikepenz:google-material-typeface:3.0.1.2.original@aar'
+    // implementation 'com.mike2.penz:google-material-typeface:3.0.1.2.original@aar'
 
 
     implementation 'androidx.core:core-ktx:1.0.2'

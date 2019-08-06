@@ -18,6 +18,9 @@ class search {
             main1.clear()
             main1 = shopping().SearchShops(locl.longitude.toString(), locl.latitude.toString(), mainval)
         }
+        else {
+            main1.add(0, RssFeedModel(mainval,"","",""))
+        }
         return main1
     }
 }

@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     private static final float DETECTION_THRESHOLD = 0.70f;
     private static final int SUPPRESSION_MS = 1500;
     private Interpreter tfLite;
+    String resulttxt = "err";
     private static final int MINIMUM_COUNT = 3;
     private static final long MINIMUM_TIME_BETWEEN_SAMPLES_MS = 30;
     private static final String LABEL_FILENAME = "file:///android_asset/conv_actions_labels.txt";
@@ -496,6 +497,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 requestMicrophonePermission();
                 startRecording();
                 startRecognition();
+                rssFeedModel1.addAll(new search().main(resulttxt, 1));
+
 
             }
         });
@@ -731,6 +734,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             } finally {
                 recordingBufferLock.unlock();
             }
+            stopRecognition();
         }
 
         record.stop();
@@ -804,9 +808,43 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                                         labelIndex = i;
                                     }
                                 }
+                                switch (labelIndex - 2) {
+                                    case 0:
+                                        resulttxt = "yes";
+
+                                        break;
+                                    case 1:
+                                        resulttxt = "no";
+                                        break;
+                                    case 2:
+                                        resulttxt = "up";
+                                        break;
+                                    case 3:
+                                        resulttxt = "down" ;
+                                        break;
+                                    case 4:
+                                        resulttxt = "left";
+                                        break;
+                                    case 5:
+                                        resulttxt = "right";
+                                        break;
+                                    case 6:
+                                        resulttxt = "on";
+                                        break;
+                                    case 7:
+                                        resulttxt = "off";
+                                        break;
+                                    case 8:
+                                        resulttxt = "stop";
+                                        break;
+                                    case 9:
+                                        resulttxt = "go";
+                                        break;
+                                }
 
 
                             }
+
                         }
                     });
             try {
@@ -818,6 +856,10 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         }
 
         Log.v(LOG_TAG, "End recognition");
+        if (resulttxt == null){
+            resulttxt = "err";
+
+        }
     }
 
 

@@ -52,10 +52,8 @@ import org.tensorflow.lite.Interpreter;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -456,48 +454,10 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
                 // Start the recording and recognition thread
-                String actualLabelFilename = LABEL_FILENAME.split("file:///android_asset/", -1)[1];
-                Log.i(LOG_TAG, "Reading labels from: " + actualLabelFilename);
-                BufferedReader br = null;
-                try {
-                    br = new BufferedReader(new InputStreamReader(getAssets().open(actualLabelFilename)));
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        labels.add(line);
-                        if (line.charAt(0) != '_') {
-                            displayedLabels.add(line.substring(0, 1).toUpperCase() + line.substring(1));
-                        }
-                    }
-                    br.close();
-                } catch (IOException e) {
-                    throw new RuntimeException("Problem reading label file!", e);
-                }
-
-                // Set up an object to smooth recognition results to increase accuracy.
-                recognizeCommands =
-                        new RecognizeCommands(
-                                labels,
-                                AVERAGE_WINDOW_DURATION_MS,
-                                DETECTION_THRESHOLD,
-                                SUPPRESSION_MS,
-                                MINIMUM_COUNT,
-                                MINIMUM_TIME_BETWEEN_SAMPLES_MS);
-
-                String actualModelFilename = MODEL_FILENAME.split("file:///android_asset/", -1)[1];
-                try {
-                    tfLite = new Interpreter(loadModelFile(getAssets(), actualModelFilename));
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-
-                tfLite.resizeInput(0, new int[]{RECORDING_LENGTH, 1});
-                tfLite.resizeInput(1, new int[]{1});
-
-                // Start the recording and recognition threads.
-                requestMicrophonePermission();
-                startRecording();
-                startRecognition();
-                rssFeedModel1.addAll(new search().main(resulttxt, 1));
+                String phrase = new com.andromeda.ara.voice.voiceMain().start(ctx);
+                List<RssFeedModel> phrase2 = new search().main(phrase, 1);
+                rssFeedModel1.addAll(0, phrase2);
+                mAdapter.notifyDataSetChanged();
 
 
             }

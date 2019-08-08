@@ -107,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength);
     }
 
+    Boolean done = false;
+
 
     // UI elements.
     private static final int REQUEST_RECORD_AUDIO = 13;
@@ -456,9 +458,13 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
                 // Start the recording and recognition thread
                 Activity activity = (Activity) ctx;
-                String phrase = new com.andromeda.ara.voice.voiceMain().start(ctx, activity);
+                String phrase = new com.andromeda.ara.voice.run().run1(ctx, activity);
+
+
+
 
                 List<RssFeedModel> phrase2 = new search().main(phrase, 1);
+
                 rssFeedModel1.addAll(0, phrase2);
                 mAdapter.notifyDataSetChanged();
 

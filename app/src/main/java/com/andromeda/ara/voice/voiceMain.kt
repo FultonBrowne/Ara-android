@@ -1,4 +1,4 @@
-@file:Suppress("SENSELESS_COMPARISON")
+//@file:Suppress("SENSELESS_COMPARISON")
 
 package com.andromeda.ara.voice
 
@@ -12,10 +12,8 @@ import android.os.AsyncTask
 import android.util.Log
 import com.andromeda.ara.RecognizeCommands
 import org.tensorflow.lite.Interpreter
-import java.io.BufferedReader
 import java.io.FileInputStream
 import java.io.IOException
-import java.io.InputStreamReader
 import java.nio.MappedByteBuffer
 import java.nio.channels.FileChannel
 import java.util.*
@@ -238,50 +236,7 @@ public class voiceMain {
     }
 
     fun start(ctx: Context, act: Activity): String? {
-        var main: String = "err"
-        val actualLabelFilename = LABEL_FILENAME.split("file:///android_asset/".toRegex()).toTypedArray()[1]
-        Log.i(LOG_TAG, "Reading labels from: $actualLabelFilename")
-        var br: BufferedReader? = null
 
-
-        try {
-            br = BufferedReader(InputStreamReader(ctx.assets.open(actualLabelFilename)))
-            var line: String? = null
-            while (line == br.readLine() != null) {
-                line?.let { labels.add(it) }
-                if (line?.get(0) != '_') {
-                    displayedLabels.add(line?.substring(0, 1)?.toUpperCase() + line?.substring(1))
-                    Log.i(LOG_TAG, "Reading labels from: $actualLabelFilename done")
-                }
-            }
-            br.close()
-        } catch (e: IOException) {
-            throw RuntimeException("Problem reading label file!", e)
-        }
-
-
-        // Set up an object to smooth recognition results to increase accuracy.
-        recognizeCommands = RecognizeCommands(
-                labels,
-                AVERAGE_WINDOW_DURATION_MS,
-                DETECTION_THRESHOLD,
-                SUPPRESSION_MS,
-                MINIMUM_COUNT,
-                MINIMUM_TIME_BETWEEN_SAMPLES_MS)
-
-        val actualModelFilename = MODEL_FILENAME.split("file:///android_asset/".toRegex()).toTypedArray()[1]
-        try {
-            tfLite = Interpreter(loadModelFile(ctx.getAssets(), actualModelFilename))
-        } catch (e: Exception) {
-            throw RuntimeException(e)
-        }
-
-
-        tfLite!!.resizeInput(0, intArrayOf(RECORDING_LENGTH, 1))
-        tfLite!!.resizeInput(1, intArrayOf(1))
-
-        // Start the recording and recognition threads.
-        //requestMicrophonePermission()
         startRecording()
         startRecognition(act, ctx)
         return resulttxt

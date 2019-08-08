@@ -1,6 +1,7 @@
 package com.andromeda.ara;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -454,7 +455,9 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
                 // Start the recording and recognition thread
-                String phrase = new com.andromeda.ara.voice.voiceMain().start(ctx);
+                Activity activity = (Activity) ctx;
+                String phrase = new com.andromeda.ara.voice.voiceMain().start(ctx, activity);
+
                 List<RssFeedModel> phrase2 = new search().main(phrase, 1);
                 rssFeedModel1.addAll(0, phrase2);
                 mAdapter.notifyDataSetChanged();

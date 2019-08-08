@@ -2,11 +2,13 @@
 
 package com.andromeda.ara.voice
 
+import android.app.Activity
 import android.content.Context
 import android.content.res.AssetManager
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
+import android.os.AsyncTask
 import android.util.Log
 import com.andromeda.ara.RecognizeCommands
 import org.tensorflow.lite.Interpreter
@@ -58,13 +60,13 @@ public class voiceMain {
     }
 
     @Synchronized
-    fun startRecognition() {
+    fun startRecognition(act: Activity, ctx: Context) {
         if (recognitionThread != null) {
             return
         }
         shouldContinueRecognition = true
         recognitionThread = Thread(
-                Runnable { recognize() })
+                Runnable { recognize(act, ctx) })
         recognitionThread!!.start()
     }
 
@@ -149,7 +151,7 @@ public class voiceMain {
         recordingThread = null
     }
 
-    private fun recognize() {
+    private fun recognize(act: Activity, ctx: Context) {
 
         Log.v(LOG_TAG, "Start recognition")
 
@@ -192,34 +194,33 @@ public class voiceMain {
             val currentTime = System.currentTimeMillis()
             val result = recognizeCommands?.processLatestResults(outputScores[0], currentTime)
             // lastProcessingTimeMs = new Date().getTime() - startTime;
-            //runOnUiThread(
-            //      Runnable {
-            //inferenceTimeTextView.setText(lastProcessingTimeMs + " ms");
+            AsyncTask.execute {
+                //inferenceTimeTextView.setText(lastProcessingTimeMs + " ms");
 
-            // If we do have a new command, highlight the right list entry.
-            if (result?.foundCommand?.startsWith("_")!! && result!!.isNewCommand) {
-                var labelIndex = -1
-                for (i in labels.indices) {
-                    if (labels.get(i) == result.foundCommand) {
-                        labelIndex = i
+                // If we do have a new command, highlight the right list entry.
+                if (result?.foundCommand?.startsWith("_")!! && result!!.isNewCommand) {
+                    var labelIndex = -1
+                    for (i in labels.indices) {
+                        if (labels.get(i) == result.foundCommand) {
+                            labelIndex = i
+                        }
                     }
-                }
-                when (labelIndex - 2) {
-                    0 -> resulttxt = "yes"
-                    1 -> resulttxt = "no"
-                    2 -> resulttxt = "up"
-                    3 -> resulttxt = "down"
-                    4 -> resulttxt = "left"
-                    5 -> resulttxt = "right"
-                    6 -> resulttxt = "on"
-                    7 -> resulttxt = "off"
-                    8 -> resulttxt = "stop"
-                    9 -> resulttxt = "go"
-                }
+                    when (labelIndex - 2) {
+                        0 -> resulttxt = "yes"
+                        1 -> resulttxt = "no"
+                        2 -> resulttxt = "up"
+                        3 -> resulttxt = "down"
+                        4 -> resulttxt = "left"
+                        5 -> resulttxt = "right"
+                        6 -> resulttxt = "on"
+                        7 -> resulttxt = "off"
+                        8 -> resulttxt = "stop"
+                        9 -> resulttxt = "go"
+                    }
 
 
+                }
             }
-            // })
             try {
                 // We don't need to run too frequently, so snooze for a bit.
                 Thread.sleep(MINIMUM_TIME_BETWEEN_SAMPLES_MS)
@@ -236,11 +237,13 @@ public class voiceMain {
         }
     }
 
-    fun start(ctx: Context): String? {
+    fun start(ctx: Context, act: Activity): String? {
         var main: String = "err"
         val actualLabelFilename = LABEL_FILENAME.split("file:///android_asset/".toRegex()).toTypedArray()[1]
         Log.i(LOG_TAG, "Reading labels from: $actualLabelFilename")
         var br: BufferedReader? = null
+
+
         try {
             br = BufferedReader(InputStreamReader(ctx.assets.open(actualLabelFilename)))
             var line: String? = null
@@ -248,6 +251,7 @@ public class voiceMain {
                 line?.let { labels.add(it) }
                 if (line?.get(0) != '_') {
                     displayedLabels.add(line?.substring(0, 1)?.toUpperCase() + line?.substring(1))
+                    Log.i(LOG_TAG, "Reading labels from: $actualLabelFilename done")
                 }
             }
             br.close()
@@ -279,7 +283,7 @@ public class voiceMain {
         // Start the recording and recognition threads.
         //requestMicrophonePermission()
         startRecording()
-        startRecognition()
+        startRecognition(act, ctx)
         return resulttxt
     }
 }

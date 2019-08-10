@@ -405,6 +405,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             public void onClick(View view, int position) {
                 Intent browserIntent;
                 browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
+
                 startActivity(browserIntent);
             }
 
@@ -458,15 +459,15 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
                 // Start the recording and recognition thread
                 Activity activity = (Activity) ctx;
-                String phrase = new com.andromeda.ara.voice.run().run1(ctx, activity);
+
+                String phrase = new com.andromeda.ara.voice.run().run(ctx, activity);
+                Toast.makeText(ctx, phrase, Toast.LENGTH_LONG);
 
 
+                //List<RssFeedModel> phrase2 = new search().main(phrase, 1);
 
-
-                List<RssFeedModel> phrase2 = new search().main(phrase, 1);
-
-                rssFeedModel1.addAll(0, phrase2);
-                mAdapter.notifyDataSetChanged();
+                //rssFeedModel1.addAll(0, phrase2);
+                //mAdapter.notifyDataSetChanged();
 
 
             }

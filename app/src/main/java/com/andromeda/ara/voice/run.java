@@ -62,7 +62,7 @@ public class run {
 
     private Interpreter tfLite;
 
-    public synchronized String run1(Context ctx, Activity act) {
+    public synchronized String run(Context ctx, Activity act) {
         act1 = act;
         String actualLabelFilename = LABEL_FILENAME.split("file:///android_asset/", -1)[1];
         Log.i(LOG_TAG, "Reading labels from: " + actualLabelFilename);
@@ -102,6 +102,7 @@ public class run {
         tfLite.resizeInput(1, new int[]{1});
         startRecording();
         startRecognition();
+        //return resulttxt;
         return resulttxt;
     }
 
@@ -192,7 +193,7 @@ public class run {
             } finally {
                 recordingBufferLock.unlock();
             }
-            stopRecognition();
+            stopRecording();
         }
 
         record.stop();
@@ -311,6 +312,7 @@ public class run {
             } catch (InterruptedException e) {
                 // Ignore
             }
+            stopRecognition();
         }
 
         Log.v(LOG_TAG, "End recognition");

@@ -8,15 +8,11 @@ import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.database.Cursor;
-import android.media.AudioFormat;
-import android.media.AudioRecord;
-import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,7 +55,9 @@ import java.net.URL;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 
@@ -459,6 +457,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
                 // Start the recording and recognition thread
                 Activity activity = (Activity) ctx;
+                requestMicrophonePermission();
 
                 String phrase = new com.andromeda.ara.voice.run().run(ctx, activity);
                 Toast.makeText(ctx, phrase, Toast.LENGTH_LONG);
@@ -617,220 +616,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
     }
-    public synchronized void startRecognition() {
-        if (recognitionThread != null) {
-            return;
-        }
-        shouldContinueRecognition = true;
-        recognitionThread =
-                new Thread(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                recognize();
-                            }
-                        });
-        recognitionThread.start();
-    }
 
-    public synchronized void stopRecognition() {
-        if (recognitionThread == null) {
-            return;
-        }
-        shouldContinueRecognition = false;
-        recognitionThread = null;
-    }
-
-    public synchronized void startRecording() {
-        if (recordingThread != null) {
-            return;
-        }
-        shouldContinue = true;
-        recordingThread =
-                new Thread(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                record();
-                            }
-                        });
-        recordingThread.start();
-    }
-
-    private void record() {
-        android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
-
-        // Estimate the buffer size we'll need for this device.
-        int bufferSize =
-                AudioRecord.getMinBufferSize(
-                        SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
-        if (bufferSize == AudioRecord.ERROR || bufferSize == AudioRecord.ERROR_BAD_VALUE) {
-            bufferSize = SAMPLE_RATE * 2;
-        }
-        short[] audioBuffer = new short[bufferSize / 2];
-
-        AudioRecord record =
-                new AudioRecord(
-                        MediaRecorder.AudioSource.DEFAULT,
-                        SAMPLE_RATE,
-                        AudioFormat.CHANNEL_IN_MONO,
-                        AudioFormat.ENCODING_PCM_16BIT,
-                        bufferSize);
-
-        if (record.getState() != AudioRecord.STATE_INITIALIZED) {
-            Log.e(LOG_TAG, "Audio Record can't initialize!");
-            return;
-        }
-
-        record.startRecording();
-
-        Log.v(LOG_TAG, "Start recording");
-
-        // Loop, gathering audio data and copying it to a round-robin buffer.
-        while (shouldContinue) {
-            int numberRead = record.read(audioBuffer, 0, audioBuffer.length);
-            int maxLength = recordingBuffer.length;
-            int newRecordingOffset = recordingOffset + numberRead;
-            int secondCopyLength = Math.max(0, newRecordingOffset - maxLength);
-            int firstCopyLength = numberRead - secondCopyLength;
-            // We store off all the data for the recognition thread to access. The ML
-            // thread will copy out of this buffer into its own, while holding the
-            // lock, so this should be thread safe.
-            recordingBufferLock.lock();
-            try {
-                System.arraycopy(audioBuffer, 0, recordingBuffer, recordingOffset, firstCopyLength);
-                System.arraycopy(audioBuffer, firstCopyLength, recordingBuffer, 0, secondCopyLength);
-                recordingOffset = newRecordingOffset % maxLength;
-            } finally {
-                recordingBufferLock.unlock();
-            }
-            stopRecognition();
-        }
-
-        record.stop();
-        record.release();
-    }
-
-    public synchronized void stopRecording() {
-        if (recordingThread == null) {
-            return;
-        }
-        shouldContinue = false;
-        recordingThread = null;
-    }
-
-    private void recognize() {
-
-        Log.v(LOG_TAG, "Start recognition");
-
-        short[] inputBuffer = new short[RECORDING_LENGTH];
-        float[][] floatInputBuffer = new float[RECORDING_LENGTH][1];
-        float[][] outputScores = new float[1][labels.size()];
-        int[] sampleRateList = new int[] {SAMPLE_RATE};
-
-        // Loop, grabbing recorded data and running the recognition model on it.
-        while (shouldContinueRecognition) {
-            long startTime = new Date().getTime();
-            // The recording thread places data in this round-robin buffer, so lock to
-            // make sure there's no writing happening and then copy it to our own
-            // local version.
-            recordingBufferLock.lock();
-            try {
-                int maxLength = recordingBuffer.length;
-                int firstCopyLength = maxLength - recordingOffset;
-                int secondCopyLength = recordingOffset;
-                System.arraycopy(recordingBuffer, recordingOffset, inputBuffer, 0, firstCopyLength);
-                System.arraycopy(recordingBuffer, 0, inputBuffer, firstCopyLength, secondCopyLength);
-            } finally {
-                recordingBufferLock.unlock();
-            }
-
-            // We need to feed in float values between -1.0f and 1.0f, so divide the
-            // signed 16-bit inputs.
-            for (int i = 0; i < RECORDING_LENGTH; ++i) {
-                floatInputBuffer[i][0] = inputBuffer[i] / 32767.0f;
-            }
-
-            Object[] inputArray = {floatInputBuffer, sampleRateList};
-            Map<Integer, Object> outputMap = new HashMap<>();
-            outputMap.put(0, outputScores);
-
-            // Run the model.
-            tfLite.runForMultipleInputsOutputs(inputArray, outputMap);
-
-            // Use the smoother to figure out if we've had a real recognition event.
-            long currentTime = System.currentTimeMillis();
-            final RecognizeCommands.RecognitionResult result =
-                    recognizeCommands.processLatestResults(outputScores[0], currentTime);
-            // lastProcessingTimeMs = new Date().getTime() - startTime;
-            runOnUiThread(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-
-                            //inferenceTimeTextView.setText(lastProcessingTimeMs + " ms");
-
-                            // If we do have a new command, highlight the right list entry.
-                            if (!result.foundCommand.startsWith("_") && result.isNewCommand) {
-                                int labelIndex = -1;
-                                for (int i = 0; i < labels.size(); ++i) {
-                                    if (labels.get(i).equals(result.foundCommand)) {
-                                        labelIndex = i;
-                                    }
-                                }
-                                switch (labelIndex - 2) {
-                                    case 0:
-                                        resulttxt = "yes";
-
-                                        break;
-                                    case 1:
-                                        resulttxt = "no";
-                                        break;
-                                    case 2:
-                                        resulttxt = "up";
-                                        break;
-                                    case 3:
-                                        resulttxt = "down" ;
-                                        break;
-                                    case 4:
-                                        resulttxt = "left";
-                                        break;
-                                    case 5:
-                                        resulttxt = "right";
-                                        break;
-                                    case 6:
-                                        resulttxt = "on";
-                                        break;
-                                    case 7:
-                                        resulttxt = "off";
-                                        break;
-                                    case 8:
-                                        resulttxt = "stop";
-                                        break;
-                                    case 9:
-                                        resulttxt = "go";
-                                        break;
-                                }
-
-
-                            }
-
-                        }
-                    });
-            try {
-                // We don't need to run too frequently, so snooze for a bit.
-                Thread.sleep(MINIMUM_TIME_BETWEEN_SAMPLES_MS);
-            } catch (InterruptedException e) {
-                // Ignore
-            }
-        }
-
-        Log.v(LOG_TAG, "End recognition");
-        if (resulttxt == null){
-            resulttxt = "err";
-
-        }
-    }
 
 
 }

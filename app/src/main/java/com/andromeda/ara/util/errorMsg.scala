@@ -1,6 +1,10 @@
 package com.andromeda.ara.util
 
-class errorMsg {
-  var err = "error"
+import com.andromeda.ara.RssFeedModel
 
+class errorMsg {
+  def main11() {
+    var err = "error"
+    val errRFM = new RssFeedModel("err", "err", "Err", "err")
+  }
 }

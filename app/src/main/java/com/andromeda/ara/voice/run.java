@@ -103,6 +103,7 @@ public class run {
         startRecording();
         startRecognition();
         //return resulttxt;
+        if (resulttxt == null) resulttxt = "err";
         return resulttxt;
     }
 
@@ -302,7 +303,7 @@ public class run {
                                 }
 
 
-                            }
+                            } else resulttxt = "Fulton";
 
                         }
                     });

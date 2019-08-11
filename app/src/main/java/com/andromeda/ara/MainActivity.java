@@ -460,13 +460,13 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 requestMicrophonePermission();
 
                 String phrase = new com.andromeda.ara.voice.run().run(ctx, activity);
-                Toast.makeText(ctx, phrase, Toast.LENGTH_LONG);
+                Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
 
 
-                //List<RssFeedModel> phrase2 = new search().main(phrase, 1);
+                List<RssFeedModel> phrase2 = new search().main(phrase, 1);
 
-                //rssFeedModel1.addAll(0, phrase2);
-                //mAdapter.notifyDataSetChanged();
+                rssFeedModel1.addAll(0, phrase2);
+                mAdapter.notifyDataSetChanged();
 
 
             }

@@ -1,23 +1,6 @@
 package com.andromeda.ara;
 
-import android.app.Notification;
-import android.content.Context;
-import android.media.Image;
-import android.view.View;
-import android.widget.Toast;
-
-import com.google.android.material.snackbar.Snackbar;
-import com.wolfram.alpha.WAEngine;
-import com.wolfram.alpha.WAException;
-import com.wolfram.alpha.WAImage;
-import com.wolfram.alpha.WAInfo;
-import com.wolfram.alpha.WAPlainText;
-import com.wolfram.alpha.WAPod;
-import com.wolfram.alpha.WAQuery;
-import com.wolfram.alpha.WAQueryResult;
-import com.wolfram.alpha.WASubpod;
-import android.content.Context;
-
+import com.wolfram.alpha.*;
 
 import java.util.List;
 
@@ -41,6 +24,7 @@ public class Wolfram {
 
         // Set properties of the query.
         query.setInput(input);
+        query.setMagnification(120.0);
         try {
             WAQueryResult queryResult = engine.performQuery(query);
             if (queryResult.isError()) {

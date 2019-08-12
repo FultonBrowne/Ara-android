@@ -459,7 +459,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 Activity activity = (Activity) ctx;
                 requestMicrophonePermission();
 
-                String phrase = new com.andromeda.ara.voice.run().run(ctx, activity);
+                String phrase = new com.andromeda.ara.voice.run().run1(ctx, activity);
                 Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
 
 

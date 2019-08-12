@@ -2,15 +2,13 @@ package com.andromeda.ara;
 
 import com.wolfram.alpha.*;
 
-import java.util.List;
+
 
 public class Wolfram {
-    String title;
-    String info;
-    String link;
-    String mdef;
-    List<RssFeedModel> Out;
-    String image = null;
+    private String title;
+    private String info;
+    private String link;
+    private String image = null;
 
 
 
@@ -62,8 +60,7 @@ public class Wolfram {
         } catch (WAException e) {
             e.printStackTrace();
         }
-        RssFeedModel rssFeedModel = new RssFeedModel(info, link, title, image);
-        return rssFeedModel;
+        return new RssFeedModel(info, link, title, image);
 
     }
 

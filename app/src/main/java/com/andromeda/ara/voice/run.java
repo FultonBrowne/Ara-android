@@ -24,31 +24,31 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class run {
     private List<String> displayedLabels = new ArrayList<>();
-    String resulttxt;
+    private String resulttxt;
     private RecognizeCommands recognizeCommands = null;
     private static final int SAMPLE_RATE = 16000;
     private static final int SAMPLE_DURATION_MS = 1000;
-    private static final int RECORDING_LENGTH = (int) (SAMPLE_RATE * SAMPLE_DURATION_MS / 1000);
+    private static final int RECORDING_LENGTH = SAMPLE_RATE * SAMPLE_DURATION_MS / 1000;
     private static final long AVERAGE_WINDOW_DURATION_MS = 1000;
     private static final float DETECTION_THRESHOLD = 0.50f;
     private static final int SUPPRESSION_MS = 1500;
     private static final int MINIMUM_COUNT = 3;
     private Thread recordingThread;
-    boolean shouldContinueRecognition = true;
-    Activity act1;
+    private boolean shouldContinueRecognition = true;
+    private Activity act1;
     private Thread recognitionThread;
-    boolean shouldContinue = true;
-    short[] recordingBuffer = new short[RECORDING_LENGTH];
+    private boolean shouldContinue = true;
+    private short[] recordingBuffer = new short[RECORDING_LENGTH];
     private final ReentrantLock recordingBufferLock = new ReentrantLock();
 
-    int recordingOffset = 0;
+    private int recordingOffset = 0;
 
     private static final long MINIMUM_TIME_BETWEEN_SAMPLES_MS = 30;
     private static final String LABEL_FILENAME = "file:///android_asset/conv_actions_labels.txt";
     private static final String MODEL_FILENAME = "file:///android_asset/conv_actions_frozen.tflite";
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    private List<String> labels = new ArrayList<String>();
+    private List<String> labels = new ArrayList<>();
 
     private static MappedByteBuffer loadModelFile(AssetManager assets, String modelFilename)
             throws IOException {
@@ -62,11 +62,11 @@ public class run {
 
     private Interpreter tfLite;
 
-    public synchronized String run(Context ctx, Activity act) {
+    public synchronized String run1(Context ctx, Activity act) {
         act1 = act;
         String actualLabelFilename = LABEL_FILENAME.split("file:///android_asset/", -1)[1];
         Log.i(LOG_TAG, "Reading labels from: " + actualLabelFilename);
-        BufferedReader br = null;
+        BufferedReader br;
         try {
             br = new BufferedReader(new InputStreamReader(ctx.getAssets().open(actualLabelFilename)));
             String line;

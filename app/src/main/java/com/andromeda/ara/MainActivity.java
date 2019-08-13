@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.andromeda.ara.util.calUtility;
 import com.andromeda.ara.util.locl;
+import com.andromeda.ara.util.rss;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -39,11 +40,6 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.rometools.rome.feed.synd.SyndEntry;
-import com.rometools.rome.feed.synd.SyndFeed;
-import com.rometools.rome.io.FeedException;
-import com.rometools.rome.io.SyndFeedInput;
-import com.rometools.rome.io.XmlReader;
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 import org.tensorflow.lite.Interpreter;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -51,12 +47,10 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -128,64 +122,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     private RecyclerView.Adapter mAdapter;
     List<RssFeedModel> rssFeedModel1 = new ArrayList<>();
 
-    public static List<RssFeedModel> parseFeed() throws IOException {
-        String mFeedTitle;
-        String mFeedImage;
-        String mFeedLink;
-        String mFeedDescription;
 
-
-        List<SyndEntry> mTest;
-        List<RssFeedModel> items = new ArrayList<>();
-        XmlReader xmlReader = null;
-        try {
-            URL feed = new URL("https://www.espn.com/espn/rss/news/rss.xml");
-            //URL feed = new URL("http://localhost:8000/test");
-
-
-            feed.openConnection();
-            xmlReader = new XmlReader(feed);
-
-            SyndFeedInput input = new SyndFeedInput();
-            SyndFeed feedAllData = new SyndFeedInput().build(xmlReader);
-            for (Iterator iterator = feedAllData.getEntries().iterator(); iterator
-                    .hasNext(); ) {
-                SyndEntry syndEntry = (SyndEntry) iterator.next();
-                mFeedDescription = syndEntry.getDescription().getValue();
-                mFeedTitle = syndEntry.getTitle();
-                mFeedLink = syndEntry.getLink();
-
-                RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "");
-                items.add(rssFeedModel);
-
-
-            }
-
-
-        } catch (IOException e) {
-            mFeedLink = "err";
-            mFeedTitle = "err";
-            mFeedDescription = "err";
-            RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "");
-            items.add(rssFeedModel);
-
-        } catch (FeedException e) {
-            mFeedLink = "err";
-            mFeedTitle = "err";
-            mFeedDescription = "err";
-            RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "");
-            items.add(rssFeedModel);
-
-        } finally {
-            if (xmlReader != null)
-                xmlReader.close();
-        }
-
-
-        return items;
-
-
-    }
 
 
     @Override
@@ -266,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                             try {
                                 RecyclerView recyclerView = findViewById(R.id.list);
 
-                                rssFeedModel1 = (parseFeed());
+                                rssFeedModel1 = (new rss().parseRss());
                                 mAdapter = new Adapter(rssFeedModel1);
 
                                 recyclerView.setAdapter(mAdapter);
@@ -422,9 +359,9 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             public void onRefresh() {
                 try {
                     rssFeedModel1.clear();
-                    List<RssFeedModel> items2 = (parseFeed());
-                    rssFeedModel1 = (parseFeed());
-                    rssFeedModel1.addAll(items2);
+
+                    rssFeedModel1 = (new rss().parseRss());
+
                     mAdapter.notifyDataSetChanged();
 
                 } catch (IOException e) {
@@ -437,7 +374,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         try {
-            rssFeedModel1 = (parseFeed());
+            rssFeedModel1 = (new rss().parseRss());
             mAdapter = new Adapter(rssFeedModel1);
 
             recyclerView.setAdapter(mAdapter);
@@ -566,7 +503,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     public void onpopupuiClicked(int position) {
         Intent browserIntent;
         try {
-            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(parseFeed().get(position).link));
+            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(new rss().parseRss().get(position).link));
             startActivity(browserIntent);
         } catch (IOException e) {
             e.printStackTrace();

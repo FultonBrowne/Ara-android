@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -28,7 +26,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.andromeda.ara.util.calUtility;
 import com.andromeda.ara.util.locl;
 import com.andromeda.ara.util.rss;
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -40,79 +37,29 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
-import org.tensorflow.lite.Interpreter;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 
 
 public class MainActivity extends AppCompatActivity implements popupuiListDialogFragment.Listener {
 
 
-    private static final String LOG_TAG ="e" ;
-    public SwipeRefreshLayout mSwipeLayout;
-    short[] recordingBuffer = new short[RECORDING_LENGTH];
-    int recordingOffset = 0;
-    boolean shouldContinue = true;
-    private Thread recordingThread;
-    boolean shouldContinueRecognition = true;
-    private Thread recognitionThread;
-    private final ReentrantLock recordingBufferLock = new ReentrantLock();
-    private RecognizeCommands recognizeCommands = null;
-    private TensorFlowInferenceInterface inferenceInterface;
-    private List<String> labels = new ArrayList<String>();
-    private List<String> displayedLabels = new ArrayList<>();
-    //private voiceInput recognizeCommands = null;
     private final int REQUEST_LOCATION_PERMISSION = 1;
-    private static final int SAMPLE_RATE = 16000;
-    private static final int SAMPLE_DURATION_MS = 1000;
-    private static final int RECORDING_LENGTH = (int) (SAMPLE_RATE * SAMPLE_DURATION_MS / 1000);
-    private static final long AVERAGE_WINDOW_DURATION_MS = 500;
-    private static final float DETECTION_THRESHOLD = 0.70f;
-    private static final int SUPPRESSION_MS = 1500;
-    private Interpreter tfLite;
-    String resulttxt = "err";
-    private static final int MINIMUM_COUNT = 3;
-    private static final long MINIMUM_TIME_BETWEEN_SAMPLES_MS = 30;
-    private static final String LABEL_FILENAME = "file:///android_asset/conv_actions_labels.txt";
-    private static final String MODEL_FILENAME = "file:///android_asset/conv_actions_frozen.tflite";
-    private static final String INPUT_DATA_NAME = "decoded_sample_data:0";
-    private static final String SAMPLE_RATE_NAME = "decoded_sample_data:1";
-    private static final String OUTPUT_SCORES_NAME = "labels_softmax";
 
-    private static MappedByteBuffer loadModelFile(AssetManager assets, String modelFilename)
-            throws IOException {
-        AssetFileDescriptor fileDescriptor = assets.openFd(modelFilename);
-        FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
-        FileChannel fileChannel = inputStream.getChannel();
-        long startOffset = fileDescriptor.getStartOffset();
-        long declaredLength = fileDescriptor.getDeclaredLength();
-        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength);
-    }
-
-    Boolean done = false;
 
 
     // UI elements.
     private static final int REQUEST_RECORD_AUDIO = 13;
 
-    int searchmode = 1;
-    double lat;
-    double log;
-    String mTime = "hello";
-    Toolbar mActionBarToolbar;
-    private FusedLocationProviderClient fusedLocationClient;
+
+    private String mTime = "hello";
     private Drawer result1 = null;
-    String title1;
+    private String title1;
 
     String web1;
     //RssFeedModel test222 = new search().main("hi",1);
@@ -123,8 +70,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     List<RssFeedModel> rssFeedModel1 = new ArrayList<>();
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         final tagManager main53 = new tagManager(this);
         final Context ctx = this;
         requestLocationPermission();
-
 
 
         StrictMode.ThreadPolicy policy = new
@@ -146,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         ;
 
 
-        mActionBarToolbar = findViewById(R.id.toolbar);
+        Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
         RecyclerView recyclerView = findViewById(R.id.list);
 
@@ -340,8 +284,11 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             public void onClick(View view, int position) {
                 Intent browserIntent;
                 browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
-
+                //Intent intent = new Intent(ctx, allContent.class);
+                //intent.putExtra("NAME", Uri.parse(rssFeedModel1.get(position).title));
                 startActivity(browserIntent);
+
+                //startActivity(intent);
             }
 
 
@@ -353,7 +300,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
             }
         }));
-        mSwipeLayout = findViewById(R.id.swipe1);
+        SwipeRefreshLayout mSwipeLayout = findViewById(R.id.swipe1);
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -545,6 +492,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             EasyPermissions.requestPermissions(this, "Please grant the location permission", REQUEST_LOCATION_PERMISSION, perms);
         }
     }
+
     private void requestMicrophonePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(
@@ -553,7 +501,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
     }
-
 
 
 }

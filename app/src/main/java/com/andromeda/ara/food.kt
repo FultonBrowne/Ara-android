@@ -1,18 +1,9 @@
 package com.andromeda.ara
 
-import com.yelp.fusion.client.connection.YelpFusionApi
+
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
-import com.yelp.fusion.client.models.SearchResponse
-
 import java.io.IOException
-import java.util.HashMap
-
-import retrofit2.Call
-import retrofit2.Response
-import java.util.ArrayList
-import android.R.attr.x
-import java.nio.file.Files.size
-
+import java.util.*
 
 
 class food {
@@ -35,6 +26,7 @@ class food {
             var info:String = "err"
             var web:String = "err"
             var image:String = "err"
+            var imageList: List<String>
             if (count2 <= count){
                // rssFeedModel1.add(ArrayList)
             for (i in 0  until response.body().businesses.size) {
@@ -42,6 +34,7 @@ class food {
                 web=response.body().businesses[i].url
                 image=response.body().businesses[i].imageUrl
                 val stars = response.body().businesses[i].rating
+                val imageList = response.body().businesses[i].photos
                 val open = response.body().businesses[i].isClosed
                 val stars1 = "$stars stars"
                 if (open){

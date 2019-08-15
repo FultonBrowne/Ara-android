@@ -278,6 +278,7 @@ public class run {
                                         break;
                                     case 2:
                                         resulttxt = "up";
+
                                         break;
                                     case 3:
                                         resulttxt = "down";

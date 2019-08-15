@@ -282,13 +282,13 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Intent browserIntent;
-                browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
-                //Intent intent = new Intent(ctx, allContent.class);
-                //intent.putExtra("NAME", Uri.parse(rssFeedModel1.get(position).title));
-                startActivity(browserIntent);
+                //Intent browserIntent;
+                //browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
+                Intent intent = new Intent(ctx, allContent.class);
+                intent.putExtra("NAME", Uri.parse(rssFeedModel1.get(position + 1).title));
+                //startActivity(browserIntent);
 
-                //startActivity(intent);
+                startActivity(intent);
             }
 
 

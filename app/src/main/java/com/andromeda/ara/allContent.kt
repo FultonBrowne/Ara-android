@@ -10,10 +10,10 @@ class allContent : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_content)
-        // actionBar.setDisplayHomeAsUpEnabled(true)
-        val extras = intent.extras
-        val name = extras?.get("NAME")
+        //z actionBar.setDisplayHomeAsUpEnabled(true)
+        val name: String? = intent.getStringExtra("NAME");
         val txtv = findViewById<View>(R.id.maintxt1) as TextView
+        txtv.setText(name)
 
 
     }

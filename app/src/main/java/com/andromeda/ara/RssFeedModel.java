@@ -7,7 +7,7 @@ public class RssFeedModel {
     public String description;
     public String image;
 
-    public RssFeedModel(String title, String link, String description, String image) {
+    public RssFeedModel(String description, String link, String title, String image) {
         this.title = title;
         this.link = link;
         this.description = description;

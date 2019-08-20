@@ -93,6 +93,7 @@ class food {
                     val stars = response.body().businesses[i].rating
                     val open = response.body().businesses[i].isClosed
                     val info1 = response.body().businesses[i].text
+                    val info2 = response.body().businesses[i].location
                     val stars1 = "$stars stars"
                     if (open){
                         info = stars1 + System.lineSeparator() + " closed now"  + System.lineSeparator() + info1

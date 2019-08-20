@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import java.io.IOException
 import java.io.InputStream
@@ -24,9 +25,6 @@ class Adapter
         return FeedModelViewHolder(v)
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(item: RssFeedModel)
-    }
 
 
     override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {

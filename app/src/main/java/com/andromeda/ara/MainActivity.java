@@ -100,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5).withName("Agenda").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000);
         SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(6).withName("Shortcuts").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000);
         SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Devices").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000);
+        SecondaryDrawerItem news1 = new SecondaryDrawerItem().withIdentifier(102).withName("Tech").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000);
+        SecondaryDrawerItem newsmain = new SecondaryDrawerItem().withIdentifier(101).withName("News").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000).withSubItems(news1);
+
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this).withCompactStyle(true)
                 //.withHeaderBackground(R.drawable.back)
@@ -128,147 +131,143 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         new DividerDrawerItem(),
                         item2,
                         item3,
+                        newsmain,
                         item4,
                         item5,
                         item6,
                         item7
                 ).withSliderBackgroundDrawableRes(R.drawable.back)
 
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        if (drawerItem.getIdentifier() == 1) {
-                            mode = 1;
-                            Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
-                            try {
-                                RecyclerView recyclerView = findViewById(R.id.list);
+                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                    if (drawerItem.getIdentifier() == 1) {
+                        mode = 1;
+                        Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
+                        try {
+                            RecyclerView recyclerView1 = findViewById(R.id.list);
 
-                                rssFeedModel1 = (new rss().parseRss());
-                                mAdapter = new Adapter(rssFeedModel1);
-
-                                recyclerView.setAdapter(mAdapter);
-
-
-                                //recyclerView.setAdapter(new Adapter(parseFeed()));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        } else if (drawerItem.getIdentifier() == 2) {
-                            Toast.makeText(getApplicationContext(), "number 2", Toast.LENGTH_SHORT).show();
-
-                            RecyclerView recyclerView = findViewById(R.id.list);
-                            main53.open();
-                            //final Cursor cursor = main53.fetch();
-                            Cursor cursor = main53.fetch();
-                            RssFeedModel test = new RssFeedModel("", "", "", "");
-
-
-                            if (cursor != null && cursor.moveToFirst()) {
-                                cursor.moveToFirst();
-
-                                while (!cursor.isAfterLast()) {
-                                    rssFeedModel1.clear();
-                                    title1 = cursor.getString(1);
-                                    web1 = cursor.getString(2);
-                                    test = new RssFeedModel(title1, web1, "", "");
-                                    rssFeedModel1.add(test);
-                                    cursor.moveToNext();
-                                }
-                            } else {
-                                title1 = "nothing";
-                                web1 = "reload app";
-                                test = new RssFeedModel(title1, web1, "", "");
-                                rssFeedModel1.add(test);
-
-
-                            }
-                            //RssFeedModel test = new RssFeedModel( title1, web1, "","");
-                            //rssFeedModel1.clear();
-                            //rssFeedModel1.add(test);
+                            rssFeedModel1 = (new rss().parseRss());
                             mAdapter = new Adapter(rssFeedModel1);
 
-
-                            recyclerView.setAdapter(mAdapter);
+                            recyclerView1.setAdapter(mAdapter);
 
 
                             //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (drawerItem.getIdentifier() == 2) {
+                        Toast.makeText(getApplicationContext(), "number 2", Toast.LENGTH_SHORT).show();
 
-                        } else if (drawerItem.getIdentifier() == 3) {
-                            mode = 2;
-                            Toast.makeText(getApplicationContext(), "number 3", Toast.LENGTH_SHORT).show();
-                            RecyclerView recyclerView = findViewById(R.id.list);
+                        RecyclerView recyclerView1 = findViewById(R.id.list);
+                        main53.open();
+                        //final Cursor cursor = main53.fetch();
+                        Cursor cursor = main53.fetch();
+                        RssFeedModel test = new RssFeedModel("", "", "", "");
 
 
-                            RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
-                            rssFeedModel1.clear();
+                        if (cursor != null && cursor.moveToFirst()) {
+                            cursor.moveToFirst();
+
+                            while (!cursor.isAfterLast()) {
+                                rssFeedModel1.clear();
+                                title1 = cursor.getString(1);
+                                web1 = cursor.getString(2);
+                                test = new RssFeedModel(title1, web1, "", "");
+                                rssFeedModel1.add(test);
+                                cursor.moveToNext();
+                            }
+                        } else {
+                            title1 = "nothing";
+                            web1 = "reload app";
+                            test = new RssFeedModel(title1, web1, "", "");
                             rssFeedModel1.add(test);
 
 
-                            //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
-
-
-                            new locl(ctx);
-                            ArrayList<RssFeedModel> main352 = new food().getFood(Double.toString(locl.longitude), Double.toString(locl.latitude));
-                            rssFeedModel1 = main352;
-                            mAdapter = new Adapter(rssFeedModel1);
-
-                            recyclerView.setAdapter(mAdapter);
-
-
-                            //recyclerView.setAdapter(new Adapter(parseFeed()));
-                        } else if (drawerItem.getIdentifier() == 4) {
-                            mode = 3;
-                            Toast.makeText(getApplicationContext(), "number 4", Toast.LENGTH_SHORT).show();
-                            RecyclerView recyclerView = findViewById(R.id.list);
-
-
-                            RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
-                            rssFeedModel1.clear();
-
-
-                            //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
-
-
-                            new locl(ctx);
-                            ArrayList<RssFeedModel> main352 = new shopping().getShops(Double.toString((locl.longitude)), Double.toString((locl.latitude)));
-                            rssFeedModel1 = main352;
-                            mAdapter = new Adapter(rssFeedModel1);
-
-                            recyclerView.setAdapter(mAdapter);
-
-
-                            //recyclerView.setAdapter(new Adapter(parseFeed()));
-                        } else if (drawerItem.getIdentifier() == 5) {
-                            mode = 3;
-                            Toast.makeText(getApplicationContext(), "number 5", Toast.LENGTH_SHORT).show();
-                            RecyclerView recyclerView = findViewById(R.id.list);
-
-
-                            RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
-                            rssFeedModel1.clear();
-                            ActivityCompat.requestPermissions(MainActivity.this,
-                                    new String[]{Manifest.permission.READ_CALENDAR},
-                                    1);
-
-
-                            //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
-
-                            ArrayList<RssFeedModel> main352 = (ArrayList<RssFeedModel>) calUtility.readCalendarEvent(ctx);
-                            rssFeedModel1 = main352;
-                            mAdapter = new Adapter(rssFeedModel1);
-
-                            recyclerView.setAdapter(mAdapter);
-
-
-                            //recyclerView.setAdapter(new Adapter(parseFeed()));
                         }
+                        //RssFeedModel test = new RssFeedModel( title1, web1, "","");
+                        //rssFeedModel1.clear();
+                        //rssFeedModel1.add(test);
+                        mAdapter = new Adapter(rssFeedModel1);
 
 
-                        return false;
-                        // do something with the clicked item :D
+                        recyclerView1.setAdapter(mAdapter);
+
+
+                        //recyclerView.setAdapter(new Adapter(parseFeed()));
+
+                    } else if (drawerItem.getIdentifier() == 3) {
+                        mode = 2;
+                        Toast.makeText(getApplicationContext(), "number 3", Toast.LENGTH_SHORT).show();
+                        RecyclerView recyclerView1 = findViewById(R.id.list);
+
+
+                        RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
+                        rssFeedModel1.clear();
+                        rssFeedModel1.add(test);
+
+
+                        //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
+
+
+                        new locl(ctx);
+                        ArrayList<RssFeedModel> main352 = new food().getFood(Double.toString(locl.longitude), Double.toString(locl.latitude));
+                        rssFeedModel1 = main352;
+                        mAdapter = new Adapter(rssFeedModel1);
+
+                        recyclerView1.setAdapter(mAdapter);
+
+
+                        //recyclerView.setAdapter(new Adapter(parseFeed()));
+                    } else if (drawerItem.getIdentifier() == 4) {
+                        mode = 3;
+                        Toast.makeText(getApplicationContext(), "number 4", Toast.LENGTH_SHORT).show();
+                        RecyclerView recyclerView1 = findViewById(R.id.list);
+
+
+                        RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
+                        rssFeedModel1.clear();
+
+
+                        //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
+
+
+                        new locl(ctx);
+                        ArrayList<RssFeedModel> main352 = new shopping().getShops(Double.toString((locl.longitude)), Double.toString((locl.latitude)));
+                        rssFeedModel1 = main352;
+                        mAdapter = new Adapter(rssFeedModel1);
+
+                        recyclerView1.setAdapter(mAdapter);
+
+
+                        //recyclerView.setAdapter(new Adapter(parseFeed()));
+                    } else if (drawerItem.getIdentifier() == 5) {
+                        mode = 3;
+                        Toast.makeText(getApplicationContext(), "number 5", Toast.LENGTH_SHORT).show();
+                        RecyclerView recyclerView1 = findViewById(R.id.list);
+
+
+                        RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
+                        rssFeedModel1.clear();
+                        ActivityCompat.requestPermissions(MainActivity.this,
+                                new String[]{Manifest.permission.READ_CALENDAR},
+                                1);
+
+
+                        //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
+
+                        ArrayList<RssFeedModel> main352 = (ArrayList<RssFeedModel>) calUtility.readCalendarEvent(ctx);
+                        rssFeedModel1 = main352;
+                        mAdapter = new Adapter(rssFeedModel1);
+
+                        recyclerView1.setAdapter(mAdapter);
+
+
+                        //recyclerView.setAdapter(new Adapter(parseFeed()));
                     }
 
 
+                    return false;
+                    // do something with the clicked item :D
                 })
                 .build();
 

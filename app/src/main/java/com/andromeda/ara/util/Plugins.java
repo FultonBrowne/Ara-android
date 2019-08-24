@@ -17,4 +17,11 @@
 package com.andromeda.ara.util;
 
 public class Plugins {
+    void add() {
+
+    }
+
+    void search() {
+
+    }
 }

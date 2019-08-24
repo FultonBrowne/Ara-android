@@ -14,5 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-configurations.maybeCreate("default")
-artifacts.add("default", file('rome-1.0.jar'))
+package com.andromeda.ara.util;
+
+public class Plugins {
+}

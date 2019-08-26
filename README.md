@@ -5,7 +5,11 @@
   </a>
 </p>
 
+
 > an ai app for almost any android phone. Using the latest ai tools ,of course.
+
+
+[![CircleCI](https://circleci.com/gh/FultonBrowne/Ara-android/tree/master.svg?style=svg)](https://circleci.com/gh/FultonBrowne/Ara-android/tree/master)
 
 
 

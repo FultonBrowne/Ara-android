@@ -43,6 +43,7 @@ android {
         vectorDrawables.useSupportLibrary = true
         versionCode 1
         versionName "1.0"
+
         multiDexEnabled true
         packagingOptions {
             exclude 'META-INF/DEPENDENCIES'

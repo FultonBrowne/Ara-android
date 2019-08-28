@@ -37,7 +37,7 @@ class rss {
         var xmlReader: XmlReader? = null
 
         try {
-            val feed = URL("https://www.espn.com/espn/rss/news/rss.xml")
+            val feed = URL("https://araserver.herokuapp.com/")
 
 
 
@@ -50,6 +50,7 @@ class rss {
             while (iterator
                             .hasNext()) {
                 val syndEntry = iterator.next() as SyndEntry
+
                 mFeedDescription = syndEntry.description.value
                 mFeedTitle = syndEntry.title
                 mFeedLink = syndEntry.link

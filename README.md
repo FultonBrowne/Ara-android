@@ -10,6 +10,7 @@
 
 
 [![CircleCI](https://circleci.com/gh/FultonBrowne/Ara-android/tree/master.svg?style=svg)](https://circleci.com/gh/FultonBrowne/Ara-android/tree/master)
+[![Known Vulnerabilities](https://snyk.io/test/github/FultonBrowne/Ara-android/badge.svg)](https://snyk.io/test/github/FultonBrowne/Ara-android})
 
 
 
@@ -22,6 +23,7 @@
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/andromeda-software/Ara-android/issues).
+If you contribute please commit to a new branch and explain details in your pull request not in your commit.
 
 ## Show your support
 

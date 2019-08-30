@@ -1,12 +1,8 @@
-<h1 align="center">Welcome to Ara-android 👋</h1>
-<p>
-  <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">
-    <img alt="License:  GPL-3.0" src="https://img.shields.io/badge/License- GPL-3.0-yellow.svg" target="_blank" />
-  </a>
-</p>
+<h1 align="center">Welcome to Ara for Android 👋</h1>
+By Andromeda Software
 
 
-> an ai app for almost any android phone. Using the latest ai tools ,of course.
+> an ai app for almost any android phone. Using the latest AI tools such as tensorflow.
 
 
 [![CircleCI](https://circleci.com/gh/FultonBrowne/Ara-android/tree/master.svg?style=svg)](https://circleci.com/gh/FultonBrowne/Ara-android/tree/master)

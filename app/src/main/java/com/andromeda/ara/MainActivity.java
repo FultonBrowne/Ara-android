@@ -46,7 +46,10 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.*;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -54,6 +57,7 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity implements popupuiListDialogFragment.Listener {
@@ -68,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
     private String mTime = "hello";
-    private Drawer result1 = null;
+    private Drawer drawer = null;
     private String title1;
 
     private String web1;
@@ -133,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
 //create the drawer and remember the `Drawer` result object
-        result1 = new DrawerBuilder()
+        drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
@@ -223,8 +227,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
                         new locl(ctx);
-                        ArrayList<RssFeedModel> main352 = new food().getFood(Double.toString(locl.longitude), Double.toString(locl.latitude));
-                        rssFeedModel1 = main352;
+                        ArrayList<RssFeedModel> foodFinal = new food().getFood(Double.toString(locl.longitude), Double.toString(locl.latitude));
+                        rssFeedModel1 = foodFinal;
                         mAdapter = new Adapter(rssFeedModel1);
 
                         recyclerView1.setAdapter(mAdapter);
@@ -236,8 +240,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         Toast.makeText(getApplicationContext(), "number 4", Toast.LENGTH_SHORT).show();
                         RecyclerView recyclerView1 = findViewById(R.id.list);
 
-
-                        RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
                         rssFeedModel1.clear();
 
 
@@ -245,8 +247,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
                         new locl(ctx);
-                        ArrayList<RssFeedModel> main352 = new shopping().getShops(Double.toString((locl.longitude)), Double.toString((locl.latitude)));
-                        rssFeedModel1 = main352;
+                        ArrayList<RssFeedModel> shoppingOutput = new shopping().getShops(Double.toString((locl.longitude)), Double.toString((locl.latitude)));
+                        rssFeedModel1 = shoppingOutput;
                         mAdapter = new Adapter(rssFeedModel1);
 
                         recyclerView1.setAdapter(mAdapter);
@@ -258,8 +260,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         Toast.makeText(getApplicationContext(), "number 5", Toast.LENGTH_SHORT).show();
                         RecyclerView recyclerView1 = findViewById(R.id.list);
 
-
-                        RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
                         rssFeedModel1.clear();
                         ActivityCompat.requestPermissions(MainActivity.this,
                                 new String[]{Manifest.permission.READ_CALENDAR},
@@ -268,8 +268,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
                         //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
 
-                        ArrayList<RssFeedModel> main352 = (ArrayList<RssFeedModel>) calUtility.readCalendarEvent(ctx);
-                        rssFeedModel1 = main352;
+                        ArrayList<RssFeedModel> calenderContent = (ArrayList<RssFeedModel>) calUtility.readCalendarEvent(ctx);
+                        rssFeedModel1 = calenderContent;
                         mAdapter = new Adapter(rssFeedModel1);
 
                         recyclerView1.setAdapter(mAdapter);
@@ -284,13 +284,13 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 })
                 .build();
 
-        getSupportActionBar().setTitle(mTime);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);
         StrictMode.setThreadPolicy(policy);
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                if (result1.getCurrentSelection() == 1) {
+                if (drawer.getCurrentSelection() == 1) {
                     Intent browserIntent;
 
                     browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
@@ -446,10 +446,10 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     @Override
     public void onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (result1 != null && result1.isDrawerOpen()) {
-            result1.closeDrawer();
-        } else if (result1 != null && !result1.isDrawerOpen()) {
-            result1.openDrawer();
+        if (drawer != null && drawer.isDrawerOpen()) {
+            drawer.closeDrawer();
+        } else if (drawer != null && !drawer.isDrawerOpen()) {
+
         } else {
             super.onBackPressed();
         }

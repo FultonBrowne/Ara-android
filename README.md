@@ -12,7 +12,6 @@
 [![CircleCI](https://circleci.com/gh/FultonBrowne/Ara-android/tree/master.svg?style=svg)](https://circleci.com/gh/FultonBrowne/Ara-android/tree/master)
 [![Known Vulnerabilities](https://snyk.io/test/github/FultonBrowne/Ara-android/badge.svg)](https://snyk.io/test/github/FultonBrowne/Ara-android})
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7f28f04b88a74e67a2e301f16e9a2db0)](https://www.codacy.com/app/FultonBrowne/Ara-android?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=FultonBrowne/Ara-android&amp;utm_campaign=Badge_Grade)
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/fultonbrowne/ara-android)
 
 
 
@@ -26,6 +25,10 @@
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/andromeda-software/Ara-android/issues).
 If you contribute please commit to a new branch and explain details in your pull request not in your commit.
+
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/fultonbrowne/ara-android)
+
 
 ## Show your support
 

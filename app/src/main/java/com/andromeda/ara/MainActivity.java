@@ -301,6 +301,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
                     intent.putExtra("NAME", rssFeedModel1.get(position).title);
                     intent.putExtra("DESC", rssFeedModel1.get(position).description);
+                    intent.putExtra("PIC", rssFeedModel1.get(position).image);
+
                     //startActivity(browserIntent);
 
                     startActivity(intent);

@@ -19,11 +19,17 @@
 package com.andromeda.ara
 
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import java.io.IOException
+import java.io.InputStream
+import java.net.URL
+
 
 class allContent : AppCompatActivity() {
 
@@ -35,6 +41,21 @@ class allContent : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val name: String? = intent.getStringExtra("NAME")
         val desc: String? = intent.getStringExtra("DESC")
+        val pic: String? = intent.getStringExtra("PIC")
+        var `is`: InputStream? = null
+        try {
+            `is` = URL(pic).content as InputStream
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        val draw = Drawable.createFromStream(`is`, "src name")
+        val collapsingToolbar = findViewById<View>(R.id.image) as ImageView
+        collapsingToolbar.background = draw
+
+
+
+
         val txtv = findViewById<View>(R.id.maintxt1) as TextView
         txtv.text = desc
         supportActionBar?.title = name

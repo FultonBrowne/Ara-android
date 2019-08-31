@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
                         //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
 
-                        ArrayList<RssFeedModel> calenderContent = (ArrayList<RssFeedModel>) calUtility.readCalendarEvent(ctx);
+                        ArrayList<RssFeedModel> calenderContent = calUtility.readCalendarEvent(ctx);
                         rssFeedModel1 = calenderContent;
                         mAdapter = new Adapter(rssFeedModel1);
 
@@ -449,7 +449,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         if (drawer != null && drawer.isDrawerOpen()) {
             drawer.closeDrawer();
         } else if (drawer != null && !drawer.isDrawerOpen()) {
-
+            drawer.openDrawer();
         } else {
             super.onBackPressed();
         }

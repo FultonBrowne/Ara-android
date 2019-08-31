@@ -24,7 +24,12 @@ class search {
         main1.add(RssFeedModel("","","",""))
         if (mode == 1){
             main1.clear()
-            main1.add(Wolfram().Wolfram1(mainval))
+            // TODO add more and move to other file
+            var searchmode1 = mainval.toLowerCase()
+            if (searchmode1.startsWith("nearest")) {
+                searchmode1 = searchmode1.padStart(8)
+                main1 = LocSearch().searchfood(locl.longitude.toString(), locl.latitude.toString(), searchmode1)
+            } else main1.add(Wolfram().Wolfram1(mainval))
         }
        else if (mode == 2){
             main1.clear()

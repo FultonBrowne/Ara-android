@@ -41,7 +41,7 @@ public class calUtility {
                         null, null);
         cursor.moveToFirst();
         // fetching calendars name
-        String CNames[] = new String[cursor.getCount()];
+        String[] CNames = new String[cursor.getCount()];
 
         // fetching calendars id
         main.clear();

@@ -31,6 +31,13 @@ If you contribute please commit to a new branch and explain details in your pull
 
 Give a ⭐️ if this project helped you!
 
+## TODO
+* Expand voice support
+* IOT support
+* Skills SDK
+* Finish news thing
+* Get rid of custom yelp viewer
+
 ## 📝 License
 
 Copyright © 2019 [Fulton Browne](https://github.com/fultonbrowne).<br />

@@ -27,7 +27,7 @@ import java.util.*
 
 class rss {
     @Throws(IOException::class)
-    fun parseRss(): List<RssFeedModel> {
+    fun parseRss(mode:Int = 0): List<RssFeedModel> {
         var mFeedTitle: String
         var mFeedLink: String
         var mFeedDescription: String
@@ -37,8 +37,9 @@ class rss {
         var xmlReader: XmlReader? = null
 
         try {
-            val feed = URL("https://araserver.herokuapp.com/")
-
+            var feed = URL("https://araserver.herokuapp.com/")
+            if (mode == 1) feed = URL("https://araserver.herokuapp.com/world")
+            else if (mode == 2) feed = URL("https://araserver.herokuapp.com/tech")
 
 
             feed.openConnection()

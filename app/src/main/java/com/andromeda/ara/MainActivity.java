@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         try {
                             RecyclerView recyclerView1 = findViewById(R.id.list);
 
-                            rssFeedModel1 = (new rss().parseRss());
+                            rssFeedModel1 = (new rss().parseRss(0));
                             mAdapter = new Adapter(rssFeedModel1);
 
                             recyclerView1.setAdapter(mAdapter);
@@ -277,6 +277,42 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
                         //recyclerView.setAdapter(new Adapter(parseFeed()));
                     }
+                    if (drawerItem.getIdentifier() == 102) {
+                        mode = 1;
+                        Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
+                        try {
+                            RecyclerView recyclerView1 = findViewById(R.id.list);
+
+                            rssFeedModel1 = (new rss().parseRss(2));
+                            mAdapter = new Adapter(rssFeedModel1);
+
+                            recyclerView1.setAdapter(mAdapter);
+
+
+                            //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (drawerItem.getIdentifier() == 101) {
+                        mode = 1;
+                        Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
+                        try {
+                            RecyclerView recyclerView1 = findViewById(R.id.list);
+
+                            rssFeedModel1 = (new rss().parseRss(1));
+                            mAdapter = new Adapter(rssFeedModel1);
+
+                            recyclerView1.setAdapter(mAdapter);
+
+
+                            //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
 
 
                     return false;
@@ -325,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 try {
                     rssFeedModel1.clear();
 
-                    rssFeedModel1 = (new rss().parseRss());
+                    rssFeedModel1 = (new rss().parseRss(0));
 
                     mAdapter.notifyDataSetChanged();
 
@@ -339,7 +375,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         try {
-            rssFeedModel1 = (new rss().parseRss());
+            rssFeedModel1 = (new rss().parseRss(0));
             mAdapter = new Adapter(rssFeedModel1);
 
             recyclerView.setAdapter(mAdapter);
@@ -468,7 +504,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     public void onpopupuiClicked(int position) {
         Intent browserIntent;
         try {
-            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(new rss().parseRss().get(position).link));
+            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(new rss().parseRss(0).get(position).link));
             startActivity(browserIntent);
         } catch (IOException e) {
             e.printStackTrace();

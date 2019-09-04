@@ -123,7 +123,7 @@ public class run {
         return resulttxt;
     }
 
-    public synchronized void startRecognition() {
+    private synchronized void startRecognition() {
         if (recognitionThread != null) {
             return;
         }
@@ -147,7 +147,7 @@ public class run {
         recognitionThread = null;
     }
 
-    public synchronized void startRecording() {
+    private synchronized void startRecording() {
         if (recordingThread != null) {
             return;
         }

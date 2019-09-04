@@ -35,8 +35,7 @@ Give a ⭐️ if this project helped you!
 * Expand voice support
 * IOT support
 * Skills SDK
-* Finish news thing
-* Get rid of custom yelp viewer
+
 
 ## 📝 License
 

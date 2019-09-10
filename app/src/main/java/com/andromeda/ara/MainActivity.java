@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         SecondaryDrawerItem newsmain = new SecondaryDrawerItem().withIdentifier(101).withName("News").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000).withSubItems(news1, news2);
 
         AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this).withCompactStyle(true)
+                .withActivity(this)
                 //.withHeaderBackground(R.drawable.back)
 
 
@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         new ProfileDrawerItem().withName("name").withEmail("email@gmail.com").withIcon(getResources().getDrawable(R.drawable.example_appwidget_preview)
                 ))
                 .withOnAccountHeaderListener((view, profile, currentProfile) -> false).withTextColorRes(R.color.md_white_1000)
+                .withHeaderBackground(R.drawable.drawerimage)
 
                 .build();
 
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 .withActivity(this)
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
+                .withSliderBackgroundColorRes(R.color.colorBack)
 
                 .withTranslucentStatusBar(true)
                 .addDrawerItems(
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         item5,
                         item6,
                         item7
-                ).withSliderBackgroundDrawableRes(R.drawable.back)
+                )
 
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     if (drawerItem.getIdentifier() == 1) {

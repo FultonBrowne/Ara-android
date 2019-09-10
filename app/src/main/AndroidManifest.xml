@@ -129,6 +129,7 @@
         </activity>
         <activity
                 android:name=".SettingsActivity"
+                android:theme="@style/PreferencesTheme"
                 android:label="@string/title_activity_settings"/>
     </application>
 

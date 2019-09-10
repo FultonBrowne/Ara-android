@@ -35,6 +35,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="PreferencesTheme" parent="AppTheme.NoActionBar">
+        <item name="android:background">@drawable/settingsback</item>
+    </style>
 
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

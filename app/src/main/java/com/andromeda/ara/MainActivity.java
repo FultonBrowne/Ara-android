@@ -43,6 +43,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.andromeda.ara.util.calUtility;
 import com.andromeda.ara.util.locl;
 import com.andromeda.ara.util.rss;
+import com.andromeda.ara.voice.run;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -112,16 +113,16 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         RecyclerView recyclerView = findViewById(R.id.list);
 
 
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Home").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000);
-        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName("Tags").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000);
-        SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName("Food").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000);
-        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(4).withName("Shopping").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000);
-        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5).withName("Agenda").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000);
-        SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(6).withName("Shortcuts").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000);
-        SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Devices").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000);
-        SecondaryDrawerItem news1 = new SecondaryDrawerItem().withIdentifier(102).withName("Tech").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000);
-        SecondaryDrawerItem news2 = new SecondaryDrawerItem().withIdentifier(103).withName("World").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000);
-        SecondaryDrawerItem newsmain = new SecondaryDrawerItem().withIdentifier(101).withName("News").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.md_white_1000).withSubItems(news1, news2);
+        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Home").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000);
+        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName("Tags").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000);
+        SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName("Food").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000);
+        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(4).withName("Shopping").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000);
+        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5).withName("Agenda").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000);
+        SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(6).withName("Shortcuts").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000);
+        SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Devices").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000);
+        SecondaryDrawerItem news1 = new SecondaryDrawerItem().withIdentifier(102).withName("Tech").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000);
+        SecondaryDrawerItem news2 = new SecondaryDrawerItem().withIdentifier(103).withName("World").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000);
+        SecondaryDrawerItem newsmain = new SecondaryDrawerItem().withIdentifier(101).withName("News").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSubItems(news1, news2).withSelectedTextColorRes(R.color.md_white_1000);
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         new ProfileDrawerItem().withName("name").withEmail("email@gmail.com").withIcon(getResources().getDrawable(R.drawable.example_appwidget_preview)
                 ))
                 .withOnAccountHeaderListener((view, profile, currentProfile) -> false).withTextColorRes(R.color.md_white_1000)
-                //.withHeaderBackground(R.drawable.drawerimage)
+                .withHeaderBackground(R.color.semi_transparent)
 
                 .build();
 
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 .withAccountHeader(headerResult)
                 //.withSliderBackgroundColorRes(R.color.colorBack)
                 .withSliderBackgroundDrawableRes(R.drawable.drawerimage)
+                .withFullscreen(true)
 
                 .withTranslucentStatusBar(true)
                 .addDrawerItems(
@@ -326,6 +328,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 })
                 .build();
 
+
         Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);
         StrictMode.setThreadPolicy(policy);
 
@@ -403,7 +406,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 Activity activity = (Activity) ctx;
                 requestMicrophonePermission();
 
-                String phrase = new com.andromeda.ara.voice.run().run1(ctx, activity);
+                String phrase = new run().run1(ctx, activity);
                 Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
 
 

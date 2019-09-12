@@ -16,15 +16,11 @@
 
 package com.andromeda.ara
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import java.io.IOException
-import java.io.InputStream
-import java.net.URL
 
 
 class Adapter
@@ -49,7 +45,7 @@ class Adapter
         (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView).text = rssFeedModel.description
         (holder.rssFeedView.findViewById<View>(R.id.content) as TextView).text = rssFeedModel.title
         (holder.rssFeedView.findViewById<View>(R.id.url2) as TextView).text = rssFeedModel.link
-        if (rssFeedModel.image !== "") {
+        /** if (rssFeedModel.image !== "") {
             var `is`: InputStream? = null
             try {
                 `is` = URL(rssFeedModel.image).content as InputStream
@@ -58,8 +54,13 @@ class Adapter
             }
 
             val draw = Drawable.createFromStream(`is`, "src name")
-            holder.rssFeedView.findViewById<View>(R.id.item_image_view).background = draw
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        holder.rssFeedView.findViewById<View>(R.id.item_image_view).clipToOutline = true
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        holder.rssFeedView.findViewById<View>(R.id.item_image_view).foreground = draw
+        }
+        }**/
         //((TextView)holder.rssFeedView.findViewById(R.id.item_number)).setText(R.string.test);
         //((TextView)holder.rssFeedView.findViewById(R.id.content)).setText(R.string.test);
         //((TextView)holder.rssFeedView.findViewById(R.id.url2)).setText(R.string.test);

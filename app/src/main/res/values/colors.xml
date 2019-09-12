@@ -20,4 +20,5 @@
     <color name="colorPrimaryDark">#1a237e</color>
     <color name="colorAccent">#810000</color>
     <color name="colorBack">#424242</color>
+    <color name="semi_transparent">#66000000</color>
 </resources>

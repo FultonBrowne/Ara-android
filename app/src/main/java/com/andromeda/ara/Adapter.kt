@@ -21,7 +21,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import java.io.IOException
 import java.io.InputStream
@@ -45,6 +44,8 @@ class Adapter
 
     override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {
         val rssFeedModel = mRssFeedModels[position]
+
+        //(holder.rssFeedView.card.cardBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary)))
         (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView).text = rssFeedModel.description
         (holder.rssFeedView.findViewById<View>(R.id.content) as TextView).text = rssFeedModel.title
         (holder.rssFeedView.findViewById<View>(R.id.url2) as TextView).text = rssFeedModel.link

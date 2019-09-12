@@ -30,6 +30,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -38,6 +39,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.andromeda.ara.util.calUtility;
 import com.andromeda.ara.util.locl;
 import com.andromeda.ara.util.rss;
@@ -50,14 +52,15 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.EasyPermissions;
 
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 
 public class MainActivity extends AppCompatActivity implements popupuiListDialogFragment.Listener {
@@ -129,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         new ProfileDrawerItem().withName("name").withEmail("email@gmail.com").withIcon(getResources().getDrawable(R.drawable.example_appwidget_preview)
                 ))
                 .withOnAccountHeaderListener((view, profile, currentProfile) -> false).withTextColorRes(R.color.md_white_1000)
-                .withHeaderBackground(R.drawable.drawerimage)
+                //.withHeaderBackground(R.drawable.drawerimage)
 
                 .build();
 
@@ -142,7 +145,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 .withActivity(this)
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
-                .withSliderBackgroundColorRes(R.color.colorBack)
+                //.withSliderBackgroundColorRes(R.color.colorBack)
+                .withSliderBackgroundDrawableRes(R.drawable.drawerimage)
 
                 .withTranslucentStatusBar(true)
                 .addDrawerItems(

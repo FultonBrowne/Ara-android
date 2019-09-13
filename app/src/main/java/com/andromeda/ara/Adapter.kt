@@ -21,6 +21,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import android.view.animation.AlphaAnimation
+
+
 
 
 class Adapter
@@ -45,6 +48,7 @@ class Adapter
         (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView).text = rssFeedModel.description
         (holder.rssFeedView.findViewById<View>(R.id.content) as TextView).text = rssFeedModel.title
         (holder.rssFeedView.findViewById<View>(R.id.url2) as TextView).text = rssFeedModel.link
+        setFadeAnimation(holder.itemView)
         /** if (rssFeedModel.image !== "") {
             var `is`: InputStream? = null
             try {
@@ -69,6 +73,11 @@ class Adapter
     override fun getItemCount(): Int {
         return mRssFeedModels.size
         //return 1;
+    }
+    private fun setFadeAnimation(view: View) {
+        val anim = AlphaAnimation(0.0f, 1.0f)
+        anim.duration = 1000
+        view.startAnimation(anim)
     }
 
     class FeedModelViewHolder(val rssFeedView: View) : RecyclerView.ViewHolder(rssFeedView)

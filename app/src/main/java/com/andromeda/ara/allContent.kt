@@ -51,6 +51,8 @@ class allContent : AppCompatActivity() {
 
         val draw = Drawable.createFromStream(`is`, "src name")
         val collapsingToolbar = findViewById<View>(R.id.image) as ImageView
+        collapsingToolbar.minimumHeight = draw.minimumHeight
+
         collapsingToolbar.background = draw
 
 

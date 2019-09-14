@@ -147,9 +147,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="devices" />
-                            <entry key="sourceFile" value="C:\Users\pholtor\Downloads\baseline-clear-24px.svg" />
+                            <entry key="outputName" value="news" />
+                            <entry key="sourceFile" value="C:\Users\pholtor\Downloads\iconfinder-icon.svg" />
                           </map>
                         </option>
                       </PersistentState>

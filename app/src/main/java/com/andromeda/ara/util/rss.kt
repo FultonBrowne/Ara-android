@@ -40,6 +40,7 @@ class rss {
             var feed = URL("https://araserver.herokuapp.com/")
             if (mode == 1) feed = URL("https://araserver.herokuapp.com/world")
             else if (mode == 2) feed = URL("https://araserver.herokuapp.com/tech")
+            else if (mode == 3) feed = URL("https://araserver.herokuapp.com/us")
 
 
             feed.openConnection()

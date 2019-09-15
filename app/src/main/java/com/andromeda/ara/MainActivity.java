@@ -120,9 +120,10 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5).withName("Agenda").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.ic_today_black_24dp);
         SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(6).withName("Shortcuts").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.shortcut);
         SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Devices").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.devices);
-        SecondaryDrawerItem news1 = new SecondaryDrawerItem().withIdentifier(102).withName("Tech").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000);
-        SecondaryDrawerItem news2 = new SecondaryDrawerItem().withIdentifier(103).withName("World").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000);
-        SecondaryDrawerItem newsmain = new SecondaryDrawerItem().withIdentifier(101).withName("News").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSubItems(news1, news2).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.news);
+        SecondaryDrawerItem news1 = new SecondaryDrawerItem().withIdentifier(102).withName("Tech").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.technews);
+        SecondaryDrawerItem news3 = new SecondaryDrawerItem().withIdentifier(104).withName("Domestic").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.domnews);
+        SecondaryDrawerItem news2 = new SecondaryDrawerItem().withIdentifier(103).withName("World").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.worldnews);
+        SecondaryDrawerItem newsmain = new SecondaryDrawerItem().withIdentifier(101).withName("News").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSubItems(news1, news2, news3).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.news);
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -284,8 +285,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
                         //recyclerView.setAdapter(new Adapter(parseFeed()));
-                    }
-                    if (drawerItem.getIdentifier() == 102) {
+                    } else if (drawerItem.getIdentifier() == 102) {
                         mode = 1;
                         Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
                         try {
@@ -301,8 +301,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    }
-                    if (drawerItem.getIdentifier() == 101) {
+                    } else if (drawerItem.getIdentifier() == 101) {
                         mode = 1;
                         Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
                         try {
@@ -317,6 +316,23 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                             //recyclerView.setAdapter(new Adapter(parseFeed()));
                         } catch (IOException e) {
                             e.printStackTrace();
+                        }
+                        if (drawerItem.getIdentifier() == 102) {
+                            mode = 1;
+                            Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
+                            try {
+                                RecyclerView recyclerView1 = findViewById(R.id.list);
+
+                                rssFeedModel1 = (new rss().parseRss(3));
+                                mAdapter = new Adapter(rssFeedModel1);
+
+                                recyclerView1.setAdapter(mAdapter);
+
+
+                                //recyclerView.setAdapter(new Adapter(parseFeed()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
 

@@ -119,6 +119,8 @@ dependencies {
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
     implementation 'com.google.android.material:material:1.1.0-alpha07'
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
+    implementation "com.android.volley:volley:1.1.1"
+    implementation "com.google.code.gson:gson:2.8.5"
 
     implementation project(path: ':WolframAlpha-1.1')
     implementation group: 'com.rometools', name: 'rome', version: '1.12.0'

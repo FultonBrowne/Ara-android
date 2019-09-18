@@ -57,6 +57,7 @@ class rss {
                 mFeedTitle = syndEntry.title
                 mFeedLink = syndEntry.link
 
+
                 val rssFeedModel = RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "")
                 items.add(rssFeedModel)
 

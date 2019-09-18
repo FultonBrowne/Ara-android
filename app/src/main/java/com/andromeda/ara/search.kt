@@ -16,32 +16,41 @@
 
 package com.andromeda.ara
 
+import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.locl
 
 class search {
     fun main(mainval: String, mode:Int): ArrayList<RssFeedModel>{
-        var main1 : ArrayList<RssFeedModel> = java.util.ArrayList()
-        main1.add(RssFeedModel("","","",""))
+        var OutputList: ArrayList<RssFeedModel> = java.util.ArrayList()
+        OutputList.add(RssFeedModel("", "", "", ""))
         if (mode == 1){
-            main1.clear()
-            // TODO add more and move to other file
             var searchmode1 = mainval.toLowerCase()
+            /** OutputList.clear()
+
+
             if (searchmode1.startsWith("nearest")) {
-                searchmode1 = searchmode1.padStart(8)
-                main1 = LocSearch().searchfood(locl.longitude.toString(), locl.latitude.toString(), searchmode1)
-            } else main1.add(Wolfram().Wolfram1(mainval))
+            searchmode1 = searchmode1.padStart(8)
+            OutputList = LocSearch().searchfood(locl.longitude.toString(), locl.latitude.toString(), searchmode1)
+            }
+            else OutputList.add(Wolfram().Wolfram1(mainval))**/
+            val test1 = AraSearch().arrayOfOutputModels(searchmode1)
+            OutputList = ApiOutputToRssFeed().main(test1)
+            System.out.println("done")
+            //System.out.println(OutputList[0].title)
+
+
         }
        else if (mode == 2){
-            main1.clear()
-            main1 = food().searchfood(locl.longitude.toString(), locl.latitude.toString(), mainval)
+            OutputList.clear()
+            OutputList = food().searchfood(locl.longitude.toString(), locl.latitude.toString(), mainval)
         }
         else if (mode == 3){
-            main1.clear()
-            main1 = shopping().SearchShops(locl.longitude.toString(), locl.latitude.toString(), mainval)
+            OutputList.clear()
+            OutputList = shopping().SearchShops(locl.longitude.toString(), locl.latitude.toString(), mainval)
         }
         else {
-            main1.add(0, RssFeedModel(mainval,"","",""))
+            OutputList.add(0, RssFeedModel(mainval, "", "", ""))
         }
-        return main1
+        return OutputList
     }
 }

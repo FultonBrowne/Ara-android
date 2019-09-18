@@ -17,10 +17,40 @@
 package com.andromeda.ara
 
 
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.net.URL
+import java.util.*
+
 
 class AraSearch {
-    fun Main(search:String){
+
+    val gson = Gson()
+    fun arrayOfOutputModels(search: String): ArrayList<OutputModel>? {
+        val url = URL("https://araserver.herokuapp.com/api/$search")
+        System.out.println("Staring...")
+        val returedtxt = url.readText()
+        System.out.println(returedtxt)
+
+        // val boxSearchCollection = gson.fromJson(returedtxt, OutputModel().javaClass )
+        //val fooType = object : TypeToken<Foo<OutputModel>>() {
+
+        // }.type
+        val foo = Foo<OutputModel>()
+        val fooType = object : TypeToken<Foo<OutputModel>>() {
+
+        }.type
+        gson.toJson(foo, fooType)
+
+        return gson.fromJson(returedtxt, ArrayList<OutputModel>()::class.java) as ArrayList<OutputModel>
+
 
 
     }
+
+    internal inner class Foo<T> {
+        var value: T? = null
+    }
+
+
 }

@@ -28,18 +28,24 @@ public class ApiOutputToRssFeed {
         System.out.println(tofeed.size());
         // System.out.println(tofeed.get(1).link.toString());
 
-
-        for (int i = 1; i <= feedModels.size(); i++) {
-            String mInfo = tofeed.get(i).description;
-            String mTitle = tofeed.get(i).title;
-            System.out.println(mTitle);
-            String mlink = tofeed.get(i).link;
-            String mPic = "";
-            RssFeedModel mainModel = new RssFeedModel(mInfo, mlink, mTitle, mPic);
-            feedModels.add(mainModel);
+        try {
 
 
+            for (int i = 0; i <= feedModels.size(); i++) {
+                System.out.println(i);
+                String mInfo = tofeed.get(i).description;
+                String mTitle = tofeed.get(i).title;
+                System.out.println(mTitle);
+                String mlink = tofeed.get(i).link;
+                String mPic = "";
+                RssFeedModel mainModel = new RssFeedModel(mInfo, mlink, mTitle, mPic);
+                feedModels.add(mainModel);
+
+
+            }
+        } catch (Exception e) {
         }
+        ;
         return feedModels;
 
     }

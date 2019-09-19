@@ -14,25 +14,21 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara
+package com.andromeda.ara.util;
 
+import com.andromeda.ara.OutputModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import com.andromeda.ara.util.JsonParse
-import com.google.gson.Gson
-import java.net.URL
-import java.util.*
+import java.util.ArrayList;
 
+;
 
-class AraSearch {
-
-    val gson = Gson()
-    fun arrayOfOutputModels(search: String): ArrayList<OutputModel>? {
-        val url = URL("https://araserver.herokuapp.com/api/$search")
-        System.out.println("Staring...")
-        return JsonParse().search(url.readText())
-
-
-
+public class JsonParse {
+    public ArrayList<OutputModel> search(String jsontxt) {
+        Gson gson = new Gson();
+        return gson.fromJson(jsontxt, new TypeToken<ArrayList<OutputModel>>() {
+        }.getType());
 
     }
 

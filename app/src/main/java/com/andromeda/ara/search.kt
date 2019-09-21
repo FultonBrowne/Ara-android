@@ -25,6 +25,7 @@ class search {
         OutputList.add(RssFeedModel("", "", "", ""))
         if (mode == 1){
             var searchmode1 = mainval.toLowerCase()
+            searchmode1.replace("", "_")
             /** OutputList.clear()
 
 

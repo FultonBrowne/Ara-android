@@ -20,7 +20,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -150,14 +149,10 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             // here you can launch another activity if you like
             // the code below will display a popup
 
-            String whatsNewTitle = ("test");
-            String whatsNewText = ("test");
+            String whatsNewTitle = ("Welcome to ara for android!");
+            String whatsNewText = ("Thank you for downloading and investing in the next generation of intelligent voice assistants.");
             new AlertDialog.Builder(this).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
-                    "R.string.ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).show();
+                    "ok", (dialog, which) -> dialog.dismiss()).show();
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean(welcomeScreenShownPref, true);
             editor.commit(); // Very important to save the preference

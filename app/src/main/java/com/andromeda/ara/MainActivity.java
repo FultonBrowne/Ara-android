@@ -20,18 +20,22 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -78,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     private String mTime = "hello";
     private Drawer drawer = null;
     private String title1;
+    SharedPreferences mPrefs;
+    final String welcomeScreenShownPref = "welcomeScreenShown";
 
     private String web1;
     //RssFeedModel test222 = new search().main("hi",1);
@@ -93,6 +99,9 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final tagManager main53 = new tagManager(this);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
+
         final Context ctx = this;
         requestLocationPermission();
 
@@ -137,6 +146,22 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 .withHeaderBackground(R.color.semi_transparent)
 
                 .build();
+        if (!welcomeScreenShown) {
+            // here you can launch another activity if you like
+            // the code below will display a popup
+
+            String whatsNewTitle = ("test");
+            String whatsNewText = ("test");
+            new AlertDialog.Builder(this).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
+                    "R.string.ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putBoolean(welcomeScreenShownPref, true);
+            editor.commit(); // Very important to save the preference
+        }
 
 
 //Now create your drawer and pass the AccountHeader.Result

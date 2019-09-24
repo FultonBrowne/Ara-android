@@ -22,6 +22,8 @@ buildscript {
         jcenter()
         maven { url 'https://jitpack.io' }
         maven { url 'http://dl.bintray.com/jetbrains/spek' }
+        maven { url 'https://jitpack.io' }
+
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -120,6 +122,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0-alpha07'
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
     implementation "com.android.volley:volley:1.1.1"
+
     implementation "com.google.code.gson:gson:2.8.5"
 
     implementation project(path: ':WolframAlpha-1.1')
@@ -127,6 +130,7 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient
     implementation group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+
 
     // https://mvnrepository.com/artifact/org.jdom/jdom2
     //implementation group: 'org.jdom', name: 'jdom2', version: '2.0.6'

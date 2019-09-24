@@ -31,6 +31,8 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -103,6 +105,13 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
         final Context ctx = this;
         requestLocationPermission();
+        Window window = getWindow();
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setNavigationBarColor(getColor(R.color.semi_transparent));
+            window.setStatusBarColor(getColor(R.color.semi_transparent));
+
+
+        }*/
 
 
         StrictMode.ThreadPolicy policy = new
@@ -170,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 .withAccountHeader(headerResult)
                 //.withSliderBackgroundColorRes(R.color.colorBack)
                 .withSliderBackgroundDrawableRes(R.drawable.drawerimage)
-                .withFullscreen(true)
+                .withFullscreen(true).withTranslucentNavigationBarProgrammatically(true)
 
                 .withTranslucentStatusBar(true)
                 .addDrawerItems(

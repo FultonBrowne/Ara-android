@@ -4,7 +4,7 @@ By Andromeda Software
 
  an ai app for almost any android phone. Using the latest AI tools such as tensorflow.
  
-![alt text](docs/scrs1.png){:height="50%" width="50%"}
+![alt text](docs/scrs1.png)
 
 
 [![CircleCI](https://circleci.com/gh/FultonBrowne/Ara-android/tree/master.svg?style=svg)](https://circleci.com/gh/FultonBrowne/Ara-android/tree/master)

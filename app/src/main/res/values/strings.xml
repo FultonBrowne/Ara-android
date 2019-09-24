@@ -221,4 +221,6 @@
     <string name="title_activity_all_content">allContent</string>
     <string name="pref_switch_note">Ara notifications</string>
     <string name="hey_ara_listener_switch">Listen for \"hey Ara\"</string>
+    <string name="textOK">Ok</string>
+    <string name="moneyText">money</string>
 </resources>

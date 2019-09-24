@@ -38,15 +38,18 @@ class rss {
 
         try {
             var feed = URL("https://araserver.herokuapp.com/")
-            if (mode == 1) feed = URL("https://araserver.herokuapp.com/world")
-            else if (mode == 2) feed = URL("https://araserver.herokuapp.com/tech")
-            else if (mode == 3) feed = URL("https://araserver.herokuapp.com/us")
+            when (mode) {
+                1 -> feed = URL("https://araserver.herokuapp.com/world")
+                2 -> feed = URL("https://araserver.herokuapp.com/tech")
+                3 -> feed = URL("https://araserver.herokuapp.com/us")
+                4 -> feed = URL("https://araserver.herokuapp.com/money")
+            }
 
 
             feed.openConnection()
             xmlReader = XmlReader(feed)
 
-            val input = SyndFeedInput()
+
             val feedAllData = SyndFeedInput().build(xmlReader)
             val iterator = feedAllData.entries.iterator()
             while (iterator

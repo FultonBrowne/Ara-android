@@ -137,7 +137,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_place_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Users/pholtor/AppData/Local/JetBrains/Toolbox/apps/AndroidStudio/ch-0/192.5871855/plugins/android/lib/android.jar!/images/material_design_icons/editor/ic_attach_money_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -148,7 +148,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="domnews" />
+                            <entry key="outputName" value="money" />
                             <entry key="sourceFile" value="C:\Users\pholtor\Downloads\iconfinder-icon.svg" />
                           </map>
                         </option>

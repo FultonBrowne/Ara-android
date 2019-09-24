@@ -130,8 +130,9 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Devices").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.devices);
         SecondaryDrawerItem news1 = new SecondaryDrawerItem().withIdentifier(102).withName("Tech").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.technews);
         SecondaryDrawerItem news3 = new SecondaryDrawerItem().withIdentifier(104).withName("Domestic").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.domnews);
+        SecondaryDrawerItem news4 = new SecondaryDrawerItem().withIdentifier(105).withName(getString(R.string.moneyText)).withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.money);
         SecondaryDrawerItem news2 = new SecondaryDrawerItem().withIdentifier(103).withName("World").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.worldnews);
-        SecondaryDrawerItem newsmain = new SecondaryDrawerItem().withIdentifier(101).withName("News").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSubItems(news1, news2, news3).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.news);
+        SecondaryDrawerItem newsmain = new SecondaryDrawerItem().withIdentifier(101).withName("News").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSubItems(news1, news2, news3, news4).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.news);
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             String whatsNewTitle = ("Welcome to ara for android!");
             String whatsNewText = ("Thank you for downloading and investing in the next generation of intelligent voice assistants.");
             new AlertDialog.Builder(this).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
-                    "ok", (dialog, which) -> dialog.dismiss()).show();
+                    getText(R.string.textOK), (dialog, which) -> dialog.dismiss()).show();
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean(welcomeScreenShownPref, true);
             editor.commit(); // Very important to save the preference
@@ -337,6 +338,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                    }
                         if (drawerItem.getIdentifier() == 102) {
                             mode = 1;
                             Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
@@ -354,7 +356,24 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                                 e.printStackTrace();
                             }
                         }
-                    }
+                        if (drawerItem.getIdentifier() == 105) {
+                            mode = 1;
+                            Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
+                            try {
+                                RecyclerView recyclerView1 = findViewById(R.id.list);
+
+                                rssFeedModel1 = (new rss().parseRss(4));
+                                mAdapter = new Adapter(rssFeedModel1);
+
+                                recyclerView1.setAdapter(mAdapter);
+
+
+                                //recyclerView.setAdapter(new Adapter(parseFeed()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
 
 
 

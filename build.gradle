@@ -29,10 +29,10 @@ buildscript {
 plugins {
     // :refreshVersions see https://github.com/jmfayard/buildSrcVersions/issues/77
     id("de.fayard.buildSrcVersions").version("0.6.1")
-    // --scan see https://dev.to/jmfayard/the-one-gradle-trick-that-supersedes-all-the-others-5bpg
     id ("com.gradle.build-scan").version("2.4.2") 
 
 }
+
 ext {
     var = '0.1.0'
 }
@@ -45,6 +45,26 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
+tasks.create("install") {
+    group = "custom"
+    description = "Install the app"
+    dependsOn(":app:installDebug")
+}
+
+tasks.create("test") {
+    group = "custom"
+    description = "Run the unit tests"
+    dependsOn(":app:testDebugUnitTest")
+}
+
+tasks.create("clean", Delete) {
     delete rootProject.buildDir
+}
+
+
+// ./gradlew --scan $TASKNAME 
+// see https://dev.to/jmfayard/the-one-gradle-trick-that-supersedes-all-the-others-5bpg
+buildScan {
+    termsOfServiceUrl = "https://gradle.com/terms-of-service"
+    termsOfServiceAgree = "yes"
 }

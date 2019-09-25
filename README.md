@@ -12,7 +12,10 @@ By Andromeda Software
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7f28f04b88a74e67a2e301f16e9a2db0)](https://www.codacy.com/app/FultonBrowne/Ara-android?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=FultonBrowne/Ara-android&amp;utm_campaign=Badge_Grade)
 [![Gitter](https://badges.gitter.im/Arabyandromeda/community.svg)](https://gitter.im/Arabyandromeda/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
+## Usage
 
+- `./gradlew test` to run the unit tests
+- `./gradlew install` to install the app
 
 ## Author
 

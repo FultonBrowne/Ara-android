@@ -97,7 +97,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'org.tensorflow:tensorflow-lite:1.14.0'
 
-    androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha01', {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha02', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation "com.mikepenz:materialdrawer:7.0.0-alpha4i"

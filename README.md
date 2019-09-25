@@ -36,7 +36,7 @@ Give a ⭐️ if this project helped you!
 ## TODO
 * Expand voice support
 * IOT support
-* Skills SDK
+* Make voiceInteractionService work
 
 
 ## 📝 License

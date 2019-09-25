@@ -17,6 +17,7 @@
 package com.andromeda.ara;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
@@ -31,8 +32,6 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -45,6 +44,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.calUtility;
 import com.andromeda.ara.util.locl;
 import com.andromeda.ara.util.rss;
@@ -60,6 +60,8 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,12 +70,11 @@ import java.util.Objects;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-
+@SuppressLint("CutPasteId")
 public class MainActivity extends AppCompatActivity implements popupuiListDialogFragment.Listener {
 
 
     private final int REQUEST_LOCATION_PERMISSION = 1;
-
 
 
     // UI elements.
@@ -101,17 +102,10 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         setContentView(R.layout.activity_main);
         final tagManager main53 = new tagManager(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
+        boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
 
         final Context ctx = this;
         requestLocationPermission();
-        Window window = getWindow();
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setNavigationBarColor(getColor(R.color.semi_transparent));
-            window.setStatusBarColor(getColor(R.color.semi_transparent));
-
-
-        }*/
 
 
         StrictMode.ThreadPolicy policy = new
@@ -122,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         ActivityCompat.requestPermissions(MainActivity.this,
                 new String[]{Manifest.permission.READ_CALENDAR},
                 1);
-
 
 
         Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
@@ -150,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
                 .addProfiles(
                         new ProfileDrawerItem().withName("name").withEmail("email@gmail.com").withIcon(getResources().getDrawable(R.drawable.example_appwidget_preview)
-                ))
+                        ))
                 .withOnAccountHeaderListener((view, profile, currentProfile) -> false).withTextColorRes(R.color.md_white_1000)
                 .withHeaderBackground(R.color.semi_transparent)
 
@@ -165,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                     getText(R.string.textOK), (dialog, which) -> dialog.dismiss()).show();
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean(welcomeScreenShownPref, true);
-            editor.commit(); // Very important to save the preference
+            editor.apply(); // Very important to save the preference
         }
 
 
@@ -348,43 +341,40 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                             e.printStackTrace();
                         }
                     }
-                        if (drawerItem.getIdentifier() == 102) {
-                            mode = 1;
-                            Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
-                            try {
-                                RecyclerView recyclerView1 = findViewById(R.id.list);
+                    if (drawerItem.getIdentifier() == 102) {
+                        mode = 1;
+                        Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
+                        try {
+                            RecyclerView recyclerView1 = findViewById(R.id.list);
 
-                                rssFeedModel1 = (new rss().parseRss(3));
-                                mAdapter = new Adapter(rssFeedModel1);
+                            rssFeedModel1 = (new rss().parseRss(3));
+                            mAdapter = new Adapter(rssFeedModel1);
 
-                                recyclerView1.setAdapter(mAdapter);
+                            recyclerView1.setAdapter(mAdapter);
 
 
-                                //recyclerView.setAdapter(new Adapter(parseFeed()));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                        if (drawerItem.getIdentifier() == 105) {
-                            mode = 1;
-                            Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
-                            try {
-                                RecyclerView recyclerView1 = findViewById(R.id.list);
+                    }
+                    if (drawerItem.getIdentifier() == 105) {
+                        mode = 1;
+                        Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
+                        try {
+                            RecyclerView recyclerView1 = findViewById(R.id.list);
 
-                                rssFeedModel1 = (new rss().parseRss(4));
-                                mAdapter = new Adapter(rssFeedModel1);
+                            rssFeedModel1 = (new rss().parseRss(4));
+                            mAdapter = new Adapter(rssFeedModel1);
 
-                                recyclerView1.setAdapter(mAdapter);
+                            recyclerView1.setAdapter(mAdapter);
 
 
-                                //recyclerView.setAdapter(new Adapter(parseFeed()));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-
-
-
+                    }
 
 
                     return false;
@@ -631,6 +621,19 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     }
 
 
+
+    public void update11(MenuItem item) {
+       // new Toast(this).setText("checking for update");
+        try {
+            String url = new GetUrlAra().getIt(new URL("https://araserver.herokuapp.com/update/0.1"));
+            Intent browserIntent;
+
+            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(browserIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

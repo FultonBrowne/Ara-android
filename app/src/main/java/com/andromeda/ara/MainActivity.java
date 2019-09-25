@@ -60,7 +60,6 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -71,7 +70,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 @SuppressLint("CutPasteId")
-public class MainActivity extends AppCompatActivity implements popupuiListDialogFragment.Listener {
+public class MainActivity extends AppCompatActivity {
 
 
     private final int REQUEST_LOCATION_PERMISSION = 1;
@@ -563,18 +562,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         main53.close();
     }
 
-    @Override
-    public void onpopupuiClicked(int position) {
-        Intent browserIntent;
-        try {
-            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(new rss().parseRss(0).get(position).link));
-            startActivity(browserIntent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
 
     @RequiresApi(26)
     public String time() {
@@ -623,10 +610,11 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
     public void update11(MenuItem item) {
-       // new Toast(this).setText("checking for update");
+       Toast.makeText(this, "checking for update", Toast.LENGTH_LONG).show();
         try {
             String url = new GetUrlAra().getIt(new URL("https://araserver.herokuapp.com/update/0.1"));
             Intent browserIntent;
+            Toast.makeText(this, "update available", Toast.LENGTH_LONG).show();
 
             browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(browserIntent);

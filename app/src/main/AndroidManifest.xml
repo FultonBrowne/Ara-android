@@ -76,35 +76,6 @@
                 android:name="org.apache.http.legacy"
                 android:required="true"/>
 
-        <service
-                android:name=".HotWord"
-                android:label="@string/app_name">
-            <intent-filter>
-
-                <!--
-                     Here we identify that we are a RecognitionService by specifying that
-                     we satisfy RecognitionService's interface intent.
-
-                     The constant value is defined at RecognitionService.SERVICE_INTERFACE.
-                -->
-                <action android:name="android.speech.RecognitionService"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-            <!--
-                 This points to a metadata xml file that contains information about this
-                 RecognitionService - specifically, the name of the settings activity to
-                 expose in system settings.
-
-                 The constant value is defined at RecognitionService.SERVICE_META_DATA.
-            -->
-            <meta-data
-                    android:name="android.speech"
-                    android:resource="@xml/recognizer"/>
-        </service>
-
-        <activity android:name=".setup"/>
-        <activity android:name=".voiceActivity"/>
         <activity
                 android:name=".about"
                 android:label="@string/title_activity_about"

@@ -14,12 +14,16 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara;
+package com.andromeda.ara.voice;
 
 import android.util.Log;
 import android.util.Pair;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.List;
 
 /**
  * Reads in results from an instantaneous audio recognition model and smoothes them over time.

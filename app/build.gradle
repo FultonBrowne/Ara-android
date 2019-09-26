@@ -102,7 +102,7 @@ dependencies {
     })
     implementation "com.mikepenz:materialdrawer:7.0.0-alpha4i"
 // https://mvnrepository.com/artifact/khttp/khttp
-    implementation group: 'khttp', name: 'khttp', version: '0.1.0'
+    implementation group: 'khttp', name: 'khttp', version: '1.0.0'
 
 
     implementation 'androidx.core:core-ktx:1.1.0'

@@ -16,9 +16,10 @@
 
 package com.andromeda.ara.voice;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.andromeda.ara.R;
 
@@ -28,5 +29,11 @@ public class VoiceMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice_main);
+
+    }
+
+    public void back(View view) {
+        onBackPressed();
+
     }
 }

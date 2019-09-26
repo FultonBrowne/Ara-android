@@ -23,6 +23,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!-- <item name="android:fontFamily">@font/font1</item>-->
         <item name="colorAccent">@color/colorAccent</item>
+
         <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
         <item name="cardViewStyle">@style/CardView</item>
         <item name="floatingActionButtonStyle">@style/Widget.Design.FloatingActionButton</item>
@@ -31,13 +32,7 @@
 
 
     </style>
-    <style name="AppTheme.Translucent">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/semi_transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
-    </style>
+
 
 
     <style name="AppTheme.NoActionBar">
@@ -50,6 +45,14 @@
         <item name="android:windowBackground">@drawable/settingsback</item>
         <item name="android:textColor">@color/md_white_1000</item>
         <item name="android:textColorSecondary">@color/md_white_1000</item>
+    </style>
+    <style name="AppTheme.Translucent" parent="AppTheme.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/semi_transparent</item>
+
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
 

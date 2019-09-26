@@ -30,7 +30,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.andromeda.ara.about;
+import com.andromeda.ara.MainActivity;
 
 
 //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -44,7 +44,7 @@ public class AssistSess extends VoiceInteractionSession  {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     @Override
     public void onHandleAssist(Bundle data, AssistStructure structure, AssistContent content) {
         super.onHandleAssist(data, structure, content);
@@ -54,8 +54,15 @@ public class AssistSess extends VoiceInteractionSession  {
 
         Intent intent = new Intent(context, VoiceMain.class);
 
-        startAssistantActivity(intent);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startAssistantActivity(intent);
+        }
+        else {
+            intent = new Intent(context, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("voice" , true);
+            context.startActivity(intent);
+        }
 
 
     }

@@ -128,7 +128,7 @@ dependencies {
     implementation project(path: ':WolframAlpha-1.1')
     implementation group: 'com.rometools', name: 'rome', version: '1.12.0'
     // https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient
-    implementation group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1'
+    implementation group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1-jenkins-1'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
 

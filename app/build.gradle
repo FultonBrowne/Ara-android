@@ -90,7 +90,7 @@ dependencies {
     //implementation group: 'org.tensorflow', name: 'tensorflow-lite', version: '1.10.0'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.vectordrawable:vectordrawable:1.1.0-rc01'
+    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'

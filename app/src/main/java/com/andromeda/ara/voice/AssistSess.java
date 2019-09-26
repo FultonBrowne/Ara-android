@@ -19,6 +19,7 @@ package com.andromeda.ara.voice;
 import android.app.assist.AssistContent;
 import android.app.assist.AssistStructure;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,11 +29,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.PopupMenu;
 
+import com.andromeda.ara.about;
 
 
 //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class AssistSess extends VoiceInteractionSession  {
     Context context;
 
@@ -41,12 +43,19 @@ public class AssistSess extends VoiceInteractionSession  {
         this.context = context;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onHandleAssist(Bundle data, AssistStructure structure, AssistContent content) {
         super.onHandleAssist(data, structure, content);
         Log.v("AssistantSession","onHandleAssist");
         Toast.makeText(context, "hi", Toast.LENGTH_LONG).show();
+
+
+        Intent intent = new Intent(context, VoiceMain.class);
+
+        startAssistantActivity(intent);
+
 
 
     }
@@ -56,4 +65,5 @@ public class AssistSess extends VoiceInteractionSession  {
         Log.v("AssistantSession","onHandleScreenshot");
         super.onHandleScreenshot(screenshot);
     }
+
 }

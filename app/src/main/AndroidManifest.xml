@@ -28,7 +28,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".voice.VoiceMain"
+            android:theme="@style/AppTheme.Translucent">
+            <intent-filter>
+                <category android:name="android.intent.category.VOICE"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".allContent"
             android:label="@string/title_activity_all_content"

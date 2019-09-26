@@ -100,7 +100,7 @@ dependencies {
     androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha02', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation "com.mikepenz:materialdrawer:7.0.0-alpha4i"
+    implementation "com.mikepenz:materialdrawer:7.0.0-rc07"
 // https://mvnrepository.com/artifact/khttp/khttp
     implementation group: 'khttp', name: 'khttp', version: '0.1.0'
 

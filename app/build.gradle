@@ -80,8 +80,8 @@ android {
         targetCompatibility = '1.8'
     }
     lintOptions {
-          abortOnError false
-      }
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -105,8 +105,6 @@ dependencies {
     implementation group: 'khttp', name: 'khttp', version: '0.1.0'
 
 
-
-
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'io.github.ranga543:yelp-fusion-client:0.1.4'
@@ -128,7 +126,7 @@ dependencies {
     implementation project(path: ':WolframAlpha-1.1')
     implementation group: 'com.rometools', name: 'rome', version: '1.12.0'
     // https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient
-    implementation group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1-jenkins-1'
+    //implementation group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1-jenkins-1'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
 

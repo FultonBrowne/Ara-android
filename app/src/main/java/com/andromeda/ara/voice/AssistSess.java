@@ -28,10 +28,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.PopupMenu;
+
 
 
 //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-public class AssistSess extends VoiceInteractionSession {
+public class AssistSess extends VoiceInteractionSession  {
     Context context;
 
     public AssistSess(Context context) {
@@ -45,6 +47,7 @@ public class AssistSess extends VoiceInteractionSession {
         super.onHandleAssist(data, structure, content);
         Log.v("AssistantSession","onHandleAssist");
         Toast.makeText(context, "hi", Toast.LENGTH_LONG).show();
+
 
     }
 

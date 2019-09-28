@@ -18,17 +18,17 @@ package com.andromeda.ara
 
 
 import com.andromeda.ara.util.JsonParse
-import com.google.gson.Gson
 import java.net.URL
 import java.util.*
 
 
 class AraSearch {
-
-    val gson = Gson()
     fun arrayOfOutputModels(search: String): ArrayList<OutputModel>? {
+        //get URL
         val url = URL("https://araserver.herokuapp.com/api/$search")
+        //Debugging thing
         System.out.println("Staring...")
+        //parse Json
         return JsonParse().search(url.readText())
 
 

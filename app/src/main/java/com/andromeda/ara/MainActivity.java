@@ -463,7 +463,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
 
 
-                List<RssFeedModel> phrase2 = new search().main(phrase, 1);
+                List<RssFeedModel> phrase2 = new search().main(phrase);
 
                 rssFeedModel1.addAll(0, phrase2);
                 mAdapter.notifyDataSetChanged();
@@ -506,7 +506,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 String input = query;
                 //RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
-                ArrayList<RssFeedModel> rssFeedModel2 = (new search().main(query, mode));
+                ArrayList<RssFeedModel> rssFeedModel2 = (new search().main(query));
                 rssFeedModel1.addAll(0, rssFeedModel2);
                 mAdapter.notifyDataSetChanged();
 

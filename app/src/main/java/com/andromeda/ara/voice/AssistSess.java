@@ -63,7 +63,8 @@ public class AssistSess extends VoiceInteractionSession  {
 
 
     }
-
+    //gets screen shot if allowed via permissions
+    //TODO add a screen shot feature
     @Override
     public void onHandleScreenshot(@Nullable Bitmap screenshot) {
         Log.v("AssistantSession","onHandleScreenshot");

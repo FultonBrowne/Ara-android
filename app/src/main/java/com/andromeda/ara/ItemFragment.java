@@ -27,7 +27,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.andromeda.ara.dummy.DummyContent;
 import com.andromeda.ara.dummy.DummyContent.DummyItem;
 
 /**
@@ -38,9 +37,8 @@ import com.andromeda.ara.dummy.DummyContent.DummyItem;
  */
 public class ItemFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
+
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -84,7 +82,6 @@ public class ItemFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }

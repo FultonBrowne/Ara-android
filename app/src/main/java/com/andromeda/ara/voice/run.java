@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2019. Fulton Browne
+ *  This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.andromeda.ara.voice;
 
 import android.app.Activity;
@@ -8,8 +24,9 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.util.Log;
+
 import com.andromeda.ara.MainActivity;
-import com.andromeda.ara.RecognizeCommands;
+
 import org.tensorflow.lite.Interpreter;
 
 import java.io.BufferedReader;
@@ -18,37 +35,41 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 
 public class run {
     private List<String> displayedLabels = new ArrayList<>();
-    String resulttxt;
+    private String resulttxt;
     private RecognizeCommands recognizeCommands = null;
     private static final int SAMPLE_RATE = 16000;
     private static final int SAMPLE_DURATION_MS = 1000;
-    private static final int RECORDING_LENGTH = (int) (SAMPLE_RATE * SAMPLE_DURATION_MS / 1000);
+    private static final int RECORDING_LENGTH = SAMPLE_RATE * SAMPLE_DURATION_MS / 1000;
     private static final long AVERAGE_WINDOW_DURATION_MS = 1000;
     private static final float DETECTION_THRESHOLD = 0.50f;
     private static final int SUPPRESSION_MS = 1500;
     private static final int MINIMUM_COUNT = 3;
     private Thread recordingThread;
-    boolean shouldContinueRecognition = true;
-    Activity act1;
+    private boolean shouldContinueRecognition = true;
+    private Activity act1;
     private Thread recognitionThread;
-    boolean shouldContinue = true;
-    short[] recordingBuffer = new short[RECORDING_LENGTH];
+    private boolean shouldContinue = true;
+    private short[] recordingBuffer = new short[RECORDING_LENGTH];
     private final ReentrantLock recordingBufferLock = new ReentrantLock();
 
-    int recordingOffset = 0;
+    private int recordingOffset = 0;
 
     private static final long MINIMUM_TIME_BETWEEN_SAMPLES_MS = 30;
     private static final String LABEL_FILENAME = "file:///android_asset/conv_actions_labels.txt";
     private static final String MODEL_FILENAME = "file:///android_asset/conv_actions_frozen.tflite";
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    private List<String> labels = new ArrayList<String>();
+    private List<String> labels = new ArrayList<>();
 
     private static MappedByteBuffer loadModelFile(AssetManager assets, String modelFilename)
             throws IOException {
@@ -62,11 +83,11 @@ public class run {
 
     private Interpreter tfLite;
 
-    public synchronized String run(Context ctx, Activity act) {
+    public synchronized String run1(Context ctx, Activity act) {
         act1 = act;
         String actualLabelFilename = LABEL_FILENAME.split("file:///android_asset/", -1)[1];
         Log.i(LOG_TAG, "Reading labels from: " + actualLabelFilename);
-        BufferedReader br = null;
+        BufferedReader br;
         try {
             br = new BufferedReader(new InputStreamReader(ctx.getAssets().open(actualLabelFilename)));
             String line;
@@ -107,7 +128,7 @@ public class run {
         return resulttxt;
     }
 
-    public synchronized void startRecognition() {
+    private synchronized void startRecognition() {
         if (recognitionThread != null) {
             return;
         }
@@ -131,7 +152,7 @@ public class run {
         recognitionThread = null;
     }
 
-    public synchronized void startRecording() {
+    private synchronized void startRecording() {
         if (recordingThread != null) {
             return;
         }
@@ -278,6 +299,7 @@ public class run {
                                         break;
                                     case 2:
                                         resulttxt = "up";
+
                                         break;
                                     case 3:
                                         resulttxt = "down";

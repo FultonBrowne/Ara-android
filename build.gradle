@@ -1,19 +1,23 @@
-ext {
-    var = '0.1.0'
-}
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+/*
+ * Copyright (c) 2019. Fulton Browne
+ *  This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    repositories {
-        jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
-        google()
-    }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.android.tools.build:gradle:3.5.0'
         classpath 'com.google.android.material:material:1.1.0-alpha06'
         // https://mvnrepository.com/artifact/com.rometools/rome
         //classpath group: 'com.rometools', name: 'rome', version: '1.5.0'
@@ -21,6 +25,16 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+}
+plugins {
+    // :refreshVersions see https://github.com/jmfayard/buildSrcVersions/issues/77
+    id("de.fayard.buildSrcVersions").version("0.6.1")
+    id ("com.gradle.build-scan").version("2.4.2") 
+
+}
+
+ext {
+    var = '0.1.0'
 }
 
 
@@ -31,6 +45,26 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
+tasks.create("install") {
+    group = "custom"
+    description = "Install the app"
+    dependsOn(":app:installDebug")
+}
+
+tasks.create("test") {
+    group = "custom"
+    description = "Run the unit tests"
+    dependsOn(":app:testDebugUnitTest")
+}
+
+tasks.create("clean", Delete) {
     delete rootProject.buildDir
+}
+
+
+// ./gradlew --scan $TASKNAME 
+// see https://dev.to/jmfayard/the-one-gradle-trick-that-supersedes-all-the-others-5bpg
+buildScan {
+    termsOfServiceUrl = "https://gradle.com/terms-of-service"
+    termsOfServiceAgree = "yes"
 }

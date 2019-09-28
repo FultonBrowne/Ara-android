@@ -1,16 +1,30 @@
+/*
+ * Copyright (c) 2019. Fulton Browne
+ *  This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.andromeda.ara;
 
 import com.wolfram.alpha.*;
 
-import java.util.List;
+
 
 public class Wolfram {
-    String title;
-    String info;
-    String link;
-    String mdef;
-    List<RssFeedModel> Out;
-    String image = null;
+    private String title;
+    private String info;
+    private String link;
+    private String image = null;
 
 
 
@@ -62,8 +76,7 @@ public class Wolfram {
         } catch (WAException e) {
             e.printStackTrace();
         }
-        RssFeedModel rssFeedModel = new RssFeedModel(info, link, title, image);
-        return rssFeedModel;
+        return new RssFeedModel(info, link, title, image);
 
     }
 

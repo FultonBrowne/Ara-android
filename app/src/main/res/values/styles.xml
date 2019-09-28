@@ -1,3 +1,19 @@
+<!--
+  ~ Copyright (c) 2019. Fulton Browne
+  ~  This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
 <resources>
 
     <!-- Base application theme. -->
@@ -7,17 +23,36 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!-- <item name="android:fontFamily">@font/font1</item>-->
         <item name="colorAccent">@color/colorAccent</item>
+
         <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
         <item name="cardViewStyle">@style/CardView</item>
         <item name="floatingActionButtonStyle">@style/Widget.Design.FloatingActionButton</item>
+        <item name="android:windowBackground">@drawable/arasplash</item>
         <!--<item name="android:windowBackground">@drawable/launch_screen</item>-->
 
 
     </style>
 
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+    </style>
+
+    <style name="PreferencesTheme" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@drawable/settingsback</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:textColorSecondary">@color/md_white_1000</item>
+    </style>
+    <style name="AppTheme.Translucent" parent="AppTheme.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/semi_transparent</item>
+
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
 

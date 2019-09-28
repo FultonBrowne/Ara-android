@@ -1,12 +1,28 @@
+/*
+ * Copyright (c) 2019. Fulton Browne
+ *  This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.andromeda.ara;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -17,7 +33,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -25,9 +43,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.calUtility;
 import com.andromeda.ara.util.locl;
-import com.google.android.gms.location.FusedLocationProviderClient;
+import com.andromeda.ara.util.rss;
+import com.andromeda.ara.voice.run;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -37,155 +58,41 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.rometools.rome.feed.synd.SyndEntry;
-import com.rometools.rome.feed.synd.SyndFeed;
-import com.rometools.rome.io.FeedException;
-import com.rometools.rome.io.SyndFeedInput;
-import com.rometools.rome.io.XmlReader;
-import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
-import org.tensorflow.lite.Interpreter;
+
+import java.io.IOException;
+import java.net.URL;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
+@SuppressLint("CutPasteId")
+public class MainActivity extends AppCompatActivity {
 
 
-public class MainActivity extends AppCompatActivity implements popupuiListDialogFragment.Listener {
-
-
-    private static final String LOG_TAG ="e" ;
-    public SwipeRefreshLayout mSwipeLayout;
-    short[] recordingBuffer = new short[RECORDING_LENGTH];
-    int recordingOffset = 0;
-    boolean shouldContinue = true;
-    private Thread recordingThread;
-    boolean shouldContinueRecognition = true;
-    private Thread recognitionThread;
-    private final ReentrantLock recordingBufferLock = new ReentrantLock();
-    private RecognizeCommands recognizeCommands = null;
-    private TensorFlowInferenceInterface inferenceInterface;
-    private List<String> labels = new ArrayList<String>();
-    private List<String> displayedLabels = new ArrayList<>();
-    //private voiceInput recognizeCommands = null;
     private final int REQUEST_LOCATION_PERMISSION = 1;
-    private static final int SAMPLE_RATE = 16000;
-    private static final int SAMPLE_DURATION_MS = 1000;
-    private static final int RECORDING_LENGTH = (int) (SAMPLE_RATE * SAMPLE_DURATION_MS / 1000);
-    private static final long AVERAGE_WINDOW_DURATION_MS = 500;
-    private static final float DETECTION_THRESHOLD = 0.70f;
-    private static final int SUPPRESSION_MS = 1500;
-    private Interpreter tfLite;
-    String resulttxt = "err";
-    private static final int MINIMUM_COUNT = 3;
-    private static final long MINIMUM_TIME_BETWEEN_SAMPLES_MS = 30;
-    private static final String LABEL_FILENAME = "file:///android_asset/conv_actions_labels.txt";
-    private static final String MODEL_FILENAME = "file:///android_asset/conv_actions_frozen.tflite";
-    private static final String INPUT_DATA_NAME = "decoded_sample_data:0";
-    private static final String SAMPLE_RATE_NAME = "decoded_sample_data:1";
-    private static final String OUTPUT_SCORES_NAME = "labels_softmax";
-
-    private static MappedByteBuffer loadModelFile(AssetManager assets, String modelFilename)
-            throws IOException {
-        AssetFileDescriptor fileDescriptor = assets.openFd(modelFilename);
-        FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
-        FileChannel fileChannel = inputStream.getChannel();
-        long startOffset = fileDescriptor.getStartOffset();
-        long declaredLength = fileDescriptor.getDeclaredLength();
-        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength);
-    }
-
-    Boolean done = false;
 
 
     // UI elements.
     private static final int REQUEST_RECORD_AUDIO = 13;
 
-    int searchmode = 1;
-    double lat;
-    double log;
-    String mTime = "hello";
-    Toolbar mActionBarToolbar;
-    private FusedLocationProviderClient fusedLocationClient;
-    private Drawer result1 = null;
-    String title1;
 
-    String web1;
+    private String mTime = "hello";
+    private Drawer drawer = null;
+    private String title1;
+    SharedPreferences mPrefs;
+    final String welcomeScreenShownPref = "welcomeScreenShown";
+
+    private String web1;
     //RssFeedModel test222 = new search().main("hi",1);
-    public int mode = 1;
+    private int mode = 1;
 
 
     private RecyclerView.Adapter mAdapter;
-    List<RssFeedModel> rssFeedModel1 = new ArrayList<>();
-
-    public static List<RssFeedModel> parseFeed() throws IOException {
-        String mFeedTitle;
-        String mFeedImage;
-        String mFeedLink;
-        String mFeedDescription;
-
-
-        List<SyndEntry> mTest;
-        List<RssFeedModel> items = new ArrayList<>();
-        XmlReader xmlReader = null;
-        try {
-            URL feed = new URL("https://www.espn.com/espn/rss/news/rss.xml");
-            //URL feed = new URL("http://localhost:8000/test");
-
-
-            feed.openConnection();
-            xmlReader = new XmlReader(feed);
-
-            SyndFeedInput input = new SyndFeedInput();
-            SyndFeed feedAllData = new SyndFeedInput().build(xmlReader);
-            for (Iterator iterator = feedAllData.getEntries().iterator(); iterator
-                    .hasNext(); ) {
-                SyndEntry syndEntry = (SyndEntry) iterator.next();
-                mFeedDescription = syndEntry.getDescription().getValue();
-                mFeedTitle = syndEntry.getTitle();
-                mFeedLink = syndEntry.getLink();
-
-                RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "");
-                items.add(rssFeedModel);
-
-
-            }
-
-
-        } catch (IOException e) {
-            mFeedLink = "err";
-            mFeedTitle = "err";
-            mFeedDescription = "err";
-            RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "");
-            items.add(rssFeedModel);
-
-        } catch (FeedException e) {
-            mFeedLink = "err";
-            mFeedTitle = "err";
-            mFeedDescription = "err";
-            RssFeedModel rssFeedModel = new RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "");
-            items.add(rssFeedModel);
-
-        } finally {
-            if (xmlReader != null)
-                xmlReader.close();
-        }
-
-
-        return items;
-
-
-    }
+    private List<RssFeedModel> rssFeedModel1 = new ArrayList<>();
 
 
     @Override
@@ -193,9 +100,11 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final tagManager main53 = new tagManager(this);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
+
         final Context ctx = this;
         requestLocationPermission();
-
 
 
         StrictMode.ThreadPolicy policy = new
@@ -206,47 +115,63 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         ActivityCompat.requestPermissions(MainActivity.this,
                 new String[]{Manifest.permission.READ_CALENDAR},
                 1);
-        ;
 
 
-        mActionBarToolbar = findViewById(R.id.toolbar);
+        Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
         RecyclerView recyclerView = findViewById(R.id.list);
 
-        String test1 = PreferenceManager.getDefaultSharedPreferences(this).getString("example_text", "defaultStringIfNothingFound");
 
+        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Home").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.home);
+        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName("Tags").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.tag);
+        SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName("Food").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.food);
+        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(4).withName("Shopping").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.shop);
+        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5).withName("Agenda").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.ic_today_black_24dp);
+        SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(6).withName("Shortcuts").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.shortcut);
+        SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Devices").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.devices);
+        SecondaryDrawerItem news1 = new SecondaryDrawerItem().withIdentifier(102).withName("Tech").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.technews);
+        SecondaryDrawerItem news3 = new SecondaryDrawerItem().withIdentifier(104).withName("Domestic").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.domnews);
+        SecondaryDrawerItem news4 = new SecondaryDrawerItem().withIdentifier(105).withName(getString(R.string.moneyText)).withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.money);
+        SecondaryDrawerItem news2 = new SecondaryDrawerItem().withIdentifier(103).withName("World").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.worldnews);
+        SecondaryDrawerItem newsmain = new SecondaryDrawerItem().withIdentifier(101).withName("News").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSubItems(news1, news2, news3, news4).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.news);
 
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("home");
-        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName("tags");
-        SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName("food");
-        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(4).withName("shopping");
-        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5).withName("agenda");
-        // lose dis if crash
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 //.withHeaderBackground(R.drawable.back)
 
 
                 .addProfiles(
-                        new ProfileDrawerItem().withName("name").withEmail("email@gmail.com").withIcon(getResources().getDrawable(R.drawable.example_appwidget_preview))
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        return false;
-                    }
-                })
+                        new ProfileDrawerItem().withName("name").withEmail("email@gmail.com").withIcon(getResources().getDrawable(R.drawable.example_appwidget_preview)
+                        ))
+                .withOnAccountHeaderListener((view, profile, currentProfile) -> false).withTextColorRes(R.color.md_white_1000)
+                .withHeaderBackground(R.color.semi_transparent)
+
                 .build();
+        if (!welcomeScreenShown) {
+            // here you can launch another activity if you like
+            // the code below will display a popup
+
+            String whatsNewTitle = ("Welcome to ara for android!");
+            String whatsNewText = ("Thank you for downloading and investing in the next generation of intelligent voice assistants.");
+            new AlertDialog.Builder(this).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
+                    getText(R.string.textOK), (dialog, which) -> dialog.dismiss()).show();
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putBoolean(welcomeScreenShownPref, true);
+            editor.apply(); // Very important to save the preference
+        }
 
 
 //Now create your drawer and pass the AccountHeader.Result
 
 
 //create the drawer and remember the `Drawer` result object
-        result1 = new DrawerBuilder()
+        drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
+                //.withSliderBackgroundColorRes(R.color.colorBack)
+                .withSliderBackgroundDrawableRes(R.drawable.drawerimage)
+                .withFullscreen(true).withTranslucentNavigationBarProgrammatically(true)
 
                 .withTranslucentStatusBar(true)
                 .addDrawerItems(
@@ -254,157 +179,232 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                         new DividerDrawerItem(),
                         item2,
                         item3,
+                        newsmain,
                         item4,
-                        item5
+                        item5,
+                        item6,
+                        item7
                 )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        if (drawerItem.getIdentifier() == 1) {
-                            mode = 1;
-                            Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
-                            try {
-                                RecyclerView recyclerView = findViewById(R.id.list);
 
-                                rssFeedModel1 = (parseFeed());
-                                mAdapter = new Adapter(rssFeedModel1);
+                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                    if (drawerItem.getIdentifier() == 1) {
+                        mode = 1;
+                        Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
+                        try {
+                            RecyclerView recyclerView1 = findViewById(R.id.list);
 
-                                recyclerView.setAdapter(mAdapter);
-
-
-                                //recyclerView.setAdapter(new Adapter(parseFeed()));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        } else if (drawerItem.getIdentifier() == 2) {
-                            Toast.makeText(getApplicationContext(), "number 2", Toast.LENGTH_SHORT).show();
-
-                            RecyclerView recyclerView = findViewById(R.id.list);
-                            main53.open();
-                            //final Cursor cursor = main53.fetch();
-                            Cursor cursor = main53.fetch();
-                            RssFeedModel test = new RssFeedModel("", "", "", "");
-
-
-                            if (cursor != null && cursor.moveToFirst()) {
-                                cursor.moveToFirst();
-
-                                while (!cursor.isAfterLast()) {
-                                    rssFeedModel1.clear();
-                                    title1 = cursor.getString(1);
-                                    web1 = cursor.getString(2);
-                                    test = new RssFeedModel(title1, web1, "", "");
-                                    rssFeedModel1.add(test);
-                                    cursor.moveToNext();
-                                }
-                            } else {
-                                title1 = "nothing";
-                                web1 = "reload app";
-                                test = new RssFeedModel(title1, web1, "", "");
-                                rssFeedModel1.add(test);
-
-
-                            }
-                            //RssFeedModel test = new RssFeedModel( title1, web1, "","");
-                            //rssFeedModel1.clear();
-                            //rssFeedModel1.add(test);
+                            rssFeedModel1 = (new rss().parseRss(0));
                             mAdapter = new Adapter(rssFeedModel1);
 
-
-                            recyclerView.setAdapter(mAdapter);
+                            recyclerView1.setAdapter(mAdapter);
 
 
                             //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (drawerItem.getIdentifier() == 2) {
+                        Toast.makeText(getApplicationContext(), "number 2", Toast.LENGTH_SHORT).show();
 
-                        } else if (drawerItem.getIdentifier() == 3) {
-                            mode = 2;
-                            Toast.makeText(getApplicationContext(), "number 3", Toast.LENGTH_SHORT).show();
-                            RecyclerView recyclerView = findViewById(R.id.list);
+                        RecyclerView recyclerView1 = findViewById(R.id.list);
+                        main53.open();
+                        //final Cursor cursor = main53.fetch();
+                        Cursor cursor = main53.fetch();
+                        RssFeedModel test = new RssFeedModel("", "", "", "");
 
 
-                            RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
-                            rssFeedModel1.clear();
+                        if (cursor != null && cursor.moveToFirst()) {
+                            cursor.moveToFirst();
+
+                            while (!cursor.isAfterLast()) {
+                                rssFeedModel1.clear();
+                                title1 = cursor.getString(1);
+                                web1 = cursor.getString(2);
+                                test = new RssFeedModel(title1, web1, "", "");
+                                rssFeedModel1.add(test);
+                                cursor.moveToNext();
+                            }
+                        } else {
+                            title1 = "nothing";
+                            web1 = "reload app";
+                            test = new RssFeedModel(title1, web1, "", "");
                             rssFeedModel1.add(test);
 
 
-                            //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
-
-
-                            new locl(ctx);
-                            ArrayList<RssFeedModel> main352 = new food().getFood(Double.toString(locl.longitude), Double.toString(locl.latitude));
-                            rssFeedModel1 = main352;
-                            mAdapter = new Adapter(rssFeedModel1);
-
-                            recyclerView.setAdapter(mAdapter);
-
-
-                            //recyclerView.setAdapter(new Adapter(parseFeed()));
-                        } else if (drawerItem.getIdentifier() == 4) {
-                            mode = 3;
-                            Toast.makeText(getApplicationContext(), "number 4", Toast.LENGTH_SHORT).show();
-                            RecyclerView recyclerView = findViewById(R.id.list);
-
-
-                            RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
-                            rssFeedModel1.clear();
-
-
-                            //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
-
-
-                            new locl(ctx);
-                            ArrayList<RssFeedModel> main352 = new shopping().getShops(Double.toString((locl.longitude)), Double.toString((locl.latitude)));
-                            rssFeedModel1 = main352;
-                            mAdapter = new Adapter(rssFeedModel1);
-
-                            recyclerView.setAdapter(mAdapter);
-
-
-                            //recyclerView.setAdapter(new Adapter(parseFeed()));
-                        } else if (drawerItem.getIdentifier() == 5) {
-                            mode = 3;
-                            Toast.makeText(getApplicationContext(), "number 5", Toast.LENGTH_SHORT).show();
-                            RecyclerView recyclerView = findViewById(R.id.list);
-
-
-                            RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
-                            rssFeedModel1.clear();
-                            ActivityCompat.requestPermissions(MainActivity.this,
-                                    new String[]{Manifest.permission.READ_CALENDAR},
-                                    1);
-
-
-                            //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
-
-                            ArrayList<RssFeedModel> main352 = (ArrayList<RssFeedModel>) calUtility.readCalendarEvent(ctx);
-                            rssFeedModel1 = main352;
-                            mAdapter = new Adapter(rssFeedModel1);
-
-                            recyclerView.setAdapter(mAdapter);
-
-
-                            //recyclerView.setAdapter(new Adapter(parseFeed()));
                         }
+                        //RssFeedModel test = new RssFeedModel( title1, web1, "","");
+                        //rssFeedModel1.clear();
+                        //rssFeedModel1.add(test);
+                        mAdapter = new Adapter(rssFeedModel1);
 
 
-                        return false;
-                        // do something with the clicked item :D
+                        recyclerView1.setAdapter(mAdapter);
+
+
+                        //recyclerView.setAdapter(new Adapter(parseFeed()));
+
+                    } else if (drawerItem.getIdentifier() == 3) {
+                        mode = 2;
+                        Toast.makeText(getApplicationContext(), "number 3", Toast.LENGTH_SHORT).show();
+                        RecyclerView recyclerView1 = findViewById(R.id.list);
+
+
+                        RssFeedModel test = new RssFeedModel("food", "zomato.com", "food near you coming soon", "");
+                        rssFeedModel1.clear();
+                        rssFeedModel1.add(test);
+
+
+                        //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
+
+
+                        new locl(ctx);
+                        ArrayList<RssFeedModel> foodFinal = new food().getFood(Double.toString(locl.longitude), Double.toString(locl.latitude));
+                        rssFeedModel1 = foodFinal;
+                        mAdapter = new Adapter(rssFeedModel1);
+
+                        recyclerView1.setAdapter(mAdapter);
+
+
+                        //recyclerView.setAdapter(new Adapter(parseFeed()));
+                    } else if (drawerItem.getIdentifier() == 4) {
+                        mode = 3;
+                        Toast.makeText(getApplicationContext(), "number 4", Toast.LENGTH_SHORT).show();
+                        RecyclerView recyclerView1 = findViewById(R.id.list);
+
+                        rssFeedModel1.clear();
+
+
+                        //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
+
+
+                        new locl(ctx);
+                        ArrayList<RssFeedModel> shoppingOutput = new shopping().getShops(Double.toString((locl.longitude)), Double.toString((locl.latitude)));
+                        rssFeedModel1 = shoppingOutput;
+                        mAdapter = new Adapter(rssFeedModel1);
+
+                        recyclerView1.setAdapter(mAdapter);
+
+
+                        //recyclerView.setAdapter(new Adapter(parseFeed()));
+                    } else if (drawerItem.getIdentifier() == 5) {
+                        mode = 3;
+                        Toast.makeText(getApplicationContext(), "number 5", Toast.LENGTH_SHORT).show();
+                        RecyclerView recyclerView1 = findViewById(R.id.list);
+
+                        rssFeedModel1.clear();
+                        ActivityCompat.requestPermissions(MainActivity.this,
+                                new String[]{Manifest.permission.READ_CALENDAR},
+                                1);
+
+
+                        //ArrayList<RssFeedModel> main352 = new food().getFood("-122.658722","45.512230");
+
+                        ArrayList<RssFeedModel> calenderContent = calUtility.readCalendarEvent(ctx);
+                        rssFeedModel1 = calenderContent;
+                        mAdapter = new Adapter(rssFeedModel1);
+
+                        recyclerView1.setAdapter(mAdapter);
+
+
+                        //recyclerView.setAdapter(new Adapter(parseFeed()));
+                    } else if (drawerItem.getIdentifier() == 102) {
+                        mode = 1;
+                        Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
+                        try {
+                            RecyclerView recyclerView1 = findViewById(R.id.list);
+
+                            rssFeedModel1 = (new rss().parseRss(2));
+                            mAdapter = new Adapter(rssFeedModel1);
+
+                            recyclerView1.setAdapter(mAdapter);
+
+
+                            //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (drawerItem.getIdentifier() == 101) {
+                        mode = 1;
+                        Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
+                        try {
+                            RecyclerView recyclerView1 = findViewById(R.id.list);
+
+                            rssFeedModel1 = (new rss().parseRss(1));
+                            mAdapter = new Adapter(rssFeedModel1);
+
+                            recyclerView1.setAdapter(mAdapter);
+
+
+                            //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (drawerItem.getIdentifier() == 102) {
+                        mode = 1;
+                        Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
+                        try {
+                            RecyclerView recyclerView1 = findViewById(R.id.list);
+
+                            rssFeedModel1 = (new rss().parseRss(3));
+                            mAdapter = new Adapter(rssFeedModel1);
+
+                            recyclerView1.setAdapter(mAdapter);
+
+
+                            //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (drawerItem.getIdentifier() == 105) {
+                        mode = 1;
+                        Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
+                        try {
+                            RecyclerView recyclerView1 = findViewById(R.id.list);
+
+                            rssFeedModel1 = (new rss().parseRss(4));
+                            mAdapter = new Adapter(rssFeedModel1);
+
+                            recyclerView1.setAdapter(mAdapter);
+
+
+                            //recyclerView.setAdapter(new Adapter(parseFeed()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
 
+                    return false;
+                    // do something with the clicked item :D
                 })
                 .build();
 
-        getSupportActionBar().setTitle(mTime);
+
+        Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);
         StrictMode.setThreadPolicy(policy);
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Intent browserIntent;
-                browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
+                if (drawer.getCurrentSelection() == 1) {
+                    Intent browserIntent;
 
-                startActivity(browserIntent);
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
+                    startActivity(browserIntent);
+
+                } else {
+                    Intent intent = new Intent(ctx, allContent.class);
+
+                    intent.putExtra("NAME", rssFeedModel1.get(position).title);
+                    intent.putExtra("DESC", rssFeedModel1.get(position).description);
+                    intent.putExtra("PIC", rssFeedModel1.get(position).image);
+
+                    //startActivity(browserIntent);
+
+                    startActivity(intent);
+                }
             }
 
 
@@ -416,15 +416,15 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
             }
         }));
-        mSwipeLayout = findViewById(R.id.swipe1);
+        SwipeRefreshLayout mSwipeLayout = findViewById(R.id.swipe1);
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 try {
                     rssFeedModel1.clear();
-                    List<RssFeedModel> items2 = (parseFeed());
-                    rssFeedModel1 = (parseFeed());
-                    rssFeedModel1.addAll(items2);
+
+                    rssFeedModel1 = (new rss().parseRss(0));
+
                     mAdapter.notifyDataSetChanged();
 
                 } catch (IOException e) {
@@ -437,7 +437,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         try {
-            rssFeedModel1 = (parseFeed());
+            rssFeedModel1 = (new rss().parseRss(0));
             mAdapter = new Adapter(rssFeedModel1);
 
             recyclerView.setAdapter(mAdapter);
@@ -459,11 +459,11 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 Activity activity = (Activity) ctx;
                 requestMicrophonePermission();
 
-                String phrase = new com.andromeda.ara.voice.run().run(ctx, activity);
+                String phrase = new run().run1(ctx, activity);
                 Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
 
 
-                List<RssFeedModel> phrase2 = new search().main(phrase, 1);
+                List<RssFeedModel> phrase2 = new search().main(phrase);
 
                 rssFeedModel1.addAll(0, phrase2);
                 mAdapter.notifyDataSetChanged();
@@ -506,7 +506,7 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 String input = query;
                 //RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
-                ArrayList<RssFeedModel> rssFeedModel2 = (new search().main(query, mode));
+                ArrayList<RssFeedModel> rssFeedModel2 = (new search().main(query));
                 rssFeedModel1.addAll(0, rssFeedModel2);
                 mAdapter.notifyDataSetChanged();
 
@@ -546,10 +546,10 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
     @Override
     public void onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (result1 != null && result1.isDrawerOpen()) {
-            result1.closeDrawer();
-        } else if (result1 != null && !result1.isDrawerOpen()) {
-            result1.openDrawer();
+        if (drawer != null && drawer.isDrawerOpen()) {
+            drawer.closeDrawer();
+        } else if (drawer != null && !drawer.isDrawerOpen()) {
+            drawer.openDrawer();
         } else {
             super.onBackPressed();
         }
@@ -562,18 +562,6 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
         main53.close();
     }
 
-    @Override
-    public void onpopupuiClicked(int position) {
-        Intent browserIntent;
-        try {
-            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(parseFeed().get(position).link));
-            startActivity(browserIntent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
 
     @RequiresApi(26)
     public String time() {
@@ -608,10 +596,12 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
             EasyPermissions.requestPermissions(this, "Please grant the location permission", REQUEST_LOCATION_PERMISSION, perms);
         }
     }
+
     private void requestMicrophonePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(
                     new String[]{android.Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_AUDIO);
+
         }
 
 
@@ -619,6 +609,19 @@ public class MainActivity extends AppCompatActivity implements popupuiListDialog
 
 
 
+    public void update11(MenuItem item) {
+       Toast.makeText(this, "checking for update", Toast.LENGTH_LONG).show();
+        try {
+            String url = new GetUrlAra().getIt(new URL("https://araserver.herokuapp.com/update/0.1"));
+            Intent browserIntent;
+            Toast.makeText(this, "update available", Toast.LENGTH_LONG).show();
+
+            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(browserIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

@@ -1,3 +1,7 @@
 <component name="CopyrightManager">
-  <settings default="" />
+  <settings default="gnu ara">
+    <module2copyright>
+      <element module="All" copyright="gnu ara" />
+    </module2copyright>
+  </settings>
 </component>

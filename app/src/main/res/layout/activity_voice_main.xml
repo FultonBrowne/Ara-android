@@ -23,20 +23,28 @@
     tools:context=".voice.VoiceMain">
     <com.google.android.material.bottomappbar.BottomAppBar android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_gravity="bottom"><TextView
+        app:fabAlignmentMode="center"
+        android:id="@+id/bottom_app_bar"
+
+        android:layout_gravity="bottom">
+
+        <TextView
         android:layout_width="wrap_content"
         android:text="@string/test"
+
         android:layout_height="match_parent"/>
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
+        app:layout_anchor="@id/bottom_app_bar"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:onClick="back"
-        android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/xbutton" />
+        app:srcCompat="@drawable/xbutton"
+        android:focusable="true" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

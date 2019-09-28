@@ -32,32 +32,29 @@ import androidx.annotation.RequiresApi;
 
 import com.andromeda.ara.MainActivity;
 
-
-//@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class AssistSess extends VoiceInteractionSession  {
-    Context context;
+    private Context context;
 
-    public AssistSess(Context context) {
+    AssistSess(Context context) {
         super(context);
         this.context = context;
     }
-
-
-
     @Override
+    //Runs when Ara is summoned
     public void onHandleAssist(Bundle data, AssistStructure structure, AssistContent content) {
         super.onHandleAssist(data, structure, content);
         Log.v("AssistantSession","onHandleAssist");
+        //new intent
         Toast.makeText(context, "hi", Toast.LENGTH_LONG).show();
-
-
         Intent intent = new Intent(context, VoiceMain.class);
-
+        //Run the intent
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startAssistantActivity(intent);
+            onBackPressed();
         }
         else {
+            //Start the home page
             intent = new Intent(context, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("voice" , true);

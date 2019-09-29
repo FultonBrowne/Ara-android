@@ -13,6 +13,8 @@ By Andromeda Software
 [![Gitter](https://badges.gitter.im/Arabyandromeda/community.svg)](https://gitter.im/Arabyandromeda/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Usage
+- Open in android studio and use the normal steps to run
+###### or
 
 - `./gradlew test` to run the unit tests
 - `./gradlew install` to install the app

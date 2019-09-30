@@ -28,7 +28,10 @@ By Andromeda Software
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/andromeda-software/Ara-android/issues).
-If you contribute please commit to a new branch and explain details in your pull request not in your commit.
+If you contribute please commit to a new branch and explain details in your pull request not in your commit. 
+
+
+If you want to become an active contributor go [here](https://findcollabs.com/project/RRBNiqp3CQVNFGTsHWQn).
 
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/fultonbrowne/ara-android)

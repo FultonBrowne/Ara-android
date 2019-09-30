@@ -24,7 +24,7 @@ class search {
         OutputList.add(RssFeedModel("", "", "", ""))
             //search ara server
             var searchmode1 = mainval.toLowerCase()
-            searchmode1.replace(" ", "%20")
+           searchmode1 = searchmode1.replace(" ", "%20")
             val test1 = AraSearch().arrayOfOutputModels(searchmode1)
             OutputList = ApiOutputToRssFeed().main(test1)
             System.out.println("done")

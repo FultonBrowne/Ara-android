@@ -33,18 +33,19 @@ import androidx.annotation.RequiresApi;
 import com.andromeda.ara.MainActivity;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
-public class AssistSess extends VoiceInteractionSession  {
+public class AssistSess extends VoiceInteractionSession {
     private Context context;
 
     AssistSess(Context context) {
         super(context);
         this.context = context;
     }
+
     @Override
     //Runs when Ara is summoned
     public void onHandleAssist(Bundle data, AssistStructure structure, AssistContent content) {
         super.onHandleAssist(data, structure, content);
-        Log.v("AssistantSession","onHandleAssist");
+        Log.v("AssistantSession", "onHandleAssist");
         //new intent
         Toast.makeText(context, "hi", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(context, VoiceMain.class);
@@ -52,22 +53,22 @@ public class AssistSess extends VoiceInteractionSession  {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startAssistantActivity(intent);
             onBackPressed();
-        }
-        else {
+        } else {
             //Start the home page
             intent = new Intent(context, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("voice" , true);
+            intent.putExtra("voice", true);
             context.startActivity(intent);
         }
 
 
     }
+
     //gets screen shot if allowed via permissions
     //TODO add a screen shot feature
     @Override
     public void onHandleScreenshot(@Nullable Bitmap screenshot) {
-        Log.v("AssistantSession","onHandleScreenshot");
+        Log.v("AssistantSession", "onHandleScreenshot");
         super.onHandleScreenshot(screenshot);
     }
 

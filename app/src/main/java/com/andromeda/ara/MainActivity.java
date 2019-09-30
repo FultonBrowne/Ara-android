@@ -461,11 +461,6 @@ public class MainActivity extends AppCompatActivity {
 
                 String phrase = new run().run1(ctx, activity);
                 Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
-
-
-                List<RssFeedModel> phrase2 = new search().main(phrase);
-
-                rssFeedModel1.addAll(0, phrase2);
                 mAdapter.notifyDataSetChanged();
 
 
@@ -504,9 +499,9 @@ public class MainActivity extends AppCompatActivity {
 
             public boolean onQueryTextSubmit(String query) {
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
-                String input = query;
                 //RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
-                ArrayList<RssFeedModel> rssFeedModel2 = (new search().main(query));
+                requestLocationPermission();
+                ArrayList<RssFeedModel> rssFeedModel2 = (new search().main(query,Double.toString(locl.longitude), Double.toString(locl.latitude)));
                 rssFeedModel1.addAll(0, rssFeedModel2);
                 mAdapter.notifyDataSetChanged();
 
@@ -514,6 +509,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         };
+        assert searchView != null;
         searchView.setOnQueryTextListener(queryTextListener);
 
 
@@ -531,14 +527,11 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
 
 
     }
@@ -608,9 +601,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void update11(MenuItem item) {
-       Toast.makeText(this, "checking for update", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "checking for update", Toast.LENGTH_LONG).show();
         try {
             String url = new GetUrlAra().getIt(new URL("https://araserver.herokuapp.com/update/0.1"));
             Intent browserIntent;

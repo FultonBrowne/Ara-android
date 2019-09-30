@@ -45,7 +45,6 @@ public class ApiOutputToRssFeed {
             }
         } catch (Exception e) {
         }
-        ;
         return feedModels;
 
     }

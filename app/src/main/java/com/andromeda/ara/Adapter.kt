@@ -24,7 +24,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class Adapter(private val mRssFeedModels: List<RssFeedModel>): RecyclerView.Adapter<Adapter.FeedModelViewHolder>() {
+class Adapter(private val mRssFeedModels: List<RssFeedModel>) : RecyclerView.Adapter<Adapter.FeedModelViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): FeedModelViewHolder {
         //Inflate the card view
@@ -33,7 +33,6 @@ class Adapter(private val mRssFeedModels: List<RssFeedModel>): RecyclerView.Adap
 
         return FeedModelViewHolder(v)
     }
-
 
 
     override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {
@@ -50,6 +49,7 @@ class Adapter(private val mRssFeedModels: List<RssFeedModel>): RecyclerView.Adap
         //get the item count of the list
         return mRssFeedModels.size
     }
+
     //animation code
     private fun setFadeAnimation(view: View) {
         val anim = AlphaAnimation(0.0f, 1.0f)

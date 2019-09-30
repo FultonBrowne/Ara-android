@@ -18,25 +18,18 @@ package com.andromeda.ara
 
 
 import com.andromeda.ara.util.JsonParse
-import com.andromeda.ara.util.locl
 import java.net.URL
 import java.util.*
 
 
 class AraSearch {
 
-    fun arrayOfOutputModels(search: String): ArrayList<OutputModel>? {
+    fun arrayOfOutputModels(search: String, log:String, lat:String): ArrayList<OutputModel>? {
         //get URL
-
-
-        val url = URL("https://araserver.herokuapp.com/api/$search&log="+ locl.longitude +"&lat="+locl.latitude)
-        System.out.println(url)
-        //Debugging thing
-        System.out.println("Staring...")
+        val url = URL("https://araserver.herokuapp.com/api/$search&log=$log&lat=$lat")
+        println(url)
         //parse Json
         return JsonParse().search(url.readText())
-
-
 
 
     }

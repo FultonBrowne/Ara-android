@@ -52,7 +52,7 @@ public class tagManager {
     }
 
     public Cursor fetch() {
-        String[] columns = new String[] { tagged._ID, tagged.SUBJECT, tagged.DESC };
+        String[] columns = new String[]{tagged._ID, tagged.SUBJECT, tagged.DESC};
         Cursor cursor = database.query(tagged.TABLE_NAME, columns, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();

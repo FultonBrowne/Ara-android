@@ -27,7 +27,7 @@ import java.util.*
 
 class rss {
     @Throws(IOException::class)
-    fun parseRss(mode:Int = 0): List<RssFeedModel> {
+    fun parseRss(mode: Int = 0): List<RssFeedModel> {
         var mFeedTitle: String
         var mFeedLink: String
         var mFeedDescription: String

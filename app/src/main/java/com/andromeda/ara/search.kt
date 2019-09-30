@@ -19,15 +19,15 @@ package com.andromeda.ara
 import com.andromeda.ara.util.ApiOutputToRssFeed
 
 class search {
-    fun main(mainval: String): ArrayList<RssFeedModel>{
+    fun main(mainval: String, log:String,lat:String): ArrayList<RssFeedModel> {
         var OutputList: ArrayList<RssFeedModel> = java.util.ArrayList()
         OutputList.add(RssFeedModel("", "", "", ""))
-            //search ara server
-            var searchmode1 = mainval.toLowerCase()
-           searchmode1 = searchmode1.replace(" ", "%20")
-            val test1 = AraSearch().arrayOfOutputModels(searchmode1)
-            OutputList = ApiOutputToRssFeed().main(test1)
-            System.out.println("done")
+        //search ara server
+        var searchmode1 = mainval.toLowerCase()
+        searchmode1 = searchmode1.replace(" ", "%20")
+        val test1 = AraSearch().arrayOfOutputModels(searchmode1, log, lat)
+        OutputList = ApiOutputToRssFeed().main(test1)
+        System.out.println("done")
 
         return OutputList
     }

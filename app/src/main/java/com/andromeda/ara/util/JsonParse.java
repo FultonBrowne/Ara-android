@@ -22,8 +22,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
-;
-
 public class JsonParse {
     public ArrayList<OutputModel> search(String jsontxt) {
         Gson gson = new Gson();

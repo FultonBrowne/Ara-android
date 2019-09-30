@@ -25,12 +25,12 @@ public class AssistServ extends VoiceInteractionService {
     public void onReady() {
         super.onReady();
 
-        Log.v("AssistantService","onReady");
+        Log.v("AssistantService", "onReady");
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.v("AssistantService","onCreate");
+        Log.v("AssistantService", "onCreate");
     }
 }

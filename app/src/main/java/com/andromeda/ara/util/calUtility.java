@@ -19,6 +19,7 @@ package com.andromeda.ara.util;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+
 import com.andromeda.ara.RssFeedModel;
 
 import java.text.SimpleDateFormat;
@@ -30,7 +31,7 @@ public class calUtility {
     public static String startDates;
     public static String endDates;
     public static String descriptions;
-    public static ArrayList<RssFeedModel>  main = new ArrayList<RssFeedModel>();
+    public static ArrayList<RssFeedModel> main = new ArrayList<RssFeedModel>();
 
     public static ArrayList<RssFeedModel> readCalendarEvent(Context context) {
         Cursor cursor = context.getContentResolver()
@@ -49,7 +50,7 @@ public class calUtility {
         for (int i = 0; i < CNames.length; i++) {
 
             nameOfEvent = cursor.getString(1);
-            startDates =(getDate(Long.parseLong(cursor.getString(3))));
+            startDates = (getDate(Long.parseLong(cursor.getString(3))));
             endDates = (getDate(Long.parseLong(cursor.getString(4))));
             descriptions = (cursor.getString(2));
             main.add(new RssFeedModel(nameOfEvent, "", startDates + endDates + System.lineSeparator() + descriptions, ""));

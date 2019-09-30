@@ -56,8 +56,6 @@ class allContent : AppCompatActivity() {
         collapsingToolbar.background = draw
 
 
-
-
         val txtv = findViewById<View>(R.id.maintxt1) as TextView
         txtv.text = desc
         supportActionBar?.title = name

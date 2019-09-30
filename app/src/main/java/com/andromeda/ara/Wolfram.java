@@ -16,8 +16,14 @@
 
 package com.andromeda.ara;
 
-import com.wolfram.alpha.*;
-
+import com.wolfram.alpha.WAEngine;
+import com.wolfram.alpha.WAException;
+import com.wolfram.alpha.WAImage;
+import com.wolfram.alpha.WAPlainText;
+import com.wolfram.alpha.WAPod;
+import com.wolfram.alpha.WAQuery;
+import com.wolfram.alpha.WAQueryResult;
+import com.wolfram.alpha.WASubpod;
 
 
 public class Wolfram {
@@ -27,8 +33,7 @@ public class Wolfram {
     private String image = null;
 
 
-
-    public RssFeedModel Wolfram1(String input){
+    public RssFeedModel Wolfram1(String input) {
         WAEngine engine = new WAEngine();
         engine.setAppID("HEPHXJ-8EHWK2GA2X");
         //engine.addFormat("plaintext");
@@ -60,7 +65,7 @@ public class Wolfram {
                                     link = queryResult.getQuery().toWebsiteURL();
 
                                 }
-                                if (element instanceof WAImage){
+                                if (element instanceof WAImage) {
                                     image = ((WAImage) element).getURL();
                                 }
 

@@ -19,7 +19,7 @@ package com.andromeda.ara.util
 import java.net.URL
 
 class GetUrlAra {
-    fun getIt(url:URL): String {
+    fun getIt(url: URL): String {
         return url.readText()
     }
 }

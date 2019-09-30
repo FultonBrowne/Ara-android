@@ -17,13 +17,6 @@
 package com.andromeda.ara;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteOpenHelper;
-
-import java.util.List;
-
-
-
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 

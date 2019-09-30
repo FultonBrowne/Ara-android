@@ -18,8 +18,7 @@ package com.andromeda.ara
 
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
 import java.io.IOException
-import java.util.ArrayList
-import java.util.HashMap
+import java.util.*
 
 class shopping {
     fun getShops(log: String, lat: String): ArrayList<RssFeedModel> {
@@ -37,38 +36,35 @@ class shopping {
             val response = call.execute()
             val count = response.body().total
             var count2 = 1
-            var title:String = "err"
-            var info:String = "err"
-            var web:String = "err"
-            var image:String = "err"
-            if (count2 <= count){
+            var title: String = "err"
+            var info: String = "err"
+            var web: String = "err"
+            var image: String = "err"
+            if (count2 <= count) {
                 // rssFeedModel1.add(ArrayList)
-                for (i in 0  until response.body().businesses.size) {
-                    title=response.body().businesses[i].name
-                    web=response.body().businesses[i].url
-                    image=response.body().businesses[i].imageUrl
+                for (i in 0 until response.body().businesses.size) {
+                    title = response.body().businesses[i].name
+                    web = response.body().businesses[i].url
+                    image = response.body().businesses[i].imageUrl
                     val stars = response.body().businesses[i].rating
                     val open = response.body().businesses[i].isClosed
                     val stars1 = "$stars stars"
-                    if (open){
+                    if (open) {
                         info = stars1 + System.lineSeparator() + " closed now"
-                    }
-                    else{
+                    } else {
                         info = stars1 + System.lineSeparator() + " open now"
                     }
 
-                    rssFeedModel1.add(RssFeedModel(info,web,title,image))
+                    rssFeedModel1.add(RssFeedModel(info, web, title, image))
                 }
-            }
-
-            else {
-                rssFeedModel1.add(RssFeedModel("err1","err","err","err"))
+            } else {
+                rssFeedModel1.add(RssFeedModel("err1", "err", "err", "err"))
             }
 
 
         } catch (e: IOException) {
             e.printStackTrace()
-            rssFeedModel1.add(RssFeedModel("err","err","err","err"))
+            rssFeedModel1.add(RssFeedModel("err", "err", "err", "err"))
         }
 
 
@@ -77,8 +73,9 @@ class shopping {
 
         return rssFeedModel1
     }
-    fun SearchShops (log: String, lat: String, phrase : String) : ArrayList<RssFeedModel> {
-        var main : ArrayList<RssFeedModel> = ArrayList()
+
+    fun SearchShops(log: String, lat: String, phrase: String): ArrayList<RssFeedModel> {
+        var main: ArrayList<RssFeedModel> = ArrayList()
         //main.add(RssFeedModel("err","err","err","err"))
         val apiFactory = YelpFusionApiFactory()
         try {
@@ -93,39 +90,36 @@ class shopping {
             val response = call.execute()
             val count = response.body().total - 1
             var count2 = 1
-            var title:String = "err"
-            var info:String = "err"
-            var web:String = "err"
-            var image:String = "err"
-            if (count2 <= count){
+            var title: String = "err"
+            var info: String = "err"
+            var web: String = "err"
+            var image: String = "err"
+            if (count2 <= count) {
                 // rssFeedModel1.add(ArrayList)
-                for (i in 0  until response.body().businesses.size) {
-                    title=response.body().businesses[i].name
-                    web=response.body().businesses[i].url
-                    image=response.body().businesses[i].imageUrl
+                for (i in 0 until response.body().businesses.size) {
+                    title = response.body().businesses[i].name
+                    web = response.body().businesses[i].url
+                    image = response.body().businesses[i].imageUrl
                     val stars = response.body().businesses[i].rating
                     val open = response.body().businesses[i].isClosed
                     val info1 = response.body().businesses[i].text
                     val stars1 = "$stars stars"
-                    if (open){
-                        info = stars1 + System.lineSeparator() + " closed now"  + System.lineSeparator() + info1
-                    }
-                    else{
-                        info = stars1 + System.lineSeparator() + " open now"  + System.lineSeparator() + info1
+                    if (open) {
+                        info = stars1 + System.lineSeparator() + " closed now" + System.lineSeparator() + info1
+                    } else {
+                        info = stars1 + System.lineSeparator() + " open now" + System.lineSeparator() + info1
                     }
 
-                    main.add(RssFeedModel(info,web,title,image))
+                    main.add(RssFeedModel(info, web, title, image))
                 }
-            }
-
-            else {
-                main.add(RssFeedModel("err1","err","err","err"))
+            } else {
+                main.add(RssFeedModel("err1", "err", "err", "err"))
             }
 
 
         } catch (e: IOException) {
             e.printStackTrace()
-            main.add(RssFeedModel("err","err","err","err"))
+            main.add(RssFeedModel("err", "err", "err", "err"))
         }
 
         return main

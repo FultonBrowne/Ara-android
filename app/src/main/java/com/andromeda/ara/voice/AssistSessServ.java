@@ -28,6 +28,6 @@ public class AssistSessServ extends VoiceInteractionSessionService {
 
     @Override
     public VoiceInteractionSession onNewSession(Bundle args) {
-        return(new AssistSess(this));
+        return (new AssistSess(this));
     }
 }

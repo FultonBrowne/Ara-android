@@ -23,7 +23,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,7 +44,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.andromeda.ara.util.GetUrlAra;
-import com.andromeda.ara.util.calUtility;
 import com.andromeda.ara.util.locl;
 import com.andromeda.ara.util.rss;
 import com.andromeda.ara.voice.run;
@@ -139,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                         ))
                 .withOnAccountHeaderListener((view, profile, currentProfile) -> false).withTextColorRes(R.color.md_white_1000)
                 .withHeaderBackground(R.color.semi_transparent)
-
+                .withThreeSmallProfileImages(true)
                 .build();
         if (!welcomeScreenShown) {
             // here you can launch another activity if you like
@@ -151,22 +149,14 @@ public class MainActivity extends AppCompatActivity {
                     getText(R.string.textOK), (dialog, which) -> dialog.dismiss()).show();
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean(welcomeScreenShownPref, true);
-            editor.apply(); // Very important to save the preference
+            editor.apply();
         }
-
-
-//Now create your drawer and pass the AccountHeader.Result
-
-
-//create the drawer and remember the `Drawer` result object
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
-                //.withSliderBackgroundColorRes(R.color.colorBack)
                 .withSliderBackgroundDrawableRes(R.drawable.drawerimage)
                 .withFullscreen(true).withTranslucentNavigationBarProgrammatically(true)
-
                 .withTranslucentStatusBar(true)
                 .addDrawerItems(
                         item1,
@@ -181,7 +171,12 @@ public class MainActivity extends AppCompatActivity {
                 )
 
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
-                    if (drawerItem.getIdentifier() == 1) {
+                    try {
+                        recyclerView.setAdapter(new drawer().main(drawerItem.getIdentifier(),ctx, main53, MainActivity.this));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    /**if (drawerItem.getIdentifier() == 1) {
                         Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
                         try {
                             RecyclerView recyclerView1 = findViewById(R.id.list);
@@ -201,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
                         RecyclerView recyclerView1 = findViewById(R.id.list);
                         main53.open();
+
                         //final Cursor cursor = main53.fetch();
                         Cursor cursor = main53.fetch();
                         RssFeedModel test = new RssFeedModel("", "", "", "");
@@ -356,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    }
+                    }**/
 
 
                     return false;

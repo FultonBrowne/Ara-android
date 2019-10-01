@@ -71,24 +71,18 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 @SuppressLint("CutPasteId")
 public class MainActivity extends AppCompatActivity {
-
-
+    /** these have to do with permissions**/
     private final int REQUEST_LOCATION_PERMISSION = 1;
-
-
-    // UI elements.
     private static final int REQUEST_RECORD_AUDIO = 13;
-
-
+    //this is the text for the greeting it is hello by default for compatibility reasons
     private String mTime = "hello";
+    //this is the navigation drawer
     private Drawer drawer = null;
     private String title1;
     SharedPreferences mPrefs;
     final String welcomeScreenShownPref = "welcomeScreenShown";
 
     private String web1;
-    //RssFeedModel test222 = new search().main("hi",1);
-    private int mode = 1;
 
 
     private RecyclerView.Adapter mAdapter;
@@ -103,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
 
-        final Context ctx = this;
+        final Activity ctx = this;
         requestLocationPermission();
 
 
@@ -188,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
 
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     if (drawerItem.getIdentifier() == 1) {
-                        mode = 1;
                         Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
                         try {
                             RecyclerView recyclerView1 = findViewById(R.id.list);
@@ -244,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                         //recyclerView.setAdapter(new Adapter(parseFeed()));
 
                     } else if (drawerItem.getIdentifier() == 3) {
-                        mode = 2;
+
                         Toast.makeText(getApplicationContext(), "number 3", Toast.LENGTH_SHORT).show();
                         RecyclerView recyclerView1 = findViewById(R.id.list);
 
@@ -258,16 +251,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                         new locl(ctx);
-                        ArrayList<RssFeedModel> foodFinal = new food().getFood(Double.toString(locl.longitude), Double.toString(locl.latitude));
-                        rssFeedModel1 = foodFinal;
+                        rssFeedModel1 = new food().getFood(Double.toString(locl.longitude), Double.toString(locl.latitude));
                         mAdapter = new Adapter(rssFeedModel1);
 
                         recyclerView1.setAdapter(mAdapter);
-
-
-                        //recyclerView.setAdapter(new Adapter(parseFeed()));
                     } else if (drawerItem.getIdentifier() == 4) {
-                        mode = 3;
                         Toast.makeText(getApplicationContext(), "number 4", Toast.LENGTH_SHORT).show();
                         RecyclerView recyclerView1 = findViewById(R.id.list);
 
@@ -287,7 +275,6 @@ public class MainActivity extends AppCompatActivity {
 
                         //recyclerView.setAdapter(new Adapter(parseFeed()));
                     } else if (drawerItem.getIdentifier() == 5) {
-                        mode = 3;
                         Toast.makeText(getApplicationContext(), "number 5", Toast.LENGTH_SHORT).show();
                         RecyclerView recyclerView1 = findViewById(R.id.list);
 
@@ -308,7 +295,6 @@ public class MainActivity extends AppCompatActivity {
 
                         //recyclerView.setAdapter(new Adapter(parseFeed()));
                     } else if (drawerItem.getIdentifier() == 102) {
-                        mode = 1;
                         Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
                         try {
                             RecyclerView recyclerView1 = findViewById(R.id.list);
@@ -324,7 +310,6 @@ public class MainActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     } else if (drawerItem.getIdentifier() == 101) {
-                        mode = 1;
                         Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
                         try {
                             RecyclerView recyclerView1 = findViewById(R.id.list);
@@ -341,7 +326,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     if (drawerItem.getIdentifier() == 102) {
-                        mode = 1;
                         Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
                         try {
                             RecyclerView recyclerView1 = findViewById(R.id.list);
@@ -358,7 +342,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     if (drawerItem.getIdentifier() == 105) {
-                        mode = 1;
                         Toast.makeText(getApplicationContext(), "number 1", Toast.LENGTH_SHORT).show();
                         try {
                             RecyclerView recyclerView1 = findViewById(R.id.list);
@@ -450,21 +433,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fab.setOnClickListener(view -> {
 
 
-                // Start the recording and recognition thread
-                Activity activity = (Activity) ctx;
-                requestMicrophonePermission();
+            // Start the recording and recognition thread
+            requestMicrophonePermission();
 
-                String phrase = new run().run1(ctx, activity);
-                Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
-                mAdapter.notifyDataSetChanged();
+            String phrase = new run().run1(ctx, ctx);
+            Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
+            mAdapter.notifyDataSetChanged();
 
 
-            }
         });
 
     }

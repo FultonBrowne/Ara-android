@@ -16,7 +16,6 @@
 
 package com.andromeda.ara.util;
 
-import com.andromeda.ara.OutputModel;
 import com.andromeda.ara.RssFeedModel;
 
 import java.util.ArrayList;

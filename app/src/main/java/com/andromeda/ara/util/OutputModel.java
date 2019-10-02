@@ -14,7 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara;
+package com.andromeda.ara.util;
 
 
 public class OutputModel {
@@ -24,7 +24,7 @@ public class OutputModel {
     public String OutputTxt;
     public String exes;
 
-    OutputModel(String title, String description, String link, String image, String OutputTxt, String exes) {
+    OutputModel(String title, String description, String link, String OutputTxt, String exes) {
         this.title = title;
         this.link = link;
         this.description = description;

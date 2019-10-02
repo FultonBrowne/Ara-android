@@ -16,7 +16,6 @@
 
 package com.andromeda.ara.util;
 
-import com.andromeda.ara.OutputModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

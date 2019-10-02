@@ -266,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void yourMethodName(MenuItem menuItem) {
+    public void openSettingsActivity(MenuItem menuItem) {
         startActivity(new Intent(this, com.andromeda.ara.SettingsActivity.class));
     }
 

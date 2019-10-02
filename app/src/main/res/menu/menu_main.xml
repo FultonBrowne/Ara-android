@@ -20,7 +20,7 @@
     tools:context="com.andromeda.ara.MainActivity">
     <item
         android:id="@+id/action_settings"
-        android:onClick="yourMethodName"
+        android:onClick="openSettingsActivity"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />

@@ -43,7 +43,7 @@
 
     <style name="PreferencesTheme" parent="AppTheme.NoActionBar">
         <item name="android:windowBackground">@drawable/settingsback</item>
-        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:textColorPrimary">@color/md_white_1000</item>
         <item name="android:textColorSecondary">@color/md_white_1000</item>
     </style>
     <style name="AppTheme.Translucent" parent="AppTheme.NoActionBar">

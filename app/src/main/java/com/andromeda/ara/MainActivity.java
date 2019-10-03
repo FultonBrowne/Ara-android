@@ -33,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -171,14 +172,11 @@ public class MainActivity extends AppCompatActivity {
 
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
 
-                        MainActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    recyclerView.setAdapter(new drawer().main(drawerItem.getIdentifier(),ctx, main53, MainActivity.this));
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                        MainActivity.this.runOnUiThread(() -> {
+                            try {
+                                recyclerView.setAdapter(new drawer().main(drawerItem.getIdentifier(),ctx, main53, MainActivity.this));
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
                         });
 
@@ -363,17 +361,18 @@ public class MainActivity extends AppCompatActivity {
         int mHour = LocalTime.now().getHour();
         if (mHour < 12) {
             mTime = "Good morning";
-        } else if (mHour >= 12 && mHour < 16) {
+        }
+        if (mHour >= 12 && mHour < 16) {
             mTime = "good afternoon";
-
         } else {
             mTime = "Good evening";
         }
-
     }
 
+
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         // Forward results to EasyPermissions

@@ -14,7 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara;
+package com.andromeda.ara.feeds;
 
 import android.Manifest;
 import android.app.Activity;
@@ -24,9 +24,11 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
+import com.andromeda.ara.Adapter;
+import com.andromeda.ara.util.RssFeedModel;
+import com.andromeda.ara.tagManager;
 import com.andromeda.ara.util.calUtility;
 import com.andromeda.ara.util.locl;
-import com.andromeda.ara.util.rss;
 
 import java.io.IOException;
 import java.util.ArrayList;

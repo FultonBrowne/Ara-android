@@ -14,9 +14,9 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util
+package com.andromeda.ara.feeds
 
-import com.andromeda.ara.RssFeedModel
+import com.andromeda.ara.util.RssFeedModel
 import com.rometools.rome.feed.synd.SyndEntry
 import com.rometools.rome.io.FeedException
 import com.rometools.rome.io.SyndFeedInput

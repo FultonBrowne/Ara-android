@@ -20,8 +20,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.andromeda.ara.RssFeedModel;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;

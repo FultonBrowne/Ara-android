@@ -17,6 +17,7 @@
 package com.andromeda.ara
 
 import com.andromeda.ara.util.ApiOutputToRssFeed
+import com.andromeda.ara.util.RssFeedModel
 
 class search {
     fun main(mainval: String, log:String,lat:String): ArrayList<RssFeedModel> {

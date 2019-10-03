@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.andromeda.ara.util.RssFeedModel
 
 
 class Adapter(private val mRssFeedModels: List<RssFeedModel>) : RecyclerView.Adapter<Adapter.FeedModelViewHolder>() {

@@ -14,9 +14,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara
+package com.andromeda.ara.feeds
 
 
+import com.andromeda.ara.util.RssFeedModel
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
 import java.io.IOException
 import java.util.*

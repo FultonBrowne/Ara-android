@@ -18,7 +18,7 @@ package com.andromeda.ara.util
 
 import java.util
 
-import com.andromeda.ara.RssFeedModel
+import com.andromeda.ara.util.RssFeedModel
 
 
 class errorMsg {

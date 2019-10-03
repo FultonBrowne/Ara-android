@@ -22,6 +22,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.andromeda.ara.feeds.tagged;
+
 public class tagManager {
 
     private tagged dbHelper;

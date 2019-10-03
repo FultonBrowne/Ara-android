@@ -45,8 +45,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.andromeda.ara.util.GetUrlAra;
+import com.andromeda.ara.feeds.drawer;
+import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.locl;
-import com.andromeda.ara.util.rss;
+import com.andromeda.ara.feeds.rss;
 import com.andromeda.ara.voice.run;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.materialdrawer.AccountHeader;

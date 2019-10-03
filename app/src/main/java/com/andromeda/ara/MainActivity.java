@@ -76,14 +76,13 @@ public class MainActivity extends AppCompatActivity {
     private String mTime = "hello";
     //this is the navigation drawer
     private Drawer drawer = null;
-    private String title1;
+    //Get data stored for welcome screen
     SharedPreferences mPrefs;
+    //name of the preference
     final String welcomeScreenShownPref = "welcomeScreenShown";
-
-    private String web1;
-
-
+    //Adapter
     private RecyclerView.Adapter mAdapter;
+    // Data set for list out put
     private List<RssFeedModel> rssFeedModel1 = new ArrayList<>();
 
 
@@ -171,11 +170,19 @@ public class MainActivity extends AppCompatActivity {
                 )
 
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
-                    try {
-                        recyclerView.setAdapter(new drawer().main(drawerItem.getIdentifier(),ctx, main53, MainActivity.this));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    recyclerView.setAdapter(new drawer().main(drawerItem.getIdentifier(),ctx, main53, MainActivity.this));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+
 
                     return false;
                     // do something with the clicked item :D
@@ -218,19 +225,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
         SwipeRefreshLayout mSwipeLayout = findViewById(R.id.swipe1);
-        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                try {
-                    rssFeedModel1.clear();
+        mSwipeLayout.setOnRefreshListener(() -> {
+            try {
+                rssFeedModel1.clear();
 
-                    rssFeedModel1 = (new rss().parseRss(0));
+                rssFeedModel1 = (new rss().parseRss(0));
 
-                    mAdapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
 
@@ -354,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @RequiresApi(26)
-    public String time() {
+    public void time() {
 
         int mHour = LocalTime.now().getHour();
         if (mHour < 12) {
@@ -365,7 +369,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             mTime = "Good evening";
         }
-        return mTime;
 
     }
 
@@ -380,11 +383,10 @@ public class MainActivity extends AppCompatActivity {
     @AfterPermissionGranted(REQUEST_LOCATION_PERMISSION)
     public void requestLocationPermission() {
         String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
-        if (EasyPermissions.hasPermissions(this, perms)) {
-            //Toast.makeText(this, "Permission already granted", Toast.LENGTH_SHORT).show();
-        } else {
+        if (!EasyPermissions.hasPermissions(this, perms)) {
             EasyPermissions.requestPermissions(this, "Please grant the location permission", REQUEST_LOCATION_PERMISSION, perms);
         }
+
     }
 
     private void requestMicrophonePermission() {

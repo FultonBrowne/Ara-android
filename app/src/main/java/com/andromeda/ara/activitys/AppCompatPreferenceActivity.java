@@ -14,7 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara;
+package com.andromeda.ara.activitys;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

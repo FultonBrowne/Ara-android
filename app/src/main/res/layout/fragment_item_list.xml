@@ -16,7 +16,6 @@
   -->
 
 <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
     android:name="com.andromeda.ara.MainActivity"
@@ -25,5 +24,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
 
-    tools:context=".MainActivity"
+    tools:context=".activitys.MainActivity"
     tools:listitem="@layout/fragment_item" />

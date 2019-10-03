@@ -14,7 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara;
+package com.andromeda.ara.activitys;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -44,11 +44,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.andromeda.ara.util.GetUrlAra;
+import com.andromeda.ara.R;
 import com.andromeda.ara.feeds.drawer;
+import com.andromeda.ara.feeds.rss;
+import com.andromeda.ara.search.search;
+import com.andromeda.ara.util.GetUrlAra;
+import com.andromeda.ara.util.RecyclerTouchListener;
 import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.locl;
-import com.andromeda.ara.feeds.rss;
+import com.andromeda.ara.util.tagManager;
 import com.andromeda.ara.voice.run;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -271,12 +275,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openSettingsActivity(MenuItem menuItem) {
-        startActivity(new Intent(this, com.andromeda.ara.SettingsActivity.class));
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 
 
     public void about(MenuItem menuItem) {
-        startActivity(new Intent(this, com.andromeda.ara.about.class));
+        startActivity(new Intent(this, about.class));
     }
 
     @Override

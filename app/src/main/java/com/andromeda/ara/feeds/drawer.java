@@ -24,11 +24,11 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
-import com.andromeda.ara.Adapter;
+import com.andromeda.ara.activitys.Adapter;
 import com.andromeda.ara.util.RssFeedModel;
-import com.andromeda.ara.tagManager;
 import com.andromeda.ara.util.calUtility;
 import com.andromeda.ara.util.locl;
+import com.andromeda.ara.util.tagManager;
 
 import java.io.IOException;
 import java.util.ArrayList;

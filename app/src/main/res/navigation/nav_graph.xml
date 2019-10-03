@@ -23,12 +23,12 @@
 
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.andromeda.ara.MainActivity"
+        android:name="com.andromeda.ara.activitys.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
     <activity
         android:id="@+id/settingsActivity"
-        android:name="com.andromeda.ara.SettingsActivity"
+        android:name="com.andromeda.ara.activitys.SettingsActivity"
         android:label="SettingsActivity" />
     <action
         android:id="@+id/action_global_settingsActivity"

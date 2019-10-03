@@ -14,26 +14,22 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara
+package com.andromeda.ara.search
 
+import com.andromeda.ara.util.ApiOutputToRssFeed
+import com.andromeda.ara.util.RssFeedModel
 
-import com.andromeda.ara.util.JsonParse
-import com.andromeda.ara.util.OutputModel
-import java.net.URL
-import java.util.*
+class search {
+    fun main(mainval: String, log:String,lat:String): ArrayList<RssFeedModel> {
+        var OutputList: ArrayList<RssFeedModel> = java.util.ArrayList()
+        OutputList.add(RssFeedModel("", "", "", ""))
+        //search ara server
+        var searchmode1 = mainval.toLowerCase()
+        searchmode1 = searchmode1.replace(" ", "%20")
+        val test1 = AraSearch().arrayOfOutputModels(searchmode1, log, lat)
+        OutputList = ApiOutputToRssFeed().main(test1)
+        println("done")
 
-
-class AraSearch {
-
-    fun arrayOfOutputModels(search: String, log:String, lat:String): ArrayList<OutputModel>? {
-        //get URL
-        val url = URL("https://araserver.herokuapp.com/api/$search&log=$log&lat=$lat")
-        println(url)
-        //parse Json
-        return JsonParse().search(url.readText())
-
-
+        return OutputList
     }
-
-
 }

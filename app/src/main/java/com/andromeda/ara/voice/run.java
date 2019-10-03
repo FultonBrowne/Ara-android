@@ -25,7 +25,7 @@ import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.util.Log;
 
-import com.andromeda.ara.MainActivity;
+import com.andromeda.ara.activitys.MainActivity;
 
 import org.tensorflow.lite.Interpreter;
 

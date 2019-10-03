@@ -14,7 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara
+package com.andromeda.ara.widgets
 
 import android.app.Activity
 import android.appwidget.AppWidgetManager
@@ -23,6 +23,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import com.andromeda.ara.R
 
 /**
  * The configuration screen for the [NewAppWidget2] AppWidget.
@@ -78,7 +79,7 @@ class NewAppWidget2ConfigureActivity : Activity() {
 
     companion object {
 
-        private val PREFS_NAME = "com.andromeda.ara.NewAppWidget2"
+        private val PREFS_NAME = "com.andromeda.ara.widgets.NewAppWidget2"
         private val PREF_PREFIX_KEY = "appwidget_"
 
         // Write the prefix to the SharedPreferences object for this widget

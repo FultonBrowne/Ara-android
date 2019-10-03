@@ -16,7 +16,7 @@
 
 @file:Suppress("ClassName")
 
-package com.andromeda.ara
+package com.andromeda.ara.activitys
 
 
 import android.graphics.drawable.Drawable
@@ -26,6 +26,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.andromeda.ara.R
 import java.io.IOException
 import java.io.InputStream
 import java.net.URL

@@ -30,7 +30,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.andromeda.ara.MainActivity;
+import com.andromeda.ara.activitys.MainActivity;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class AssistSess extends VoiceInteractionSession {

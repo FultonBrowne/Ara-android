@@ -14,7 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara
+package com.andromeda.ara.activitys
 
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.andromeda.ara.R
 import com.andromeda.ara.util.RssFeedModel
 
 

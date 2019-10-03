@@ -23,7 +23,7 @@
     android:fitsSystemWindows="true"
     android:background="@drawable/aboutpic"
 
-    tools:context=".about">
+    tools:context=".activitys.about">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"

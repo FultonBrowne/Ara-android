@@ -14,7 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara;
+package com.andromeda.ara.activitys;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -35,6 +35,8 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
+
+import com.andromeda.ara.R;
 
 import java.util.List;
 

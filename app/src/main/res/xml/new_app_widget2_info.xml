@@ -16,7 +16,7 @@
   -->
 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="com.andromeda.ara.NewAppWidget2ConfigureActivity"
+    android:configure="com.andromeda.ara.widgets.NewAppWidget2ConfigureActivity"
     android:initialKeyguardLayout="@layout/new_app_widget2"
     android:initialLayout="@layout/new_app_widget2"
     android:minWidth="180dp"

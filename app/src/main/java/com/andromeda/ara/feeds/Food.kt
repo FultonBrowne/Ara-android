@@ -23,7 +23,7 @@ import java.io.IOException
 import java.util.*
 
 
-class food {
+class Food {
     fun getFood(log: String, lat: String): ArrayList<RssFeedModel> {
         var rssFeedModel1: ArrayList<RssFeedModel> = ArrayList()
         val main = RssFeedModel("", "", "", "")

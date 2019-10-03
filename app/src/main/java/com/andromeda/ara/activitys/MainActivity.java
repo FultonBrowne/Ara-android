@@ -45,9 +45,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.andromeda.ara.R;
+import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.feeds.drawer;
-import com.andromeda.ara.feeds.rss;
-import com.andromeda.ara.search.search;
+import com.andromeda.ara.search.Search;
 import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.RecyclerTouchListener;
 import com.andromeda.ara.util.RssFeedModel;
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 rssFeedModel1.clear();
 
-                rssFeedModel1 = (new rss().parseRss(0));
+                rssFeedModel1 = (new Rss().parseRss(0));
 
                 mAdapter.notifyDataSetChanged();
 
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         try {
-            rssFeedModel1 = (new rss().parseRss(0));
+            rssFeedModel1 = (new Rss().parseRss(0));
             mAdapter = new Adapter(rssFeedModel1);
 
             recyclerView.setAdapter(mAdapter);
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void about(MenuItem menuItem) {
-        startActivity(new Intent(this, about.class));
+        startActivity(new Intent(this, About.class));
     }
 
     @Override
@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 //RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
                 requestLocationPermission();
-                ArrayList<RssFeedModel> rssFeedModel2 = (new search().main(query,Double.toString(locl.longitude), Double.toString(locl.latitude)));
+                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query,Double.toString(locl.longitude), Double.toString(locl.latitude)));
                 rssFeedModel1.addAll(0, rssFeedModel2);
                 mAdapter.notifyDataSetChanged();
 

@@ -14,22 +14,22 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util
+package com.andromeda.ara.search
 
-import java.util
-
+import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.RssFeedModel
 
+class Search {
+    fun main(mainval: String, log:String,lat:String): ArrayList<RssFeedModel> {
+        var outputList: ArrayList<RssFeedModel> = java.util.ArrayList()
+        outputList.add(RssFeedModel("", "", "", ""))
+        //search ara server
+        var searchmode1 = mainval.toLowerCase()
+        searchmode1 = searchmode1.replace(" ", "%20")
+        val test1 = AraSearch().arrayOfOutputModels(searchmode1, log, lat)
+        outputList = ApiOutputToRssFeed().main(test1)
+        println("done")
 
-class errorMsg {
-  def errRssFeedModel(): RssFeedModel = {
-    val errRFM = new RssFeedModel("err", "err", "Err", "err")
-    errRFM
-  }
-
-  def errFullModel(): FullModel = {
-    var main1 = util.List[String]
-    val errFM = new FullModel("err", "err", "err", "err", "err", main1)
-    errFM
-  }
+        return outputList
+    }
 }

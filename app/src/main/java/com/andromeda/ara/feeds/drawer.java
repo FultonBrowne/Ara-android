@@ -43,7 +43,7 @@ public class drawer {
       if (drawerItem == 1) {
             Toast.makeText(ctx, "number 1", Toast.LENGTH_SHORT).show();
 
-                rssFeedModel1.addAll( new rss().parseRss(0));
+                rssFeedModel1.addAll( new Rss().parseRss(0));
 
         } else if (drawerItem == 2) {
           String title1;
@@ -76,7 +76,7 @@ public class drawer {
             }
 
         } else if (drawerItem == 3) {
-            rssFeedModel1 = new food().getFood(Double.toString(locl.longitude), Double.toString(locl.latitude));
+            rssFeedModel1 = new Food().getFood(Double.toString(locl.longitude), Double.toString(locl.latitude));
         } else if (drawerItem == 4) {
             new locl(ctx);
           rssFeedModel1 = new shopping().getShops(Double.toString((locl.longitude)), Double.toString((locl.latitude)));
@@ -89,17 +89,17 @@ public class drawer {
           rssFeedModel1 = calUtility.readCalendarEvent(ctx);
       }
           if (drawerItem == 104) {
-              rssFeedModel1.addAll(new rss().parseRss(3));
+              rssFeedModel1.addAll(new Rss().parseRss(3));
           }
       else if (drawerItem == 102) {
-          rssFeedModel1.addAll(new rss().parseRss(2));
+          rssFeedModel1.addAll(new Rss().parseRss(2));
       }
         if (drawerItem == 103) {
-                rssFeedModel1.addAll(new rss().parseRss(1));
+                rssFeedModel1.addAll(new Rss().parseRss(1));
             }
 
         if (drawerItem == 105) {
-                rssFeedModel1.addAll(new rss().parseRss(4));
+                rssFeedModel1.addAll(new Rss().parseRss(4));
     }
         return new Adapter(rssFeedModel1);
     }

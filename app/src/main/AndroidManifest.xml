@@ -65,7 +65,7 @@
             android:required="true" />
 
         <activity
-            android:name=".activitys.about"
+            android:name=".activitys.About"
             android:label="@string/title_activity_about"
             android:parentActivityName=".activitys.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

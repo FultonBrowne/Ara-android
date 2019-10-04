@@ -42,7 +42,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.andromeda.ara.R;
 import com.andromeda.ara.feeds.Rss;
@@ -63,6 +62,8 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+
+import org.jetbrains.annotations.Contract;
 
 import java.io.IOException;
 import java.net.URL;
@@ -228,40 +229,27 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }));
-        SwipeRefreshLayout mSwipeLayout = findViewById(R.id.swipe1);
-        mSwipeLayout.setOnRefreshListener(() -> {
-            try {
-                rssFeedModel1.clear();
-
-                rssFeedModel1 = (new Rss().parseRss(0));
-
-                mAdapter.notifyDataSetChanged();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            ctx.runOnUiThread(() -> {
+                try {
+                    rssFeedModel1 = (new Rss().parseRss(0));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mAdapter = new Adapter(rssFeedModel1);
 
-        try {
-            rssFeedModel1 = (new Rss().parseRss(0));
-            mAdapter = new Adapter(rssFeedModel1);
+                recyclerView.setAdapter(mAdapter);
 
-            recyclerView.setAdapter(mAdapter);
+            });
+
 
 
             //recyclerView.setAdapter(new Adapter(parseFeed()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-
-
             // Start the recording and recognition thread
             requestMicrophonePermission();
 
@@ -297,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            @Contract(pure = true)
             public boolean onQueryTextChange(String newText) {
                 // this is your adapter that will be filtered
                 return true;
@@ -323,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -353,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void insert(String main, String link, tagManager main53) {
+    void insert(String main, String link, @NonNull tagManager main53) {
 
         main53.open();
         main53.insert(main, link);

@@ -52,6 +52,7 @@ import com.andromeda.ara.util.RecyclerTouchListener;
 import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.locl;
 import com.andromeda.ara.util.tagManager;
+import com.andromeda.ara.voice.VoiceMain;
 import com.andromeda.ara.voice.run;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -256,6 +257,10 @@ public class MainActivity extends AppCompatActivity {
             String phrase = new run().run1(ctx, ctx);
             Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
             mAdapter.notifyDataSetChanged();
+          Intent  intent = new Intent(ctx, VoiceMain.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("voice", true);
+            startActivity(intent);
 
 
         });
@@ -343,7 +348,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void insert(String main, String link, @NonNull tagManager main53) {
-
         main53.open();
         main53.insert(main, link);
         main53.close();

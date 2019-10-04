@@ -40,7 +40,7 @@ public class ApiOutputToRssFeed {
 
 
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return feedModels;
 

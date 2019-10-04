@@ -20,7 +20,6 @@ import android.util.Log;
 import android.util.Pair;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
@@ -28,9 +27,9 @@ import java.util.List;
 /**
  * Reads in results from an instantaneous audio recognition model and smoothes them over time.
  */
-public class RecognizeCommands {
+class RecognizeCommands {
     // Configuration settings.
-    private List<String> labels = new ArrayList<String>();
+    private List<String> labels;
     private long averageWindowDurationMs;
     private float detectionThreshold;
     private int suppressionMs;
@@ -47,7 +46,7 @@ public class RecognizeCommands {
     private static final String SILENCE_LABEL = "_silence_";
     private static final long MINIMUM_TIME_FRACTION = 4;
 
-    public RecognizeCommands(
+    RecognizeCommands(
             List<String> inLabels,
             long inAverageWindowDurationMs,
             float inDetectionThreshold,

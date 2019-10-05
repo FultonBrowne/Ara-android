@@ -62,12 +62,6 @@
             android:textColor="@color/md_white_1000"
             android:textAppearance="?attr/textAppearanceListItem" />
 
-        <TextView
-            android:id="@+id/url2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/md_white_1000"
-            android:layout_margin="@dimen/text_margin" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

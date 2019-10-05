@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
-import com.andromeda.ara.activitys.Adapter;
+import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.calUtility;
 import com.andromeda.ara.util.locl;

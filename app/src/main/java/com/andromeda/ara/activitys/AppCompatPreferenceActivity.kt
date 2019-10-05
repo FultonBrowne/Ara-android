@@ -25,8 +25,6 @@ import android.view.ViewGroup.LayoutParams
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.Toolbar
-
 /**
  * A [android.preference.PreferenceActivity] which implements and proxies the necessary calls
  * to be used with AppCompat.
@@ -46,10 +44,6 @@ abstract class AppCompatPreferenceActivity : PreferenceActivity() {
 
     val supportActionBar: ActionBar?
         get() = delegate.supportActionBar
-
-    fun setSupportActionBar(toolbar: Toolbar?) {
-        delegate.setSupportActionBar(toolbar)
-    }
 
     override fun getMenuInflater(): MenuInflater {
         return delegate.menuInflater
@@ -101,7 +95,7 @@ abstract class AppCompatPreferenceActivity : PreferenceActivity() {
     }
 
     private val delegate: AppCompatDelegate
-        private get() {
+        get() {
             if (mDelegate == null) {
                 mDelegate = AppCompatDelegate.create(this, null)
             }

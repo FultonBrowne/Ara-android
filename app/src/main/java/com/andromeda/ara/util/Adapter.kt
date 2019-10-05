@@ -14,7 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.activitys
+package com.andromeda.ara.util
 
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +23,6 @@ import android.view.animation.AlphaAnimation
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
-import com.andromeda.ara.util.RssFeedModel
 
 
 class Adapter(private val mRssFeedModels: List<RssFeedModel>) : RecyclerView.Adapter<Adapter.FeedModelViewHolder>() {
@@ -42,7 +41,6 @@ class Adapter(private val mRssFeedModels: List<RssFeedModel>) : RecyclerView.Ada
         val rssFeedModel = mRssFeedModels[position]
         (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView).text = rssFeedModel.description
         (holder.rssFeedView.findViewById<View>(R.id.content) as TextView).text = rssFeedModel.title
-        (holder.rssFeedView.findViewById<View>(R.id.url2) as TextView).text = rssFeedModel.link
         //animate
         setFadeAnimation(holder.itemView)
     }

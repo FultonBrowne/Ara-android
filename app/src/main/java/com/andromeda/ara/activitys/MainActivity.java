@@ -50,6 +50,7 @@ import com.andromeda.ara.R;
 import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.feeds.drawer;
 import com.andromeda.ara.search.Search;
+import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.RecyclerTouchListener;
 import com.andromeda.ara.util.RssFeedModel;
@@ -96,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     // Data set for list out put
     private List<RssFeedModel> rssFeedModel1 = new ArrayList<>();
-    //GridLayoutManager
-    private GridLayoutManager gridLayoutManager;
     //RecyclerView
     private RecyclerView recyclerView;
     //Device screen width
@@ -285,6 +284,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkScreenOrientation() {
+        //GridLayoutManager
+        GridLayoutManager gridLayoutManager;
         if (this.recyclerView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             gridLayoutManager = new GridLayoutManager(this, 2);
             recyclerView.setLayoutManager(gridLayoutManager);
@@ -297,8 +298,7 @@ public class MainActivity extends AppCompatActivity {
     private int checkScreenWidth() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int width = displayMetrics.widthPixels;
-        return width;
+        return displayMetrics.widthPixels;
     }
 
     public void openSettingsActivity(MenuItem menuItem) {

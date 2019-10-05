@@ -23,11 +23,16 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +45,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -93,6 +99,12 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     // Data set for list out put
     private List<RssFeedModel> rssFeedModel1 = new ArrayList<>();
+    //GridLayoutManager
+    private GridLayoutManager gridLayoutManager;
+    //RecyclerView
+    private RecyclerView recyclerView;
+    //Device screen width
+    private int screenWidth;
 
 
     @Override
@@ -102,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
         final tagManager main53 = new tagManager(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
+
+        screenWidth = checkScreenWidth();
 
         final Activity ctx = this;
         requestLocationPermission();
@@ -119,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
-        RecyclerView recyclerView = findViewById(R.id.list);
+        recyclerView = findViewById(R.id.list);
 
 
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Home").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.home);
@@ -230,7 +244,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        if (screenWidth > getResources().getInteger(R.integer.max_screen_width)){
+            checkScreenOrientation();
+        }else{
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
+
             ctx.runOnUiThread(() -> {
                 try {
                     rssFeedModel1 = (new Rss().parseRss(0));
@@ -267,6 +287,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void checkScreenOrientation() {
+        if (this.recyclerView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            gridLayoutManager = new GridLayoutManager(this, 2);
+            recyclerView.setLayoutManager(gridLayoutManager);
+        } else if (this.recyclerView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            gridLayoutManager = new GridLayoutManager(this, 4);
+            recyclerView.setLayoutManager(gridLayoutManager);
+        }
+    }
+
+    private int checkScreenWidth() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        return width;
+    }
+
     public void openSettingsActivity(MenuItem menuItem) {
         startActivity(new Intent(this, SettingsActivity.class));
     }
@@ -274,6 +311,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void about(MenuItem menuItem) {
         startActivity(new Intent(this, About.class));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (screenWidth > getResources().getInteger(R.integer.max_screen_width)){
+            checkScreenOrientation();
+        }else{
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
     }
 
     @Override

@@ -14,7 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-@file:Suppress("ClassName")
+
 
 package com.andromeda.ara.activitys
 
@@ -32,7 +32,7 @@ import java.io.InputStream
 import java.net.URL
 
 
-class allContent : AppCompatActivity() {
+class AllContent : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

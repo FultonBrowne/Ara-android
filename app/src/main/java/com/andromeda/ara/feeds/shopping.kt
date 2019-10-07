@@ -23,7 +23,7 @@ import java.util.*
 
 class shopping {
     fun getShops(log: String, lat: String): ArrayList<RssFeedModel> {
-        var rssFeedModel1: ArrayList<RssFeedModel> = ArrayList()
+        val rssFeedModel1: ArrayList<RssFeedModel> = ArrayList()
         val main = RssFeedModel("", "", "", "")
         val apiFactory = YelpFusionApiFactory()
         try {
@@ -36,11 +36,11 @@ class shopping {
             val call = yelpFusionApi.getBusinessSearch(params)
             val response = call.execute()
             val count = response.body().total
-            var count2 = 1
-            var title: String = "err"
-            var info: String = "err"
-            var web: String = "err"
-            var image: String = "err"
+            val count2 = 1
+            var title: String
+            var info: String
+            var web: String
+            var image: String
             if (count2 <= count) {
                 // rssFeedModel1.add(ArrayList)
                 for (i in 0 until response.body().businesses.size) {

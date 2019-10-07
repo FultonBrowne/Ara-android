@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(browserIntent);
 
                 } else {
-                    Intent intent = new Intent(ctx, allContent.class);
+                    Intent intent = new Intent(ctx, AllContent.class);
 
                     intent.putExtra("NAME", rssFeedModel1.get(position).title);
                     intent.putExtra("DESC", rssFeedModel1.get(position).description);

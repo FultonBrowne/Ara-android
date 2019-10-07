@@ -29,9 +29,9 @@ import com.andromeda.ara.R
  * The configuration screen for the [NewAppWidget2] AppWidget.
  */
 class NewAppWidget2ConfigureActivity : Activity() {
-    internal var mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
-    internal var mAppWidgetText: EditText = findViewById<View>(R.id.appwidget_text) as EditText
-    internal var mOnClickListener: View.OnClickListener = View.OnClickListener {
+    private var mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
+    private var mAppWidgetText: EditText = findViewById<View>(R.id.appwidget_text) as EditText
+    private var mOnClickListener: View.OnClickListener = View.OnClickListener {
         val context = this@NewAppWidget2ConfigureActivity
 
         // When the button is clicked, store the string locally
@@ -79,8 +79,8 @@ class NewAppWidget2ConfigureActivity : Activity() {
 
     companion object {
 
-        private val PREFS_NAME = "com.andromeda.ara.widgets.NewAppWidget2"
-        private val PREF_PREFIX_KEY = "appwidget_"
+        private const val PREFS_NAME = "com.andromeda.ara.widgets.NewAppWidget2"
+        private const val PREF_PREFIX_KEY = "appwidget_"
 
         // Write the prefix to the SharedPreferences object for this widget
         internal fun saveTitlePref(context: Context, appWidgetId: Int, text: String) {

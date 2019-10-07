@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activitys.allContent"
+            android:name=".activitys.AllContent"
             android:label="@string/title_activity_all_content"
             android:parentActivityName=".activitys.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

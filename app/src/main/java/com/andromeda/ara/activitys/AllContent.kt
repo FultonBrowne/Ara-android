@@ -40,9 +40,9 @@ class AllContent : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val name: String? = intent.getStringExtra("NAME")
-        val desc: String? = intent.getStringExtra("DESC")
-        val pic: String? = intent.getStringExtra("PIC")
+        val name: String? = intent.getStringExtra(getString(R.string.name))
+        val desc: String? = intent.getStringExtra(getString(R.string.desc))
+        val pic: String? = intent.getStringExtra(getString(R.string.pic))
         var `is`: InputStream? = null
         try {
             `is` = URL(pic).content as InputStream

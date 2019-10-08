@@ -16,12 +16,14 @@
 
 package com.andromeda.ara.util;
 
+import com.andromeda.ara.R;
+
 import java.util.ArrayList;
 
 public class ApiOutputToRssFeed {
     public ArrayList<RssFeedModel> main(ArrayList<OutputModel> tofeed) {
         ArrayList<RssFeedModel> feedModels = new ArrayList<>();
-        System.out.println("Starting step 2");
+        System.out.println(R.string.starting_step_2);
         System.out.println(tofeed.size());
         // System.out.println(tofeed.get(1).link.toString());
 

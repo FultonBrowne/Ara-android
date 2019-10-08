@@ -20,6 +20,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.andromeda.ara.R;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,8 +37,8 @@ public class calUtility {
         Cursor cursor = context.getContentResolver()
                 .query(
                         Uri.parse("content://com.android.calendar/events"),
-                        new String[]{"calendar_id", "title", "description",
-                                "dtstart", "dtend", "eventLocation"}, null,
+                        new String[]{context.getString(R.string.calender_id), context.getString(R.string.title), context.getString(R.string.description),
+                                context.getString(R.string.dtstart), context.getString(R.string.dtend), context.getString(R.string.eventLocation)}, null,
                         null, null);
         cursor.moveToFirst();
         // fetching calendars name
@@ -61,8 +63,7 @@ public class calUtility {
     }
 
     public static String getDate(long milliSeconds) {
-        SimpleDateFormat formatter = new SimpleDateFormat(
-                "dd/MM/yyyy hh:mm:ss a");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());

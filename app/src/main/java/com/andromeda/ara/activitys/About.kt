@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.andromeda.ara.R
 import com.andromeda.ara.R.id
 import com.andromeda.ara.R.layout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -34,8 +35,8 @@ class About : AppCompatActivity() {
         setSupportActionBar(toolbar)
         val fab: FloatingActionButton = findViewById(id.fab)
         fab.setOnClickListener { view: View? ->
-            Snackbar.make(view!!, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            Snackbar.make(view!!, getString(R.string.replace_with_your_own_action), Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.action), null).show()
         }
         Objects.requireNonNull(supportActionBar)!!.setDisplayHomeAsUpEnabled(true)
     }

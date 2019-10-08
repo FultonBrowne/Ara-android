@@ -27,6 +27,6 @@
     <item
         android:id="@+id/home"
         android:orderInCategory="100"
-        android:title="home"
+        android:title="@string/botton_menu_title"
         app:showAsAction="never" />
 </menu>

@@ -33,6 +33,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.andromeda.ara.R;
+
 import static android.content.Context.LOCATION_SERVICE;
 
 public class locl implements LocationListener {
@@ -50,9 +52,9 @@ public class locl implements LocationListener {
         try {
             locationManager = (LocationManager) ctx.getSystemService(LOCATION_SERVICE);
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            Toast.makeText(ctx, "GPS Enable " + isGPSEnabled, Toast.LENGTH_LONG).show();
+            Toast.makeText(ctx, ctx.getString(R.string.gps_enable) + isGPSEnabled, Toast.LENGTH_LONG).show();
             isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-            Toast.makeText(ctx, "Network Enable " + isNetworkEnabled, Toast.LENGTH_LONG).show();
+            Toast.makeText(ctx, ctx.getString(R.string.network_enable) + isNetworkEnabled, Toast.LENGTH_LONG).show();
 
             if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission
                     (ctx, android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -73,12 +75,12 @@ public class locl implements LocationListener {
             }
             latitude = location.getLatitude();
             longitude = location.getLongitude();
-            Toast.makeText(ctx, "latitude: " + latitude + " longitude: " + longitude, Toast.LENGTH_LONG).show();
+            Toast.makeText(ctx, ctx.getString(R.string.latittude) + latitude + ctx.getString(R.string.longitude) + longitude, Toast.LENGTH_LONG).show();
 
 
         } catch (Exception ex) {
 
-            Toast.makeText(ctx, "Exception " + ex, Toast.LENGTH_LONG).show();
+            Toast.makeText(ctx, ctx.getString(R.string.exception) + ex, Toast.LENGTH_LONG).show();
 
         }
     }

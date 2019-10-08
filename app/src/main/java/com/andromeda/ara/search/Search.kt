@@ -16,6 +16,7 @@
 
 package com.andromeda.ara.search
 
+import com.andromeda.ara.R
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.RssFeedModel
 import java.util.*
@@ -29,7 +30,7 @@ class Search {
         searchMode1 = searchMode1.replace(" ", "%20")
         val test1 = AraSearch().arrayOfOutputModels(searchMode1, log, lat)
         outputList = ApiOutputToRssFeed().main(test1)
-        println("done")
+        println(R.string.done_search)
 
         return outputList
     }

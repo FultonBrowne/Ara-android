@@ -25,6 +25,7 @@ import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.util.Log;
 
+import com.andromeda.ara.R;
 import com.andromeda.ara.activitys.MainActivity;
 
 import org.tensorflow.lite.Interpreter;
@@ -86,7 +87,7 @@ public class run {
     public synchronized String run1(Context ctx, Activity act) {
         act1 = act;
         String actualLabelFilename = LABEL_FILENAME.split("file:///android_asset/", -1)[1];
-        Log.i(LOG_TAG, "Reading labels from: " + actualLabelFilename);
+        Log.i(LOG_TAG,ctx.getString(R.string.msg_Reading_labels_from) + actualLabelFilename);
         BufferedReader br;
         try {
             br = new BufferedReader(new InputStreamReader(ctx.getAssets().open(actualLabelFilename)));

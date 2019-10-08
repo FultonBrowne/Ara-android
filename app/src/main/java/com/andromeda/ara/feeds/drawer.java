@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
+import com.andromeda.ara.R;
 import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.calUtility;
@@ -41,7 +42,7 @@ public class drawer {
 
 
       if (drawerItem == 1) {
-            Toast.makeText(ctx, "number 1", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ctx, ctx.getString(R.string.number_1), Toast.LENGTH_SHORT).show();
 
                 rssFeedModel1.addAll( new Rss().parseRss(0));
 

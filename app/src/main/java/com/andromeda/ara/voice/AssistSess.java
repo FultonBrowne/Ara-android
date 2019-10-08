@@ -30,6 +30,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.andromeda.ara.R;
 import com.andromeda.ara.activitys.MainActivity;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
@@ -45,9 +46,9 @@ public class AssistSess extends VoiceInteractionSession {
     //Runs when Ara is summoned
     public void onHandleAssist(Bundle data, AssistStructure structure, AssistContent content) {
         super.onHandleAssist(data, structure, content);
-        Log.v("AssistantSession", "onHandleAssist");
+        Log.v(context.getString(R.string.tag_AssistantSession), context.getString(R.string.msg_onHandleAssist));
         //new intent
-        Toast.makeText(context, "hi", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, context.getString(R.string.hi), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(context, VoiceMain.class);
         //Run the intent
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -68,7 +69,7 @@ public class AssistSess extends VoiceInteractionSession {
     //TODO add a screen shot feature
     @Override
     public void onHandleScreenshot(@Nullable Bitmap screenshot) {
-        Log.v("AssistantSession", "onHandleScreenshot");
+        Log.v(context.getString(R.string.tag_AssistantSession), context.getString(R.string.msg_onHandleScreenshot));
         super.onHandleScreenshot(screenshot);
     }
 

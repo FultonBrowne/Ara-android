@@ -44,6 +44,7 @@ public class VoiceMain extends AppCompatActivity {
         Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
         //TODO get lat and log
         ArrayList<RssFeedModel> toFeed = new Search().main(phrase, "0", "0");
+        new TTS().start(ctx, "hello");
 
 
 

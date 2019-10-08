@@ -18,6 +18,7 @@ package com.andromeda.ara.activitys
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.preference.PreferenceActivity
 import android.view.MenuInflater
 import android.view.View
@@ -31,13 +32,13 @@ import androidx.appcompat.app.AppCompatDelegate
  */
 abstract class AppCompatPreferenceActivity : PreferenceActivity() {
     private var mDelegate: AppCompatDelegate? = null
-    override fun onCreate(savedInstanceState: Bundle) {
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         delegate.installViewFactory()
         delegate.onCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
     }
 
-    override fun onPostCreate(savedInstanceState: Bundle) {
+    override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onPostCreate(savedInstanceState)
         delegate.onPostCreate(savedInstanceState)
     }

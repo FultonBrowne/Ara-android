@@ -29,7 +29,7 @@
         android:layout_margin="8dp"
         android:background="@color/colorPrimary"
         android:contentDescription="@string/appwidget_text"
-        android:text="WIDGET COMING SOON"
+        android:text="@string/new_app_widget2_title"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold|italic" />

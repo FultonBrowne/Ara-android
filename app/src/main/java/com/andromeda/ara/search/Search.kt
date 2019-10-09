@@ -32,6 +32,7 @@ class Search {
         outputList = ApiOutputToRssFeed().main(test1)
         println(R.string.done_search)
 
+
         return outputList
     }
 }

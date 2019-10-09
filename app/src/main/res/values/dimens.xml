@@ -32,5 +32,5 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="list_item_spacing_half">8dp</dimen>
 
 <!-- Maximum Screen Width for RecyclerView LayoutManager-->
-    <integer name="max_screen_width">1080</integer>
+    <integer name="max_screen_width">1500</integer>
 </resources>

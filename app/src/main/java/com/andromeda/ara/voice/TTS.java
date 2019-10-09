@@ -21,17 +21,14 @@ import android.speech.tts.TextToSpeech;
 
 import java.util.Locale;
 
-class TTS {
-    TextToSpeech t1;
+public class TTS {
+    private TextToSpeech t1;
 
-    void start(Context ctx, String text) {
-        t1 = new TextToSpeech(ctx, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status != TextToSpeech.ERROR) {
-                    t1.setLanguage(Locale.UK);
-                    t1.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-                }
+   public void start(Context ctx, String text) {
+        t1 = new TextToSpeech(ctx, status -> {
+            if (status != TextToSpeech.ERROR) {
+                t1.setLanguage(Locale.UK);
+                t1.speak(text, TextToSpeech.QUEUE_FLUSH, null);
             }
         });
     }

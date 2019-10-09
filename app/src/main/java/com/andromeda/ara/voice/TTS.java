@@ -23,10 +23,11 @@ import java.util.Locale;
 
 class TTS {
     void start(Context ctx, String text){
-   TextToSpeech ttobj =new TextToSpeech(ctx , status -> {
+        TextToSpeech ttobj =new TextToSpeech(ctx , status -> {
 
-   });
+        });
         ttobj.setLanguage(Locale.UK);
+        System.out.println("test");
         ttobj.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
 

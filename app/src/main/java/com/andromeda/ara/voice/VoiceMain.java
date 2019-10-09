@@ -19,32 +19,45 @@ package com.andromeda.ara.voice;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.andromeda.ara.R;
-import com.andromeda.ara.search.Search;
-import com.andromeda.ara.util.RssFeedModel;
 
-import java.util.ArrayList;
+import java.util.Locale;
 
 public class VoiceMain extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO = 13;
+    TextToSpeech t1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_voice_main);
         Context ctx = this;
-        requestMicrophonePermission();
+        String toSpeak = "hello I am ara";
+        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    t1.setLanguage(Locale.UK);
+                    t1.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
+        });
 
-        String phrase = new run().run1(ctx, this);
-        Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
+
+
+        //String phrase = new run().run1(ctx, this);
+        //Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
         //TODO get lat and log
-        ArrayList<RssFeedModel> toFeed = new Search().main(phrase, "0", "0");
-        new TTS().start(ctx, "hello");
+        //ArrayList<RssFeedModel> toFeed = new Search().main(phrase, "0", "0");
+
 
 
 

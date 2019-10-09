@@ -22,13 +22,18 @@ import android.speech.tts.TextToSpeech;
 import java.util.Locale;
 
 class TTS {
-    void start(Context ctx, String text){
-        TextToSpeech ttobj =new TextToSpeech(ctx , status -> {
+    TextToSpeech t1;
 
+    void start(Context ctx, String text) {
+        t1 = new TextToSpeech(ctx, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status != TextToSpeech.ERROR) {
+                    t1.setLanguage(Locale.UK);
+                    t1.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
         });
-        ttobj.setLanguage(Locale.UK);
-        System.out.println("test");
-        ttobj.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
 
 }

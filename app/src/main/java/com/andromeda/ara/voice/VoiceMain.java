@@ -27,8 +27,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.andromeda.ara.R;
 
-import java.util.Locale;
-
 public class VoiceMain extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO = 13;
     TextToSpeech t1;
@@ -40,15 +38,7 @@ public class VoiceMain extends AppCompatActivity {
         setContentView(R.layout.activity_voice_main);
         Context ctx = this;
         String toSpeak = "hello I am ara";
-        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    t1.setLanguage(Locale.UK);
-                    t1.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
-                }
-            }
-        });
+        new TTS().start(ctx, toSpeak);
 
         Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
 

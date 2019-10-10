@@ -16,13 +16,15 @@
 
 package com.andromeda.ara.search
 
+import android.content.Context
 import com.andromeda.ara.R
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.RssFeedModel
+import com.andromeda.ara.voice.TTS
 import java.util.*
 
 class Search {
-    fun main(mainval: String, log:String,lat:String): ArrayList<RssFeedModel> {
+    fun main(mainval: String, log:String,lat:String, ctx:Context): ArrayList<RssFeedModel> {
         var outputList: ArrayList<RssFeedModel> = java.util.ArrayList()
         outputList.add(RssFeedModel("", "", "", "",""))
         //search ara server
@@ -30,6 +32,7 @@ class Search {
         searchMode1 = searchMode1.replace(" ", "%20")
         val test1 = AraSearch().arrayOfOutputModels(searchMode1, log, lat)
         outputList = ApiOutputToRssFeed().main(test1)
+        TTS().start(ctx, outputList[0].out)
         println(R.string.done_search)
 
 

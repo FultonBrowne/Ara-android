@@ -27,11 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class calUtility {
-    public static String nameOfEvent;
-    public static String startDates;
-    public static String endDates;
-    public static String descriptions;
-    public static ArrayList<RssFeedModel> main = new ArrayList<RssFeedModel>();
+    public static ArrayList<RssFeedModel> main = new ArrayList<>();
 
     public static ArrayList<RssFeedModel> readCalendarEvent(Context context) {
         Cursor cursor = context.getContentResolver()
@@ -40,6 +36,7 @@ public class calUtility {
                         new String[]{context.getString(R.string.calender_id), context.getString(R.string.title), context.getString(R.string.description),
                                 context.getString(R.string.dtstart), context.getString(R.string.dtend), context.getString(R.string.eventLocation)}, null,
                         null, null);
+        assert cursor != null;
         cursor.moveToFirst();
         // fetching calendars name
         String[] CNames = new String[cursor.getCount()];
@@ -49,20 +46,21 @@ public class calUtility {
 
         for (int i = 0; i < CNames.length; i++) {
 
-            nameOfEvent = cursor.getString(1);
-            startDates = (getDate(Long.parseLong(cursor.getString(3))));
-            endDates = (getDate(Long.parseLong(cursor.getString(4))));
-            descriptions = (cursor.getString(2));
+            String nameOfEvent = cursor.getString(1);
+            String startDates = (getDate(Long.parseLong(cursor.getString(3))));
+            String endDates = (getDate(Long.parseLong(cursor.getString(4))));
+            String descriptions = (cursor.getString(2));
             main.add(new RssFeedModel(nameOfEvent, "", startDates + endDates + System.lineSeparator() + descriptions, "", ""));
             CNames[i] = cursor.getString(1);
             cursor.moveToNext();
 
 
         }
+        cursor.close();
         return main;
     }
 
-    public static String getDate(long milliSeconds) {
+    private static String getDate(long milliSeconds) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliSeconds);

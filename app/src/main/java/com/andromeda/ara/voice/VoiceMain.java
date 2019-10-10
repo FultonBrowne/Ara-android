@@ -38,7 +38,7 @@ public class VoiceMain extends AppCompatActivity {
         setContentView(R.layout.activity_voice_main);
         Context ctx = this;
         String toSpeak = "hello, I am ara";
-        new TTS().start(ctx, toSpeak);
+        new TTS().start(getApplicationContext(), toSpeak);
 
         Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
 

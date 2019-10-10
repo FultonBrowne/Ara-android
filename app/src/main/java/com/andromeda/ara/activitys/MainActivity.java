@@ -346,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 //RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
                 requestLocationPermission();
-                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query,Double.toString(locl.longitude), Double.toString(locl.latitude), ctx));
+                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query,Double.toString(locl.longitude), Double.toString(locl.latitude), getApplicationContext()));
                 rssFeedModel1.addAll(0, rssFeedModel2);
                 mAdapter.notifyDataSetChanged();
 

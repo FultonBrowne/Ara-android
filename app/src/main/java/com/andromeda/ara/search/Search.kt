@@ -32,6 +32,7 @@ class Search {
         searchMode1 = searchMode1.replace(" ", "%20")
         val test1 = AraSearch().arrayOfOutputModels(searchMode1, log, lat)
         outputList = ApiOutputToRssFeed().main(test1)
+        System.out.println(outputList[0].out)
         TTS().start(ctx, outputList[0].out)
         println(R.string.done_search)
 

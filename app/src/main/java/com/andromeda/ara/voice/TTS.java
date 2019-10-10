@@ -29,7 +29,9 @@ public class TTS {
             if (status != TextToSpeech.ERROR) {
                 t1.setLanguage(Locale.UK);
                 t1.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                System.out.println("done");
             }
+            else System.out.println("errrrrrrrrr");
         });
     }
 

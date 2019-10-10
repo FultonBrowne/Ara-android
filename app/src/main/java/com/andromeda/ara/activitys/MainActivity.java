@@ -101,10 +101,12 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     //Device screen width
     private int screenWidth;
+    Context ctx;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ctx = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final tagManager main53 = new tagManager(this);
@@ -344,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 //RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
                 requestLocationPermission();
-                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query,Double.toString(locl.longitude), Double.toString(locl.latitude)));
+                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query,Double.toString(locl.longitude), Double.toString(locl.latitude), ctx));
                 rssFeedModel1.addAll(0, rssFeedModel2);
                 mAdapter.notifyDataSetChanged();
 

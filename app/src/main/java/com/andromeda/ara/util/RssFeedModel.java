@@ -16,18 +16,22 @@
 
 package com.andromeda.ara.util;
 
+import androidx.annotation.Nullable;
+
 public class RssFeedModel {
 
     public String title;
     public String link;
     public String description;
     public String image;
+    public String out;
 
-    public RssFeedModel(String description, String link, String title, String image) {
+    public RssFeedModel(String description, String link, String title, String image, @Nullable String out) {
         this.title = title;
         this.link = link;
         this.description = description;
         this.image = image;
+        this.out = out;
     }
 }
 

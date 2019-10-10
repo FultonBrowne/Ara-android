@@ -24,7 +24,7 @@ import java.util.*
 class Search {
     fun main(mainval: String, log:String,lat:String): ArrayList<RssFeedModel> {
         var outputList: ArrayList<RssFeedModel> = java.util.ArrayList()
-        outputList.add(RssFeedModel("", "", "", ""))
+        outputList.add(RssFeedModel("", "", "", "",""))
         //search ara server
         var searchMode1 = mainval.toLowerCase(Locale("en"))
         searchMode1 = searchMode1.replace(" ", "%20")

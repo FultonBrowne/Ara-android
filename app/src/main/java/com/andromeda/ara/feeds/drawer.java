@@ -62,7 +62,7 @@ public class drawer {
 
                     title1 = cursor.getString(1);
                     web1 = cursor.getString(2);
-                    test = new RssFeedModel(title1, web1, "", "");
+                    test = new RssFeedModel(title1, web1, "", "", "");
 
                     rssFeedModel1.add(test);
                     cursor.moveToNext();
@@ -70,7 +70,7 @@ public class drawer {
             } else {
                 title1 = "nothing";
                 web1 = "reload app";
-                test = new RssFeedModel(title1, web1, "", "");
+                test = new RssFeedModel(title1, web1, "", "", "");
                 rssFeedModel1.add(test);
 
 

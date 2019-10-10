@@ -61,7 +61,7 @@ class Rss {
                 mFeedLink = syndEntry.link
 
 
-                val rssFeedModel = RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "")
+                val rssFeedModel = RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "", "")
                 items.add(rssFeedModel)
 
 
@@ -72,14 +72,14 @@ class Rss {
             mFeedLink = "err"
             mFeedTitle = "err"
             mFeedDescription = "err"
-            val rssFeedModel = RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "")
+            val rssFeedModel = RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "", "")
             items.add(rssFeedModel)
 
         } catch (e: FeedException) {
             mFeedLink = "err"
             mFeedTitle = "err"
             mFeedDescription = "err"
-            val rssFeedModel = RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "")
+            val rssFeedModel = RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "", "")
             items.add(rssFeedModel)
 
         } finally {

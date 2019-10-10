@@ -26,7 +26,7 @@ import java.util.*
 class Food {
     fun getFood(log: String, lat: String): ArrayList<RssFeedModel> {
         val rssFeedModel1: ArrayList<RssFeedModel> = ArrayList()
-        val main = RssFeedModel("", "", "", "")
+        val main = RssFeedModel("", "", "", "", "")
         val apiFactory = YelpFusionApiFactory()
         try {
             val params = HashMap<String, String>()
@@ -60,16 +60,16 @@ class Food {
                         info = stars1 + System.lineSeparator() + " open now"
                     }
 
-                    rssFeedModel1.add(RssFeedModel(info, web, title, image))
+                    rssFeedModel1.add(RssFeedModel(info, web, title, image, ""))
                 }
             } else {
-                rssFeedModel1.add(RssFeedModel("err1", "err", "err", "err"))
+                rssFeedModel1.add(RssFeedModel("err1", "err", "err", "err", ""))
             }
 
 
         } catch (e: IOException) {
             e.printStackTrace()
-            rssFeedModel1.add(RssFeedModel("err", "err", "err", "err"))
+            rssFeedModel1.add(RssFeedModel("err", "err", "err", "err", ""))
         }
 
 

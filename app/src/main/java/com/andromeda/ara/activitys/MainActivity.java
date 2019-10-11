@@ -59,6 +59,9 @@ import com.andromeda.ara.util.tagManager;
 import com.andromeda.ara.voice.VoiceMain;
 import com.andromeda.ara.voice.run;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.crashes.Crashes;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -106,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
+                Analytics.class, Crashes.class);
         ctx = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

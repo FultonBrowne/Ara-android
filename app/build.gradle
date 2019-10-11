@@ -46,7 +46,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        multiDexEnabled true
+        multiDexEnabled = true
         packagingOptions {
             exclude 'META-INF/DEPENDENCIES'
             exclude 'META-INF/LICENSE'
@@ -125,6 +125,11 @@ dependencies {
     implementation "com.android.volley:volley:1.1.1"
 
     implementation "com.google.code.gson:gson:2.8.6"
+    def appCenterSdkVersion = '2.3.0'
+    implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
+
+
 
     implementation project(path: ':WolframAlpha-1.1')
     implementation group: 'com.rometools', name: 'rome', version: '1.12.0'

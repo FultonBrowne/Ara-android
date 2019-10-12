@@ -40,13 +40,14 @@ android {
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.andromeda.ara"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         vectorDrawables.useSupportLibrary = true
         versionCode 1
         versionName "1.0"
 
         multiDexEnabled = true
+
         packagingOptions {
             exclude 'META-INF/DEPENDENCIES'
             exclude 'META-INF/LICENSE'
@@ -96,6 +97,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'org.tensorflow:tensorflow-lite:1.14.0'
+    // https://mvnrepository.com/artifact/org.mozilla.deepspeech/libdeepspeech
+    implementation group: 'org.mozilla.deepspeech', name: 'libdeepspeech', version: '0.6.0-alpha.9'
     // https://mvnrepository.com/artifact/com.microsoft.azure.cognitiveservices/azure-cognitiveservices-websearch
 
 

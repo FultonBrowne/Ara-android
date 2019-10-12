@@ -85,7 +85,9 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 @SuppressLint("CutPasteId")
 public class MainActivity extends AppCompatActivity {
-    /** these have to do with permissions**/
+    /**
+     * these have to do with permissions
+     **/
     private final int REQUEST_LOCATION_PERMISSION = 1;
     private static final int REQUEST_RECORD_AUDIO = 13;
     //this is the text for the greeting it is hello by default for compatibility reasons
@@ -197,14 +199,13 @@ public class MainActivity extends AppCompatActivity {
 
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
 
-                        MainActivity.this.runOnUiThread(() -> {
-                            try {
-                                recyclerView.setAdapter(new drawer().main(drawerItem.getIdentifier(),ctx, main53, MainActivity.this));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        });
-
+                    MainActivity.this.runOnUiThread(() -> {
+                        try {
+                            recyclerView.setAdapter(new drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
 
 
                     return false;
@@ -248,27 +249,26 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
 
-        if (screenWidth > getResources().getInteger(R.integer.max_screen_width)){
+        if (screenWidth > getResources().getInteger(R.integer.max_screen_width)) {
             checkScreenOrientation();
-        }else{
+        } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
 
-            ctx.runOnUiThread(() -> {
-                try {
-                    rssFeedModel1 = (new Rss().parseRss(0));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                mAdapter = new Adapter(rssFeedModel1);
+        ctx.runOnUiThread(() -> {
+            try {
+                rssFeedModel1 = (new Rss().parseRss(0));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            mAdapter = new Adapter(rssFeedModel1);
 
-                recyclerView.setAdapter(mAdapter);
+            recyclerView.setAdapter(mAdapter);
 
-            });
+        });
 
 
-
-            //recyclerView.setAdapter(new Adapter(parseFeed()));
+        //recyclerView.setAdapter(new Adapter(parseFeed()));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -277,12 +277,11 @@ public class MainActivity extends AppCompatActivity {
             // Start the recording and recognition thread
             requestMicrophonePermission();
 
-            String phrase = new run().run1(ctx, ctx);
-            Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
-            mAdapter.notifyDataSetChanged();
-          Intent  intent = new Intent(ctx, VoiceMain.class);
+            //String phrase = new run().run1(ctx, ctx);
+            //Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
+            //mAdapter.notifyDataSetChanged();
+            Intent intent = new Intent(ctx, VoiceMain.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("voice", true);
             startActivity(intent);
 
 
@@ -320,9 +319,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (screenWidth > getResources().getInteger(R.integer.max_screen_width)){
+        if (screenWidth > getResources().getInteger(R.integer.max_screen_width)) {
             checkScreenOrientation();
-        }else{
+        } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
     }
@@ -351,7 +350,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 //RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
                 requestLocationPermission();
-                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query,Double.toString(locl.longitude), Double.toString(locl.latitude), getApplicationContext()));
+                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query, Double.toString(locl.longitude), Double.toString(locl.latitude), getApplicationContext()));
                 rssFeedModel1.addAll(0, rssFeedModel2);
                 mAdapter.notifyDataSetChanged();
 
@@ -420,7 +419,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -452,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
     public void update11(MenuItem item) {
         Toast.makeText(this, "checking for update", Toast.LENGTH_LONG).show();
         try {
-            String url = new GetUrlAra().getIt(new URL("https://araserver.herokuapp.com/update/0.1"));
+            String url = new GetUrlAra().getIt(new URL("https://araserver.herokuapp.com/update/0.2"));
             Intent browserIntent;
             Toast.makeText(this, "update available", Toast.LENGTH_LONG).show();
 

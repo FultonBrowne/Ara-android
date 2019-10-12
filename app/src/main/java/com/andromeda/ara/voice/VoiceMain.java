@@ -40,7 +40,9 @@ public class VoiceMain extends AppCompatActivity {
         String toSpeak = "hello, I am ara";
         new TTS().start(getApplicationContext(), toSpeak);
 
-        Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
+        String search = new DeepSpeech().run("file:///android_asset/main.mp3");
+        Toast.makeText(getApplicationContext(), search,Toast.LENGTH_SHORT).show();
 
 
         //String phrase = new run().run1(ctx, this);

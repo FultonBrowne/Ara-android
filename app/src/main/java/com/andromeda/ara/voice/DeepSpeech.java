@@ -46,6 +46,7 @@ public class DeepSpeech {
 
         try {
             RandomAccessFile wave = new RandomAccessFile(audioFile, "r");
+            System.out.println("open file");
 
             wave.seek(20); char audioFormat = this.readLEChar(wave);
             assert (audioFormat == 1); // 1 is PCM
@@ -80,7 +81,8 @@ public class DeepSpeech {
              decoded = this._m.stt(shorts, shorts.length);
 
 
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            e.printStackTrace();
 
         }
 

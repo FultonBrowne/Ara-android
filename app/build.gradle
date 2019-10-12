@@ -66,6 +66,7 @@ android {
     }
     aaptOptions {
         noCompress "tflite"
+        noCompress "mp3"
     }
 
     buildTypes {

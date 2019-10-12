@@ -1,0 +1,261 @@
+<!--
+  ~ Copyright (c) 2019. Fulton Browne
+  ~  This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="app_name">Ara</string>
+    <string name="action_settings">die Einstellungen</string>
+    <string name="action_about">Über</string>
+    <string name="greet">Hallo, kann ich helfen?</string>
+    <string name="greet1">Hallo, @string/greet</string>
+    <string name="blank" />
+    <string name="title_activity_settings">die Einstellungen</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Allgemeines</string>
+
+    <string name="pref_title_social_recommendations">Aktivieren Sie soziale Empfehlungen</string>
+    <string name="pref_description_social_recommendations">
+	
+Empfehlungen für Kontaktpersonen basierend auf Ihrem Nachrichtenverlauf
+    </string>
+  <string name="botton_menu_title">Zuhause</string>
+  <string name="new_app_widget2_title">WIDGET KOMMT BALD</string>
+
+    <string name="pref_title_display_name">Anzeigename</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Freunde zu Nachrichten hinzufügen</string>
+    <string-array name="pref_example_list_titles">
+        <item>Immer</item>
+        <item>Wenn möglich</item>
+        <item>noch nie</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Daten &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">synchronisieren frequenz</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>noch nie</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Eintrag 1</item>
+        <item>Eintrag 2</item>
+        <item>Eintrag 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">Synchronisieren Sie die Systemeinstellungen</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Benachrichtigungen</string>
+
+    <string name="pref_title_new_message_notifications">Neue Nachrichtenbenachrichtigungen</string>
+
+    <string name="pref_title_ringtone">Klingelton</string>
+    <string name="pref_ringtone_silent">Stille</string>
+
+    <string name="pref_title_vibrate">Vibrieren</string>
+    <string name="email">email</string>
+    <string name="text">Mitteilungen</string>
+    <string name="news">Nachrichten</string>
+    <string name="appwidget_text">BEISPIEL</string>
+    <string name="add_widget">Widget hinzufügen</string>
+    <string name="title_activity_about">Über</string>
+    <string name="large_text">
+        "Material ist die Metapher.\n\n"
+
+        "Eine materielle Metapher ist die vereinheitlichende Theorie eines rationalisierten Raumes und eines Bewegungssystems."
+        "Das Material basiert auf taktiler Realität, inspiriert durch das Studium von Papier und Tinte."
+        "Technologisch fortschrittlich und offen für Fantasie und Magie. \n"
+        "Oberflächen und Kanten des Materials liefern visuelle Hinweise, die in der Realität begründet sind. Die"
+        "Die Verwendung vertrauter taktiler Attribute hilft dem Benutzer, die Erschwinglichkeiten schnell zu verstehen."
+        "Flexibilität des Materials schafft neue Erschwinglichkeiten, die die im physischen Bereich übertreffen"
+        "Welt, ohne die Regeln der Physik zu brechen. \n"
+        "Die Grundlagen von Licht, Oberfläche und Bewegung sind der Schlüssel, um zu vermitteln, wie sich Objekte bewegen."
+        "interagieren und existieren im Raum und in Beziehung zueinander. Realistische Lichtshows"
+        "Näht, teilt den Raum und zeigt bewegliche Teile an. \n\n"
+
+        "Fett, grafisch, absichtlich. \n\n"
+
+        "Die grundlegenden Elemente der druckbasierten Designtypografie: Raster, Raum, Maßstab, Farbe."
+        "und die Verwendung von Bildern führen visuelle Behandlungen. Diese Elemente tun weit mehr als bitte die"
+        "Auge. Sie schaffen Hierarchie, Bedeutung und Fokus. Überlegte Farbauswahl, Kante an Kante"
+        "Bilder, großformatige Typografie und absichtlicher weißer Raum schaffen eine mutige und grafische"
+        msgstr "Schnittstelle, die den Benutzer in die Erfahrung eintaucht. \n"
+        "Ein Schwerpunkt auf Benutzeraktionen macht die Kernfunktionalität sofort sichtbar und bietet"
+        "Wegpunkte für den Benutzer. \n\n"
+
+        "Bewegung gibt Sinn. \n\n"
+
+        "Motion respektiert und stärkt den Benutzer als die treibende Kraft. Primäre Benutzeraktionen sind"
+        "Wendepunkte, die Bewegungen auslösen und das gesamte Design verändern. \n"
+        "Alle Aktionen finden in einer einzigen Umgebung statt. Objekte werden dem Benutzer ohne
+        "Die Kontinuität der Erfahrung brechen, auch wenn sie sich verändern und neu organisieren. \n"
+        "Bewegung ist sinnvoll und angemessen und dient dazu, die Aufmerksamkeit zu konzentrieren und die Kontinuität aufrechtzuerhalten."
+        "Das Feedback ist subtil und doch klar. Übergänge sind effizient und doch kohärent. \n\n"
+
+        "3D-Welt. \n\n"
+
+        "Die materielle Umgebung ist ein 3D-Raum, was bedeutet, dass alle Objekte x, y und z haben."
+        Maße. Die z-Achse ist senkrecht zur Ebene der Anzeige ausgerichtet, wobei die
+        "Positive Z-Achse, die sich in Richtung des Betrachters erstreckt. Jedes Blatt Material belegt ein einzelnes"
+        msgstr "Position entlang der z - Achse und hat eine Standarddicke von 1 dpi. \ n"
+        "Im Web wird die Z-Achse für die Überlagerung und nicht für die Perspektive verwendet. Die 3D-Welt ist"
+        msgstr "durch Manipulieren der y - Achse emuliert. \ n \ n"
+
+        "Licht und Schatten. \ N \ n"
+
+        "In der materiellen Umgebung beleuchten virtuelle Lichter die Szene. Schlüssellichter erzeugen"
+        msgstr "Richtungsschatten, während Umgebungslicht weiche Schatten aus allen Winkeln erzeugt. \n"
+        "Schatten in der materiellen Umgebung werden von diesen beiden Lichtquellen geworfen. In Android"
+        "Entwicklung, Schatten entstehen, wenn Lichtquellen durch Materiallagen blockiert werden"
+        Verschiedene Positionen entlang der z-Achse. Auf der Bahn werden Schatten durch Manipulieren des
+        "Nur y-Achse. Das folgende Beispiel zeigt die Karte mit einer Höhe von 6 dpi. \n\n"
+
+        "Ruhehöhe. \n\n"
+
+        "Alle materiellen Objekte, unabhängig von ihrer Größe, haben eine Ruhehöhe oder eine Standardhöhe."
+        "Das ändert sich nicht. Wenn sich die Höhe eines Objekts ändert, sollte es in seine Ruheposition zurückkehren."
+        "Höhe so schnell wie möglich. \n\n"
+
+        "Bauteilerhöhungen. \n\n"
+
+        Die Ruhehöhe für einen Komponententyp ist für alle Apps gleich (z. B. die FAB-Höhe).
+        msgstr "variiert nicht von 6dp in einer App bis 16dp in einer anderen App. \n"
+        "Komponenten können je nach Tiefe auf verschiedenen Plattformen unterschiedliche Aufstandshöhen haben."
+        "der Umgebung (z. B. TV hat eine größere Tiefe als mobile oder Desktop). \n\n"
+
+        "Responsive Elevation und dynamische Elevation Offsets. \n\n"
+
+        "Einige Komponententypen haben eine ansprechende Höhe, dh sie ändern die Höhe in Abhängigkeit von der Höhe."
+        für Benutzereingaben (z. B. normale, fokussierte und gedrückte) oder Systemereignisse.
+        msgstr "Änderungen werden konsistent mit dynamischen Höhenversätzen implementiert. \n"
+        "Dynamische Höhenversätze sind die Zielhöhe, auf die sich eine Komponente relativ zubewegt."
+        "In den Ruhezustand der Komponente. Sie stellen sicher, dass die Höhenänderungen konsistent sind."
+        "über Aktionen und Komponententypen hinweg. Zum Beispiel haben alle Komponenten, die auf der Presse angehoben werden,
+        msgstr "die gleiche Höhenänderung relativ zu ihrer Ruhehöhe. \n"
+        "Sobald das Eingabeereignis abgeschlossen oder abgebrochen ist, kehrt die Komponente in den Ruhezustand zurück."
+        "Höhe. \n\n"
+
+        "Höhenstörungen vermeiden. \n\n"
+
+        "Komponenten mit reaktionsschnellen Höhen können auf andere Komponenten treffen, wenn sie sich bewegen"
+        "ihre Ruhehöhen und dynamischen Höhenversätze. Weil Material nicht passieren kann"
+        "Durch andere Materialien vermeiden die Komponenten auf vielfältige Weise, dass sie sich gegenseitig stören."
+        "Ob auf Komponentenbasis oder unter Verwendung des gesamten App-Layouts. \n"
+        "Auf Komponentenebene können Komponenten bewegt oder entfernt werden, bevor sie Störungen verursachen."
+        Beispielsweise kann eine schwebende Aktionstaste (Floating Action Button, FAB) verschwinden oder den Bildschirm verlassen, bevor ein
+        msgstr "Benutzer nimmt eine Karte in die Hand oder sie kann sich bewegen, wenn eine Snackbar erscheint. \n"
+        "Entwerfen Sie auf Layoutebene Ihr App-Layout, um die Möglichkeit von Interferenzen zu minimieren."
+        "Positionieren Sie den FAB beispielsweise an einer Seite des Kartenstroms, damit der FAB nicht stört."
+        "Wenn ein Benutzer versucht, eine der Karten aufzuheben. \n\n"
+    </string>
+    <string name="image">Kamera</string>
+    <string-array name="front">Hallo @array/pref_example_list_values</string-array>
+
+    <string name="title_activity_setup">Konfiguration</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Passwort</string>
+    <string name="action_sign_in">Einloggen oder Registrieren</string>
+    <string name="action_sign_in_short">Anmelden</string>
+    <string name="welcome">"Herzlich willkommen !"</string>
+    <string name="invalid_username">Kein gültiger Benutzername</string>
+    <string name="invalid_password">
+Das Passwort muss länger als 5 Zeichen sein</string>
+    <string name="login_failed">"Login fehlgeschlagen"</string>
+    <string name="prompt_firstname">
+Vorname</string>
+    <string name="welcome1">
+Willkommen bei Ara! Um zu beginnen, wie lautet Ihr Vorname?</string>
+    <string name="done">
+fertig und offen Ara</string>
+    <string name="themeMode" />
+    <string name="theme">Force dark theme</string>
+    <string name="keytheme">list_preference_1</string>
+    <string name="default1">Systemfehler</string>
+    <array name="themeList">
+        <item>Dark</item>
+        <item>Light</item>
+        <item>Battery saver</item>
+        <item>System default</item>
+    </array>
+    <string name="url">https://feeds.foxnews.com/foxnews/latest</string>
+    <string name="test">Prüfung</string>
+    <string name="hello1">Hallo</string>
+    <string name="configure">Konfigurieren</string>
+    <string name="title_activity_all_content">AlleInhalte</string>
+    <string name="pref_switch_note">Ara-Benachrichtigungen</string>
+    <string name="hey_ara_listener_switch">Listen for \"hey Ara\"</string>
+    <string name="textOK">Ok</string>
+    <string name="moneyText">money</string>
+    <string name="updateTxt">Update</string>
+    <string name="replace_with_your_own_action">Replace with your own action</string>
+    <string name="action">Action</string>
+    <string name="name">NAME</string>
+    <string name="desc">DESC</string>
+    <string name="pic">PIC</string>
+    <string name="number_1">number 1</string>
+    <string name="done_search">done</string>
+    <string name="starting_step_2">Starting step 2</string>
+    <string name="calender_id">calendar_id</string>
+    <string name="title">title</string>
+    <string name="description">description</string>
+    <string name="dtstart">dtstart</string>
+    <string name="dtend">dtend</string>
+    <string name="eventLocation">eventLocation</string>
+    <string name="gps_enable">GPS Enable</string>
+    <string name="network_enable">Network Enable</string>
+    <string name="latittude">latitude:</string>
+    <string name="longitude">longitude:</string>
+    <string name="exception">Exception</string>
+    <string name="tag_AssistantService">AssistantService</string>
+    <string name="msg_onReady">onReady</string>
+    <string name="msg_onCreate">onCreate</string>
+    <string name="tag_AssistantSession">AssistantSession</string>
+    <string name="msg_onHandleAssist">onHandleAssist</string>
+    <string name="hi">hi</string>
+    <string name="msg_onHandleScreenshot">onHandleScreenshot</string>
+    <string name="msg_Reading_labels_from">Reading labels from:</string>
+</resources>

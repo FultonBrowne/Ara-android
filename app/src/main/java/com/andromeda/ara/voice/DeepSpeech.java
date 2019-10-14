@@ -39,6 +39,7 @@ public class DeepSpeech {
 
     }
     private String doInference(String audioFile) {
+        //String actualLabelFilename = audioFile.split("file:///android_asset/", -1)[1];
         String decoded = "err";
 
         this.newModel("file:///android_asset/main.tflite", "file:///android_asset/alphabet.txt");
@@ -46,6 +47,7 @@ public class DeepSpeech {
 
         try {
             RandomAccessFile wave = new RandomAccessFile(audioFile, "r");
+
             System.out.println("open file");
 
             wave.seek(20); char audioFormat = this.readLEChar(wave);

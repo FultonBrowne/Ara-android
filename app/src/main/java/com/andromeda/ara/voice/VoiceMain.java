@@ -16,16 +16,21 @@
 
 package com.andromeda.ara.voice;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.andromeda.ara.R;
+import com.andromeda.ara.activitys.MainActivity;
 
 public class VoiceMain extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO = 13;
@@ -33,6 +38,9 @@ public class VoiceMain extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ActivityCompat.requestPermissions(VoiceMain.this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                1);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_voice_main);
@@ -41,7 +49,7 @@ public class VoiceMain extends AppCompatActivity {
         new TTS().start(getApplicationContext(), toSpeak);
 
         //Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-        String search = new DeepSpeech().run("file:///android_asset/main.mp3");
+        String search = new DeepSpeech().run( "/storage/self/primary/Download/main.mp3");
         Toast.makeText(getApplicationContext(), search,Toast.LENGTH_SHORT).show();
 
 
@@ -67,5 +75,30 @@ public class VoiceMain extends AppCompatActivity {
         }
 
 
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(VoiceMain.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 }

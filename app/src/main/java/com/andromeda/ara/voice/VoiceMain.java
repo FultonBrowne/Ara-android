@@ -116,6 +116,9 @@ public class VoiceMain extends AppCompatActivity {
     }
     private void record() {
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
+        MediaRecorder recorder = new MediaRecorder();
+
+
 
         // Estimate the buffer size we'll need for this device.
         int bufferSize =
@@ -136,6 +139,7 @@ public class VoiceMain extends AppCompatActivity {
 
         if (record.getState() != AudioRecord.STATE_INITIALIZED) {
             Log.e(LOG_TAG, "Audio Record can't initialize!");
+
             return;
         }
 

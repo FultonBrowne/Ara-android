@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Toast;
@@ -30,7 +29,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.andromeda.ara.R;
-import com.andromeda.ara.activitys.MainActivity;
 
 public class VoiceMain extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO = 13;
@@ -42,6 +40,7 @@ public class VoiceMain extends AppCompatActivity {
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 1);
         super.onCreate(savedInstanceState);
+        //new AudioRecord(MicrophoneDirection.MIC_DIRECTION_TOWARDS_USER,16000, 0,Format);
 
         setContentView(R.layout.activity_voice_main);
         Context ctx = this;
@@ -49,7 +48,7 @@ public class VoiceMain extends AppCompatActivity {
         new TTS().start(getApplicationContext(), toSpeak);
 
         //Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-        String search = new DeepSpeech().run( "/storage/self/primary/Download/main.mp3");
+        String search = new DeepSpeech().run(getCacheDir()+"/main.mp3");
         Toast.makeText(getApplicationContext(), search,Toast.LENGTH_SHORT).show();
 
 

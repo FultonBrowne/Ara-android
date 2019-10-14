@@ -19,6 +19,9 @@ package com.andromeda.ara.voice;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.MicrophoneDirection;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -40,8 +43,9 @@ public class VoiceMain extends AppCompatActivity {
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 1);
         super.onCreate(savedInstanceState);
-        //new AudioRecord(MicrophoneDirection.MIC_DIRECTION_TOWARDS_USER,16000, 0,Format);
+       AudioRecord audioRecord = new AudioRecord(MicrophoneDirection.MIC_DIRECTION_TOWARDS_USER,16000, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT,2048);
 
+       audioRecord.startRecording();
         setContentView(R.layout.activity_voice_main);
         Context ctx = this;
         String toSpeak = "hello, I am ara";

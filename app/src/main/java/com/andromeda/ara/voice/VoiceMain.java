@@ -21,10 +21,12 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
+import android.media.MediaRecorder;
 import android.media.MicrophoneDirection;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -33,9 +35,21 @@ import androidx.core.app.ActivityCompat;
 
 import com.andromeda.ara.R;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 public class VoiceMain extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO = 13;
+    private static final String LOG_TAG = "v";
+    private Thread recordingThread;
     TextToSpeech t1;
+    Boolean shouldContinue = true;
+    private int recordingOffset = 0;
+    private short[] recordingBuffer = new short[RECORDING_LENGTH];
+    private final ReentrantLock recordingBufferLock = new ReentrantLock();
+    private static final int SAMPLE_RATE = 16000;
+    private static final int SAMPLE_DURATION_MS = 1000;
+    private static final int RECORDING_LENGTH = SAMPLE_RATE * SAMPLE_DURATION_MS / 1000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +60,7 @@ public class VoiceMain extends AppCompatActivity {
        AudioRecord audioRecord = new AudioRecord(MicrophoneDirection.MIC_DIRECTION_TOWARDS_USER,16000, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT,2048);
 
        audioRecord.startRecording();
+
         setContentView(R.layout.activity_voice_main);
         Context ctx = this;
         String toSpeak = "hello, I am ara";
@@ -104,4 +119,68 @@ public class VoiceMain extends AppCompatActivity {
             // permissions this app might request
         }
     }
+    private void record() {
+        android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
+
+        // Estimate the buffer size we'll need for this device.
+        int bufferSize =
+                AudioRecord.getMinBufferSize(
+                        SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
+        if (bufferSize == AudioRecord.ERROR || bufferSize == AudioRecord.ERROR_BAD_VALUE) {
+            bufferSize = SAMPLE_RATE * 2;
+        }
+        short[] audioBuffer = new short[bufferSize / 2];
+
+        AudioRecord record =
+                new AudioRecord(
+                        MediaRecorder.AudioSource.DEFAULT,
+                        SAMPLE_RATE,
+                        AudioFormat.CHANNEL_IN_MONO,
+                        AudioFormat.ENCODING_PCM_16BIT,
+                        bufferSize);
+
+        if (record.getState() != AudioRecord.STATE_INITIALIZED) {
+            Log.e(LOG_TAG, "Audio Record can't initialize!");
+            return;
+        }
+
+        record.startRecording();
+
+        Log.v(LOG_TAG, "Start recording");
+
+        // Loop, gathering audio data and copying it to a round-robin buffer.
+        while (shouldContinue) {
+            int numberRead = record.read(audioBuffer, 0, audioBuffer.length);
+            int maxLength = recordingBuffer.length;
+            int newRecordingOffset = recordingOffset + numberRead;
+            int secondCopyLength = Math.max(0, newRecordingOffset - maxLength);
+            int firstCopyLength = numberRead - secondCopyLength;
+            // We store off all the data for the recognition thread to access. The ML
+            // thread will copy out of this buffer into its own, while holding the
+            // lock, so this should be thread safe.
+            recordingBufferLock.lock();
+            try {
+                System.arraycopy(audioBuffer, 0, recordingBuffer, recordingOffset, firstCopyLength);
+                System.arraycopy(audioBuffer, firstCopyLength, recordingBuffer, 0, secondCopyLength);
+                recordingOffset = newRecordingOffset % maxLength;
+            } finally {
+                recordingBufferLock.unlock();
+            }
+
+        }
+
+        record.stop();
+        record.release();
+    }
+    private synchronized void startRecording() {
+        if (recordingThread != null) {
+            return;
+        }
+        shouldContinue = true;
+        recordingThread =
+                new Thread(
+                        this::record);
+        recordingThread.start();
+    }
+
 }

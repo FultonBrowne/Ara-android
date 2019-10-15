@@ -37,6 +37,8 @@ import androidx.core.app.ActivityCompat;
 import com.andromeda.ara.R;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -44,9 +46,10 @@ public class VoiceMain extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO = 13;
     private static final String LOG_TAG = "v";
     private Thread recordingThread;
-    MediaRecorder recorder;
+    MediaRecorder recorder = new MediaRecorder();
     File audiofile = null;
     TextToSpeech t1;
+    boolean isRecording;
     boolean running = false;
     Boolean shouldContinue = true;
     private int recordingOffset = 0;
@@ -55,6 +58,19 @@ public class VoiceMain extends AppCompatActivity {
     private static final int SAMPLE_RATE = 16000;
     private static final int SAMPLE_DURATION_MS = 1000;
     private static final int RECORDING_LENGTH = SAMPLE_RATE * SAMPLE_DURATION_MS / 1000;
+    int audioSource = MediaRecorder.AudioSource.MIC;
+    int sampleRateInHz = 44100;
+    int channelConfig = AudioFormat.CHANNEL_IN_MONO;
+    int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
+    int bufferSizeInBytes = AudioRecord.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
+
+    byte Data[] = new byte[bufferSizeInBytes];
+
+    AudioRecord audioRecorder = new AudioRecord(audioSource,
+            sampleRateInHz,
+            channelConfig,
+            audioFormat,
+            bufferSizeInBytes);
 
 
     @Override
@@ -63,6 +79,7 @@ public class VoiceMain extends AppCompatActivity {
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 1);
         requestMicrophonePermission();
+        requestFilePermission();
 
         super.onCreate(savedInstanceState);
         startRecording();
@@ -73,11 +90,12 @@ public class VoiceMain extends AppCompatActivity {
         setContentView(R.layout.activity_voice_main);
         Context ctx = this;
         String toSpeak = "hello, I am ara";
-        new TTS().start(getApplicationContext(), toSpeak);
+        //new TTS().start(getApplicationContext(), toSpeak);
 
         //Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-        String search = new DeepSpeech().run(getCacheDir()+"/main.mp3");
-        Toast.makeText(getApplicationContext(), search,Toast.LENGTH_SHORT).show();
+
+        //String search = new DeepSpeech().run(getCacheDir()+"/main.mp3");
+        //Toast.makeText(getApplicationContext(), search,Toast.LENGTH_SHORT).show();
 
 
         //String phrase = new run().run1(ctx, this);
@@ -92,7 +110,7 @@ public class VoiceMain extends AppCompatActivity {
 
     public void back(View view) {
         if(shouldContinue){
-            stopRecord();
+            shouldContinue=false;
         }
         else onBackPressed();
 
@@ -101,6 +119,17 @@ public class VoiceMain extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(
                     new String[]{android.Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_AUDIO);
+
+        }
+
+
+    }
+    private void requestFilePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 13);
+            requestPermissions(
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 13);
 
         }
 
@@ -184,27 +213,37 @@ public class VoiceMain extends AppCompatActivity {
 
 
     }**/
-    private synchronized void startRecording() {
+    private synchronized void startRecord() {
         if (recordingThread != null) {
+            System.out.println("not null");
             return;
         }
+        System.out.println("is null");
         shouldContinue = true;
         recordingThread =
                 new Thread(
-                        this::record);
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                record();
+                            }
+                        });
         recordingThread.start();
     }
     public void record() {
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
+        requestFilePermission();
         //Creating file
-        File dir = Environment.getDataDirectory();
+        File dir = Environment.getExternalStorageDirectory() ;
         try {
             audiofile = File.createTempFile("sound", ".aac", dir);
         } catch (IOException e) {
             Log.e(LOG_TAG, "external storage access error");
+            e.printStackTrace();
             return;
         }
         //Creating MediaRecorder and specifying audio source, output format, encoder & output format
+        System.out.println("running");
         recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
@@ -216,9 +255,49 @@ public class VoiceMain extends AppCompatActivity {
             e.printStackTrace();
         }
         recorder.start();
-    }
-    void stopRecord(){
+        shouldContinue=true;
+        while (shouldContinue) System.out.println("going");
         recorder.stop();
+    }
+    public void startRecording() {
+        audioRecorder.startRecording();
+        isRecording = true;
+        recordingThread = new Thread(new Runnable() {
+            public void run() {
+                String filepath = Environment.getExternalStorageDirectory().getPath();
+                FileOutputStream os = null;
+                try {
+                    os = new FileOutputStream(filepath+"/record.pcm");
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                while(isRecording) {
+                    audioRecorder.read(Data, 0, Data.length);
+                    try {
+                        assert os != null;
+                        os.write(Data, 0, bufferSizeInBytes);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        os.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        recordingThread.start();
+    }
+
+    public void stopRecording() {
+        if (null != audioRecorder) {
+            isRecording = false;
+            audioRecorder.stop();
+            audioRecorder.release();
+            audioRecorder = null;
+            recordingThread = null;
+        }
     }
 
 }

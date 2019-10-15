@@ -25,6 +25,7 @@ import android.media.MediaRecorder;
 import android.media.MicrophoneDirection;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
@@ -35,12 +36,16 @@ import androidx.core.app.ActivityCompat;
 
 import com.andromeda.ara.R;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class VoiceMain extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO = 13;
     private static final String LOG_TAG = "v";
     private Thread recordingThread;
+    MediaRecorder recorder;
+    File audiofile = null;
     TextToSpeech t1;
     Boolean shouldContinue = true;
     private int recordingOffset = 0;
@@ -56,10 +61,13 @@ public class VoiceMain extends AppCompatActivity {
         ActivityCompat.requestPermissions(VoiceMain.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 1);
-        super.onCreate(savedInstanceState);
-       AudioRecord audioRecord = new AudioRecord(MicrophoneDirection.MIC_DIRECTION_TOWARDS_USER,16000, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT,2048);
+        requestMicrophonePermission();
 
-       audioRecord.startRecording();
+        super.onCreate(savedInstanceState);
+        startRecording();
+       //AudioRecord audioRecord = new AudioRecord(MicrophoneDirection.MIC_DIRECTION_TOWARDS_USER,16000, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT,2048);
+
+       //audioRecord.startRecording();
 
         setContentView(R.layout.activity_voice_main);
         Context ctx = this;
@@ -116,7 +124,6 @@ public class VoiceMain extends AppCompatActivity {
     }
     private void record() {
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
-        MediaRecorder recorder = new MediaRecorder();
 
 
 
@@ -173,7 +180,7 @@ public class VoiceMain extends AppCompatActivity {
 
 
     }
-    private synchronized void startRecording() {
+    /*private synchronized void startRecording() {
         if (recordingThread != null) {
             return;
         }
@@ -182,6 +189,28 @@ public class VoiceMain extends AppCompatActivity {
                 new Thread(
                         this::record);
         recordingThread.start();
+    }*/
+    public void startRecording() {
+        //Creating file
+        File dir = Environment.getDataDirectory();
+        try {
+            audiofile = File.createTempFile("sound", ".aac", dir);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "external storage access error");
+            return;
+        }
+        //Creating MediaRecorder and specifying audio source, output format, encoder & output format
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        recorder.setOutputFile(audiofile.getAbsolutePath());
+        try {
+            recorder.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        recorder.start();
     }
 
 }

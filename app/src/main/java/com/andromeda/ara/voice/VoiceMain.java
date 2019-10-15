@@ -47,6 +47,7 @@ public class VoiceMain extends AppCompatActivity {
     MediaRecorder recorder;
     File audiofile = null;
     TextToSpeech t1;
+    boolean running = false;
     Boolean shouldContinue = true;
     private int recordingOffset = 0;
     private short[] recordingBuffer = new short[RECORDING_LENGTH];
@@ -90,7 +91,10 @@ public class VoiceMain extends AppCompatActivity {
     }
 
     public void back(View view) {
-        onBackPressed();
+        if(shouldContinue){
+            stopRecord();
+        }
+        else onBackPressed();
 
     }
     private void requestMicrophonePermission() {
@@ -122,7 +126,7 @@ public class VoiceMain extends AppCompatActivity {
             // permissions this app might request
         }
     }
-    private void record() {
+    /**private void record() {
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
 
 
@@ -179,8 +183,8 @@ public class VoiceMain extends AppCompatActivity {
         record.release();
 
 
-    }
-    /*private synchronized void startRecording() {
+    }**/
+    private synchronized void startRecording() {
         if (recordingThread != null) {
             return;
         }
@@ -189,8 +193,9 @@ public class VoiceMain extends AppCompatActivity {
                 new Thread(
                         this::record);
         recordingThread.start();
-    }*/
-    public void startRecording() {
+    }
+    public void record() {
+        android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
         //Creating file
         File dir = Environment.getDataDirectory();
         try {
@@ -211,6 +216,9 @@ public class VoiceMain extends AppCompatActivity {
             e.printStackTrace();
         }
         recorder.start();
+    }
+    void stopRecord(){
+        recorder.stop();
     }
 
 }

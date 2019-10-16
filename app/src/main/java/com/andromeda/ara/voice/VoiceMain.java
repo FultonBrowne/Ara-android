@@ -31,6 +31,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -62,6 +63,7 @@ public class VoiceMain extends AppCompatActivity {
     int sampleRateInHz = 44100;
     int channelConfig = AudioFormat.CHANNEL_IN_MONO;
     int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
+
     int bufferSizeInBytes = AudioRecord.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
 
     byte Data[] = new byte[bufferSizeInBytes];
@@ -75,6 +77,7 @@ public class VoiceMain extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         ActivityCompat.requestPermissions(VoiceMain.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 1);
@@ -109,8 +112,8 @@ public class VoiceMain extends AppCompatActivity {
     }
 
     public void back(View view) {
-        if(shouldContinue){
-            shouldContinue=false;
+        if(isRecording){
+            stopRecording();
         }
         else onBackPressed();
 
@@ -263,28 +266,39 @@ public class VoiceMain extends AppCompatActivity {
         audioRecorder.startRecording();
         isRecording = true;
         recordingThread = new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             public void run() {
-                String filepath = Environment.getExternalStorageDirectory().getPath();
+                String filepath = Environment.getExternalStorageDirectory().getAbsolutePath();
                 FileOutputStream os = null;
+
                 try {
-                    os = new FileOutputStream(filepath+"/record.pcm");
+                    File file = new File(getDataDir(),"record.pcm");
+                    os = new FileOutputStream(getDataDir()+"/record.pcm");
+                    while (isRecording) {
+                        audioRecorder.read(Data, 0, Data.length);
+                        try {
+                            assert os != null;
+                            os.write(Data, 0, bufferSizeInBytes);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-                while(isRecording) {
-                    audioRecorder.read(Data, 0, Data.length);
+                finally {
                     try {
                         assert os != null;
-                        os.write(Data, 0, bufferSizeInBytes);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
                         os.close();
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
+
+
+
             }
         });
         recordingThread.start();

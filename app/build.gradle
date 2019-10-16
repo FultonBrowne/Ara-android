@@ -129,7 +129,7 @@ dependencies {
     implementation "com.android.volley:volley:1.1.1"
 
     implementation "com.google.code.gson:gson:2.8.6"
-    def appCenterSdkVersion = '2.3.0'
+    def appCenterSdkVersion = '2.4.0'
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
 

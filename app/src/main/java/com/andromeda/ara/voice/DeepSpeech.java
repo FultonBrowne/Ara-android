@@ -16,6 +16,8 @@
 
 package com.andromeda.ara.voice;
 
+import android.media.AudioFormat;
+
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
 
 import java.io.IOException;
@@ -24,17 +26,17 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 
-public class DeepSpeech {
+class DeepSpeech {
     private DeepSpeechModel _m = null;
 
     synchronized String run(String audioFile) {
         return this.doInference(audioFile);
     }
 
-    private void newModel(String tfliteModel, String alphabet) {
+    private void newModel() {
         System.out.println("working");
         if (this._m == null) {
-            this._m = new DeepSpeechModel(tfliteModel, alphabet, 50);
+            this._m = new DeepSpeechModel("file:///android_asset/main.tflite", "file:///android_asset/alphabet.txt", 50);
         }
 
     }
@@ -43,7 +45,7 @@ public class DeepSpeech {
         String decoded = "err";
         System.out.println("new");
 
-        this.newModel("file:///android_asset/main.tflite", "file:///android_asset/alphabet.txt");
+        this.newModel();
         System.out.println("done");
 
         try {
@@ -54,26 +56,27 @@ public class DeepSpeech {
 
             wave.seek(20); char audioFormat = this.readLEChar(wave);
             System.out.println("check is pcm");
-            assert (audioFormat == 1); // 1 is PCM
+            System.out.println(audioFormat);
+            if ((audioFormat != 1) )throw new AssertionError(); // 1 is PCM
             System.out.println("is pcm");
             // tv_audioFormat.setText("audioFormat=" + (audioFormat == 1 ? "PCM" : "!PCM"));
 
             wave.seek(22); char numChannels = this.readLEChar(wave);
-            assert (numChannels == 1); // MONO
+            if ((numChannels != 1)) throw new AssertionError(); // MONO
             System.out.println("is mono");
             // tv_numChannels.setText("numChannels=" + (numChannels == 1 ? "MONO" : "!MONO"));
 
             wave.seek(24); int sampleRate = this.readLEInt(wave);
-            assert (sampleRate == 16000); // desired sample rate
+            if ((sampleRate != 16000)) throw new AssertionError(); // desired sample rate
             System.out.println("is 1600");
             // tv_sampleRate.setText("sampleRate=" + (sampleRate == 16000 ? "16kHz" : "!16kHz"));
 
             wave.seek(34); char bitsPerSample = this.readLEChar(wave);
-            assert (bitsPerSample == 16); // 16 bits per sample
+            if ((bitsPerSample != 16)) throw new AssertionError(); // 16 bits per sample
             // tv_bitsPerSample.setText("bitsPerSample=" + (bitsPerSample == 16 ? "16-bits" : "!16-bits" ));
 
             wave.seek(40); int bufferSize = this.readLEInt(wave);
-            assert (bufferSize > 0);
+            if ((bufferSize <= 0)) throw new AssertionError();
             // tv_bufferSize.setText("bufferSize=" + bufferSize);
 
             wave.seek(44);
@@ -88,7 +91,7 @@ public class DeepSpeech {
             ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
             System.out.println("buffer stuff done");
 
-            long inferenceStartTime = System.currentTimeMillis();
+
             System.out.println("time");
             System.out.println(shorts.length);
 

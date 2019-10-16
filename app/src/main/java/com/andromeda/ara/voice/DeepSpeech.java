@@ -90,6 +90,7 @@ public class DeepSpeech {
 
             long inferenceStartTime = System.currentTimeMillis();
             System.out.println("time");
+            System.out.println(shorts.length);
 
              decoded = this._m.stt(shorts, shorts.length);
              System.out.println("decoded");

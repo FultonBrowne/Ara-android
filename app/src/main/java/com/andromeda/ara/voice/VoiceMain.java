@@ -85,8 +85,10 @@ public class VoiceMain extends AppCompatActivity {
         requestFilePermission();
 
         super.onCreate(savedInstanceState);
-        startRecording();
-       //AudioRecord audioRecord = new AudioRecord(MicrophoneDirection.MIC_DIRECTION_TOWARDS_USER,16000, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT,2048);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            startRecording();
+        }
+        //AudioRecord audioRecord = new AudioRecord(MicrophoneDirection.MIC_DIRECTION_TOWARDS_USER,16000, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT,2048);
 
        //audioRecord.startRecording();
 
@@ -264,44 +266,42 @@ public class VoiceMain extends AppCompatActivity {
         while (shouldContinue) System.out.println("going");
         recorder.stop();
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void startRecording() {
         audioRecorder.startRecording();
         isRecording = true;
-        recordingThread = new Thread(new Runnable() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            public void run() {
-                String filepath = Environment.getExternalStorageDirectory().getAbsolutePath();
-                FileOutputStream os = null;
+        recordingThread = new Thread(() -> {
+            String filepath = Environment.getExternalStorageDirectory().getAbsolutePath();
+            FileOutputStream os = null;
 
-                try {
-                    File file = new File(getDataDir(),"record.pcm");
-                    os = new FileOutputStream(getDataDir()+"/record.pcm");
-                    while (isRecording) {
-                        audioRecorder.read(Data, 0, Data.length);
-                        try {
-                            assert os != null;
-                            os.write(Data, 0, bufferSizeInBytes);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                finally {
+            try {
+                File file = new File(getDataDir(),"record.pcm");
+                os = new FileOutputStream(getDataDir()+"/record.pcm");
+                while (isRecording) {
+                    audioRecorder.read(Data, 0, Data.length);
                     try {
                         assert os != null;
-                        os.close();
+                        os.write(Data, 0, bufferSizeInBytes);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                 }
 
-
-
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
+            finally {
+                try {
+                    assert os != null;
+                    os.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
         });
         recordingThread.start();
     }

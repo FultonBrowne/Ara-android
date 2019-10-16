@@ -113,7 +113,9 @@ public class VoiceMain extends AppCompatActivity {
 
     public void back(View view) {
         if(isRecording){
-            stopRecording();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                stopRecording();
+            }
         }
         else onBackPressed();
 
@@ -304,6 +306,7 @@ public class VoiceMain extends AppCompatActivity {
         recordingThread.start();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void stopRecording() {
         if (null != audioRecorder) {
             isRecording = false;
@@ -311,6 +314,7 @@ public class VoiceMain extends AppCompatActivity {
             audioRecorder.release();
             audioRecorder = null;
             recordingThread = null;
+            System.out.println(new DeepSpeech().run(getDataDir()+ "/record.pcm"));
         }
     }
 

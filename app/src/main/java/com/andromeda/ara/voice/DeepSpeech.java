@@ -41,25 +41,31 @@ public class DeepSpeech {
     private String doInference(String audioFile) {
         //String actualLabelFilename = audioFile.split("file:///android_asset/", -1)[1];
         String decoded = "err";
+        System.out.println("new");
 
         this.newModel("file:///android_asset/main.tflite", "file:///android_asset/alphabet.txt");
-
+        System.out.println("done");
 
         try {
+
             RandomAccessFile wave = new RandomAccessFile(audioFile, "r");
 
             System.out.println("open file");
 
             wave.seek(20); char audioFormat = this.readLEChar(wave);
+            System.out.println("check is pcm");
             assert (audioFormat == 1); // 1 is PCM
+            System.out.println("is pcm");
             // tv_audioFormat.setText("audioFormat=" + (audioFormat == 1 ? "PCM" : "!PCM"));
 
             wave.seek(22); char numChannels = this.readLEChar(wave);
             assert (numChannels == 1); // MONO
+            System.out.println("is mono");
             // tv_numChannels.setText("numChannels=" + (numChannels == 1 ? "MONO" : "!MONO"));
 
             wave.seek(24); int sampleRate = this.readLEInt(wave);
             assert (sampleRate == 16000); // desired sample rate
+            System.out.println("is 1600");
             // tv_sampleRate.setText("sampleRate=" + (sampleRate == 16000 ? "16kHz" : "!16kHz"));
 
             wave.seek(34); char bitsPerSample = this.readLEChar(wave);
@@ -71,16 +77,22 @@ public class DeepSpeech {
             // tv_bufferSize.setText("bufferSize=" + bufferSize);
 
             wave.seek(44);
+            System.out.println("wave seek done");
             byte[] bytes = new byte[bufferSize];
             wave.readFully(bytes);
+            System.out.println("read wave bytes");
 
             short[] shorts = new short[bytes.length/2];
+            System.out.println("num info");
             // to turn bytes to shorts as either big endian or little endian.
             ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
+            System.out.println("buffer stuff done");
 
             long inferenceStartTime = System.currentTimeMillis();
+            System.out.println("time");
 
              decoded = this._m.stt(shorts, shorts.length);
+             System.out.println("decoded");
 
 
         } catch (IOException e) {

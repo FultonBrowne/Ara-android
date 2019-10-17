@@ -13,38 +13,35 @@ By Andromeda Software
 [![Gitter](https://badges.gitter.im/Arabyandromeda/community.svg)](https://gitter.im/Arabyandromeda/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Usage
-- Open in android studio and use the normal steps to run
+-  Open in android studio and use the normal steps to run
 ###### or
 
-- `./gradlew test` to run the unit tests
-- `./gradlew install` to install the app
+-  `./gradlew test` to run the unit tests
+-  `./gradlew install` to install the app
 
 ## Author
 
 👤 **Fulton Browne**
 
-* Github: [@FultonBrowne](https://github.com/FultonBrowne)
+- Github: [@FultonBrowne](https://github.com/FultonBrowne)
 
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/andromeda-software/Ara-android/issues).
 If you contribute please commit to a new branch and explain details in your pull request not in your commit. 
 
-
 If you want to become an active contributor go [here](https://findcollabs.com/project/RRBNiqp3CQVNFGTsHWQn).
 
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/fultonbrowne/ara-android)
-
 
 ## Show your support
 
 Give a ⭐️ if this project helped you!
 
 ## TODO
-* Expand voice support
-* IOT support
-
+*  Expand voice support
+*  IOT support
 
 ## 📝 License
 

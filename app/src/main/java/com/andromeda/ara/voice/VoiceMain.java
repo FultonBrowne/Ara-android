@@ -191,7 +191,7 @@ public class VoiceMain extends AppCompatActivity {
 
 
 
-            System.out.println(new DeepSpeech().run(getDataDir() + "/record.wav", this.getApplicationContext()));
+            System.out.println("result ="  + new DeepSpeech().run(getDataDir() + "/record.wav", this.getApplicationContext()));
         }
     }
 

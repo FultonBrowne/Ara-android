@@ -180,16 +180,13 @@ public class VoiceMain extends AppCompatActivity {
             recordingThread = null;
             copyAssets();
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            rawToWave(new File(getDataDir() + "/record.pcm"), new File(getDataDir() + "/record.wav"));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
+                runOnUiThread(() -> {
+                    try {
+                        rawToWave(new File(getDataDir() + "/record.pcm"), new File(getDataDir() + "/record.wav"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+
                 });
 
 

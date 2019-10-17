@@ -27,17 +27,17 @@ import androidx.core.app.ActivityCompat;
 import com.andromeda.ara.R;
 import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.RssFeedModel;
-import com.andromeda.ara.util.calUtility;
-import com.andromeda.ara.util.locl;
-import com.andromeda.ara.util.tagManager;
+import com.andromeda.ara.util.CalUtility;
+import com.andromeda.ara.util.Locl;
+import com.andromeda.ara.util.TagManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class drawer {
-  public Adapter main(long drawerItem, Context ctx, tagManager Db, Activity activity) throws IOException {
+public class Drawer {
+  public Adapter main(long drawerItem, Context ctx, TagManager Db, Activity activity) throws IOException {
       List<RssFeedModel> rssFeedModel1 = new ArrayList<>();
 
 
@@ -77,17 +77,17 @@ public class drawer {
             }
 
         } else if (drawerItem == 3) {
-            rssFeedModel1 = new Food().getFood(Double.toString(locl.longitude), Double.toString(locl.latitude));
+            rssFeedModel1 = new Food().getFood(Double.toString(Locl.longitude), Double.toString(Locl.latitude));
         } else if (drawerItem == 4) {
-            new locl(ctx);
-          rssFeedModel1 = new shopping().getShops(Double.toString((locl.longitude)), Double.toString((locl.latitude)));
+            new Locl(ctx);
+          rssFeedModel1 = new shopping().getShops(Double.toString((Locl.longitude)), Double.toString((Locl.latitude)));
         }
       if (drawerItem == 5) {
 
           ActivityCompat.requestPermissions(activity,
                   new String[]{Manifest.permission.READ_CALENDAR},
                   1);
-          rssFeedModel1 = calUtility.readCalendarEvent(ctx);
+          rssFeedModel1 = CalUtility.readCalendarEvent(ctx);
       }
           if (drawerItem == 104) {
               rssFeedModel1.addAll(new Rss().parseRss(3));

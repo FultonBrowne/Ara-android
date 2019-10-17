@@ -37,17 +37,17 @@ import com.andromeda.ara.R;
 
 import static android.content.Context.LOCATION_SERVICE;
 
-public class locl implements LocationListener {
+public class Locl implements LocationListener {
 
     public static double latitude;
-    Context ctx;
-    Location location;
-    LocationManager locationManager;
+    private Context ctx;
+    private Location location;
+    private LocationManager locationManager;
     boolean isGPSEnabled = false;
     boolean isNetworkEnabled = false;
     public static double longitude;
 
-    public locl(Context ctx) {
+    public Locl(Context ctx) {
         this.ctx = ctx;
         try {
             locationManager = (LocationManager) ctx.getSystemService(LOCATION_SERVICE);
@@ -63,12 +63,12 @@ public class locl implements LocationListener {
                             android.Manifest.permission.ACCESS_COARSE_LOCATION) !=
                             PackageManager.PERMISSION_GRANTED) {
             }
-            if (isGPSEnabled == true) {
+            if (isGPSEnabled) {
                 locationManager.requestLocationUpdates(
                         LocationManager.GPS_PROVIDER, 0, 0, this);
                 location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             }
-            if (isNetworkEnabled == true) {
+            if (isNetworkEnabled) {
                 locationManager.requestLocationUpdates(
                         LocationManager.NETWORK_PROVIDER, 0, 0, this);
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);

@@ -31,6 +31,9 @@ import java.io.IOException
 import java.io.InputStream
 import java.net.URL
 
+/**
+ * AllContent class, handles all content layout.
+ */
 
 class AllContent : AppCompatActivity() {
 

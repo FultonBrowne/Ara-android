@@ -40,17 +40,14 @@ import static android.content.Context.LOCATION_SERVICE;
 public class Locl implements LocationListener {
 
     public static double latitude;
-    private Context ctx;
     private Location location;
-    private LocationManager locationManager;
     boolean isGPSEnabled = false;
     boolean isNetworkEnabled = false;
     public static double longitude;
 
     public Locl(Context ctx) {
-        this.ctx = ctx;
         try {
-            locationManager = (LocationManager) ctx.getSystemService(LOCATION_SERVICE);
+            LocationManager locationManager = (LocationManager) ctx.getSystemService(LOCATION_SERVICE);
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             Toast.makeText(ctx, ctx.getString(R.string.gps_enable) + isGPSEnabled, Toast.LENGTH_LONG).show();
             isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);

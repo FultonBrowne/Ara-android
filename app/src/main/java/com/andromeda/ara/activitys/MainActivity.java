@@ -92,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
     private String mTime = "hello";
     //this is the navigation Drawer
     private com.mikepenz.materialdrawer.Drawer drawer = null;
-    //Get data stored for welcome screen
-    private SharedPreferences mPrefs;
     //name of the preference
     private final String welcomeScreenShownPref = "welcomeScreenShown";
     //Adapter
@@ -104,18 +102,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     //Device screen width
     private int screenWidth;
-    private Context ctx;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
                 Analytics.class, Crashes.class);
-        ctx = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final TagManager main53 = new TagManager(this);
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //Get data stored for welcome screen
+        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
 
         screenWidth = checkScreenWidth();

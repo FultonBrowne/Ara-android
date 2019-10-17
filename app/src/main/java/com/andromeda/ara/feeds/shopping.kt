@@ -22,6 +22,9 @@ import java.io.IOException
 import java.util.*
 
 class shopping {
+    /**
+     * GetShops method , fetches data from yelp.
+     */
     fun getShops(log: String, lat: String): ArrayList<RssFeedModel> {
         val rssFeedModel1: ArrayList<RssFeedModel> = ArrayList()
         val main = RssFeedModel("", "", "", "","")

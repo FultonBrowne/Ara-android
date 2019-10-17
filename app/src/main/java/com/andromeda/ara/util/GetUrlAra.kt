@@ -18,6 +18,9 @@ package com.andromeda.ara.util
 
 import java.net.URL
 
+/**
+ * Class to get the url link.
+ */
 class GetUrlAra {
     fun getIt(url: URL): String {
         return url.readText()

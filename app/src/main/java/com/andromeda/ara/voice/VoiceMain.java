@@ -40,19 +40,19 @@ import java.nio.ByteOrder;
 
 public class VoiceMain extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO = 13;
-    FileOutputStream os = null;
+    private FileOutputStream os = null;
     private Thread recordingThread;
     boolean isRecording;
-    int audioSource = MediaRecorder.AudioSource.MIC;
-    int sampleRateInHz = 16000;
-    int channelConfig = AudioFormat.CHANNEL_IN_MONO;
-    int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
+    private int audioSource = MediaRecorder.AudioSource.MIC;
+    private int sampleRateInHz = 16000;
+    private int channelConfig = AudioFormat.CHANNEL_IN_MONO;
+    private int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
 
-    int bufferSizeInBytes = AudioRecord.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
+    private int bufferSizeInBytes = AudioRecord.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
 
-    byte[] Data = new byte[bufferSizeInBytes];
+    private byte[] Data = new byte[bufferSizeInBytes];
 
-    AudioRecord audioRecorder = new AudioRecord(audioSource,
+    private AudioRecord audioRecorder = new AudioRecord(audioSource,
             sampleRateInHz,
             channelConfig,
             audioFormat,

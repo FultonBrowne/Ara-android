@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class calUtility {
+public class CalUtility {
     public static ArrayList<RssFeedModel> main = new ArrayList<>();
 
     public static ArrayList<RssFeedModel> readCalendarEvent(Context context) {

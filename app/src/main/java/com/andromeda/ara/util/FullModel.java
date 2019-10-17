@@ -22,7 +22,7 @@ public class FullModel {
     public String description;
     public String description2;
     public String image;
-    String[] imageList;
+    public String[] imageList;
 
     public FullModel(String title, String link, String description, String image, String description2, String[] imageList) {
         this.title = title;

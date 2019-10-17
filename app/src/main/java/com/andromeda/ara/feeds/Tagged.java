@@ -20,7 +20,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class tagged extends SQLiteOpenHelper {
+public class Tagged extends SQLiteOpenHelper {
 
     // Table Name
     public static final String TABLE_NAME = "TAGGED";
@@ -31,7 +31,7 @@ public class tagged extends SQLiteOpenHelper {
     public static final String DESC = "description";
 
     // Database Information
-    static final String DB_NAME = "TAGGED.DB";
+    private static final String DB_NAME = "TAGGED.DB";
 
     // database version
     static final int DB_VERSION = 1;
@@ -40,7 +40,7 @@ public class tagged extends SQLiteOpenHelper {
     private static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" + _ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + SUBJECT + " TEXT NOT NULL, " + DESC + " TEXT);";
 
-    public tagged(Context context) {
+    public Tagged(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 

@@ -25,6 +25,9 @@ import java.io.IOException
 import java.net.URL
 import java.util.*
 
+/**
+ * RSS Class
+ */
 class Rss {
     @Throws(IOException::class)
     fun parseRss(mode: Int = 0): List<RssFeedModel> {

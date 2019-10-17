@@ -16,6 +16,8 @@ By Andromeda Software
 - Open in android studio and use the normal steps to run
 ###### or
 
+##Github
+
 - `./gradlew test` to run the unit tests
 - `./gradlew install` to install the app
 

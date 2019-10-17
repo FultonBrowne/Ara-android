@@ -1,11 +1,9 @@
 <h1 align="center">Welcome to Ara for Android 👋</h1>
 By Andromeda Software
 
-
  an ai app for almost any android phone. Using the latest AI tools such as tensorflow.
  
 ![alt text](docs/scrs1.png)
-
 
 [![CircleCI](https://circleci.com/gh/FultonBrowne/Ara-android/tree/master.svg?style=svg)](https://circleci.com/gh/FultonBrowne/Ara-android/tree/master)
 [![Known Vulnerabilities](https://snyk.io/test/github/FultonBrowne/Ara-android/badge.svg)](https://snyk.io/test/github/FultonBrowne/Ara-android})
@@ -13,17 +11,17 @@ By Andromeda Software
 [![Gitter](https://badges.gitter.im/Arabyandromeda/community.svg)](https://gitter.im/Arabyandromeda/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Usage
--  Open in android studio and use the normal steps to run
+-   Open in android studio and use the normal steps to run
 ###### or
 
--  `./gradlew test` to run the unit tests
--  `./gradlew install` to install the app
+-   `./gradlew test` to run the unit tests
+-   `./gradlew install` to install the app
 
 ## Author
 
 👤 **Fulton Browne**
 
-- Github: [@FultonBrowne](https://github.com/FultonBrowne)
+-   Github: [@FultonBrowne](https://github.com/FultonBrowne)
 
 ## 🤝 Contributing
 
@@ -32,7 +30,6 @@ If you contribute please commit to a new branch and explain details in your pull
 
 If you want to become an active contributor go [here](https://findcollabs.com/project/RRBNiqp3CQVNFGTsHWQn).
 
-
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/fultonbrowne/ara-android)
 
 ## Show your support
@@ -40,13 +37,13 @@ If you want to become an active contributor go [here](https://findcollabs.com/pr
 Give a ⭐️ if this project helped you!
 
 ## TODO
-*  Expand voice support
-*  IOT support
+-   Expand voice support
+-   IOT support
 
 ## 📝 License
 
 Copyright © 2019 [Fulton Browne](https://github.com/fultonbrowne).<br />
-This project is [ GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) licensed.
+This project is [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) licensed.
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

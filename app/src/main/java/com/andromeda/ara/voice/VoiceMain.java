@@ -17,27 +17,18 @@
 package com.andromeda.ara.voice;
 
 import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
-import android.media.MicrophoneDirection;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.andromeda.ara.R;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,14 +37,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class VoiceMain extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO = 13;
     FileOutputStream os = null;
-    private static final String LOG_TAG = "v";
     private Thread recordingThread;
-    TextToSpeech t1;
     boolean isRecording;
     int audioSource = MediaRecorder.AudioSource.MIC;
     int sampleRateInHz = 16000;
@@ -62,7 +50,7 @@ public class VoiceMain extends AppCompatActivity {
 
     int bufferSizeInBytes = AudioRecord.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
 
-    byte Data[] = new byte[bufferSizeInBytes];
+    byte[] Data = new byte[bufferSizeInBytes];
 
     AudioRecord audioRecorder = new AudioRecord(audioSource,
             sampleRateInHz,
@@ -85,28 +73,6 @@ public class VoiceMain extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             startRecording();
         }
-        //AudioRecord audioRecord = new AudioRecord(MicrophoneDirection.MIC_DIRECTION_TOWARDS_USER,16000, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT,2048);
-
-       //audioRecord.startRecording();
-
-        setContentView(R.layout.activity_voice_main);
-        Context ctx = this;
-        String toSpeak = "hello, I am ara";
-        //new TTS().start(getApplicationContext(), toSpeak);
-
-        //Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
-
-        //String search = new DeepSpeech().run(getCacheDir()+"/main.mp3");
-        //Toast.makeText(getApplicationContext(), search,Toast.LENGTH_SHORT).show();
-
-
-        //String phrase = new run().run1(ctx, this);
-        //Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
-        //TODO get lat and log
-        //ArrayList<RssFeedModel> toFeed = new Search().main(phrase, "0", "0");
-
-
-
 
     }
 
@@ -139,26 +105,6 @@ public class VoiceMain extends AppCompatActivity {
 
 
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        if (requestCode == 1) {// If request is cancelled, the result arrays are empty.
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                // permission was granted, yay! Do the
-                // contacts-related task you need to do.
-            } else {
-
-                // permission denied, boo! Disable the
-                // functionality that depends on this permission.
-                Toast.makeText(VoiceMain.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
-            }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
-        }
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void startRecording() {
@@ -182,9 +128,6 @@ public class VoiceMain extends AppCompatActivity {
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            }
-            finally {
-
             }
 
 
@@ -219,19 +162,8 @@ public class VoiceMain extends AppCompatActivity {
     private void rawToWave(final File rawFile, final File waveFile) throws IOException {
 
         byte[] rawData = new byte[(int) rawFile.length()];
-        DataInputStream input = null;
-        try {
-            input = new DataInputStream(new FileInputStream(rawFile));
-            input.read(rawData);
-        } finally {
-            if (input != null) {
-                input.close();
-            }
-        }
 
-        DataOutputStream output = null;
-        try {
-            output = new DataOutputStream(new FileOutputStream(waveFile));
+        try (DataOutputStream output = new DataOutputStream(new FileOutputStream(waveFile))) {
             // WAVE header
             // see http://ccrma.stanford.edu/courses/422/projects/WaveFormat/
             writeString(output, "RIFF"); // chunk id
@@ -256,18 +188,13 @@ public class VoiceMain extends AppCompatActivity {
             }
 
             output.write(fullyReadFileToBytes(rawFile));
-        } finally {
-            if (output != null) {
-                output.close();
-            }
         }
     }
-    byte[] fullyReadFileToBytes(File f) throws IOException {
+    byte[] fullyReadFileToBytes(File f) {
         int size = (int) f.length();
-        byte bytes[] = new byte[size];
-        byte tmpBuff[] = new byte[size];
-        FileInputStream fis= new FileInputStream(f);
-        try {
+        byte[] bytes = new byte[size];
+        byte[] tmpBuff = new byte[size];
+        try (FileInputStream fis = new FileInputStream(f)) {
 
             int read = fis.read(bytes, 0, size);
             if (read < size) {
@@ -278,23 +205,21 @@ public class VoiceMain extends AppCompatActivity {
                     remain -= read;
                 }
             }
-        }  catch (IOException e){
-            throw e;
-        } finally {
-            fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return bytes;
     }
     private void writeInt(final DataOutputStream output, final int value) throws IOException {
-        output.write(value >> 0);
+        output.write(value);
         output.write(value >> 8);
         output.write(value >> 16);
         output.write(value >> 24);
     }
 
     private void writeShort(final DataOutputStream output, final short value) throws IOException {
-        output.write(value >> 0);
+        output.write(value);
         output.write(value >> 8);
     }
 

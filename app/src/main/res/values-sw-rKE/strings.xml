@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019. Fulton Browne
+  ~  This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="app_name">Ara</string>
+    <string name="action">kitendo</string>
+    <string name="action_about">kuhusu</string>
+    <string name="action_settings">mipangilio</string>
+    <string name="action_sign_in">Ingia ama Jisajili</string>
+    <string name="action_sign_in_short">Ingia</string>
+    <string name="add_widget">Ongeza sehemu</string>
+    <string name="appwidget_text">Mfano</string>
+    <string name="botton_menu_title">Nyumbani</string>
+    <string name="calender_id">kitambulisho cha Kalenda</string>
+    <string name="configure">Karabati</string>
+    <string name="description">Maelezo</string>
+    <string name="done">Maliza kisha fungua Ara</string>
+    <string name="done_search">Malizia</string>
+    <string name="email">barua pepe</string>
+    <string name="greet">Habari yako, ungetaka usaidizi?</string>
+    <string name="hello1">habari yako</string>
+    <string name="hi">habari</string>
+    <string name="hey_ara_listener_switch">Tega masikio uskie hey Ara</string>
+    <string name="image">Kamera</string>
+    <string name="invalid_password">neno la ficho lastahili kuwa na alfabeti zaidi ya tano</string>
+    <string name="invalid_username">Jina lenyewe halikubaliki</string>
+    <string name="keytheme">Onyesha mapendeleo</string>
+    <string name="latittude">latitudo</string>
+    <string name="login_failed">kuingia kunashindwa</string>
+    <string name="welcome1">Karibu Ara! Ndiposa ueweze kuendelea tujulisha jina lako la kwanza</string>
+    <string name="welcome">Karibu !</string>
+    <string name="updateTxt">Badilisha upya</string>
+    <string name="title_activity_setup">Anzisha</string>
+    <string name="title_activity_settings">Mipangilio</string>
+    <string name="title_activity_all_content">sehemu zote</string>
+    <string name="title_activity_about">Kuhusu</string>
+    <string name="title">Mada</string>
+    <string name="theme">Badilisha cha lazma theme nyeusi</string>
+    <string name="textOK">Sawa</string>
+    <string name="text">Ujumbe</string>
+    <string name="test">pima</string>
+    <string name="replace_with_your_own_action">Badilisha na kitendo chako</string>
+    <string name="prompt_password">Neno lililo fiche</string>
+    <string name="prompt_firstname">Jina la Kwanza</string>
+    <string name="prompt_email">Barua pepe</string>
+    <string name="moneyText">pesa</string>
+    <string name="longitude">longitudo</string>
+    <string name="msg_Reading_labels_from">Kusoma lebo kuanzia:</string>
+    <string name="msg_onCreate">onCreate</string>
+    <string name="msg_onHandleAssist">onHandleAssist</string>
+    <string name="msg_onHandleScreenshot">onHandleScreenshot</string>
+    <string name="msg_onReady">onReady</string>
+    <string name="name">JINA</string>
+    <string name="network_enable">Wezesha mtandao</string>
+    <string name="new_app_widget2_title">Kitengo chaja</string>
+    <string name="news">habari</string>
+    <string name="number_1">nambari 1</string>
+    <string name="pref_default_display_name">John Smith</string>
+    <string name="pref_description_social_recommendations">Pendekezo kwa watu kuwasiliana kulingana na historia ya ujumbe</string>
+    <string name="pref_header_data_sync">Data & sawazisha</string>
+    <string name="pref_header_general">Jumla</string>
+    <string name="pref_header_notifications">Ujumbe</string>
+    <string name="pref_ringtone_silent">Kimya</string>
+    <string name="pref_switch_note">Ujumbe wa Ara</string>
+    <string name="pref_title_add_friends_to_messages">Ongeza rafiki kwa ujumbe</string>
+    <string name="pref_title_display_name">Jina la kuonyesha</string>
+    <string name="pref_title_new_message_notifications">Ujumbe mpya</string>
+    <string name="pref_title_ringtone">Mlio</string>
+    <string name="pref_title_social_recommendations">Wezesha mapendekezo ya kijamii</string>
+    <string name="pref_title_sync_frequency">Sawazisha frequency</string>
+    <string name="pref_title_vibrate">tetemeka</string>
+    <string name="default1">System default</string>
+    <string name="dtend">dtend</string>
+    <string name="dtstart">dtstart</string>
+    <string name="url">https://feeds.foxnews.com/foxnews/latest</string>
+    <string name="tag_AssistantSession">AssistantSession</string>
+    <string name="tag_AssistantService">AssistantService</string>
+    <string name="starting_step_2">Starting step 2</string>
+    <string name="exception">Iliyowekwa kando</string>
+    <string name="eventLocation">eventLocation</string>
+    <string name="gps_enable">wezesha GPS</string>
+    <string name="greet1">"Habari, @string/greet "</string>
+</resources>

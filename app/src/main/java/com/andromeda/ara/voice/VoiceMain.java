@@ -17,17 +17,21 @@
 package com.andromeda.ara.voice;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+
+import com.andromeda.ara.R;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -35,6 +39,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -62,12 +67,14 @@ public class VoiceMain extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println(bufferSizeInBytes);
+        setContentView(R.layout.activity_voice_main);
+
+        ;
 
         ActivityCompat.requestPermissions(VoiceMain.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 1);
         requestMicrophonePermission();
-        requestFilePermission();
 
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -94,7 +101,28 @@ public class VoiceMain extends AppCompatActivity {
 
 
     }
-    private void requestFilePermission() {
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        if (requestCode == 1) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                // permission was granted, yay! Do the
+                // contacts-related task you need to do.
+            } else {
+
+                // permission denied, boo! Disable the
+                // functionality that depends on this permission.
+                Toast.makeText(VoiceMain.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+
+            private void requestFilePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 13);
@@ -145,6 +173,16 @@ public class VoiceMain extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            String  fis = null; try {
+                fis = getAssets().openFd("main.tflite").toString();
+                System.out.println(fis);
+            }
+
+
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
             isRecording = false;
             audioRecorder.stop();

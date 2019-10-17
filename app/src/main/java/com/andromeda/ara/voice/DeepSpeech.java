@@ -18,8 +18,11 @@ package com.andromeda.ara.voice;
 
 
 
+import android.content.Context;
+
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
@@ -36,10 +39,11 @@ class DeepSpeech {
     private void newModel() {
         System.out.println("working");
         if (this._m == null) {
-            this._m = new DeepSpeechModel("file:///android_asset/main.tflite", "file:///android_asset/alphabet.txt", 50);
+            this._m = new DeepSpeechModel("file:///android_assets/main.tflite", "file:///android_assets/alphabet.txt", 50);
         }
 
     }
+
 
     private String doInference(String audioFile) {
 

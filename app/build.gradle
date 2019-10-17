@@ -66,7 +66,6 @@ android {
     }
     aaptOptions {
         noCompress "tflite"
-        noCompress "mp3"
     }
 
     buildTypes {
@@ -100,7 +99,7 @@ dependencies {
     implementation'androidx.preference:preference:1.1.0'
 
     // https://mvnrepository.com/artifact/org.mozilla.deepspeech/libdeepspeech
-    implementation group: 'org.mozilla.deepspeech', name: 'libdeepspeech', version: '0.6.0-alpha.10'
+    implementation group: 'org.mozilla.deepspeech', name: 'libdeepspeech', version: '0.6.0-alpha.9'
     // https://mvnrepository.com/artifact/com.microsoft.azure.cognitiveservices/azure-cognitiveservices-websearch
 
 

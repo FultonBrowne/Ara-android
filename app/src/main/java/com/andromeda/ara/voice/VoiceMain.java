@@ -18,11 +18,13 @@ package com.andromeda.ara.voice;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -39,6 +41,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -167,21 +171,6 @@ public class VoiceMain extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void stopRecording() {
         if (null != audioRecorder) {
-            try {
-                assert os != null;
-                os.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            String  fis = null; try {
-                fis = getAssets().openFd("main.tflite").toString();
-                System.out.println(fis);
-            }
-
-
-            catch (Exception e) {
-                e.printStackTrace();
-            }
 
 
             isRecording = false;
@@ -189,14 +178,26 @@ public class VoiceMain extends AppCompatActivity {
             audioRecorder.release();
             audioRecorder = null;
             recordingThread = null;
-            try {
-                rawToWave(new File(getDataDir()+"/record.pcm"),new File(getDataDir()+"/record.wav"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println(new DeepSpeech().run(getDataDir()+ "/record.wav"));
+            copyAssets();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            rawToWave(new File(getDataDir() + "/record.pcm"), new File(getDataDir() + "/record.wav"));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+
+
+
+            System.out.println(new DeepSpeech().run(getDataDir() + "/record.wav", this.getApplicationContext()));
         }
     }
+
     private void rawToWave(final File rawFile, final File waveFile) throws IOException {
 
         byte[] rawData = new byte[(int) rawFile.length()];
@@ -264,6 +265,51 @@ public class VoiceMain extends AppCompatActivity {
     private void writeString(final DataOutputStream output, final String value) throws IOException {
         for (int i = 0; i < value.length(); i++) {
             output.write(value.charAt(i));
+        }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void copyAssets() {
+        AssetManager assetManager = getAssets();
+        String[] files = null;
+        try {
+            files = assetManager.list("");
+        } catch (IOException e) {
+            Log.e("tag", "Failed to get asset file list.", e);
+        }
+        if (files != null) for (String filename : files) {
+            InputStream in = null;
+            OutputStream out = null;
+            try {
+                in = assetManager.open(filename);
+                File outFile = new File(getDataDir(), filename);
+                out = new FileOutputStream(outFile);
+                copyFile(in, out);
+            } catch(IOException e) {
+                Log.e("tag", "Failed to copy asset file: " + filename, e);
+            }
+            finally {
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        // NOOP
+                    }
+                }
+                if (out != null) {
+                    try {
+                        out.close();
+                    } catch (IOException e) {
+                        // NOOP
+                    }
+                }
+            }
+        }
+    }
+    private void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while((read = in.read(buffer)) != -1){
+            out.write(buffer, 0, read);
         }
     }
 

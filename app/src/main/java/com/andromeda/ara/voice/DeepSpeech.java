@@ -19,6 +19,9 @@ package com.andromeda.ara.voice;
 
 
 import android.content.Context;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
 
@@ -32,25 +35,28 @@ import java.nio.ByteOrder;
 class DeepSpeech {
     private DeepSpeechModel _m = null;
 
-    synchronized String run(String audioFile) {
-        return this.doInference(audioFile);
+    synchronized String run(String audioFile, Context ctx) {
+        return this.doInference(audioFile, ctx);
     }
 
-    private void newModel() {
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void newModel(Context ctx) {
         System.out.println("working");
         if (this._m == null) {
-            this._m = new DeepSpeechModel("file:///android_assets/main.tflite", "file:///android_assets/alphabet.txt", 50);
+            this._m = new DeepSpeechModel(ctx.getDataDir()+"/main.tflite", ctx.getDataDir()+"/alphabet.txt", 50);
         }
 
     }
 
 
-    private String doInference(String audioFile) {
+    private String doInference(String audioFile, Context ctx) {
 
         String decoded = "err";
         System.out.println("new");
 
-        this.newModel();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            this.newModel(ctx);
+        }
         System.out.println("done");
 
         try {
@@ -101,6 +107,7 @@ class DeepSpeech {
 
             decoded = this._m.stt(shorts, shorts.length);
             System.out.println("decoded");
+            System.out.println(decoded);
 
 
         } catch (IOException e) {

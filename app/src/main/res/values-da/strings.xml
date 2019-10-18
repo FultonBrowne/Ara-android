@@ -31,7 +31,7 @@
     <string name = "pref_title_social_recommendations"> Aktivér sociale anbefalinger </string>
     <string name = "pref_description_social_recommendations"> Anbefalinger for folk at kontakte
          baseret på din beskedhistorik
-     </ String>
+     </string>
     <string name = "botton_menu_title"> hjem </string>
     <string name = "new_app_widget2_title"> WIDGET KOMMER HURT </string>
 
@@ -40,14 +40,14 @@
 
     <string name = "pref_title_add_friends_to_messages"> Føj venner til beskeder </string>
     <string-array name = "pref_example_list_titles">
-        <Item> Altid </ item>
+        <item> Altid </item>
         <item> Når det er muligt </item>
-        <Item> Aldrig </ item>
+        <item> Aldrig </item>
     </string-array>
     <string-array name = "pref_example_list_values">
-        <Item> 1 </ item>
-        <Item> 0 </ item>
-        <Item> -1 </ item>
+        <item> 1 </item>
+        <item> 0 </item>
+        <item> -1 </item>
     </string-array>
 
     <!-- Example settings for Data & Sync -->
@@ -60,15 +60,15 @@
         <item> 1 time </item>
         <item> 3 timer </item>
         <item> 6 timer </item>
-        <Item> Aldrig </ item>
+        <item> Aldrig </item>
     </string-array>
     <string-array name = "pref_sync_frequency_values">
-        <Item> 15 </ item>
-        <Item> 30 </ item>
-        <Item> 60 </ item>
-        <Item> 180 </ item>
-        <Item> 360 </ item>
-        <Item> -1 </ item>
+        <item> 15 </item>
+        <item> 30 </item>
+        <item> 60 </item>
+        <item> 180 </item>
+        <item> 360 </item>
+        <item> -1 </item>
     </string-array>
 
     <string-array name = "list_preference_entries">
@@ -78,9 +78,9 @@
     </string-array>
 
     <string-array name = "list_preference_entry_values">
-        <Item> 1 </ item>
-        <Item> 2 </ item>
-        <Item> 3 </ item>
+        <item> 1 </item>
+        <item> 2 </item>
+        <item> 3 </item>
     </string-array>
 
     <string-array name = "multi_select_list_preference_default_value" />
@@ -203,8 +203,8 @@
     <string name = "keytheme"> list_preference_1 </string>
     <string name = "default1"> System default </string>
     <array name="themeList">
-        <Item> Mørk </ item>
-        <Item> Lys </ item>
+        <item> Mørk </item>
+        <item> Lys </item>
         <item> Batterisparer </item>
         <item> System standard </item>
     </array>

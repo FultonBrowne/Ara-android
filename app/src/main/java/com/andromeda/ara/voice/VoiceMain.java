@@ -35,6 +35,8 @@ import androidx.core.app.ActivityCompat;
 
 import com.andromeda.ara.R;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -178,10 +180,11 @@ public class VoiceMain extends AppCompatActivity {
             audioRecorder.release();
             audioRecorder = null;
             recordingThread = null;
-            copyAssets();
+
 
                 runOnUiThread(() -> {
                     try {
+                        copyAssets();
                         rawToWave(new File(getDataDir() + "/record.pcm"), new File(getDataDir() + "/record.wav"));
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -310,4 +313,7 @@ public class VoiceMain extends AppCompatActivity {
         }
     }
 
+
 }
+
+

@@ -1,7 +1,7 @@
 <h1 align="center">Welcome to Ara for Android 👋</h1>
 By Andromeda Software
 
- an ai app for almost any android phone. Using the latest AI tools such as tensorflow.
+ An ai assistant app for almost any android phone, That cares about privacy and productivity
  
 ![alt text](docs/scrs1.png)
 

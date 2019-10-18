@@ -261,6 +261,7 @@ public class VoiceMain extends AppCompatActivity {
                 File outFile = new File(getCacheDir(), filename);
                 out = new FileOutputStream(outFile);
                 copyFile(in, out);
+                System.out.println(filename);
             } catch (IOException e) {
                 Log.e("tag", "Failed to copy asset file: " + filename, e);
             } finally {

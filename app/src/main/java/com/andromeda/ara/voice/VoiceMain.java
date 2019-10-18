@@ -31,6 +31,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.andromeda.ara.R;
+import com.andromeda.ara.search.Search;
+import com.andromeda.ara.util.RssFeedModel;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -42,6 +44,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
 
 public class VoiceMain extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO = 13;
@@ -101,18 +104,10 @@ public class VoiceMain extends AppCompatActivity {
 
 
     }
-
-
-
-
-
-    //@RequiresApi(api = Build.VERSION_CODES.N)
     public void startRecording() {
         audioRecorder.startRecording();
         isRecording = true;
         recordingThread = new Thread(() -> {
-
-
             try {
                 new File(Environment.getDataDirectory(), "record.pcm");
                 os = new FileOutputStream(Environment.getDataDirectory() + "/record.pcm");
@@ -144,20 +139,24 @@ public class VoiceMain extends AppCompatActivity {
             audioRecorder.release();
             audioRecorder = null;
             recordingThread = null;
+            final String[] phrase = new String[1];
 
 
             runOnUiThread(() -> {
                 try {
                     copyAssets();
                     rawToWave(new File(Environment.getDataDirectory() + "/record.pcm"), new File(Environment.getDataDirectory() + "/record.wav"));
+                    phrase[0] = new DeepSpeech().run(Environment.getDataDirectory() + "/record.wav", this.getApplicationContext());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], "0.0", "0.0", getApplicationContext()));
 
             });
 
 
-            System.out.println("result =" + new DeepSpeech().run(Environment.getDataDirectory() + "/record.wav", this.getApplicationContext()));
+
+            System.out.println("result =" + phrase[0]);
         }
     }
 

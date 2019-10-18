@@ -17,25 +17,20 @@
 package com.andromeda.ara.voice;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-
 import com.andromeda.ara.R;
-
-import org.jetbrains.annotations.Nullable;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -45,7 +40,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -75,7 +69,7 @@ public class VoiceMain extends AppCompatActivity {
         System.out.println(bufferSizeInBytes);
         setContentView(R.layout.activity_voice_main);
 
-        ;
+
 
         ActivityCompat.requestPermissions(VoiceMain.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -90,14 +84,14 @@ public class VoiceMain extends AppCompatActivity {
     }
 
     public void back(View view) {
-        if(isRecording){
+        if (isRecording) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 stopRecording();
             }
-        }
-        else onBackPressed();
+        } else onBackPressed();
 
     }
+
     private void requestMicrophonePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(
@@ -107,40 +101,12 @@ public class VoiceMain extends AppCompatActivity {
 
 
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        if (requestCode == 1) {// If request is cancelled, the result arrays are empty.
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                // permission was granted, yay! Do the
-                // contacts-related task you need to do.
-            } else {
-
-                // permission denied, boo! Disable the
-                // functionality that depends on this permission.
-                Toast.makeText(VoiceMain.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
-
-            private void requestFilePermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 13);
-            requestPermissions(
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 13);
-
-        }
 
 
-    }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
+
+    //@RequiresApi(api = Build.VERSION_CODES.N)
     public void startRecording() {
         audioRecorder.startRecording();
         isRecording = true;
@@ -148,8 +114,8 @@ public class VoiceMain extends AppCompatActivity {
 
 
             try {
-                new File(getDataDir(),"record.pcm");
-                os = new FileOutputStream(getDataDir()+"/record.pcm");
+                new File(Environment.getDataDirectory(), "record.pcm");
+                os = new FileOutputStream(Environment.getDataDirectory() + "/record.pcm");
                 while (isRecording) {
                     audioRecorder.read(Data, 0, Data.length);
                     try {
@@ -165,12 +131,10 @@ public class VoiceMain extends AppCompatActivity {
             }
 
 
-
         });
         recordingThread.start();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void stopRecording() {
         if (null != audioRecorder) {
 
@@ -182,19 +146,18 @@ public class VoiceMain extends AppCompatActivity {
             recordingThread = null;
 
 
-                runOnUiThread(() -> {
-                    try {
-                        copyAssets();
-                        rawToWave(new File(getDataDir() + "/record.pcm"), new File(getDataDir() + "/record.wav"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            runOnUiThread(() -> {
+                try {
+                    copyAssets();
+                    rawToWave(new File(Environment.getDataDirectory() + "/record.pcm"), new File(Environment.getDataDirectory() + "/record.wav"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-                });
+            });
 
 
-
-            System.out.println("result ="  + new DeepSpeech().run(getDataDir() + "/record.wav", this.getApplicationContext()));
+            System.out.println("result =" + new DeepSpeech().run(Environment.getDataDirectory() + "/record.wav", this.getApplicationContext()));
         }
     }
 
@@ -229,6 +192,7 @@ public class VoiceMain extends AppCompatActivity {
             output.write(fullyReadFileToBytes(rawFile));
         }
     }
+
     byte[] fullyReadFileToBytes(File f) {
         int size = (int) f.length();
         byte[] bytes = new byte[size];
@@ -250,6 +214,7 @@ public class VoiceMain extends AppCompatActivity {
 
         return bytes;
     }
+
     private void writeInt(final DataOutputStream output, final int value) throws IOException {
         output.write(value);
         output.write(value >> 8);
@@ -267,7 +232,7 @@ public class VoiceMain extends AppCompatActivity {
             output.write(value.charAt(i));
         }
     }
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
     private void copyAssets() {
         AssetManager assetManager = getAssets();
         String[] files = null;
@@ -281,13 +246,12 @@ public class VoiceMain extends AppCompatActivity {
             OutputStream out = null;
             try {
                 in = assetManager.open(filename);
-                File outFile = new File(getDataDir(), filename);
+                File outFile = new File(Environment.getDataDirectory(), filename);
                 out = new FileOutputStream(outFile);
                 copyFile(in, out);
-            } catch(IOException e) {
+            } catch (IOException e) {
                 Log.e("tag", "Failed to copy asset file: " + filename, e);
-            }
-            finally {
+            } finally {
                 if (in != null) {
                     try {
                         in.close();
@@ -305,10 +269,11 @@ public class VoiceMain extends AppCompatActivity {
             }
         }
     }
+
     private void copyFile(InputStream in, OutputStream out) throws IOException {
         byte[] buffer = new byte[1024];
         int read;
-        while((read = in.read(buffer)) != -1){
+        while ((read = in.read(buffer)) != -1) {
             out.write(buffer, 0, read);
         }
     }

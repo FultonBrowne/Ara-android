@@ -30,6 +30,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andromeda.ara.R;
@@ -78,6 +79,7 @@ public class VoiceMain extends AppCompatActivity {
         setContentView(R.layout.activity_voice_main);
 
         recyclerView = findViewById(R.id.listVoice);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Adapter adapter = new Adapter(Collections.singletonList(new RssFeedModel("hello", "how can I help", "", "", "")));
         recyclerView.setAdapter(adapter);
 
@@ -118,8 +120,8 @@ public class VoiceMain extends AppCompatActivity {
         isRecording = true;
         recordingThread = new Thread(() -> {
             try {
-                new File(Environment.getDataDirectory(), "record.pcm");
-                os = new FileOutputStream(Environment.getDataDirectory() + "/record.pcm");
+                new File(getCacheDir(), "record.pcm");
+                os = new FileOutputStream(getCacheDir() + "/record.pcm");
                 while (isRecording) {
                     audioRecorder.read(Data, 0, Data.length);
                     try {
@@ -154,12 +156,14 @@ public class VoiceMain extends AppCompatActivity {
             runOnUiThread(() -> {
                 try {
                     copyAssets();
-                    rawToWave(new File(Environment.getDataDirectory() + "/record.pcm"), new File(Environment.getDataDirectory() + "/record.wav"));
-                    phrase[0] = new DeepSpeech().run(Environment.getDataDirectory() + "/record.wav", this.getApplicationContext());
+                    rawToWave(new File(getCacheDir() + "/record.pcm"), new File(getCacheDir() + "/record.wav"));
+                    phrase[0] = new DeepSpeech().run(getCacheDir() + "/record.wav", this.getApplicationContext());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], "0.0", "0.0", getApplicationContext()));
+                recyclerView.setAdapter(new Adapter(rssFeedModels));
+                new TTS().start(getApplicationContext(), rssFeedModels.get(0).out);
 
             });
 
@@ -254,7 +258,7 @@ public class VoiceMain extends AppCompatActivity {
             OutputStream out = null;
             try {
                 in = assetManager.open(filename);
-                File outFile = new File(Environment.getDataDirectory(), filename);
+                File outFile = new File(getCacheDir(), filename);
                 out = new FileOutputStream(outFile);
                 copyFile(in, out);
             } catch (IOException e) {

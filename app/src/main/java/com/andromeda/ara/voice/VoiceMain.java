@@ -28,10 +28,13 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.andromeda.ara.R;
 import com.andromeda.ara.search.Search;
+import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.RssFeedModel;
 
 import java.io.DataOutputStream;
@@ -45,6 +48,7 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class VoiceMain extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO = 13;
@@ -59,6 +63,7 @@ public class VoiceMain extends AppCompatActivity {
     private int bufferSizeInBytes = AudioRecord.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
 
     private byte[] Data = new byte[bufferSizeInBytes];
+    RecyclerView recyclerView;
 
     private AudioRecord audioRecorder = new AudioRecord(audioSource,
             sampleRateInHz,
@@ -71,6 +76,10 @@ public class VoiceMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println(bufferSizeInBytes);
         setContentView(R.layout.activity_voice_main);
+
+        recyclerView = findViewById(R.id.listVoice);
+        Adapter adapter = new Adapter(Collections.singletonList(new RssFeedModel("hello", "how can I help", "", "", "")));
+        recyclerView.setAdapter(adapter);
 
 
 

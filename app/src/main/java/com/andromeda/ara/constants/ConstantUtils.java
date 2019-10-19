@@ -19,7 +19,7 @@ package com.andromeda.ara.constants;
 import android.media.AudioFormat;
 import android.media.MediaRecorder;
 
-public class Constants {
+public class ConstantUtils {
     public static final int REQUEST_RECORD_AUDIO = 13;
 
     public static final int AUDIO_SOURCE = MediaRecorder.AudioSource.MIC;

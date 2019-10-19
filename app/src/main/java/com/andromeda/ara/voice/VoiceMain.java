@@ -63,6 +63,9 @@ import static com.andromeda.ara.constants.Constants.SAMPLE_RATE_HZ;
 import static com.andromeda.ara.constants.Constants.SUB_CHUNK_ID_1;
 import static com.andromeda.ara.constants.Constants.SUB_CHUNK_ID_2;
 import static com.andromeda.ara.constants.Constants.SUB_CHUNK__SIZE_1;
+import static com.andromeda.ara.util.VoiceMainUtils.writeInt;
+import static com.andromeda.ara.util.VoiceMainUtils.writeShort;
+import static com.andromeda.ara.util.VoiceMainUtils.writeString;
 
 public class VoiceMain extends AppCompatActivity {
     private FileOutputStream os = null;
@@ -222,24 +225,6 @@ public class VoiceMain extends AppCompatActivity {
             e.printStackTrace();
         }
         return bytes;
-    }
-
-    private void writeInt(final DataOutputStream output, final int value) throws IOException {
-        output.write(value);
-        output.write(value >> 8);
-        output.write(value >> 16);
-        output.write(value >> 24);
-    }
-
-    private void writeShort(final DataOutputStream output, final short value) throws IOException {
-        output.write(value);
-        output.write(value >> 8);
-    }
-
-    private void writeString(final DataOutputStream output, final String value) throws IOException {
-        for (int i = 0; i < value.length(); i++) {
-            output.write(value.charAt(i));
-        }
     }
 
     private void copyAssets() {

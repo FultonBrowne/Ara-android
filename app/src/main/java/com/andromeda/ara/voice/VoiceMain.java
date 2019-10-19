@@ -18,17 +18,13 @@ package com.andromeda.ara.voice;
 
 import android.Manifest;
 import android.content.res.AssetManager;
-import android.media.AudioFormat;
 import android.media.AudioRecord;
-import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,27 +47,38 @@ import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.andromeda.ara.constants.Constants.AUDIO_FORMAT;
+import static com.andromeda.ara.constants.Constants.AUDIO_FORMAT_PCM;
+import static com.andromeda.ara.constants.Constants.AUDIO_SOURCE;
+import static com.andromeda.ara.constants.Constants.BITS_PER_SAMPLE;
+import static com.andromeda.ara.constants.Constants.BLOCK_ALIGN;
+import static com.andromeda.ara.constants.Constants.BYTE_RATE;
+import static com.andromeda.ara.constants.Constants.CHANNEL_CONFIG;
+import static com.andromeda.ara.constants.Constants.CHUNK_ID;
+import static com.andromeda.ara.constants.Constants.CHUNK_SIZE;
+import static com.andromeda.ara.constants.Constants.FORMAT;
+import static com.andromeda.ara.constants.Constants.NUMBER_OF_CHANNELS;
+import static com.andromeda.ara.constants.Constants.REQUEST_RECORD_AUDIO;
+import static com.andromeda.ara.constants.Constants.SAMPLE_RATE_HZ;
+import static com.andromeda.ara.constants.Constants.SUB_CHUNK_ID_1;
+import static com.andromeda.ara.constants.Constants.SUB_CHUNK_ID_2;
+import static com.andromeda.ara.constants.Constants.SUB_CHUNK__SIZE_1;
+
 public class VoiceMain extends AppCompatActivity {
-    private static final int REQUEST_RECORD_AUDIO = 13;
     private FileOutputStream os = null;
     private Thread recordingThread;
     boolean isRecording;
-    private int audioSource = MediaRecorder.AudioSource.MIC;
-    private int sampleRateInHz = 16000;
-    private int channelConfig = AudioFormat.CHANNEL_IN_MONO;
-    private int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
 
-    private int bufferSizeInBytes = AudioRecord.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
+    private int bufferSizeInBytes = AudioRecord.getMinBufferSize(SAMPLE_RATE_HZ, CHANNEL_CONFIG, AUDIO_FORMAT);
 
     private byte[] Data = new byte[bufferSizeInBytes];
     RecyclerView recyclerView;
 
-    private AudioRecord audioRecorder = new AudioRecord(audioSource,
-            sampleRateInHz,
-            channelConfig,
-            audioFormat,
+    private AudioRecord audioRecorder = new AudioRecord(AUDIO_SOURCE,
+            SAMPLE_RATE_HZ,
+            CHANNEL_CONFIG,
+            AUDIO_FORMAT,
             bufferSizeInBytes);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +90,6 @@ public class VoiceMain extends AppCompatActivity {
         Adapter adapter = new Adapter(Collections.singletonList(new RssFeedModel("hello", "how can I help", "", "", "")));
         recyclerView.setAdapter(adapter);
 
-
-
         ActivityCompat.requestPermissions(VoiceMain.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 1);
@@ -94,7 +99,6 @@ public class VoiceMain extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             startRecording();
         }
-
     }
 
     public void back(View view) {
@@ -103,19 +107,16 @@ public class VoiceMain extends AppCompatActivity {
                 stopRecording();
             }
         } else onBackPressed();
-
     }
 
     private void requestMicrophonePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(
                     new String[]{android.Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_AUDIO);
-
         }
-
-
     }
-    public void startRecording() {
+
+    private void startRecording() {
         audioRecorder.startRecording();
         isRecording = true;
         recordingThread = new Thread(() -> {
@@ -123,36 +124,28 @@ public class VoiceMain extends AppCompatActivity {
                 new File(getCacheDir(), "record.pcm");
                 os = new FileOutputStream(getCacheDir() + "/record.pcm");
                 while (isRecording) {
-                    audioRecorder.read(Data, 0, Data.length);
+                    audioRecorder.read(Data, 0, getRawDataLength(Data));
                     try {
                         os.write(Data, 0, bufferSizeInBytes);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
-
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-
-
         });
         recordingThread.start();
     }
 
-    public void stopRecording() {
+    private void stopRecording() {
         if (null != audioRecorder) {
-
-
             isRecording = false;
             audioRecorder.stop();
             audioRecorder.release();
             audioRecorder = null;
             recordingThread = null;
             final String[] phrase = new String[1];
-
-
             runOnUiThread(() -> {
                 try {
                     copyAssets();
@@ -164,11 +157,7 @@ public class VoiceMain extends AppCompatActivity {
                 ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], "0.0", "0.0", getApplicationContext()));
                 recyclerView.setAdapter(new Adapter(rssFeedModels));
                 new TTS().start(getApplicationContext(), rssFeedModels.get(0).out);
-
             });
-
-
-
             System.out.println("result =" + phrase[0]);
         }
     }
@@ -178,31 +167,40 @@ public class VoiceMain extends AppCompatActivity {
         byte[] rawData = new byte[(int) rawFile.length()];
 
         try (DataOutputStream output = new DataOutputStream(new FileOutputStream(waveFile))) {
-            // WAVE header
-            // see http://ccrma.stanford.edu/courses/422/projects/WaveFormat/
-            writeString(output, "RIFF"); // chunk id
-            writeInt(output, 36 + rawData.length); // chunk size
-            writeString(output, "WAVE"); // format
-            writeString(output, "fmt "); // subchunk 1 id
-            writeInt(output, 16); // subchunk 1 size
-            writeShort(output, (short) 1); // audio format (1 = PCM)
-            writeShort(output, (short) 1); // number of channels
-            writeInt(output, 16000); // sample rate
-            writeInt(output, 44100 * 2); // byte rate
-            writeShort(output, (short) 2); // block align
-            writeShort(output, (short) 16); // bits per sample
-            writeString(output, "data"); // subchunk 2 id
-            writeInt(output, rawData.length); // subchunk 2 size
+            createWaveHeader(rawData, output);
             // Audio data (conversion big endian -> little endian)
-            short[] shorts = new short[rawData.length / 2];
+            short[] shorts = new short[getRawDataLength(rawData) / 2];
             ByteBuffer.wrap(rawData).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
             ByteBuffer bytes = ByteBuffer.allocate(shorts.length * 2);
             for (short s : shorts) {
                 bytes.putShort(s);
             }
-
             output.write(fullyReadFileToBytes(rawFile));
         }
+    }
+
+    /**
+     * // WAVE header
+     * // see http://ccrma.stanford.edu/courses/422/projects/WaveFormat/
+     */
+    private void createWaveHeader(byte[] rawData, DataOutputStream output) throws IOException {
+        writeString(output, CHUNK_ID);
+        writeInt(output, CHUNK_SIZE + getRawDataLength(rawData));
+        writeString(output, FORMAT);
+        writeString(output, SUB_CHUNK_ID_1);
+        writeInt(output, SUB_CHUNK__SIZE_1);
+        writeShort(output, AUDIO_FORMAT_PCM);
+        writeShort(output, NUMBER_OF_CHANNELS);
+        writeInt(output, SAMPLE_RATE_HZ);
+        writeInt(output, BYTE_RATE);
+        writeShort(output, BLOCK_ALIGN);
+        writeShort(output, BITS_PER_SAMPLE);
+        writeString(output, SUB_CHUNK_ID_2);
+        writeInt(output, getRawDataLength(rawData)); // subchunk 2 size
+    }
+
+    private int getRawDataLength(byte[] rawData) {
+        return rawData.length;
     }
 
     byte[] fullyReadFileToBytes(File f) {
@@ -223,7 +221,6 @@ public class VoiceMain extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return bytes;
     }
 
@@ -290,8 +287,4 @@ public class VoiceMain extends AppCompatActivity {
             out.write(buffer, 0, read);
         }
     }
-
-
 }
-
-

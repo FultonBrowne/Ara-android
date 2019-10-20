@@ -14,10 +14,11 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara
+package com.andromeda.ara.activitys
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.andromeda.ara.R
 
 class SignIn : AppCompatActivity() {
 

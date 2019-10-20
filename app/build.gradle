@@ -45,7 +45,7 @@ android {
         vectorDrawables.useSupportLibrary = true
         versionCode 1
         versionName "1.0"
-        ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86_64'
+        ndk.abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
 
         multiDexEnabled = true
 
@@ -97,7 +97,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
-    implementation'androidx.preference:preference:1.1.0'
+    implementation 'androidx.preference:preference:1.1.0'
 
     // https://mvnrepository.com/artifact/org.mozilla.deepspeech/libdeepspeech
     implementation group: 'org.mozilla.deepspeech', name: 'libdeepspeech', version: '0.6.0-alpha.9'
@@ -133,7 +133,6 @@ dependencies {
     def appCenterSdkVersion = '2.4.0'
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
-
 
 
     implementation project(path: ':WolframAlpha-1.1')

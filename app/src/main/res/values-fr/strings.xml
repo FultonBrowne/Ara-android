@@ -30,20 +30,15 @@
 
     <string name="pref_title_social_recommendations">Activer les recommendations sociales</string>
     <string name="pref_description_social_recommendations">Recommandations pour les personnes à contacter 
-        en fonction de l'historique de vos messages
+        en fonction de l\'historique de vos messages
     </string>
   <string name="botton_menu_title">accueil</string>
   <string name="new_app_widget2_title">WIDGET A VENIR</string>
 
-    <string name="pref_title_display_name">Nom d'affichage</string>
+    <string name="pref_title_display_name">Nom d\'affichage</string>
     <string name="pref_default_display_name">John Smith</string>
 
     <string name="pref_title_add_friends_to_messages">Ajouter des amis aux messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Toujours</item>
-        <item>Quand c'est possible</item>
-        <item>Jamais</item>
-    </string-array>
     <string-array name="pref_example_list_values">
         <item>1</item>
         <item>0</item>
@@ -197,7 +192,7 @@
     <string name="title_activity_setup">Paramétrer</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Mot de passe</string>
-    <string name="action_sign_in">Se loguer ou s'incrire</string>
+    <string name="action_sign_in">Se loguer ou s\'incrire</string>
     <string name="action_sign_in_short">Se loguer</string>
     <string name="welcome">"Bienvenue !"</string>
     <string name="invalid_username">Utilisateur invalide</string>

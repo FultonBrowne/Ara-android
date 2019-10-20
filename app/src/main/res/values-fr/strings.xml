@@ -1,0 +1,256 @@
+<!--
+  ~ Copyright (c) 2019. Fulton Browne
+  ~  This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="app_name">Ara</string>
+    <string name="action_settings">Configuration</string>
+    <string name="action_about">A propos</string>
+    <string name="greet">Bonjour, comment puis-je vous aider ?</string>
+    <string name="greet1">Bonjour, @string/greet</string>
+    <string name="blank" />
+    <string name="title_activity_settings">Configuration</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Générale</string>
+
+    <string name="pref_title_social_recommendations">Activer les recommendations sociales</string>
+    <string name="pref_description_social_recommendations">Recommandations pour les personnes à contacter 
+        en fonction de l'historique de vos messages
+    </string>
+  <string name="botton_menu_title">accueil</string>
+  <string name="new_app_widget2_title">WIDGET A VENIR</string>
+
+    <string name="pref_title_display_name">Nom d'affichage</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Ajouter des amis aux messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Toujours</item>
+        <item>Quand c'est possible</item>
+        <item>Jamais</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Données &amp; synchronisation</string>
+
+    <string name="pref_title_sync_frequency">Fréquence de synchronisation</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 heure</item>
+        <item>3 heure</item>
+        <item>6 heure</item>
+        <item>Jamais</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entrée 1</item>
+        <item>Entrée 2</item>
+        <item>Entrée 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">Paramètres de synchronisation du système</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">Notifications de nouveaux messages</string>
+
+    <string name="pref_title_ringtone">Sonnerie</string>
+    <string name="pref_ringtone_silent">Silencieux</string>
+
+    <string name="pref_title_vibrate">Vibration</string>
+    <string name="email">email</string>
+    <string name="text">messages</string>
+    <string name="news">nouveaux</string>
+    <string name="appwidget_text">EXEMPLE</string>
+    <string name="add_widget">Ajouter un widget</string>
+    <string name="title_activity_about">A propos</string>
+    <string name="large_text">
+        "Le matériel est la métaphore.\n\n"
+
+        "Une métaphore matérielle est la théorie unificatrice d'un espace rationalisé et d'un système de mouvement."
+        "Le matériau est ancré dans la réalité tactile, inspiré par l’étude du papier et de l’encre, pourtant "
+        "à la pointe de la technologie et ouverte à l'imagination et à la magie.\n"
+        "Les surfaces et les bords du matériau fournissent des repères visuels fondés sur la réalité. "
+        "L'utilisation d'attributs tactiles familiers aide les utilisateurs à comprendre rapidement les potentialités. Pourtant le "
+        "la flexibilité du matériau crée de nouvelles possibilités qui l'emportent sur celles du monde "
+        "physique, sans enfreindre les règles de la physique.\n"
+        "Les principes fondamentaux de la lumière, de la surface et du mouvement sont essentiels pour expliquer comment les objets se déplacent,"
+        "intéragir et exister dans l’espace et les uns par rapport aux autres. Un éclairage réaliste montre"
+        "joint, divise l’espace et indique les pièces mobiles.\n\n"
+
+        "Gras, graphique, intentionnel.\n\n"
+
+        "Les éléments fondamentaux de la typographie, des grilles, de l'espace, de l'échelle, de la couleur, de la conception basée sur l'impression"
+        "et l'utilisation de l'imagerie guident les traitements visuels. Ces éléments font bien plus que flater "
+        "l'œil. Ils créent une hiérarchie, un sens et une focalisation. Choix de couleurs délibérés, imagerie bord à bord"
+        ", la typographie à grande échelle et les espaces blancs intentionnels créent une image audacieuse et une interface "
+        "graphique qui immerge l'utilisateur dans l'expérience. \n"
+        "L'accent mis sur les actions de l'utilisateur rend immédiatement visibles les fonctionnalités essentielles et fournit"
+        "un guide pour l'utilisateur.\n\n"
+
+        "Le mouvement donne un sens.\n\n"
+
+        "Motion respecte et renforce l'utilisateur en tant que moteur principal. Les actions de l'utilisateur principal sont"
+        "points d’inflexion qui initient le mouvement, transformant la conception entière. \n"
+        "Toutes les actions se déroulent dans un environnement unique. Les objets sont présentés à l'utilisateur sans"
+        "rompre la continuité de l'expérience même lorsqu'elle se transforme et se réorganise. \n"
+        "Le mouvement est significatif et approprié, servant à attirer l'attention et à maintenir la continuité."
+        "Les commentaires sont subtils mais clairs. Les transitions sont efficaces mais cohérentes.\n\n"
+
+        "Monde 3D.\n\n"
+
+        "L'environnement matériel est un espace 3D, ce qui signifie que tous les objets ont x, y et z"
+        "Dimensions. L’axe des z est perpendiculaire au plan de l’affichage, les"
+        "axe z positif s'étendant vers le spectateur. Chaque feuille de matériau occupe une seule"
+        "position le long de l’axe des z et a une épaisseur standard de 1dp. \n"
+        "Sur le Web, l'axe des z est utilisé pour la superposition et non pour la perspective. Le monde 3D est"
+        "émulé en manipulant l’axe des y.\n\n"
+
+        "Lumière et ombre.\n\n"
+
+        "Dans l'environnement matériel, des lumières virtuelles illuminent la scène. Les lumières des touches créent"
+        "ombres directionnelles, tandis que la lumière ambiante crée des ombres douces sous tous les angles. \n"
+        "Les ombres dans l'environnement matériel sont projetées par ces deux sources de lumière. Sous Android"
+        "développement, des ombres se produisent lorsque des sources de lumière sont bloquées par des feuilles de matériau"
+        "diverses positions le long de l'axe des z. Sur le Web, les ombres sont représentées en manipulant les"
+        "Axe y uniquement. L'exemple suivant montre la carte avec une hauteur de 6dp.\n\n"
+
+        "Altitude au repos.\n\n"
+
+        "Tous les objets matériels, quelle que soit leur taille, ont une élévation au repos ou une élévation par défaut"
+        "ça ne change pas. Si un objet change d'élévation, il devrait revenir à son repos"
+        "élévation dès que possible.\n\n"
+
+        "Elévations des composants.\n\n"
+
+        "L'élévation au repos pour un type de composant est la même pour toutes les applications (par exemple, l'élévation FAB"
+        "Ne varie pas de 6dp dans une application à 16dp dans une autre application). \n"
+        "Les composants peuvent avoir différentes altitudes de repos sur les plates-formes, en fonction de la profondeur"
+        "de l'environnement (par exemple, la télévision a une profondeur supérieure à celle d'un mobile ou d'un ordinateur de bureau).\n\n"
+
+        "Décalages d'élévation réactif et d'élévation dynamique.\n\n"
+
+        "Certains types de composants ont une élévation sensible, ce qui signifie qu'ils changent d'élévation en réponse"
+        "à une entrée utilisateur (par exemple, normale, focalisée et enfoncée) ou à des événements système. Ces élévations"
+        "Les modifications sont systématiquement appliquées à l'aide de décalages d'élévation dynamiques. \n"
+        "Les décalages d'élévation dynamiques correspondent à l'élévation de l'objectif vers laquelle un composant se déplace, relative"
+        "à l'état de repos du composant. Ils garantissent la cohérence des modifications d'élévation"
+        "parmi les actions et les types de composants. Par exemple, tous les composants qui se lèvent sur presse ont"
+        "le même changement d’altitude par rapport à leur élévation au repos. \n"
+        "Une fois que l'événement d'entrée est terminé ou annulé, le composant revient à son repos"
+        "élévation.\n\n"
+
+        "Eviter les interférences d'altitude.\n\n"
+
+        "Les composants avec des élévations sensibles peuvent rencontrer d'autres composants lorsqu'ils se déplacent entre"
+        "leurs élévations au repos et leurs décalages d'élévation dynamiques. Parce que les matériaux ne peuvent pas passer"
+        "à travers d'autres matériaux, les composants évitent de se gêner les uns les autres de nombreuses façons",
+        "que ce soit par composant ou en utilisant l’ensemble de la présentation de l’application. \n"
+        "Au niveau des composants, les composants peuvent être déplacés ou supprimés avant de provoquer des interférences."
+        "Par exemple, un bouton d'action flottant (FAB) peut disparaître ou disparaître de l'écran avant"
+        "L’utilisateur prend une carte ou peut se déplacer si un snack-bar apparaît. \n"
+        "Au niveau de la mise en page, concevez la mise en page de votre application pour minimiser les risques d'interférences."
+        "Par exemple, placez le FAB sur l’un des côtés du flux de cartes pour que le FAB n’interfère pas"
+        "Lorsqu'un utilisateur tente de prendre une des cartes.\n\n"
+    </string>
+    <string name="image">Camera</string>
+    <string-array name="front">Bonjour @array/pref_example_list_values</string-array>
+
+    <string name="title_activity_setup">Paramétrer</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="action_sign_in">Se loguer ou s'incrire</string>
+    <string name="action_sign_in_short">Se loguer</string>
+    <string name="welcome">"Bienvenue !"</string>
+    <string name="invalid_username">Utilisateur invalide</string>
+    <string name="invalid_password">Le mot de passe doit être >5 à charactères</string>
+    <string name="login_failed">"Echec de la connexion"</string>
+    <string name="prompt_firstname">Prénom</string>
+    <string name="welcome1">Binvenue sur Ara! Pour commencer, quel est votre prénom ?</string>
+    <string name="done">terminer et ouvrir Ara</string>
+    <string name="themeMode" />
+    <string name="theme">Forcer le thème sombre</string>
+    <string name="keytheme">list_preference_1</string>
+    <string name="default1">Par défaut</string>
+    <array name="themeList">
+        <item>Sombre</item>
+        <item>Clair</item>
+        <item>Économie de batterie</item>
+        <item>Par défaut</item>
+    </array>
+    <string name="url">https://feeds.foxnews.com/foxnews/latest</string>
+    <string name="test">test</string>
+    <string name="hello1">bonjour</string>
+    <string name="configure">Configurer</string>
+    <string name="title_activity_all_content">tousLesContenus</string>
+    <string name="pref_switch_note">Ara notifications</string>
+    <string name="hey_ara_listener_switch">Ecouter \"hey Ara\"</string>
+    <string name="textOK">Ok</string>
+    <string name="moneyText">argent</string>
+    <string name="updateTxt">Mise à jour</string>
+    <string name="replace_with_your_own_action">Remplacez par votre propre action</string>
+    <string name="action">Action</string>
+    <string name="name">NOM</string>
+    <string name="desc">DESCRIPTION</string>
+    <string name="pic">IMAGE</string>
+    <string name="number_1">numéro 1</string>
+    <string name="done_search">Terminée</string>
+    <string name="starting_step_2">Démarrer étape 2</string>
+    <string name="calender_id">calendrier_id</string>
+    <string name="title">titre</string>
+    <string name="description">description</string>
+    <string name="dtstart">dtstart</string>
+    <string name="dtend">dtend</string>
+    <string name="eventLocation">eventLocation</string>
+    <string name="gps_enable">GPS Activé</string>
+    <string name="network_enable">Réseau Activé</string>
+    <string name="latittude">latitude:</string>
+    <string name="longitude">longitude:</string>
+    <string name="exception">Exception</string>
+    <string name="tag_AssistantService">AssistantService</string>
+    <string name="msg_onReady">onReady</string>
+    <string name="msg_onCreate">onCreate</string>
+    <string name="tag_AssistantSession">AssistantSession</string>
+    <string name="msg_onHandleAssist">onHandleAssist</string>
+    <string name="hi">hi</string>
+    <string name="msg_onHandleScreenshot">onHandleScreenshot</string>
+    <string name="msg_Reading_labels_from">Lire les labels depuis:</string>
+</resources>

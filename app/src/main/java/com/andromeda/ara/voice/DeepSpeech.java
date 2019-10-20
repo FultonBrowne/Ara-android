@@ -43,7 +43,7 @@ class DeepSpeech {
     private void newModel(Context ctx) {
         System.out.println("working");
         if (this._m == null) {
-            this._m = new DeepSpeechModel(ctx.getDataDir()+"/main.tflite", ctx.getDataDir()+"/alphabet.txt", 50);
+            this._m = new DeepSpeechModel(ctx.getCacheDir()+"/main.tflite", ctx.getCacheDir()+"/alphabet.txt", 50);
         }
 
     }

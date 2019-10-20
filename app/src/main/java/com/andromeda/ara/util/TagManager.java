@@ -48,14 +48,14 @@ public class TagManager {
 
     public void insert(String name, String desc) {
         ContentValues contentValue = new ContentValues();
-        contentValue.put(Tagged.SUBJECT, name);
-        contentValue.put(Tagged.DESC, desc);
-        database.insert(Tagged.TABLE_NAME, null, contentValue);
+        contentValue.put(Tagged.Companion.getSUBJECT(), name);
+        contentValue.put(Tagged.Companion.getDESC(), desc);
+        database.insert(Tagged.Companion.getTABLE_NAME(), null, contentValue);
     }
 
     public Cursor fetch() {
-        String[] columns = new String[]{Tagged._ID, Tagged.SUBJECT, Tagged.DESC};
-        Cursor cursor = database.query(Tagged.TABLE_NAME, columns, null, null, null, null, null);
+        String[] columns = new String[]{Tagged.Companion.get_ID(), Tagged.Companion.getSUBJECT(), Tagged.Companion.getDESC()};
+        Cursor cursor = database.query(Tagged.Companion.getTABLE_NAME(), columns, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -64,14 +64,14 @@ public class TagManager {
 
     public int update(long _id, String name, String desc) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Tagged.SUBJECT, name);
-        contentValues.put(Tagged.DESC, desc);
-        int i = database.update(Tagged.TABLE_NAME, contentValues, Tagged._ID + " = " + _id, null);
+        contentValues.put(Tagged.Companion.getSUBJECT(), name);
+        contentValues.put(Tagged.Companion.getDESC(), desc);
+        int i = database.update(Tagged.Companion.getTABLE_NAME(), contentValues, Tagged.Companion.get_ID() + " = " + _id, null);
         return i;
     }
 
     public void delete(long _id) {
-        database.delete(Tagged.TABLE_NAME, Tagged._ID + "=" + _id, null);
+        database.delete(Tagged.Companion.getTABLE_NAME(), Tagged.Companion.get_ID() + "=" + _id, null);
     }
 
 }

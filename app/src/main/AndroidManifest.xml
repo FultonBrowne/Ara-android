@@ -32,6 +32,19 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".activitys.SignIn"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name="com.microsoft.identity.client.BrowserTabActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <data
+                android:host="auth"
+                android:scheme="msalfbc54802-e5ba-4a5d-9e02-e3a5dcf4922b" />
+        </intent-filter>
+    </activity>
         <activity
             android:name=".voice.VoiceMain"
             android:hardwareAccelerated="false"

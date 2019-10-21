@@ -18,12 +18,31 @@ package com.andromeda.ara.activitys
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.andromeda.ara.R
+import android.view.View
+import com.microsoft.appcenter.auth.Auth
+import com.microsoft.appcenter.AppCenter
+
+
 
 class SignIn : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.log_in)
+        setContentView(com.andromeda.ara.R.layout.log_in)
+        Auth.signIn().thenAccept { signInResult ->
+            if (signInResult.exception == null) {
+
+                // Sign-in succeeded.
+                val accountId = signInResult.userInformation.accountId
+            } else {
+
+                // Do something with sign in failure.
+                val signInFailureException = signInResult.exception
+            }
+        }
+    }
+
+    fun runLogIn(view: View) {
+
     }
 }

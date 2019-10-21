@@ -60,7 +60,10 @@ import com.andromeda.ara.voice.VoiceMain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.auth.Auth;
+import com.microsoft.appcenter.auth.SignInResult;
 import com.microsoft.appcenter.crashes.Crashes;
+import com.microsoft.appcenter.utils.async.AppCenterConsumer;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -107,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
-                Analytics.class, Crashes.class);
+                Analytics.class, Crashes.class, Auth.class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final TagManager main53 = new TagManager(this);
@@ -160,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 .withOnAccountHeaderListener((view, profile, currentProfile) -> false).withTextColorRes(R.color.md_white_1000)
                 .withHeaderBackground(R.color.semi_transparent)
                 .withThreeSmallProfileImages(true)
+
                 .build();
         if (!welcomeScreenShown) {
             // here you can launch another activity if you like
@@ -182,7 +186,6 @@ public class MainActivity extends AppCompatActivity {
                 .withTranslucentStatusBar(true)
                 .addDrawerItems(
                         item1,
-                        new DividerDrawerItem(),
                         item2,
                         item3,
                         newsmain,
@@ -454,6 +457,24 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Auth.signIn().thenAccept(signInResult -> {
+
+            if (signInResult.getException() == null) {
+
+                // Sign-in succeeded if exception is null.
+                // SignInResult is never null, getUserInformation() returns not null when there is no exception.
+                // Both getIdToken() / getAccessToken() return non null values.
+                String idToken = signInResult.getUserInformation().getIdToken();
+                String accessToken = signInResult.getUserInformation().getAccessToken();
+
+                // Do work with either token.
+            } else {
+
+                // Do something with sign in failure.
+                Exception signInFailureException = signInResult.getException();
+                signInFailureException.printStackTrace();
+            }
+        });;
     }
 }
 

@@ -446,35 +446,27 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void update11(MenuItem item) {
-        Toast.makeText(this, "checking for update", Toast.LENGTH_LONG).show();
-        try {
-            String url = new GetUrlAra().getIt(new URL("https://araserver.herokuapp.com/update/0.2"));
-            Intent browserIntent;
-            Toast.makeText(this, "update available", Toast.LENGTH_LONG).show();
+        Auth.signIn().thenAccept(new AppCenterConsumer<SignInResult>() {
 
-            browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(browserIntent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Auth.signIn().thenAccept(signInResult -> {
+            @Override
+            public void accept(SignInResult signInResult) {
 
-            if (signInResult.getException() == null) {
+                if (signInResult.getException() == null) {
 
-                // Sign-in succeeded if exception is null.
-                // SignInResult is never null, getUserInformation() returns not null when there is no exception.
-                // Both getIdToken() / getAccessToken() return non null values.
-                String idToken = signInResult.getUserInformation().getIdToken();
-                String accessToken = signInResult.getUserInformation().getAccessToken();
+                    // Sign-in succeeded if exception is null.
+                    // SignInResult is never null, getUserInformation() returns not null when there is no exception.
+                    // Both getIdToken() / getAccessToken() return non null values.
+                    String idToken = signInResult.getUserInformation().getIdToken();
+                    String accessToken = signInResult.getUserInformation().getAccessToken();
 
-                // Do work with either token.
-            } else {
+                    // Do work with either token.
+                } else {
 
-                // Do something with sign in failure.
-                Exception signInFailureException = signInResult.getException();
-                signInFailureException.printStackTrace();
+                    // Do something with sign in failure.
+                    Exception signInFailureException = signInResult.getException();
+                }
             }
-        });;
+        });
     }
 }
 

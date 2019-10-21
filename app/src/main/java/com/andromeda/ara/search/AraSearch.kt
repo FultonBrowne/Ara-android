@@ -22,6 +22,9 @@ import com.andromeda.ara.util.OutputModel
 import java.net.URL
 import java.util.*
 
+/**
+ * AraSearch class, returns a json parse of url.
+ */
 
 class AraSearch {
 

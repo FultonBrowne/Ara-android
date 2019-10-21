@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ndroid="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.andromeda.ara">
 
@@ -10,8 +11,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.BIND_VOICE_INTERACTION"
         android:protectionLevel="signature|system"
@@ -23,17 +24,20 @@
 
     <application
         android:allowBackup="true"
-        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".voice.VoiceMain"
+        <activity android:name=".activitys.SignIn"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".voice.VoiceMain"
+            android:hardwareAccelerated="false"
             android:theme="@style/AppTheme.Translucent">
             <intent-filter>
-                <category android:name="android.intent.category.VOICE"/>
+                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
         </activity>
         <activity

@@ -23,7 +23,7 @@ import android.service.voice.VoiceInteractionSessionService;
 
 //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class AssistSessServ extends VoiceInteractionSessionService {
-    Context ctx = this;
+    private Context ctx = this;
 
 
     @Override

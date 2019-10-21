@@ -24,7 +24,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 
-
+/**
+ * Adapter class for RSS
+ */
 class Adapter(private val mRssFeedModels: List<RssFeedModel>) : RecyclerView.Adapter<Adapter.FeedModelViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): FeedModelViewHolder {

@@ -47,24 +47,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andromeda.ara.R;
+import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.Rss;
-import com.andromeda.ara.feeds.drawer;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.RecyclerTouchListener;
 import com.andromeda.ara.util.RssFeedModel;
-import com.andromeda.ara.util.locl;
-import com.andromeda.ara.util.tagManager;
+import com.andromeda.ara.util.Locl;
+import com.andromeda.ara.util.TagManager;
 import com.andromeda.ara.voice.VoiceMain;
-import com.andromeda.ara.voice.run;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -92,12 +90,10 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO = 13;
     //this is the text for the greeting it is hello by default for compatibility reasons
     private String mTime = "hello";
-    //this is the navigation drawer
-    private Drawer drawer = null;
-    //Get data stored for welcome screen
-    SharedPreferences mPrefs;
+    //this is the navigation Drawer
+    private com.mikepenz.materialdrawer.Drawer drawer = null;
     //name of the preference
-    final String welcomeScreenShownPref = "welcomeScreenShown";
+    private final String welcomeScreenShownPref = "welcomeScreenShown";
     //Adapter
     private RecyclerView.Adapter mAdapter;
     // Data set for list out put
@@ -106,18 +102,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     //Device screen width
     private int screenWidth;
-    Context ctx;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
                 Analytics.class, Crashes.class);
-        ctx = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final tagManager main53 = new tagManager(this);
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final TagManager main53 = new TagManager(this);
+        //Get data stored for welcome screen
+        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
 
         screenWidth = checkScreenWidth();
@@ -201,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
                     MainActivity.this.runOnUiThread(() -> {
                         try {
-                            recyclerView.setAdapter(new drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this));
+                            recyclerView.setAdapter(new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -244,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
             public void onLongClick(View view, int position) {
                 insert(rssFeedModel1.get(position).title, rssFeedModel1.get(position).link, main53);
 
-                Toast.makeText(getApplicationContext(), "tagged", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Tagged", Toast.LENGTH_SHORT).show();
 
             }
         }));
@@ -350,7 +345,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 //RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
                 requestLocationPermission();
-                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query, Double.toString(locl.longitude), Double.toString(locl.latitude), getApplicationContext()));
+                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query, Double.toString(Locl.longitude), Double.toString(Locl.latitude), getApplicationContext()));
                 rssFeedModel1.addAll(0, rssFeedModel2);
                 mAdapter.notifyDataSetChanged();
 
@@ -387,7 +382,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //handle the back press :D close the drawer first and if the drawer is closed close the activity
+        //handle the back press :D close the Drawer first and if the Drawer is closed close the activity
         if (drawer != null && drawer.isDrawerOpen()) {
             drawer.closeDrawer();
         } else if (drawer != null && !drawer.isDrawerOpen()) {
@@ -397,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void insert(String main, String link, @NonNull tagManager main53) {
+    void insert(String main, String link, @NonNull TagManager main53) {
         main53.open();
         main53.insert(main, link);
         main53.close();

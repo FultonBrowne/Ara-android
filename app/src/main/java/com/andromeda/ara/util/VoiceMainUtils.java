@@ -16,20 +16,26 @@
 
 package com.andromeda.ara.util;
 
-public class FullModel {
-    public String title;
-    public String link;
-    public String description;
-    public String description2;
-    public String image;
-    public String[] imageList;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
-    public FullModel(String title, String link, String description, String image, String description2, String[] imageList) {
-        this.title = title;
-        this.link = link;
-        this.description = description;
-        this.description2 = description2;
-        this.image = image;
-        this.imageList = imageList;
+public class VoiceMainUtils {
+
+    public static void writeInt(final DataOutputStream output, final int value) throws IOException {
+        output.write(value);
+        output.write(value >> 8);
+        output.write(value >> 16);
+        output.write(value >> 24);
+    }
+
+    public static void writeShort(final DataOutputStream output, final short value) throws IOException {
+        output.write(value);
+        output.write(value >> 8);
+    }
+
+    public static void writeString(final DataOutputStream output, final String value) throws IOException {
+        for (int i = 0; i < value.length(); i++) {
+            output.write(value.charAt(i));
+        }
     }
 }

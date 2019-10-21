@@ -1,0 +1,248 @@
+<!--
+  ~ Copyright (c) 2019. Fulton Browne
+  ~  This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="app_name">Ara</string>
+    <string name="action_settings">Indstillinger</string>
+    <string name = "action_about"> Om </string>
+    <string name = "greet"> Hej, kan jeg hjælpe? </string>
+    <string name = "greet1"> Hej @string/greet </string>
+    <string name = "blank" />
+    <string name = "title_activity_settings"> Indstillinger </string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name = "pref_header_general"> Generelt </string>
+
+    <string name = "pref_title_social_recommendations"> Aktivér sociale anbefalinger </string>
+    <string name = "pref_description_social_recommendations"> Anbefalinger for folk at kontakte
+         baseret på din beskedhistorik
+     </string>
+    <string name = "botton_menu_title"> hjem </string>
+    <string name = "new_app_widget2_title"> WIDGET KOMMER HURT </string>
+
+    <string name = "pref_title_display_name"> Visningsnavn </string>
+    <string name = "pref_default_display_name"> John Smith </string>
+
+    <string name = "pref_title_add_friends_to_messages"> Føj venner til beskeder </string>
+    <string-array name = "pref_example_list_titles">
+        <item> Altid </item>
+        <item> Når det er muligt </item>
+        <item> Aldrig </item>
+    </string-array>
+    <string-array name = "pref_example_list_values">
+        <item> 1 </item>
+        <item> 0 </item>
+        <item> -1 </item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; synkronisering</string>
+
+    <string name = "pref_title_sync_frequency"> Synkroniseringsfrekvens </string>
+    <string-array name = "pref_sync_frequency_titles">
+        <item> 15 minutter </item>
+        <item> 30 minutter </item>
+        <item> 1 time </item>
+        <item> 3 timer </item>
+        <item> 6 timer </item>
+        <item> Aldrig </item>
+    </string-array>
+    <string-array name = "pref_sync_frequency_values">
+        <item> 15 </item>
+        <item> 30 </item>
+        <item> 60 </item>
+        <item> 180 </item>
+        <item> 360 </item>
+        <item> -1 </item>
+    </string-array>
+
+    <string-array name = "list_preference_entries">
+        <item> Indgang 1 </item>
+        <item> Indgang 2 </item>
+        <item> Indgang 3 </item>
+    </string-array>
+
+    <string-array name = "list_preference_entry_values">
+        <item> 1 </item>
+        <item> 2 </item>
+        <item> 3 </item>
+    </string-array>
+
+    <string-array name = "multi_select_list_preference_default_value" />
+
+    <string name = "pref_title_system_sync_settings"> Indstillinger for systemsynkronisering </string>
+
+    <!-- Example settings for Notifications -->
+    <string name = "pref_header_notifications"> Underretninger </string>
+
+    <string name = "pref_title_new_message_notifications"> Meddelelser om ny besked </string>
+
+    <string name = "pref_title_ringtone"> Ringetone </string>
+    <string name = "pref_ringtone_silent"> Stille </string>
+
+    <string name = "pref_title_vibrate"> Vibrer </string>
+    <string name = "email"> e-mail </string>
+    <string name = "text"> meddelelser </string>
+    <string name = "news"> nyheder </string>
+    <string name = "appwidget_text"> EKSEMPEL </string>
+    <string name = "add_widget"> Tilføj widget </string>
+    <string name = "title_activity_about"> om </string>
+    <string name="large_text">
+        "Materiale er metaforen. \n \n"
+
+        "En materiel metafor er den samlende teori om et rationaliseret rum og et bevægelsessystem."
+        "Materialet er funderet i taktil virkelighed, inspireret af studiet af papir og blæk, men alligevel"
+        "teknologisk avanceret og åben for fantasi og magi. \n"
+        "Overflader og kanter af materialet giver visuelle signaler, der er bundet i virkeligheden."
+        "Brug af velkendte taktile attributter hjælper brugerne med hurtigt at forstå råd.
+        "materialets fleksibilitet skaber nye råd, der overgår dem i det fysiske"
+        "verden, uden at bryde fysikens regler. \n"
+        "Grundlæggende om lys, overflade og bevægelse er nøglen til at formidle, hvordan objekter bevæger sig,"
+        "interagere og eksistere i rummet og i forhold til hinanden. Realistisk belysning viser"
+        "sømmer, deler plads og angiver bevægelige dele. \n \n"
+
+        "Fed, grafisk, forsætlig. \n \n"
+
+        "Grundlæggende elementer i printbaseret designtypografi, gitre, plads, skala, farve,"
+        "og brug af billedguide visuelle behandlinger. Disse elementer gør langt mere end behage"
+        "øje. De skaber hierarki, mening og fokus. Bevidste farvevalg, kant til kant"
+        "billeder, stor skala typografi og forsætligt hvidt rum skaber et fedt og grafisk"
+        "interface, der fordyber brugeren i oplevelsen. \n"
+        "En vægt på brugerhandlinger gør kernefunktionalitet umiddelbart synlig og giver"
+        "waypoints for brugeren. \n \n"
+
+        "Bevægelse giver mening. \n \n"
+
+        "Bevægelse respekterer og forstærker brugeren som den primære mover. Primære brugerhandlinger er"
+        "bøjningspunkter, der initierer bevægelse, der omdanner hele designet. \n"
+        "Al handling foregår i et enkelt miljø. Objekter præsenteres for brugeren uden"
+        "bryde kontinuitet i oplevelsen, selv når de transformerer og omorganiserer. \n"
+        "Bevægelse er meningsfuld og passende og tjener til at fokusere opmærksomhed og opretholde kontinuitet."
+        "Feedback er subtil endnu klar. Overgange er effektive, men alligevel kohærente. \n \n"
+
+        "3D-verden. \n \n"
+
+        "Det materielle miljø er et 3D-rum, hvilket betyder, at alle objekter har x, y og z"
+        "dimensioner. Z-aksen er vinkelret på linje med skærmens plan med"
+        "positiv z-akse, der strækker sig mod seeren. Hvert ark materiale optager en enkelt"
+        "position langs z-aksen og har en standard 1dp tykkelse. \n"
+        "På nettet bruges z-aksen til lagdeling og ikke til perspektiv. 3D-verdenen er"
+        "emuleret ved at manipulere y-aksen. \n \n"
+
+        "Lys og skygge. \n \n"
+
+        "I det materielle miljø lyser virtuelle lys scenen. Nøglelys oprettes"
+        "retningsskygger, mens omgivende lys skaber bløde skygger fra alle vinkler. \n"
+        "Skygger i det materielle miljø støbes af disse to lyskilder. I Android"
+        "udvikling, skygger forekommer, når lyskilder er blokeret af arkark på"
+        "forskellige positioner langs z-aksen. På nettet afbildes skygger ved at manipulere"
+        "Kun y-aksen. Følgende eksempel viser kortet med en højde på 6 dp. \n \n"
+
+        "Højdehøjde. \n \n"
+
+        "Alle materielle genstande, uanset størrelse, har en hvilehøjde eller standardhøjde"
+        "det ændrer ikke. Hvis et objekt ændrer elevation, skal det vende tilbage til sin hvile"
+        "højde så hurtigt som muligt. \n \n"
+
+        "Komponenthøjder. \n \n"
+
+        "Den hvilehøjde for en komponenttype er konsistent på tværs af apps (f.eks. FAB-højde"
+        "varierer ikke fra 6dp i en app til 16dp i en anden app). \n"
+        "Komponenter kan have forskellige hvilestigninger på tværs af platforme, afhængigt af dybden"
+        "af miljøet (f.eks. har tv en større dybde end mobil eller desktop). \n \n"
+
+        "Responsiv elevation og dynamisk elevationsforskydning. \n \n"
+
+        "Nogle komponenttyper har responsiv højde, hvilket betyder, at de ændrer højde som respons"
+        "til brugerinput (f.eks. normal, fokuseret og presset) eller systemhændelser. Disse højde"
+        "ændringer implementeres konsekvent ved hjælp af dynamiske elevationsforskydninger. \n"
+        "Dynamisk højdeudligning er den målhøjde, som en komponent bevæger sig mod, relativ"
+        "til komponentens hviletilstand. De sikrer, at højdeændringer er ensartede"
+        "på tværs af handlinger og komponenttyper. For eksempel har alle komponenter, der løfter på pressen,"
+        "den samme højdeændring i forhold til deres hvilehøjde. \n"
+        "Når inputhændelsen er afsluttet eller annulleret, vender komponenten tilbage til sin hvile"
+        "Elevation. \n \n"
+
+        "Undgå forhøjelse af interferens. \n \n"
+
+        "Komponenter med responsive forhøjninger kan støde på andre komponenter, når de bevæger sig mellem"
+        "deres hvilehøjder og dynamiske e
+    </string>
+    <string name = "image"> Kamera </string>
+    <string-array name = "front"> Hello @ array / pref_example_list_values ​​</string-array>
+
+    <string name = "title_activity_setup"> Opsætning </string>
+    <string name = "prompt_email"> E-mail </string>
+    <string name = "prompt_password"> Adgangskode </string>
+    <string name = "action_sign_in"> Log ind eller registrer </string>
+    <string name = "action_sign_in_short"> Log ind </string>
+    <string name = "welcome"> "Velkommen!" </string>
+    <string name = "invalid_username"> Ikke et gyldigt brugernavn </string>
+    <string name = "invalid_password"> Adgangskode skal være> 5 tegn </string>
+    <string name = "login_failed"> "Login mislykkedes" </string>
+    <string name = "prompt_firstname"> Fornavn </string>
+    <string name = "welcome1"> Velkommen til Ara! For at starte, hvad er dit fornavn? </string>
+    <string name = "done"> finish og åbn Ara </string>
+    <string name = "themeMode" />
+    <string name = "theme"> Tving mørkt tema </string>
+    <string name = "keytheme"> list_preference_1 </string>
+    <string name = "default1"> System default </string>
+    <array name="themeList">
+        <item> Mørk </item>
+        <item> Lys </item>
+        <item> Batterisparer </item>
+        <item> System standard </item>
+    </array>
+    <string name = "url"> https://feeds.foxnews.com/foxnews/latest </string>
+    <string name = "test"> test </string>
+    <string name = "hello1"> hej </string>
+    <string name = "configure"> Konfigurer </string>
+    <string name = "title_activity_all_content"> allContent </string>
+    <string name = "pref_switch_note"> Ara-underretninger </string>
+    <string name = "hey_ara_listener_switch"> Lyt efter \ "hey Ara \" </string>
+    <string name = "textOK"> Ok </string>
+    <string name = "moneyText"> penge </string>
+    <string name = "updateTxt"> Opdater </string>
+    <string name = "replace_with_your_own_action"> Udskift med din egen handling </string>
+    <string name = "action"> Handling </string>
+    <string name = "name"> NAME </string>
+    <string name = "desc"> DESC </string>
+    <string name = "pic"> PIC </string>
+    <string name = "number_1"> nummer 1 </string>
+    <string name = "done_search"> færdig </string>
+    <string name = "starting_step_2"> Start trin 2 </string>
+    <string name = "calender_id"> kalender_id </string>
+    <string name = "title"> title </string>
+    <string name = "description"> beskrivelse </string>
+    <string name = "dtstart"> dtstart </string>
+    <string name = "dtend"> dtend </string>
+    <string name = "eventLocation"> eventLocation </string>
+    <string name = "gps_enable"> GPS Aktiver </string>
+    <string name = "network_enable"> Netværksaktivering </string>
+    <string name = "latittude"> breddegrad: </string>
+    <string name = "longitude"> longitude: </string>
+    <string name = "exception"> Undtagelse </string>
+    <string name = "tag_AssistantService"> AssistantService </string>
+    <string name = "msg_onReady"> onReady </string>
+    <string name = "msg_onCreate"> onCreate </string>
+    <string name = "tag_AssistantSession"> AssistantSession </string>
+    <string name = "msg_onHandleAssist"> onHandleAssist </string>
+    <string name = "hi"> he </string>
+    <string name = "msg_onHandleScreenshot"> onHandleScreenshot </string>
+    <string name = "msg_Reading_labels_from"> Læsning af etiketter fra: </string>
+</resources>

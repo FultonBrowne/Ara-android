@@ -47,4 +47,9 @@
         app:srcCompat="@drawable/xbutton"
         android:focusable="true" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listVoice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

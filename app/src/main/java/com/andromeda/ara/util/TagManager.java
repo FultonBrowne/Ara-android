@@ -22,22 +22,22 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.andromeda.ara.feeds.tagged;
+import com.andromeda.ara.feeds.Tagged;
 
-public class tagManager {
+public class TagManager {
 
-    private tagged dbHelper;
+    private Tagged dbHelper;
 
     private Context context;
 
     private SQLiteDatabase database;
 
-    public tagManager(Context c) {
+    public TagManager(Context c) {
         context = c;
     }
 
-    public tagManager open() throws SQLException {
-        dbHelper = new tagged(context);
+    public TagManager open() throws SQLException {
+        dbHelper = new Tagged(context);
         database = dbHelper.getWritableDatabase();
         return this;
     }
@@ -48,14 +48,14 @@ public class tagManager {
 
     public void insert(String name, String desc) {
         ContentValues contentValue = new ContentValues();
-        contentValue.put(tagged.SUBJECT, name);
-        contentValue.put(tagged.DESC, desc);
-        database.insert(tagged.TABLE_NAME, null, contentValue);
+        contentValue.put(Tagged.Companion.getSUBJECT(), name);
+        contentValue.put(Tagged.Companion.getDESC(), desc);
+        database.insert(Tagged.Companion.getTABLE_NAME(), null, contentValue);
     }
 
     public Cursor fetch() {
-        String[] columns = new String[]{tagged._ID, tagged.SUBJECT, tagged.DESC};
-        Cursor cursor = database.query(tagged.TABLE_NAME, columns, null, null, null, null, null);
+        String[] columns = new String[]{Tagged.Companion.get_ID(), Tagged.Companion.getSUBJECT(), Tagged.Companion.getDESC()};
+        Cursor cursor = database.query(Tagged.Companion.getTABLE_NAME(), columns, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -64,14 +64,14 @@ public class tagManager {
 
     public int update(long _id, String name, String desc) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(tagged.SUBJECT, name);
-        contentValues.put(tagged.DESC, desc);
-        int i = database.update(tagged.TABLE_NAME, contentValues, tagged._ID + " = " + _id, null);
+        contentValues.put(Tagged.Companion.getSUBJECT(), name);
+        contentValues.put(Tagged.Companion.getDESC(), desc);
+        int i = database.update(Tagged.Companion.getTABLE_NAME(), contentValues, Tagged.Companion.get_ID() + " = " + _id, null);
         return i;
     }
 
     public void delete(long _id) {
-        database.delete(tagged.TABLE_NAME, tagged._ID + "=" + _id, null);
+        database.delete(Tagged.Companion.getTABLE_NAME(), Tagged.Companion.get_ID() + "=" + _id, null);
     }
 
 }

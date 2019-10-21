@@ -14,22 +14,16 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util;
+package com.andromeda.ara.activitys
 
-public class FullModel {
-    public String title;
-    public String link;
-    public String description;
-    public String description2;
-    public String image;
-    public String[] imageList;
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import com.andromeda.ara.R
 
-    public FullModel(String title, String link, String description, String image, String description2, String[] imageList) {
-        this.title = title;
-        this.link = link;
-        this.description = description;
-        this.description2 = description2;
-        this.image = image;
-        this.imageList = imageList;
+class SignIn : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.log_in)
     }
 }

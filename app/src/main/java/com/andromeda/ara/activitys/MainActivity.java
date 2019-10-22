@@ -59,7 +59,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.auth.Auth;
+import com.microsoft.appcenter.auth.SignInResult;
 import com.microsoft.appcenter.crashes.Crashes;
+import com.microsoft.appcenter.utils.async.AppCenterConsumer;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -444,29 +446,22 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void logIn(MenuItem item) {
-        Auth.signIn().thenAccept(signInResult -> {
+        Auth.signIn().thenAccept(new AppCenterConsumer<SignInResult>() {
 
-            if (signInResult.getException() == null) {
 
-                // Sign-in succeeded if exception is null.
-                // SignInResult is never null, getUserInformation() returns not null when there is no exception.
-                // Both getIdToken() / getAccessToken() return non null values.
-                String idToken = signInResult.getUserInformation().getIdToken();
-                JWT parsedToken;
-                try {
-                    parsedToken = JWTParser.parse(idToken);
-                    Map<String, Object> claims = parsedToken.getJWTClaimsSet().getClaims();
-                    net.minidev.json.JSONArray emails = (net.minidev.json.JSONArray) claims.get("emails");
-                    if (emails != null && !emails.isEmpty()) {
-                        String firstEmail = emails.get(0).toString();
-                        System.out.println(firstEmail);}
-                } catch (Exception e) {
-                    System.out.println("alert");
-                    e.printStackTrace();
+            @Override
+            public void accept(SignInResult signInResult) {
+
+
+                if (signInResult.getException() == null) {
+
+                    // Sign-in succeeded.
+                    String accountId = signInResult.getUserInformation().getAccountId();
+                    System.out.println(accountId);
+                } else {
+                    Toast.makeText(getApplicationContext(), "LOg in failed", Toast.LENGTH_LONG).show();
+
                 }
-            } else {
-                System.out.println("fail");
-                signInResult.getException().printStackTrace();
             }
         });
 

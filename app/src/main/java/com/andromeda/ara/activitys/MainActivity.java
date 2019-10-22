@@ -30,12 +30,15 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import com.microsoft.identity.*;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,6 +67,16 @@ import com.microsoft.appcenter.auth.Auth;
 import com.microsoft.appcenter.auth.SignInResult;
 import com.microsoft.appcenter.crashes.Crashes;
 import com.microsoft.appcenter.utils.async.AppCenterConsumer;
+import com.microsoft.identity.client.AuthenticationCallback;
+import com.microsoft.identity.client.AuthenticationResult;
+import com.microsoft.identity.client.IAccount;
+import com.microsoft.identity.client.IAuthenticationResult;
+import com.microsoft.identity.client.IMultipleAccountPublicClientApplication;
+import com.microsoft.identity.client.IPublicClientApplication;
+import com.microsoft.identity.client.PublicClientApplication;
+import com.microsoft.identity.client.exception.MsalClientException;
+import com.microsoft.identity.client.exception.MsalException;
+import com.microsoft.identity.client.exception.MsalServiceException;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -83,6 +96,8 @@ import java.util.Objects;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+
+import static java.security.AccessController.getContext;
 
 @SuppressLint("CutPasteId")
 public class MainActivity extends AppCompatActivity {
@@ -467,6 +482,51 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        String[] scopes = {"User.Read"};
+        final IMultipleAccountPublicClientApplication[] mMultipleAccountApp = {null};
+        IAccount mFirstAccount = null;
+
+        /**PublicClientApplication.createMultipleAccountPublicClientApplication(getContext(),
+                R.raw.msal_config,
+                new IPublicClientApplication.IMultipleAccountApplicationCreatedListener() {
+                    @Override
+                    public void onCreated(IMultipleAccountPublicClientApplication application) {
+                        mMultipleAccountApp[0] = application;
+                    }
+
+                    @Override
+                    public void onError(MsalException exception) {
+                        //Log Exception Here
+                    }
+                });
+    **/}
+    //mMultipleAccountApp.acquireToken(this, SCOPES, getAuthInteractiveCallback());
+
+    private AuthenticationCallback getAuthInteractiveCallback() {
+        return new AuthenticationCallback() {
+
+            @Override
+            public void onSuccess(IAuthenticationResult authenticationResult) {
+                /* Successfully got a token, use it to call a protected resource */
+                String accessToken = authenticationResult.getAccessToken();
+                // Record account used to acquire token
+                //mFirstAccount = authenticationResult.getAccount();
+
+            }
+
+            @Override
+            public void onError(MsalException exception) {
+                if (exception instanceof MsalClientException) {
+                    //And exception from the client (MSAL)
+                } else if (exception instanceof MsalServiceException) {
+                    //An exception from the server
+                }
+            }
+            @Override
+            public void onCancel() {
+                /* User canceled the authentication */
+            }
+        };
     }
 }
 

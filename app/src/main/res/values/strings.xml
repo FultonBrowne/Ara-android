@@ -253,4 +253,5 @@
     <string name="hi">hi</string>
     <string name="msg_onHandleScreenshot">onHandleScreenshot</string>
     <string name="msg_Reading_labels_from">Reading labels from:</string>
+    <string name="LogInText">add account</string>
 </resources>

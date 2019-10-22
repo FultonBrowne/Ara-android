@@ -17,7 +17,6 @@
 package com.andromeda.ara.activitys;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
@@ -30,15 +29,12 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-import com.microsoft.identity.*;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,7 +50,6 @@ import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.util.Adapter;
-import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.RecyclerTouchListener;
 import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.Locl;
@@ -64,32 +59,30 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.auth.Auth;
-import com.microsoft.appcenter.auth.SignInResult;
 import com.microsoft.appcenter.crashes.Crashes;
-import com.microsoft.appcenter.utils.async.AppCenterConsumer;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.nimbusds.jwt.JWT;
+import com.nimbusds.jwt.JWTParser;
 
 import org.jetbrains.annotations.Contract;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-import static java.security.AccessController.getContext;
 
-@SuppressLint("CutPasteId")
+
 public class MainActivity extends AppCompatActivity {
     /**
      * these have to do with permissions
@@ -450,26 +443,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void update11(MenuItem item) {
-        Auth.signIn().thenAccept(new AppCenterConsumer<SignInResult>() {
+    public void logIn(MenuItem item) {
+        Auth.signIn().thenAccept(signInResult -> {
 
-            @Override
-            public void accept(SignInResult signInResult) {
+            if (signInResult.getException() == null) {
 
-                if (signInResult.getException() == null) {
-
-                    // Sign-in succeeded if exception is null.
-                    // SignInResult is never null, getUserInformation() returns not null when there is no exception.
-                    // Both getIdToken() / getAccessToken() return non null values.
-                    String idToken = signInResult.getUserInformation().getIdToken();
-                    String accessToken = signInResult.getUserInformation().getAccessToken();
-
-                    // Do work with either token.
-                } else {
-
-                    // Do something with sign in failure.
-                    Exception signInFailureException = signInResult.getException();
+                // Sign-in succeeded if exception is null.
+                // SignInResult is never null, getUserInformation() returns not null when there is no exception.
+                // Both getIdToken() / getAccessToken() return non null values.
+                String idToken = signInResult.getUserInformation().getIdToken();
+                JWT parsedToken;
+                try {
+                    parsedToken = JWTParser.parse(idToken);
+                    Map<String, Object> claims = parsedToken.getJWTClaimsSet().getClaims();
+                    net.minidev.json.JSONArray emails = (net.minidev.json.JSONArray) claims.get("emails");
+                    if (emails != null && !emails.isEmpty()) {
+                        String firstEmail = emails.get(0).toString();
+                        System.out.println(firstEmail);}
+                } catch (Exception e) {
+                    System.out.println("alert");
+                    e.printStackTrace();
                 }
+            } else {
+                System.out.println("fail");
+                signInResult.getException().printStackTrace();
             }
         });
 

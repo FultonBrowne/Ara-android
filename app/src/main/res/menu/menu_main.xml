@@ -30,7 +30,7 @@
         android:orderInCategory="101"
         android:title="@string/app_name"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_about"
         android:onClick="about"
@@ -39,9 +39,9 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_update"
-        android:onClick="update11"
+        android:onClick="logIn"
         android:orderInCategory="100"
-        android:title="@string/updateTxt"
+        android:title="@string/LogInText"
         app:showAsAction="never" />
 
 </menu>

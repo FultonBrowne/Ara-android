@@ -43,32 +43,13 @@ public class OnDeviceSkills {
     public void close() {
         dbHelper.close();
     }
-    public void insert(String name, String desc) {
+    public void insert(String pre, String end, String act) {
         ContentValues contentValue = new ContentValues();
-        contentValue.put(Tagged.Companion.getSUBJECT(), name);
-        contentValue.put(Tagged.Companion.getDESC(), desc);
-        database.insert(Tagged.Companion.getTABLE_NAME(), null, contentValue);
-    }
+        contentValue.put(OnDeviceSkillsDB.Companion.getPRE(), pre);
+        contentValue.put(OnDeviceSkillsDB.Companion.getEND(), end);
+        contentValue.put(OnDeviceSkillsDB.Companion.getACT(), act);
 
-    public Cursor fetch() {
-        String[] columns = new String[]{Tagged.Companion.get_ID(), Tagged.Companion.getSUBJECT(), Tagged.Companion.getDESC()};
-        Cursor cursor = database.query(Tagged.Companion.getTABLE_NAME(), columns, null, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-        }
-        return cursor;
-    }
-
-    public int update(long _id, String name, String desc) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Tagged.Companion.getSUBJECT(), name);
-        contentValues.put(Tagged.Companion.getDESC(), desc);
-        int i = database.update(Tagged.Companion.getTABLE_NAME(), contentValues, Tagged.Companion.get_ID() + " = " + _id, null);
-        return i;
-    }
-
-    public void delete(long _id) {
-        database.delete(Tagged.Companion.getTABLE_NAME(), Tagged.Companion.get_ID() + "=" + _id, null);
+        database.insert(OnDeviceSkillsDB.Companion.getTABLE_NAME(), null, contentValue);
     }
 
 

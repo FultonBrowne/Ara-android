@@ -16,34 +16,33 @@
 
 <resources>
     <string name="app_name">Ara</string>
-    <string name="action_settings">die Einstellungen</string>
+    <string name="action_settings">Einstellungen</string>
     <string name="action_about">Über</string>
     <string name="greet">Hallo, kann ich helfen?</string>
     <string name="greet1">Hallo, @string/greet</string>
     <string name="blank" />
-    <string name="title_activity_settings">die Einstellungen</string>
+    <string name="title_activity_settings">Einstellungen</string>
 
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="pref_header_general">Allgemeines</string>
+    <string name="pref_header_general">Allgemein</string>
 
-    <string name="pref_title_social_recommendations">Aktivieren Sie soziale Empfehlungen</string>
+    <string name="pref_title_social_recommendations">Soziale Empfehlungen aktivieren</string>
     <string name="pref_description_social_recommendations">
-	
 Empfehlungen für Kontaktpersonen basierend auf Ihrem Nachrichtenverlauf
     </string>
-  <string name="botton_menu_title">Zuhause</string>
-  <string name="new_app_widget2_title">WIDGET KOMMT BALD</string>
+  <string name="botton_menu_title">home</string>
+  <string name="new_app_widget2_title">WIDGET DEMNÄCHST VERFÜGBAR</string>
 
-    <string name="pref_title_display_name">Anzeigename</string>
-    <string name="pref_default_display_name">John Smith</string>
+    <string name="pref_title_display_name">Angezeigter Name</string>
+    <string name="pref_default_display_name">Max Mustermann</string>
 
     <string name="pref_title_add_friends_to_messages">Freunde zu Nachrichten hinzufügen</string>
     <string-array name="pref_example_list_titles">
         <item>Immer</item>
         <item>Wenn möglich</item>
-        <item>noch nie</item>
+        <item>Nie</item>
     </string-array>
     <string-array name="pref_example_list_values">
         <item>1</item>
@@ -52,16 +51,16 @@ Empfehlungen für Kontaktpersonen basierend auf Ihrem Nachrichtenverlauf
     </string-array>
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Daten &amp; sync</string>
+    <string name="pref_header_data_sync">Daten &amp; synchronisation</string>
 
-    <string name="pref_title_sync_frequency">synchronisieren frequenz</string>
+    <string name="pref_title_sync_frequency">Synchronisationsfrequenz</string>
     <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>noch nie</item>
+        <item>15 Minuten</item>
+        <item>30 Minuten</item>
+        <item>1 Stunde</item>
+        <item>3 Stunden</item>
+        <item>6 Stunden</item>
+        <item>Nie</item>
     </string-array>
     <string-array name="pref_sync_frequency_values">
         <item>15</item>
@@ -86,111 +85,111 @@ Empfehlungen für Kontaktpersonen basierend auf Ihrem Nachrichtenverlauf
 
     <string-array name="multi_select_list_preference_default_value" />
 
-    <string name="pref_title_system_sync_settings">Synchronisieren Sie die Systemeinstellungen</string>
+    <string name="pref_title_system_sync_settings">Systemeinstellungen synchronisieren</string>
 
     <!-- Example settings for Notifications -->
     <string name="pref_header_notifications">Benachrichtigungen</string>
 
-    <string name="pref_title_new_message_notifications">Neue Nachrichtenbenachrichtigungen</string>
+    <string name="pref_title_new_message_notifications">Neue Nachrichten</string>
 
     <string name="pref_title_ringtone">Klingelton</string>
-    <string name="pref_ringtone_silent">Stille</string>
+    <string name="pref_ringtone_silent">Lautlos</string>
 
     <string name="pref_title_vibrate">Vibrieren</string>
     <string name="email">email</string>
-    <string name="text">Mitteilungen</string>
-    <string name="news">Nachrichten</string>
+    <string name="text">Nachrichten</string>
+    <string name="news">Meldungen</string>
     <string name="appwidget_text">BEISPIEL</string>
     <string name="add_widget">Widget hinzufügen</string>
     <string name="title_activity_about">Über</string>
     <string name="large_text">
-        "Material ist die Metapher.\n\n"
+        "Material is the metaphor.\n\n"
 
-        "Eine materielle Metapher ist die vereinheitlichende Theorie eines rationalisierten Raumes und eines Bewegungssystems."
-        "Das Material basiert auf taktiler Realität, inspiriert durch das Studium von Papier und Tinte."
-        "Technologisch fortschrittlich und offen für Fantasie und Magie. \n"
-        "Oberflächen und Kanten des Materials liefern visuelle Hinweise, die in der Realität begründet sind. Die"
-        "Die Verwendung vertrauter taktiler Attribute hilft dem Benutzer, die Erschwinglichkeiten schnell zu verstehen."
-        "Flexibilität des Materials schafft neue Erschwinglichkeiten, die die im physischen Bereich übertreffen"
-        "Welt, ohne die Regeln der Physik zu brechen. \n"
-        "Die Grundlagen von Licht, Oberfläche und Bewegung sind der Schlüssel, um zu vermitteln, wie sich Objekte bewegen."
-        "interagieren und existieren im Raum und in Beziehung zueinander. Realistische Lichtshows"
-        "Näht, teilt den Raum und zeigt bewegliche Teile an. \n\n"
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
 
-        "Fett, grafisch, absichtlich. \n\n"
+        "Bold, graphic, intentional.\n\n"
 
-        "Die grundlegenden Elemente der druckbasierten Designtypografie: Raster, Raum, Maßstab, Farbe."
-        "und die Verwendung von Bildern führen visuelle Behandlungen. Diese Elemente tun weit mehr als bitte die"
-        "Auge. Sie schaffen Hierarchie, Bedeutung und Fokus. Überlegte Farbauswahl, Kante an Kante"
-        "Bilder, großformatige Typografie und absichtlicher weißer Raum schaffen eine mutige und grafische"
-        msgstr "Schnittstelle, die den Benutzer in die Erfahrung eintaucht. \n"
-        "Ein Schwerpunkt auf Benutzeraktionen macht die Kernfunktionalität sofort sichtbar und bietet"
-        "Wegpunkte für den Benutzer. \n\n"
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
 
-        "Bewegung gibt Sinn. \n\n"
+        "Motion provides meaning.\n\n"
 
-        "Motion respektiert und stärkt den Benutzer als die treibende Kraft. Primäre Benutzeraktionen sind"
-        "Wendepunkte, die Bewegungen auslösen und das gesamte Design verändern. \n"
-        "Alle Aktionen finden in einer einzigen Umgebung statt. Objekte werden dem Benutzer ohne
-        "Die Kontinuität der Erfahrung brechen, auch wenn sie sich verändern und neu organisieren. \n"
-        "Bewegung ist sinnvoll und angemessen und dient dazu, die Aufmerksamkeit zu konzentrieren und die Kontinuität aufrechtzuerhalten."
-        "Das Feedback ist subtil und doch klar. Übergänge sind effizient und doch kohärent. \n\n"
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
 
-        "3D-Welt. \n\n"
+        "3D world.\n\n"
 
-        "Die materielle Umgebung ist ein 3D-Raum, was bedeutet, dass alle Objekte x, y und z haben."
-        Maße. Die z-Achse ist senkrecht zur Ebene der Anzeige ausgerichtet, wobei die
-        "Positive Z-Achse, die sich in Richtung des Betrachters erstreckt. Jedes Blatt Material belegt ein einzelnes"
-        msgstr "Position entlang der z - Achse und hat eine Standarddicke von 1 dpi. \ n"
-        "Im Web wird die Z-Achse für die Überlagerung und nicht für die Perspektive verwendet. Die 3D-Welt ist"
-        msgstr "durch Manipulieren der y - Achse emuliert. \ n \ n"
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
 
-        "Licht und Schatten. \ N \ n"
+        "Light and shadow.\n\n"
 
-        "In der materiellen Umgebung beleuchten virtuelle Lichter die Szene. Schlüssellichter erzeugen"
-        msgstr "Richtungsschatten, während Umgebungslicht weiche Schatten aus allen Winkeln erzeugt. \n"
-        "Schatten in der materiellen Umgebung werden von diesen beiden Lichtquellen geworfen. In Android"
-        "Entwicklung, Schatten entstehen, wenn Lichtquellen durch Materiallagen blockiert werden"
-        Verschiedene Positionen entlang der z-Achse. Auf der Bahn werden Schatten durch Manipulieren des
-        "Nur y-Achse. Das folgende Beispiel zeigt die Karte mit einer Höhe von 6 dpi. \n\n"
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
 
-        "Ruhehöhe. \n\n"
+        "Resting elevation.\n\n"
 
-        "Alle materiellen Objekte, unabhängig von ihrer Größe, haben eine Ruhehöhe oder eine Standardhöhe."
-        "Das ändert sich nicht. Wenn sich die Höhe eines Objekts ändert, sollte es in seine Ruheposition zurückkehren."
-        "Höhe so schnell wie möglich. \n\n"
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
 
-        "Bauteilerhöhungen. \n\n"
+        "Component elevations.\n\n"
 
-        Die Ruhehöhe für einen Komponententyp ist für alle Apps gleich (z. B. die FAB-Höhe).
-        msgstr "variiert nicht von 6dp in einer App bis 16dp in einer anderen App. \n"
-        "Komponenten können je nach Tiefe auf verschiedenen Plattformen unterschiedliche Aufstandshöhen haben."
-        "der Umgebung (z. B. TV hat eine größere Tiefe als mobile oder Desktop). \n\n"
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
 
-        "Responsive Elevation und dynamische Elevation Offsets. \n\n"
+        "Responsive elevation and dynamic elevation offsets.\n\n"
 
-        "Einige Komponententypen haben eine ansprechende Höhe, dh sie ändern die Höhe in Abhängigkeit von der Höhe."
-        für Benutzereingaben (z. B. normale, fokussierte und gedrückte) oder Systemereignisse.
-        msgstr "Änderungen werden konsistent mit dynamischen Höhenversätzen implementiert. \n"
-        "Dynamische Höhenversätze sind die Zielhöhe, auf die sich eine Komponente relativ zubewegt."
-        "In den Ruhezustand der Komponente. Sie stellen sicher, dass die Höhenänderungen konsistent sind."
-        "über Aktionen und Komponententypen hinweg. Zum Beispiel haben alle Komponenten, die auf der Presse angehoben werden,
-        msgstr "die gleiche Höhenänderung relativ zu ihrer Ruhehöhe. \n"
-        "Sobald das Eingabeereignis abgeschlossen oder abgebrochen ist, kehrt die Komponente in den Ruhezustand zurück."
-        "Höhe. \n\n"
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
 
-        "Höhenstörungen vermeiden. \n\n"
+        "Avoiding elevation interference.\n\n"
 
-        "Komponenten mit reaktionsschnellen Höhen können auf andere Komponenten treffen, wenn sie sich bewegen"
-        "ihre Ruhehöhen und dynamischen Höhenversätze. Weil Material nicht passieren kann"
-        "Durch andere Materialien vermeiden die Komponenten auf vielfältige Weise, dass sie sich gegenseitig stören."
-        "Ob auf Komponentenbasis oder unter Verwendung des gesamten App-Layouts. \n"
-        "Auf Komponentenebene können Komponenten bewegt oder entfernt werden, bevor sie Störungen verursachen."
-        Beispielsweise kann eine schwebende Aktionstaste (Floating Action Button, FAB) verschwinden oder den Bildschirm verlassen, bevor ein
-        msgstr "Benutzer nimmt eine Karte in die Hand oder sie kann sich bewegen, wenn eine Snackbar erscheint. \n"
-        "Entwerfen Sie auf Layoutebene Ihr App-Layout, um die Möglichkeit von Interferenzen zu minimieren."
-        "Positionieren Sie den FAB beispielsweise an einer Seite des Kartenstroms, damit der FAB nicht stört."
-        "Wenn ein Benutzer versucht, eine der Karten aufzuheben. \n\n"
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="image">Kamera</string>
     <string-array name="front">Hallo @array/pref_example_list_values</string-array>
@@ -200,62 +199,58 @@ Empfehlungen für Kontaktpersonen basierend auf Ihrem Nachrichtenverlauf
     <string name="prompt_password">Passwort</string>
     <string name="action_sign_in">Einloggen oder Registrieren</string>
     <string name="action_sign_in_short">Anmelden</string>
-    <string name="welcome">"Herzlich willkommen !"</string>
-    <string name="invalid_username">Kein gültiger Benutzername</string>
-    <string name="invalid_password">
-Das Passwort muss länger als 5 Zeichen sein</string>
+    <string name="welcome">"Herzlich willkommen!"</string>
+    <string name="invalid_username">Ungültiger Benutzername</string>
+    <string name="invalid_password">Das Passwort muss länger als 5 Zeichen sein</string>
     <string name="login_failed">"Login fehlgeschlagen"</string>
-    <string name="prompt_firstname">
-Vorname</string>
-    <string name="welcome1">
-Willkommen bei Ara! Um zu beginnen, wie lautet Ihr Vorname?</string>
-    <string name="done">
-fertig und offen Ara</string>
+    <string name="prompt_firstname">Vorname</string>
+    <string name="welcome1">Willkommen bei Ara! Zum Anfang, wie lautet Ihr Vorname?</string>
+    <string name="done">Abschließen und Ara öffnen</string>
     <string name="themeMode" />
-    <string name="theme">Force dark theme</string>
+    <string name="theme">Dunkelmodus erzwingen</string>
     <string name="keytheme">list_preference_1</string>
-    <string name="default1">Systemfehler</string>
+    <string name="default1">Systemstandard</string>
     <array name="themeList">
-        <item>Dark</item>
-        <item>Light</item>
-        <item>Battery saver</item>
-        <item>System default</item>
+        <item>Dunkel</item>
+        <item>Hell</item>
+        <item>Batteriesparmodus</item>
+        <item>Systemstandard</item>
     </array>
     <string name="url">https://feeds.foxnews.com/foxnews/latest</string>
-    <string name="test">Prüfung</string>
-    <string name="hello1">Hallo</string>
+    <string name="test">Test</string>
+    <string name="hello1">hallo</string>
     <string name="configure">Konfigurieren</string>
-    <string name="title_activity_all_content">AlleInhalte</string>
+    <string name="title_activity_all_content">allContent</string>
     <string name="pref_switch_note">Ara-Benachrichtigungen</string>
-    <string name="hey_ara_listener_switch">Listen for \"hey Ara\"</string>
+    <string name="hey_ara_listener_switch">Auf \"hey Ara\" hören</string>
     <string name="textOK">Ok</string>
-    <string name="moneyText">money</string>
+    <string name="moneyText">Geld</string>
     <string name="updateTxt">Update</string>
-    <string name="replace_with_your_own_action">Replace with your own action</string>
-    <string name="action">Action</string>
+    <string name="replace_with_your_own_action">Durch eigene Aktion ersetzen</string>
+    <string name="action">Aktion</string>
     <string name="name">NAME</string>
-    <string name="desc">DESC</string>
-    <string name="pic">PIC</string>
-    <string name="number_1">number 1</string>
-    <string name="done_search">done</string>
-    <string name="starting_step_2">Starting step 2</string>
-    <string name="calender_id">calendar_id</string>
-    <string name="title">title</string>
-    <string name="description">description</string>
+    <string name="desc">BESCHR</string>
+    <string name="pic">BILD</string>
+    <string name="number_1">Nummer 1</string>
+    <string name="done_search">fertig</string>
+    <string name="starting_step_2">Beginne zweiten Schritt</string>
+    <string name="calender_id">kalender_id</string>
+    <string name="title">titel</string>
+    <string name="description">beschreibung</string>
     <string name="dtstart">dtstart</string>
-    <string name="dtend">dtend</string>
-    <string name="eventLocation">eventLocation</string>
-    <string name="gps_enable">GPS Enable</string>
-    <string name="network_enable">Network Enable</string>
-    <string name="latittude">latitude:</string>
-    <string name="longitude">longitude:</string>
-    <string name="exception">Exception</string>
-    <string name="tag_AssistantService">AssistantService</string>
+    <string name="dtend">dtende</string>
+    <string name="eventLocation">eventOrt</string>
+    <string name="gps_enable">GPS einschalten</string>
+    <string name="network_enable">Netzwerk einschalten</string>
+    <string name="latittude">breitengrad:</string>
+    <string name="longitude">längengrad:</string>
+    <string name="exception">Ausnahme</string>
+    <string name="tag_AssistantService">AssistentService</string>
     <string name="msg_onReady">onReady</string>
     <string name="msg_onCreate">onCreate</string>
     <string name="tag_AssistantSession">AssistantSession</string>
     <string name="msg_onHandleAssist">onHandleAssist</string>
     <string name="hi">hi</string>
     <string name="msg_onHandleScreenshot">onHandleScreenshot</string>
-    <string name="msg_Reading_labels_from">Reading labels from:</string>
+    <string name="msg_Reading_labels_from">Lese labels von:</string>
 </resources>

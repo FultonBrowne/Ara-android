@@ -17,4 +17,10 @@
 package com.andromeda.ara.skills;
 
 public class Text {
+    public void sendText(){
+
+    }
+    public void readText(){
+
+    }
 }

@@ -186,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean(welcomeScreenShownPref, true);
             editor.apply();
         }
+        logIn();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -460,7 +461,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void logIn(MenuItem item) {
+    public void logIn() {
         Auth.signIn().thenAccept(new AppCenterConsumer<SignInResult>() {
 
 

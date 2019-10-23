@@ -95,8 +95,6 @@ public class MainActivity extends AppCompatActivity {
     private String mTime = "hello";
     //this is the navigation Drawer
     private com.mikepenz.materialdrawer.Drawer drawer = null;
-    //name of the preference
-    private final String welcomeScreenShownPref = "welcomeScreenShown";
     //Adapter
     private RecyclerView.Adapter mAdapter;
     // Data set for list out put
@@ -118,10 +116,13 @@ public class MainActivity extends AppCompatActivity {
                 Analytics.class, Crashes.class, Auth.class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        logIn();
         final TagManager main53 = new TagManager(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         //Get data stored for welcome screen
 
+        //name of the preference
+        String welcomeScreenShownPref = "welcomeScreenShown";
         boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
 
         mName = mPrefs.getString("name", "please log in");
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean(welcomeScreenShownPref, true);
             editor.apply();
         }
-        logIn();
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -218,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
 
-
                             return false;
                             // do something with the clicked item :D
                         })
@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(ctx, AllContent.class);
 
                     intent.putExtra("NAME", rssFeedModel1.get(position).title);
-                    intent.putExtra("DESC", rssFeedModel1.get(position).description);
+                    intent.putExtra("ACT", rssFeedModel1.get(position).description);
                     intent.putExtra("PIC", rssFeedModel1.get(position).image);
 
                     //startActivity(browserIntent);

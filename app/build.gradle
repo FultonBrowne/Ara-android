@@ -98,7 +98,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'androidx.preference:preference:1.1.0'
-    def appCenterSdkVersion = '2.4.0'
+    def appCenterSdkVersion = '2.4.1'
     implementation "com.microsoft.appcenter:appcenter-auth:${appCenterSdkVersion}"
 
     implementation "com.microsoft.appcenter:appcenter-auth:${appCenterSdkVersion}"

@@ -43,5 +43,7 @@
         android:orderInCategory="100"
         android:title="@string/LogInText"
         app:showAsAction="never" />
+    <item android:title="log out"
+        android:onClick="logOut"/>
 
 </menu>

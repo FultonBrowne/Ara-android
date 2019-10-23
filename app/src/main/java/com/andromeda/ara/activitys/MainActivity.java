@@ -456,18 +456,37 @@ public class MainActivity extends AppCompatActivity {
                 if (signInResult.getException() == null) {
 
                     // Sign-in succeeded.
-                    String accountId = signInResult.getUserInformation().getAccountId();
-                    System.out.println(accountId);
+                    try {
+                        String accountId = signInResult.getUserInformation().getAccountId();
+                        String idToken = signInResult.getUserInformation().getIdToken();
+                        System.out.println(accountId);
+                        JWT parsedToken = JWTParser.parse(idToken);
+                        Map<String, Object> claims = parsedToken.getJWTClaimsSet().getClaims();
+                        System.out.print("check if null");
+                        net.minidev.json.JSONArray emails = (net.minidev.json.JSONArray) claims.get("emails");
+                        String displayName = (String) claims.get("email");
+                        System.out.print(displayName);
+                        if (emails != null && !emails.isEmpty()) {
+                            String firstEmail = emails.get(0).toString();
+                            System.out.print(firstEmail);
+                        }
+                        else System.out.print("emails null");
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), "LOg in failed", Toast.LENGTH_LONG).show();
 
                 }
+
             }
         });
 
+    }
 
-
-
+    public void logOut(MenuItem item) {
+        Auth.signOut();
     }
 }
 

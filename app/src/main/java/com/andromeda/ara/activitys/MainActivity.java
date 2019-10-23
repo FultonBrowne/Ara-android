@@ -186,39 +186,45 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean(welcomeScreenShownPref, true);
             editor.apply();
         }
-        drawer = new DrawerBuilder()
-                .withActivity(this)
-                .withToolbar(mActionBarToolbar)
-                .withAccountHeader(headerResult)
-                .withSliderBackgroundDrawableRes(R.drawable.drawerimage)
-                .withFullscreen(true).withTranslucentNavigationBarProgrammatically(true)
-                .withTranslucentStatusBar(true)
-                .addDrawerItems(
-                        item1,
-                        item2,
-                        item3,
-                        newsmain,
-                        item4,
-                        item5,
-                        item6,
-                        item7
-                )
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                drawer = new DrawerBuilder()
+                        .withActivity(ctx)
+                        .withToolbar(mActionBarToolbar)
+                        .withAccountHeader(headerResult)
+                        .withSliderBackgroundDrawableRes(R.drawable.drawerimage)
+                        .withFullscreen(true).withTranslucentNavigationBarProgrammatically(true)
+                        .withTranslucentStatusBar(true)
+                        .addDrawerItems(
+                                item1,
+                                item2,
+                                item3,
+                                newsmain,
+                                item4,
+                                item5,
+                                item6,
+                                item7
+                        )
 
-                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                        .withOnDrawerItemClickListener((view, position, drawerItem) -> {
 
-                    MainActivity.this.runOnUiThread(() -> {
-                        try {
-                            recyclerView.setAdapter(new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
+                            MainActivity.this.runOnUiThread(() -> {
+                                try {
+                                    recyclerView.setAdapter(new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
 
 
-                    return false;
-                    // do something with the clicked item :D
-                })
-                .build();
+                            return false;
+                            // do something with the clicked item :D
+                        })
+                        .build();
+            }
+        });
+
 
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);

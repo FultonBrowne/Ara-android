@@ -105,6 +105,11 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     //Device screen width
     private int screenWidth;
+    SharedPreferences mPrefs;
+    String mEmail;
+    String mName;
+    String Mid;
+
 
 
     @Override
@@ -114,9 +119,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final TagManager main53 = new TagManager(this);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         //Get data stored for welcome screen
-        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
+
+        mName = mPrefs.getString("name", "please log in");
+        mEmail = mPrefs.getString("email", "please log in");
 
         screenWidth = checkScreenWidth();
 
@@ -158,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 .addProfiles(
-                        new ProfileDrawerItem().withName("name").withEmail("email@gmail.com").withIcon(getResources().getDrawable(R.drawable.example_appwidget_preview)
+                        new ProfileDrawerItem().withName(mName).withEmail(mEmail).withIcon(getResources().getDrawable(R.drawable.example_appwidget_preview)
                         ))
                 .withOnAccountHeaderListener((view, profile, currentProfile) -> false).withTextColorRes(R.color.md_white_1000)
                 .withHeaderBackground(R.color.semi_transparent)
@@ -465,9 +474,11 @@ public class MainActivity extends AppCompatActivity {
                         System.out.print("check if null");
                         net.minidev.json.JSONArray emails = (net.minidev.json.JSONArray) claims.get("emails");
                         String displayName = (String) claims.get("given_name");
+                        mPrefs.edit().putString("name", displayName).apply();
                         System.out.print(displayName);
                         if (emails != null && !emails.isEmpty()) {
                             String firstEmail = emails.get(0).toString();
+                            mPrefs.edit().putString("email", firstEmail).apply();
                             System.out.print(firstEmail);
                         }
                         else System.out.print("emails null");

@@ -464,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
                         Map<String, Object> claims = parsedToken.getJWTClaimsSet().getClaims();
                         System.out.print("check if null");
                         net.minidev.json.JSONArray emails = (net.minidev.json.JSONArray) claims.get("emails");
-                        String displayName = (String) claims.get("email");
+                        String displayName = (String) claims.get("given_name");
                         System.out.print(displayName);
                         if (emails != null && !emails.isEmpty()) {
                             String firstEmail = emails.get(0).toString();

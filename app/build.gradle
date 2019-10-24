@@ -145,6 +145,7 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient
     //implementation group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1-jenkins-1'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation group: 'com.fasterxml.jackson.dataformat',name:'jackson-dataformat-yaml', version: '2.9.9'
 
 
     // https://mvnrepository.com/artifact/org.jdom/jdom2

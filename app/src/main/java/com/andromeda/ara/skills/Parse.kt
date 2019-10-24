@@ -17,10 +17,7 @@
 package com.andromeda.ara.skills
 
 class Parse{
-    fun call(){
-
-    }
-    fun recentCalls(){
+    fun parse(yml:String){
 
     }
 }

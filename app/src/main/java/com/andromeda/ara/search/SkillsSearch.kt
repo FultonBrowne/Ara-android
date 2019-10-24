@@ -18,16 +18,16 @@ package com.andromeda.ara.search
 
 import android.content.Context
 import com.andromeda.ara.util.OnDeviceSkills
-import com.andromeda.ara.util.RssFeedModel
 
 
 class SkillsSearch {
-    fun search(phrase:String, ctx:Context){
+    fun search(phrase:String, ctx:Context): String? {
         var DB = OnDeviceSkills(ctx).open()
         val cursor = DB.fetch()
         var pre:String?
         var end:String?
         var act:String?
+        var finalAct = ""
 
         if (cursor != null && cursor.moveToFirst()) {
             cursor.moveToFirst()
@@ -39,11 +39,15 @@ class SkillsSearch {
                 end = cursor.getString(2)
                 act = cursor.getString(3)
                 cursor.moveToNext()
+                if(phrase.startsWith(pre, true) || phrase.endsWith(end, true)){
+                    finalAct = act
+                    break
+                }
             }
         } else {
 
-
         }
+        return finalAct
 
     }
 

@@ -26,6 +26,12 @@ import java.util.*
 class Search {
     fun main(mainval: String, log:String,lat:String, ctx:Context): ArrayList<RssFeedModel> {
         var outputList: ArrayList<RssFeedModel> = java.util.ArrayList()
+        var local = SkillsSearch().search(mainval, ctx)
+        if (!local.equals("")){
+
+        }
+        else{
+
         outputList.add(RssFeedModel("", "", "", "",""))
         //search ara server
         var searchMode1 = mainval.toLowerCase(Locale("en"))
@@ -35,6 +41,7 @@ class Search {
         println(outputList[0].out)
         TTS().start(ctx, outputList[0].out)
         println(R.string.done_search)
+        }
 
 
         return outputList

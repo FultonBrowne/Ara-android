@@ -17,4 +17,10 @@
 package com.andromeda.ara.skills
 
 class Phone {
+    fun call(){
+
+    }
+    fun recentCalls(){
+
+    }
 }

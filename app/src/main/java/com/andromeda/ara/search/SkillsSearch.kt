@@ -18,12 +18,32 @@ package com.andromeda.ara.search
 
 import android.content.Context
 import com.andromeda.ara.util.OnDeviceSkills
+import com.andromeda.ara.util.RssFeedModel
 
 
 class SkillsSearch {
     fun search(phrase:String, ctx:Context){
         var DB = OnDeviceSkills(ctx).open()
         val cursor = DB.fetch()
+        var pre:String?
+        var end:String?
+        var act:String?
+
+        if (cursor != null && cursor.moveToFirst()) {
+            cursor.moveToFirst()
+
+
+            while (!cursor.isAfterLast) {
+
+                pre = cursor.getString(1)
+                end = cursor.getString(2)
+                act = cursor.getString(3)
+                cursor.moveToNext()
+            }
+        } else {
+
+
+        }
 
     }
 

@@ -18,6 +18,7 @@ package com.andromeda.ara.search
 
 import android.content.Context
 import com.andromeda.ara.R
+import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.voice.TTS
@@ -28,6 +29,7 @@ class Search {
         var outputList: ArrayList<RssFeedModel> = java.util.ArrayList()
         var local = SkillsSearch().search(mainval, ctx)
         if (!local.equals("")){
+            Parse().parse(local)
 
         }
         else{

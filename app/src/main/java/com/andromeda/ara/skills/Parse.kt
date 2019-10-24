@@ -17,7 +17,7 @@
 package com.andromeda.ara.skills
 
 class Parse{
-    fun parse(yml:String){
+    fun parse(yml:String?){
 
     }
 }

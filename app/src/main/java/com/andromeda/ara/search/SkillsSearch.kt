@@ -23,6 +23,8 @@ import com.andromeda.ara.util.OnDeviceSkills
 class SkillsSearch {
     fun search(phrase:String, ctx:Context){
         var DB = OnDeviceSkills(ctx).open()
+        val cursor = DB.fetch()
 
     }
+
 }

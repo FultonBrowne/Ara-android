@@ -1,0 +1,8 @@
+-Xlint
+-d
+.
+-d
+app/build/intermediates/classes/debug
+-cp
+/home/fulton/Desktop/code/Ara-android/bin/default
+app/src/main/java/com/andromeda/ara/activitys/MainActivity.java

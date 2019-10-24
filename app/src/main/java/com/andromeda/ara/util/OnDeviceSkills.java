@@ -18,6 +18,7 @@ package com.andromeda.ara.util;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -48,8 +49,14 @@ public class OnDeviceSkills {
 
         database.insert(OnDeviceSkillsDB.Companion.getTABLE_NAME(), null, contentValue);
     }
+    public Cursor fetch() {
+        String[] columns = new String[]{OnDeviceSkillsDB.Companion.get_ID(), OnDeviceSkillsDB.Companion.getPRE(), OnDeviceSkillsDB.Companion.getEND(), OnDeviceSkillsDB.Companion.getACT()};
+        Cursor cursor = database.query(OnDeviceSkillsDB.Companion.getTABLE_NAME(), columns, null, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return  cursor;
 
 
-
-
-}
+        }
+    }

@@ -24,7 +24,7 @@
         <!-- <item name="android:fontFamily">@font/font1</item>-->
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
+        <!--<item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>-->
         <item name="cardViewStyle">@style/CardView</item>
         <item name="floatingActionButtonStyle">@style/Widget.Design.FloatingActionButton</item>
         <item name="android:windowBackground">@drawable/layerlist</item>

@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidStudioProjects.Ara-android.iml" filepath="$PROJECT_DIR$/AndroidStudioProjects.Ara-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Ara-android.iml" filepath="$PROJECT_DIR$/.idea/Ara-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WolframAlpha-1.1/Ara-android.WolframAlpha-1.1.iml" filepath="$PROJECT_DIR$/WolframAlpha-1.1/Ara-android.WolframAlpha-1.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/Ara-android.app.iml" filepath="$PROJECT_DIR$/app/Ara-android.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rome-1.0/Ara-android.rome-1.0.iml" filepath="$PROJECT_DIR$/rome-1.0/Ara-android.rome-1.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/WolframAlpha-1.1/WolframAlpha-1.1.iml" filepath="$PROJECT_DIR$/WolframAlpha-1.1/WolframAlpha-1.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/rome-1.0/rome-1.0.iml" filepath="$PROJECT_DIR$/rome-1.0/rome-1.0.iml" />

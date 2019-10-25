@@ -24,7 +24,7 @@ import android.widget.Toast
 
 
 class OpenApp {
-    fun OpenApp(appName:String, ctx:Context){
+    fun openApp(appName:String, ctx:Context){
         val apps = ctx.packageManager.getInstalledPackages(0)
         var returnedApp = ""
         for(i in apps){
@@ -35,7 +35,7 @@ class OpenApp {
         }
         val intent:Intent = Intent(Intent.ACTION_MAIN, null)
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        val cn = ComponentName("com.android.settings", "com.android.settings.fuelgauge.PowerUsageSummary");
+        val cn = ComponentName("com.android.settings", returnedApp);
         intent.component = cn;
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
         try

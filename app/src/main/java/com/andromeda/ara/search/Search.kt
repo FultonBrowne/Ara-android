@@ -29,7 +29,8 @@ class Search {
         var outputList: ArrayList<RssFeedModel> = java.util.ArrayList()
         var local = SkillsSearch().search(mainval, ctx)
         if (!local.equals("")){
-            Parse().parse(local)
+            val parsed = Parse().parse(local)
+
 
         }
         else{

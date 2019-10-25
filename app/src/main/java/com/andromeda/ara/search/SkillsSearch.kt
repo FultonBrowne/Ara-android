@@ -18,6 +18,9 @@ package com.andromeda.ara.search
 
 import android.content.Context
 import com.andromeda.ara.util.OnDeviceSkills
+import com.andromeda.ara.util.YamlModel
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 
 
 class SkillsSearch {
@@ -46,9 +49,11 @@ class SkillsSearch {
                 }
             }
         } else {
+            val mapper = ObjectMapper(YAMLFactory())
+            OnDeviceSkills(ctx).insert("open", "open", mapper.writeValueAsString(YamlModel("OPEN_APP", "TERM","")))
 
         }
-        return listOf<String>(finalAct, pre, end)
+        return listOf(finalAct, pre, end)
     }
 
 }

@@ -16,18 +16,33 @@
 
 package com.andromeda.ara.skills
 
+import android.content.ActivityNotFoundException
+import android.content.ComponentName
 import android.content.Context
-import android.content.pm.ApplicationInfo
-
-
-
+import android.content.Intent
+import android.widget.Toast
 
 
 class OpenApp {
     fun OpenApp(appName:String, ctx:Context){
         val apps = ctx.packageManager.getInstalledPackages(0)
+        var returnedApp = ""
         for(i in apps){
-           i.applicationInfo.name
+           if(i.applicationInfo.name == appName){
+               returnedApp = i.packageName;
+
+           }
+        }
+        val intent:Intent = Intent(Intent.ACTION_MAIN, null)
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        val cn = ComponentName("com.android.settings", "com.android.settings.fuelgauge.PowerUsageSummary");
+        intent.component = cn;
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
+        try
+        {
+            ctx.startActivity(intent)
+        }catch(e: ActivityNotFoundException){
+            Toast.makeText(ctx,"Activity Not Found", Toast.LENGTH_SHORT).show()
         }
 
     }

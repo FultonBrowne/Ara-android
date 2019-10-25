@@ -16,35 +16,33 @@
 
 package com.andromeda.ara.skills
 
-import android.content.ActivityNotFoundException
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat.startActivity
 
 
 class OpenApp {
     fun openApp(appName:String, ctx:Context){
-        val apps = ctx.packageManager.getInstalledPackages(0)
+        val apps = ctx.packageManager.getInstalledApplications(0)
+        print(apps)
         var returnedApp = ""
-        for(i in apps){
-           if(i.applicationInfo.name == appName){
-               returnedApp = i.packageName;
 
-           }
-        }
-        val intent:Intent = Intent(Intent.ACTION_MAIN, null)
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        val cn = ComponentName("com.android.settings", returnedApp);
-        intent.component = cn;
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
-        try
-        {
-            ctx.startActivity(intent)
-        }catch(e: ActivityNotFoundException){
-            Toast.makeText(ctx,"Activity Not Found", Toast.LENGTH_SHORT).show()
+            val pm: PackageManager = ctx.packageManager
+//get a list of installed apps.
+            //get a list of installed apps.
+            val packages = pm.getInstalledApplications(PackageManager.GET_META_DATA)
+
+            for (packageInfo in packages) {
+
+                if(packageInfo.loadLabel(pm).toString().toLowerCase() == appName){
+                    returnedApp = packageInfo.packageName
+                }
+            }
+        val launchIntent: Intent? = ctx.getPackageManager().getLaunchIntentForPackage(returnedApp)
+        launchIntent?.let { ctx.startActivity(it) }
         }
 
     }
-}
+
 

@@ -31,7 +31,7 @@ class Search {
         var local = SkillsSearch().search(mainval, ctx)
         if (local[0] != ""){
             val parsed = Parse().parse(local[0])
-            RunActions().doIt(parsed, mainval.replace(local[1], "").replace(" ", ""), ctx)
+            RunActions().doIt(parsed, mainval.replace(local[1]+ " ", ""), ctx)
 
         }
         else{

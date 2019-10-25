@@ -16,20 +16,15 @@
 
 package com.andromeda.ara.util;
 
-public class FullModel {
-    public String title;
-    public String link;
-    public String description;
-    public String description2;
-    public String image;
-    public String[] imageList;
+public class YamlModel {
+    public String action;
+    public String arg1;
+    public String arg2;
 
-    public FullModel(String title, String link, String description, String image, String description2, String[] imageList) {
-        this.title = title;
-        this.link = link;
-        this.description = description;
-        this.description2 = description2;
-        this.image = image;
-        this.imageList = imageList;
+
+    public YamlModel(String action, String arg1, String arg2) {
+        this.action = action;
+        this.arg1 = arg1;
+        this.arg2 = arg2;
     }
 }

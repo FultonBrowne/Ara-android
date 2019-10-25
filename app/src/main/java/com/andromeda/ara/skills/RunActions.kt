@@ -21,13 +21,15 @@ import com.andromeda.ara.util.YamlModel
 import java.util.ArrayList
 
 class RunActions {
-    fun doIt(yaml: ArrayList<YamlModel>, searchTerm: String, ctx:Context) {
+    fun doIt(yaml: ArrayList<YamlModel>?, searchTerm: String, ctx:Context) {
         var arg1: String
-        for (i in yaml) {
-            if (i.action == "OPEN_APP") {
-                arg1 = if (i.arg1 == "TERM") searchTerm
-                else i.arg1
-                OpenApp().openApp(arg1, ctx)
+        if (yaml != null) {
+            for (i in yaml) {
+                if (i.action == "OPEN_APP") {
+                    arg1 = if (i.arg1 == "TERM") searchTerm
+                    else i.arg1
+                    OpenApp().openApp(arg1, ctx)
+                }
             }
         }
 

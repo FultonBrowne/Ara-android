@@ -21,12 +21,12 @@ import com.andromeda.ara.util.OnDeviceSkills
 
 
 class SkillsSearch {
-    fun search(phrase:String, ctx:Context): String? {
+    fun search(phrase:String, ctx:Context): List<String> {
         var DB = OnDeviceSkills(ctx).open()
         val cursor = DB.fetch()
-        var pre:String?
-        var end:String?
-        var act:String?
+        var pre:String =""
+        var end:String = ""
+        var act:String = ""
         var finalAct = ""
 
         if (cursor != null && cursor.moveToFirst()) {
@@ -42,13 +42,13 @@ class SkillsSearch {
                 if(phrase.startsWith(pre, true) || phrase.endsWith(end, true)){
                     finalAct = act
                     break
+
                 }
             }
         } else {
 
         }
-        return finalAct
-
+        return listOf<String>(finalAct, pre, end)
     }
 
 }

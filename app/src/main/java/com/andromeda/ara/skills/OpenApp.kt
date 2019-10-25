@@ -16,9 +16,20 @@
 
 package com.andromeda.ara.skills
 
+import android.content.Context
+import android.content.pm.ApplicationInfo
+
+
+
+
 
 class OpenApp {
-    fun OpenApp(){
+    fun OpenApp(appName:String, ctx:Context){
+        val apps = ctx.packageManager.getInstalledPackages(0)
+        for(i in apps){
+           i.applicationInfo.name
+        }
 
     }
 }
+

@@ -34,22 +34,22 @@ class OnDeviceSkillsDB(context: Context) : SQLiteOpenHelper(context, DB_NAME, nu
     companion object {
 
         // Table Name
-        val TABLE_NAME = "ODS"
+        const val TABLE_NAME = "ODS"
 
         // Table columns
-        val _ID = "_id"
-        val PRE = "pre"
-        val END = "end"
-        val ACT = "action"
+        const val ID = "_id"
+        const val PRE = "pre"
+        const val END = "end"
+        const val ACT = "action"
 
         // Database Information
-        private val DB_NAME = "ODS.DB"
+        private const val DB_NAME = "ODS.DB"
 
         // database version
-        internal val DB_VERSION = 1
+        internal const val DB_VERSION = 1
 
         // Creating table query
-        private val CREATE_TABLE = ("create table " + TABLE_NAME + "(" + _ID
+        private const val CREATE_TABLE = ("create table " + TABLE_NAME + "(" + ID
                 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + PRE + " TEXT NOT NULL, " + END + " TEXT NOT NULL, " + ACT + " TEXT);")
     }
 }

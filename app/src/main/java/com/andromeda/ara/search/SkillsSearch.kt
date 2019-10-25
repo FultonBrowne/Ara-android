@@ -21,6 +21,7 @@ import com.andromeda.ara.util.OnDeviceSkills
 import com.andromeda.ara.util.YamlModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import java.util.ArrayList
 
 
 class SkillsSearch {
@@ -50,7 +51,11 @@ class SkillsSearch {
             }
         } else {
             val mapper = ObjectMapper(YAMLFactory())
-            OnDeviceSkills(ctx).insert("open", "open", mapper.writeValueAsString(YamlModel("OPEN_APP", "TERM","")))
+            print(mapper.writeValueAsString(YamlModel("OPEN_APP", "TERM","")))
+            val insert = OnDeviceSkills(ctx).open()
+            var yml = ArrayList<YamlModel>()
+            yml.add(YamlModel("OPEN_APP", "TERM",""))
+            insert.insert("open", "open", mapper.writeValueAsString(yml))
 
         }
         return listOf(finalAct, pre, end)

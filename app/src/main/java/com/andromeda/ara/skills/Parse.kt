@@ -17,11 +17,32 @@
 package com.andromeda.ara.skills
 
 import com.andromeda.ara.util.YamlModel
-import org.yaml.snakeyaml.Yaml
-import java.util.ArrayList
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.type.CollectionType
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper
+import java.io.IOException
+
 
 class Parse{
     fun parse(yml:String?): ArrayList<YamlModel>? {
-      return  Yaml().loadAs(yml, ArrayList<YamlModel>().javaClass)
+        print(yml)
+        var classsss:Class<YamlModel>? = YamlModel::class.java
+        var mapper = YAMLMapper()
+
+      return  YamlArrayToObjectList(yml, classsss)
+    }
+
+
+
+    @Throws(IOException::class)
+    fun <T> YamlArrayToObjectList(yaml: String?, tClass: Class<T>?): ArrayList<T>? {
+        //val mapper = ObjectMapper()
+        val mapper = ObjectMapper(YAMLFactory()) // jackson databind
+
+
+        val listType: CollectionType = mapper.typeFactory.constructCollectionType(ArrayList::class.java, tClass)
+
+        return mapper.readValue(yaml, listType)
     }
 }

@@ -16,21 +16,25 @@
 
 package com.andromeda.ara.skills
 
+import android.accounts.Account
 import android.content.Context
 import com.andromeda.ara.util.YamlModel
-import java.util.ArrayList
+import com.fasterxml.jackson.core.type.TypeReference
+import java.util.*
+
 
 class RunActions {
     fun doIt(yaml: ArrayList<YamlModel>?, searchTerm: String, ctx:Context) {
-        var arg1: String
+
+        val arg1: String
         if (yaml != null) {
-            for (i in yaml) {
-                if (i.action == "OPEN_APP") {
-                    arg1 = if (i.arg1 == "TERM") searchTerm
-                    else i.arg1
+            //for (i in yaml) {
+                if (yaml[0].action == "OPEN_APP") {
+                    arg1 = if (yaml[0].arg1 == "TERM") searchTerm
+                    else yaml[0].arg1
                     OpenApp().openApp(arg1, ctx)
                 }
-            }
+            //}
         }
 
 

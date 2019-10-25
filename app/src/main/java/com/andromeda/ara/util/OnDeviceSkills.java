@@ -43,15 +43,16 @@ public class OnDeviceSkills {
     }
     public void insert(String pre, String end, String act) {
         ContentValues contentValue = new ContentValues();
-        contentValue.put(OnDeviceSkillsDB.Companion.getPRE(), pre);
-        contentValue.put(OnDeviceSkillsDB.Companion.getEND(), end);
-        contentValue.put(OnDeviceSkillsDB.Companion.getACT(), act);
+        contentValue.put(OnDeviceSkillsDB.PRE, pre);
+        contentValue.put(OnDeviceSkillsDB.END, end);
+        contentValue.put(OnDeviceSkillsDB.ACT, act);
+        System.out.println("hello"+act);
 
-        database.insert(OnDeviceSkillsDB.Companion.getTABLE_NAME(), null, contentValue);
+        database.insert(OnDeviceSkillsDB.TABLE_NAME, null, contentValue);
     }
     public Cursor fetch() {
-        String[] columns = new String[]{OnDeviceSkillsDB.Companion.get_ID(), OnDeviceSkillsDB.Companion.getPRE(), OnDeviceSkillsDB.Companion.getEND(), OnDeviceSkillsDB.Companion.getACT()};
-        Cursor cursor = database.query(OnDeviceSkillsDB.Companion.getTABLE_NAME(), columns, null, null, null, null, null);
+        String[] columns = new String[]{OnDeviceSkillsDB.ID, OnDeviceSkillsDB.PRE, OnDeviceSkillsDB.END, OnDeviceSkillsDB.ACT};
+        Cursor cursor = database.query(OnDeviceSkillsDB.TABLE_NAME, columns, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }

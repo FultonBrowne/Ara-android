@@ -112,10 +112,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
-                Analytics.class, Crashes.class, Auth.class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
+                Analytics.class, Crashes.class, Auth.class);
         logIn();
         final TagManager main53 = new TagManager(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);

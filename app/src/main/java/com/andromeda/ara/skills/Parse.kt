@@ -16,8 +16,13 @@
 
 package com.andromeda.ara.skills
 
+import com.andromeda.ara.util.RssFeedModel
+import org.yaml.snakeyaml.Yaml
+import java.util.ArrayList
+
 class Parse{
     fun parse(yml:String?){
+        Yaml().loadAs(yml, ArrayList<RssFeedModel>().javaClass)
 
 
     }

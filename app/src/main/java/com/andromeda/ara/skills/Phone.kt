@@ -16,8 +16,17 @@
 
 package com.andromeda.ara.skills
 
+import android.content.Context
+import android.content.Intent
+
+
+
+
 class Phone {
-    fun call(){
+    fun call(ctx:Context){
+        //make this a thing
+        val intent = Intent(Intent.ACTION_DIAL)
+        ctx.startActivity(intent)
 
     }
     fun recentCalls(){

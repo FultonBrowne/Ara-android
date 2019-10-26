@@ -14,37 +14,13 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara
+package com.andromeda.ara.Ui
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.Composable
-import androidx.ui.core.Text
-import androidx.ui.core.setContent
-import androidx.ui.material.MaterialTheme
-import androidx.ui.tooling.preview.Preview
 
-class AccountSettings : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MaterialTheme {
+class Buttons {
+    @Composable
+    fun buttonRound(){
 
-                Greeting("Android")
-            }
-        }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    MaterialTheme {
-        Greeting("Android")
     }
 }

@@ -255,4 +255,5 @@
     <string name="msg_Reading_labels_from">Reading labels from:</string>
     <string name="LogInText">add account</string>
     <string name="log_out">log out</string>
+    <string name="title_activity_account_settings">Settings</string>
 </resources>

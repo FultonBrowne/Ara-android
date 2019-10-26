@@ -14,37 +14,24 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara
+package com.andromeda.ara.Ui
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.Composable
-import androidx.ui.core.Text
-import androidx.ui.core.setContent
-import androidx.ui.material.MaterialTheme
-import androidx.ui.tooling.preview.Preview
+import androidx.ui.core.Dp
+import androidx.ui.layout.ConstrainedBox
+import androidx.ui.layout.DpConstraints
 
-class AccountSettings : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MaterialTheme {
+class Views {
+    @Composable
+    fun constLayout() {
+        ConstrainedBox(constraints = DpConstraints.tightConstraints(Dp.Infinity, Dp.Infinity)) {
 
-                Greeting("Android")
-            }
         }
     }
-}
+        @Composable
+        fun constLayout(height:Float, width:Float){
+            ConstrainedBox(constraints = DpConstraints.tightConstraints(Dp(width),Dp(height)) ) {
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    MaterialTheme {
-        Greeting("Android")
+            }
     }
 }

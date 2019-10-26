@@ -77,14 +77,26 @@ android {
 
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/tf'] } }
-    compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
-    }
+
     lintOptions {
         abortOnError false
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+// To inline the bytecode built with JVM target 1.8 into
+// bytecode that is being built with JVM target 1.6. (e.g. navArgs)
+
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
+
+
+ext.compose_version = "0.1.0-dev02"
 
 dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'
@@ -109,6 +121,9 @@ dependencies {
     // https://mvnrepository.com/artifact/com.microsoft.azure.cognitiveservices/azure-cognitiveservices-websearch
 
 
+    implementation 'androidx.ui:ui-layout:0.1.0-dev02'
+    implementation 'androidx.ui:ui-material:0.1.0-dev02'
+    implementation 'androidx.ui:ui-tooling:0.1.0-dev02'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha02', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -138,6 +153,10 @@ dependencies {
 
     implementation "com.microsoft.appcenter:appcenter-analytics:2.4.1"
     implementation "com.microsoft.appcenter:appcenter-crashes:2.4.1"
+    // You also need to include the following Compose toolkit dependencies.
+    implementation "androidx.ui:ui-tooling:$compose_version"
+    implementation "androidx.ui:ui-layout:$compose_version"
+    implementation "androidx.ui:ui-material:$compose_version"
 
 
     implementation project(path: ':WolframAlpha-1.1')
@@ -145,7 +164,7 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient
     //implementation group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1-jenkins-1'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
-    implementation group: 'com.fasterxml.jackson.dataformat',name:'jackson-dataformat-yaml', version: '2.10.0'
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.10.0'
 
 
     // https://mvnrepository.com/artifact/org.jdom/jdom2
@@ -154,4 +173,3 @@ dependencies {
 
 
 }
-

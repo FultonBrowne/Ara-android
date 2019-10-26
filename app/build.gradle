@@ -100,8 +100,6 @@ ext.compose_version = "0.1.0-dev02"
 
 dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'
-    // https://mvnrepository.com/artifact/org.tensorflow/tensorflow-lite
-    //implementation group: 'org.tensorflow', name: 'tensorflow-lite', version: '1.10.0'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
@@ -112,13 +110,11 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.0'
     def appCenterSdkVersion = '2.4.1'
     implementation "com.microsoft.appcenter:appcenter-auth:${appCenterSdkVersion}"
-
     implementation "com.microsoft.appcenter:appcenter-auth:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-data:${appCenterSdkVersion}"
 
 
-    // https://mvnrepository.com/artifact/org.mozilla.deepspeech/libdeepspeech
     implementation group: 'org.mozilla.deepspeech', name: 'libdeepspeech', version: '0.6.0-alpha.9'
-    // https://mvnrepository.com/artifact/com.microsoft.azure.cognitiveservices/azure-cognitiveservices-websearch
 
 
     implementation 'androidx.ui:ui-layout:0.1.0-dev02'
@@ -135,7 +131,6 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'io.github.ranga543:yelp-fusion-client:0.1.4'
-    //implementation group: 'de.dfki.mary', name: 'voice-cmu-slt-hsmm', version: '5.2'
 
 
     testImplementation 'junit:junit:4.12'
@@ -153,23 +148,12 @@ dependencies {
 
     implementation "com.microsoft.appcenter:appcenter-analytics:2.4.1"
     implementation "com.microsoft.appcenter:appcenter-crashes:2.4.1"
-    // You also need to include the following Compose toolkit dependencies.
     implementation "androidx.ui:ui-tooling:$compose_version"
     implementation "androidx.ui:ui-layout:$compose_version"
     implementation "androidx.ui:ui-material:$compose_version"
-
-
     implementation project(path: ':WolframAlpha-1.1')
     implementation group: 'com.rometools', name: 'rome', version: '1.12.0'
-    // https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient
-    //implementation group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1-jenkins-1'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.10.0'
-
-
-    // https://mvnrepository.com/artifact/org.jdom/jdom2
-    //implementation group: 'org.jdom', name: 'jdom2', version: '2.0.6'
-    // https://mvnrepository.com/artifact/org.jdom/jdom
-
 
 }

@@ -51,9 +51,7 @@ class GetContacts {
                 }
             }
         }
-        if (cur != null) {
-            cur.close()
-        }
+        cur?.close()
 
     }
 }

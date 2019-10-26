@@ -17,20 +17,27 @@
 package com.andromeda.ara.Ui
 
 import androidx.compose.Composable
+import androidx.compose.unaryPlus
 import androidx.ui.core.Dp
+import androidx.ui.foundation.DrawImage
 import androidx.ui.layout.ConstrainedBox
 import androidx.ui.layout.DpConstraints
+import androidx.ui.res.imageResource
+import com.andromeda.ara.R
 
 class Views {
     @Composable
     fun constLayout() {
         ConstrainedBox(constraints = DpConstraints.tightConstraints(Dp.Infinity, Dp.Infinity)) {
+            val image = +imageResource(R.drawable.aboutpic)
+
+            DrawImage(image)
 
         }
     }
         @Composable
         fun constLayout(height:Float, width:Float){
-            ConstrainedBox(constraints = DpConstraints.tightConstraints(Dp(width),Dp(height)) ) {
+            ConstrainedBox(constraints = DpConstraints.tightConstraints(Dp(width), Dp(height))) {
 
             }
     }

@@ -19,9 +19,16 @@ package com.andromeda.ara
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.Composable
+import androidx.compose.unaryPlus
 import androidx.ui.core.Text
+import androidx.ui.core.dp
 import androidx.ui.core.setContent
+import androidx.ui.foundation.DrawImage
+import androidx.ui.layout.Column
+import androidx.ui.layout.LayoutSize
+import androidx.ui.layout.Spacing
 import androidx.ui.material.MaterialTheme
+import androidx.ui.res.imageResource
 import androidx.ui.tooling.preview.Preview
 
 class AccountSettings : AppCompatActivity() {
@@ -30,7 +37,9 @@ class AccountSettings : AppCompatActivity() {
         setContent {
             MaterialTheme {
 
-                Greeting("Android")
+
+
+
             }
         }
     }
@@ -45,6 +54,24 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     MaterialTheme {
-        Greeting("Android")
+        NewsStory()
+
     }
 }
+    @Composable
+    fun NewsStory() {
+        val image = +imageResource(R.drawable.aboutpic)
+
+        Column(
+                crossAxisSize = LayoutSize.Expand,
+                modifier=Spacing(0.dp)
+
+        ) {
+            DrawImage(image)
+            Text("A day in Shark Fin Cove")
+            Text("Davenport, California")
+            Text("December 2018")
+        }
+    }
+
+

@@ -23,7 +23,7 @@ import android.content.Intent
 
 
 class Phone {
-    fun call(ctx:Context){
+    fun call(contact:String, ctx:Context){
         //make this a thing
         val intent = Intent(Intent.ACTION_DIAL)
         ctx.startActivity(intent)

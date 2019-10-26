@@ -34,10 +34,12 @@ class RunActions {
                     else yaml[0].arg1
                     OpenApp().openApp(arg1, ctx)
                 }
-            else if(yaml[0].action == "CALL")
+            else if(yaml[0].action == "CALL"){
                     arg1 = if (yaml[0].arg1 == "TERM") searchTerm
                     else yaml[0].arg1
-            Phone().call(ctx)
+            Phone().call(arg1, ctx)
+
+                }
 
 
             //}

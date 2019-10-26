@@ -16,3 +16,21 @@
 
 package com.andromeda.ara.util
 
+import com.andromeda.ara.search.SkillsSearch
+
+class GetDevices {
+    val HUB = 0
+    val LIGHT_SHITCH = 1
+    val LIGHT_BULB =2
+    val SHADES = 3
+    val SPEAKER = 4
+    fun GetAll(){
+
+    }
+    fun GetSome(search: String, cat: Int?){
+
+    }
+    fun addOne(){
+
+    }
+}

@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences mPrefs;
     String mEmail;
     String mName;
-    String Mid;
 
 
 
@@ -285,8 +284,8 @@ public class MainActivity extends AppCompatActivity {
 
         //recyclerView.setAdapter(new Adapter(parseFeed()));
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mActionBarToolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             // Start the recording and recognition thread
@@ -508,13 +507,3 @@ public class MainActivity extends AppCompatActivity {
         Auth.signOut();
     }
 }
-
-
-
-
-
-
-
-
-
-

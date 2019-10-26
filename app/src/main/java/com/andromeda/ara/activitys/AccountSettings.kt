@@ -14,7 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara
+package com.andromeda.ara.activitys
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -29,10 +29,10 @@ import androidx.ui.foundation.DrawImage
 import androidx.ui.foundation.shape.corner.RoundedCornerShape
 import androidx.ui.graphics.Color
 import androidx.ui.layout.*
-import androidx.ui.material.BottomAppBar
 import androidx.ui.material.MaterialTheme
 import androidx.ui.res.imageResource
 import androidx.ui.tooling.preview.Preview
+import com.andromeda.ara.R
 
 class AccountSettings : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

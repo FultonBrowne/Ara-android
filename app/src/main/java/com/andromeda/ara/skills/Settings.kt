@@ -14,14 +14,13 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.phoneData
+package com.andromeda.ara.skills
 
-import android.content.Context
-import android.provider.ContactsContract
+class Settings {
+    fun airPlaneMode(){
 
-class GetContacts {
-    fun search(search:String, ctx:Context){
-        //ContactsContract.Contacts().
+    }
+    fun wiFi(){
 
     }
 }

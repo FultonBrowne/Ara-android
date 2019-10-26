@@ -32,7 +32,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".AccountSettings"
+            android:name=".activitys.AccountSettings"
             android:label="@string/title_activity_account_settings"></activity>
         <activity
             android:name=".activitys.SignIn"

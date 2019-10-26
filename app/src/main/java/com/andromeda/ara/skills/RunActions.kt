@@ -20,6 +20,7 @@ import android.accounts.Account
 import android.content.Context
 import com.andromeda.ara.util.YamlModel
 import com.fasterxml.jackson.core.type.TypeReference
+import org.yaml.snakeyaml.Yaml
 import java.util.*
 
 
@@ -39,6 +40,9 @@ class RunActions {
                     else yaml[0].arg1
             Phone().call(arg1, ctx)
 
+                }
+            else if(yaml[0].action== "TEXT"){
+                    //work on dis
                 }
 
 

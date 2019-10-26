@@ -14,21 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.skills;
+package com.andromeda.ara.phoneData
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-
-public class Text {
-    public void sendText(Context ctx){
-        Uri uri = Uri.parse("smsto:YOUR_SMS_NUMBER");
-        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-        intent.putExtra("sms_body", "The SMS text");
-        ctx.startActivity(intent);
-
-    }
-    public void readText(){
-
-    }
+class GetContacts {
 }

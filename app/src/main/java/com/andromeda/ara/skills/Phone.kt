@@ -26,6 +26,7 @@ class Phone {
     fun call(contact:String, ctx:Context){
         //make this a thing
         val intent = Intent(Intent.ACTION_DIAL)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         ctx.startActivity(intent)
 
     }

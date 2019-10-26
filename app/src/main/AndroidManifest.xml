@@ -34,7 +34,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".activitys.AccountSettings"
-            android:label="@string/title_activity_account_settings"></activity>
+            android:label="@string/title_activity_account_settings" />
         <activity
             android:name=".activitys.SignIn"
             android:theme="@style/AppTheme.NoActionBar" />

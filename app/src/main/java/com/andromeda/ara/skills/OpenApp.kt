@@ -39,7 +39,8 @@ class OpenApp {
                     returnedApp = packageInfo.packageName
                 }
             }
-        val launchIntent: Intent? = ctx.getPackageManager().getLaunchIntentForPackage(returnedApp)
+        val launchIntent: Intent? = ctx.packageManager.getLaunchIntentForPackage(returnedApp)
+        launchIntent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         launchIntent?.let { ctx.startActivity(it) }
         }
 

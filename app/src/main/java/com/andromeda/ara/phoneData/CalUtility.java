@@ -14,13 +14,14 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util;
+package com.andromeda.ara.phoneData;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
 import com.andromeda.ara.R;
+import com.andromeda.ara.util.RssFeedModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

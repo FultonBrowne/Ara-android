@@ -19,7 +19,6 @@ package com.andromeda.ara.feeds
 import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.database.Cursor
 import android.widget.Toast
 
 import androidx.core.app.ActivityCompat
@@ -27,7 +26,7 @@ import androidx.core.app.ActivityCompat
 import com.andromeda.ara.R
 import com.andromeda.ara.util.Adapter
 import com.andromeda.ara.util.RssFeedModel
-import com.andromeda.ara.util.CalUtility
+import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.Locl
 import com.andromeda.ara.util.TagManager
 

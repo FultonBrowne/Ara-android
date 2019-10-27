@@ -427,7 +427,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if (mHour >= 12 && mHour < 16) {
             mTime = "good afternoon";
-        } else {
+        } else{
             mTime = "Good evening";
         }
     }

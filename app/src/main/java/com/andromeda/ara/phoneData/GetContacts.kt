@@ -24,10 +24,11 @@ import android.util.Log
 
 
 class GetContacts {
-    fun search(search:String, ctx:Context){
+    fun search(search:String, ctx:Context): String {
         val cr: ContentResolver = ctx.contentResolver
         val cur: Cursor? = cr.query(ContactsContract.Contacts.CONTENT_URI,
                 null, null, null, null)
+        var no = ""
 
         if ((cur?.count ?: 0) > 0) {
             while (cur != null && cur.moveToNext()) {
@@ -44,14 +45,17 @@ class GetContacts {
                     while (pCur!!.moveToNext()) {
                         val phoneNo: String = pCur.getString(pCur.getColumnIndex(
                                 ContactsContract.CommonDataKinds.Phone.NUMBER))
-                        Log.i("V", "Name: $name")
-                        Log.i("V", "Phone Number: $phoneNo")
+                        if(name == search){
+                            no = phoneNo
+                        }
+
                     }
                     pCur.close()
                 }
             }
         }
         cur?.close()
+        return no
 
     }
 }

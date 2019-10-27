@@ -18,14 +18,15 @@ package com.andromeda.ara.skills
 
 import android.content.Context
 import android.content.Intent
-
-
+import android.net.Uri
+import com.andromeda.ara.phoneData.GetContacts
 
 
 class Phone {
     fun call(contact:String, ctx:Context){
         //make this a thing
-        val intent = Intent(Intent.ACTION_DIAL)
+        var phone =GetContacts().search(contact, ctx)
+        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         ctx.startActivity(intent)
 

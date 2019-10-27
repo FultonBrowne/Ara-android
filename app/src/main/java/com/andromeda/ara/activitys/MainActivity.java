@@ -62,6 +62,7 @@ import com.microsoft.appcenter.auth.Auth;
 import com.microsoft.appcenter.auth.SignInResult;
 import com.microsoft.appcenter.crashes.Crashes;
 import com.microsoft.appcenter.data.Data;
+import com.microsoft.appcenter.data.DefaultPartitions;
 import com.microsoft.appcenter.utils.async.AppCenterConsumer;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;

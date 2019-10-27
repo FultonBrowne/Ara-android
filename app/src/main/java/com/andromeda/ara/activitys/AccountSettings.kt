@@ -17,6 +17,7 @@
 package com.andromeda.ara.activitys
 
 import android.os.Bundle
+import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.Composable
 import androidx.compose.unaryPlus
@@ -39,8 +40,7 @@ class AccountSettings : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-
-
+                WebView(this)
 
 
             }

@@ -55,10 +55,9 @@ public class Locl implements LocationListener {
 
             if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission
                     (ctx, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(ctx,
-                            android.Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                            PackageManager.PERMISSION_GRANTED) {
+                    != PackageManager.PERMISSION_GRANTED) {
+                ContextCompat.checkSelfPermission(ctx,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION);
             }
             if (isGPSEnabled) {
                 locationManager.requestLocationUpdates(
@@ -72,7 +71,7 @@ public class Locl implements LocationListener {
             }
             latitude = location.getLatitude();
             longitude = location.getLongitude();
-            Toast.makeText(ctx, ctx.getString(R.string.latittude) + latitude + ctx.getString(R.string.longitude) + longitude, Toast.LENGTH_LONG).show();
+            //Toast.makeText(ctx, ctx.getString(R.string.latittude) + latitude + ctx.getString(R.string.longitude) + longitude, Toast.LENGTH_LONG).show();
 
 
         } catch (Exception ex) {

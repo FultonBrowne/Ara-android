@@ -18,15 +18,21 @@ package com.andromeda.ara.util
 
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
-import java.util.ArrayList
+import java.util.*
 
 class Devices {
     fun getAll(): ArrayList<RssFeedModel> {
         val returnVal = ArrayList<RssFeedModel>()
         val toBeParsed = Data.list(DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
         for(i in toBeParsed.get().currentPage.items){
+            i.id
+            println(i.id)
 
         }
+        returnVal.add(RssFeedModel("nothing the here", "", "", "", ""))
         return returnVal
+    }
+    fun addOne(toAdd: DeviceModel){
+        Data.create(UUID.randomUUID().toString(), toAdd, DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
     }
 }

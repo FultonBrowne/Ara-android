@@ -19,5 +19,6 @@ package com.andromeda.ara.feeds
 class Shortcuts {
     fun getAllShortCuts(){
 
+
     }
 }

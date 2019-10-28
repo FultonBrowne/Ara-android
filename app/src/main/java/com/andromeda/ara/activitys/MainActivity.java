@@ -62,7 +62,6 @@ import com.microsoft.appcenter.auth.Auth;
 import com.microsoft.appcenter.auth.SignInResult;
 import com.microsoft.appcenter.crashes.Crashes;
 import com.microsoft.appcenter.data.Data;
-import com.microsoft.appcenter.data.DefaultPartitions;
 import com.microsoft.appcenter.utils.async.AppCenterConsumer;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -189,43 +188,38 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
         }
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                drawer = new DrawerBuilder()
-                        .withActivity(ctx)
-                        .withToolbar(mActionBarToolbar)
-                        .withAccountHeader(headerResult)
-                        .withSliderBackgroundDrawableRes(R.drawable.drawerimage)
-                        .withFullscreen(true).withTranslucentNavigationBarProgrammatically(true)
-                        .withTranslucentStatusBar(true)
-                        .addDrawerItems(
-                                item1,
-                                item2,
-                                item3,
-                                newsmain,
-                                item4,
-                                item5,
-                                item6,
-                                item7
-                        )
+        runOnUiThread(() -> drawer = new DrawerBuilder()
+                .withActivity(ctx)
+                .withToolbar(mActionBarToolbar)
+                .withAccountHeader(headerResult)
+                .withSliderBackgroundDrawableRes(R.drawable.drawerimage)
+                .withFullscreen(true).withTranslucentNavigationBarProgrammatically(true)
+                .withTranslucentStatusBar(true)
+                .addDrawerItems(
+                        item1,
+                        item2,
+                        item3,
+                        newsmain,
+                        item4,
+                        item5,
+                        item6,
+                        item7
+                )
 
-                        .withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
 
-                            MainActivity.this.runOnUiThread(() -> {
-                                try {
-                                    recyclerView.setAdapter(new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this));
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            });
+                    MainActivity.this.runOnUiThread(() -> {
+                        try {
+                            recyclerView.setAdapter(new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
 
-                            return false;
-                            // do something with the clicked item :D
-                        })
-                        .build();
-            }
-        });
+                    return false;
+                    // do something with the clicked item :D
+                })
+                .build());
 
 
 
@@ -349,6 +343,7 @@ public class MainActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search)
                 .getActionView();
         if (null != searchView) {
+            assert searchManager != null;
             searchView.setSearchableInfo(searchManager
                     .getSearchableInfo(getComponentName()));
             searchView.setIconifiedByDefault(true);
@@ -463,43 +458,38 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void logIn() {
-        Auth.signIn().thenAccept(new AppCenterConsumer<SignInResult>() {
+        Auth.signIn().thenAccept(signInResult -> {
 
 
-            @Override
-            public void accept(SignInResult signInResult) {
+            if (signInResult.getException() == null) {
 
-
-                if (signInResult.getException() == null) {
-
-                    // Sign-in succeeded.
-                    try {
-                        String accountId = signInResult.getUserInformation().getAccountId();
-                        String idToken = signInResult.getUserInformation().getIdToken();
-                        System.out.println(accountId);
-                        JWT parsedToken = JWTParser.parse(idToken);
-                        Map<String, Object> claims = parsedToken.getJWTClaimsSet().getClaims();
-                        System.out.print("check if null");
-                        net.minidev.json.JSONArray emails = (net.minidev.json.JSONArray) claims.get("emails");
-                        String displayName = (String) claims.get("given_name");
-                        mPrefs.edit().putString("name", displayName).apply();
-                        System.out.print(displayName);
-                        if (emails != null && !emails.isEmpty()) {
-                            String firstEmail = emails.get(0).toString();
-                            mPrefs.edit().putString("email", firstEmail).apply();
-                            System.out.print(firstEmail);
-                        }
-                        else System.out.print("emails null");
+                // Sign-in succeeded.
+                try {
+                    String accountId = signInResult.getUserInformation().getAccountId();
+                    String idToken = signInResult.getUserInformation().getIdToken();
+                    System.out.println(accountId);
+                    JWT parsedToken = JWTParser.parse(idToken);
+                    Map<String, Object> claims = parsedToken.getJWTClaimsSet().getClaims();
+                    System.out.print("check if null");
+                    net.minidev.json.JSONArray emails = (net.minidev.json.JSONArray) claims.get("emails");
+                    String displayName = (String) claims.get("given_name");
+                    mPrefs.edit().putString("name", displayName).apply();
+                    System.out.print(displayName);
+                    if (emails != null && !emails.isEmpty()) {
+                        String firstEmail = emails.get(0).toString();
+                        mPrefs.edit().putString("email", firstEmail).apply();
+                        System.out.print(firstEmail);
                     }
-                    catch (Exception e){
-                        e.printStackTrace();
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "LOg in failed", Toast.LENGTH_LONG).show();
-
+                    else System.out.print("emails null");
                 }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "LOg in failed", Toast.LENGTH_LONG).show();
 
             }
+
         });
 
     }

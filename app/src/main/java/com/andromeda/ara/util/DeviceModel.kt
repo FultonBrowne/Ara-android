@@ -16,4 +16,8 @@
 
 package com.andromeda.ara.util
 
-data class DeviceModel(val name: String, val type:String, var status:String)
+import java.util.*
+
+data class DeviceModel(val name: String, val type:String, var status:String){
+    val id = UUID.randomUUID().toString()
+}

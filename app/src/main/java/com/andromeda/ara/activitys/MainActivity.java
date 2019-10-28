@@ -486,7 +486,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "LOg in failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Log in failed", Toast.LENGTH_LONG).show();
 
             }
 
@@ -497,4 +497,5 @@ public class MainActivity extends AppCompatActivity {
     public void logOut(MenuItem item) {
         Auth.signOut();
     }
+
 }

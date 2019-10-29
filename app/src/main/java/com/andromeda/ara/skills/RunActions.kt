@@ -43,7 +43,7 @@ class RunActions {
 
                 }
             else if(yaml[0].action== "TEXT"){
-                    //work on dis
+                    Text().sendText(searchTerm, ctx)
                 }
 
 

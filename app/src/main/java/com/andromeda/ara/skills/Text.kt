@@ -18,14 +18,15 @@ package com.andromeda.ara.skills
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import com.andromeda.ara.phoneData.GetContacts
 
 class Text {
-    fun sendText(ctx: Context) {
-        val uri = Uri.parse("smsto:YOUR_SMS_NUMBER")
+    fun sendText(search:String, ctx: Context) {
+        val num = GetContacts().search(search, ctx)
+        val uri = Uri.parse("smsto:$num")
         val intent = Intent(Intent.ACTION_SENDTO, uri)
         intent.putExtra("sms_body", "The SMS text")
         ctx.startActivity(intent)
     }
 
-    fun readText() {}
 }

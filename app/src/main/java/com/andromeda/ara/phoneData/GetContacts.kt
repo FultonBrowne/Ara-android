@@ -16,27 +16,15 @@
 
 package com.andromeda.ara.phoneData
 
-import android.Manifest
-import android.R
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.ContentResolver
 import android.content.Context
-import android.content.DialogInterface.OnDismissListener
-import android.content.pm.PackageManager
 import android.database.Cursor
-import android.os.Build
 import android.provider.ContactsContract
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.requestPermissions
-import androidx.core.content.ContextCompat
 
 
 class GetContacts {
 
-    val PERMISSIONS_REQUEST_READ_CONTACTS = 1
-    fun search(search:String, ctx:Context, act: Activity): String {
-        requestContactPermission(ctx, act)
+    fun search(search: String, ctx: Context): String {
         val cr: ContentResolver = ctx.contentResolver
         val cur: Cursor? = cr.query(ContactsContract.Contacts.CONTENT_URI,
                 null, null, null, null)
@@ -70,19 +58,5 @@ class GetContacts {
         return no
 
     }
-     fun requestContactPermission(ctx:Context, act:Activity)  {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(act,
-                                Manifest.permission.READ_CONTACTS)) {
-                    val builder = AlertDialog.Builder(ctx)
-                    builder.setTitle("Read Contacts permission")
-                    builder.setPositiveButton(R.string.ok, null)
-                    builder.setMessage("Please enable access to contacts.")
-                    builder.setOnDismissListener(OnDismissListener { requestPermissions(act ,arrayOf(Manifest.permission.READ_CONTACTS), PERMISSIONS_REQUEST_READ_CONTACTS) })
-                    builder.show()
-                }
-            }
-        }
-    }
+
 }

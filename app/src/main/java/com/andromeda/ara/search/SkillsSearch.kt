@@ -21,17 +21,21 @@ import com.andromeda.ara.util.OnDeviceSkills
 import com.andromeda.ara.util.YamlModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import java.util.ArrayList
+import java.util.*
 
 
 class SkillsSearch {
     fun search(phrase:String, ctx:Context): List<String> {
-        var DB = OnDeviceSkills(ctx).open()
-        val cursor = DB.fetch()
-        var pre:String =""
-        var end:String = ""
-        var act:String = ""
+
+
+        val dB = OnDeviceSkills(ctx).open()
+        val cursor = dB.fetch()
+        var pre =""
+        var end = ""
+        var act: String
         var finalAct = ""
+        // Check the SDK version and whether the permission is already granted or not.
+        // Check the SDK version and whether the permission is already granted or not.
 
         if (cursor != null && cursor.moveToFirst()) {
             cursor.moveToFirst()
@@ -53,7 +57,7 @@ class SkillsSearch {
             val mapper = ObjectMapper(YAMLFactory())
             print(mapper.writeValueAsString(YamlModel("OPEN_APP", "TERM","")))
             val insert = OnDeviceSkills(ctx).open()
-            var yml = ArrayList<YamlModel>()
+            val yml = ArrayList<YamlModel>()
             yml.add(YamlModel("OPEN_APP", "TERM",""))
             insert.insert("open", "app", mapper.writeValueAsString(yml))
             insert.insert("open the", "app", mapper.writeValueAsString(yml))

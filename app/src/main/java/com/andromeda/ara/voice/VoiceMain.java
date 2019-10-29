@@ -153,7 +153,7 @@ public class VoiceMain extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], "0.0", "0.0", getApplicationContext()));
+                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], "0.0", "0.0", getApplicationContext(), VoiceMain.this));
                 recyclerView.setAdapter(new Adapter(rssFeedModels));
                 new TTS().start(getApplicationContext(), rssFeedModels.get(0).out);
             });

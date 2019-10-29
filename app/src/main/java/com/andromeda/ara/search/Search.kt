@@ -16,6 +16,7 @@
 
 package com.andromeda.ara.search
 
+import android.app.Activity
 import android.content.Context
 import com.andromeda.ara.R
 import com.andromeda.ara.skills.Parse
@@ -26,12 +27,12 @@ import com.andromeda.ara.voice.TTS
 import java.util.*
 
 class Search {
-    fun main(mainval: String, log:String,lat:String, ctx:Context): ArrayList<RssFeedModel> {
+    fun main(mainval: String, log:String,lat:String, ctx:Context, act:Activity): ArrayList<RssFeedModel> {
         var outputList: ArrayList<RssFeedModel> = java.util.ArrayList()
         var local = SkillsSearch().search(mainval, ctx)
         if (local[0] != ""){
             val parsed = Parse().parse(local[0])
-            RunActions().doIt(parsed, mainval.replace(local[1]+ " ", ""), ctx)
+            RunActions().doIt(parsed, mainval.replace(local[1]+ " ", ""), ctx, act)
 
         }
         else{

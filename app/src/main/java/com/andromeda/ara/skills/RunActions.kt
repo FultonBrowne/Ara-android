@@ -17,6 +17,7 @@
 package com.andromeda.ara.skills
 
 import android.accounts.Account
+import android.app.Activity
 import android.content.Context
 import com.andromeda.ara.util.YamlModel
 import com.fasterxml.jackson.core.type.TypeReference
@@ -25,7 +26,7 @@ import java.util.*
 
 
 class RunActions {
-    fun doIt(yaml: ArrayList<YamlModel>?, searchTerm: String, ctx:Context) {
+    fun doIt(yaml: ArrayList<YamlModel>?, searchTerm: String, ctx:Context, act: Activity) {
 
         val arg1: String
         if (yaml != null) {
@@ -38,7 +39,7 @@ class RunActions {
             else if(yaml[0].action == "CALL"){
                     arg1 = if (yaml[0].arg1 == "TERM") searchTerm
                     else yaml[0].arg1
-            Phone().call(arg1, ctx)
+            Phone().call(arg1, ctx, act)
 
                 }
             else if(yaml[0].action== "TEXT"){

@@ -19,10 +19,17 @@ package com.andromeda.ara.services
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-
+const val TIMER = 1
 class AraActions : Service() {
 
-    override fun onBind(intent: Intent): IBinder {
-        TODO("Return the communication channel to the service.")
+    override fun onBind(intent: Intent): IBinder? {
+        val type = intent.getIntExtra("type", 0)
+        if (type == TIMER){
+            val length = intent.getIntExtra("length", 1000)
+        }
+
+
+        return null
     }
+
 }

@@ -24,11 +24,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 
 import com.andromeda.ara.R
-import com.andromeda.ara.util.Adapter
-import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.phoneData.CalUtility
-import com.andromeda.ara.util.Locl
-import com.andromeda.ara.util.TagManager
+import com.andromeda.ara.util.*
 
 import java.io.IOException
 import java.util.ArrayList
@@ -87,6 +84,9 @@ class Drawer {
                     arrayOf(Manifest.permission.READ_CALENDAR),
                     1)
             rssFeedModel1 = CalUtility.readCalendarEvent(ctx)
+        }
+        else if (drawerItem == 6L){
+            rssFeedModel1 = ApiOutputToRssFeed().main(Skills().getThem())
         }
         if (drawerItem == 104L) {
             rssFeedModel1.addAll(Rss().parseRss(3))

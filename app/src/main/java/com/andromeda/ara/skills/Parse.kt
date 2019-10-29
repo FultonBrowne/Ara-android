@@ -27,16 +27,16 @@ import java.io.IOException
 class Parse{
     fun parse(yml:String?): ArrayList<YamlModel>? {
         print(yml)
-        var classsss:Class<YamlModel>? = YamlModel::class.java
+        val classsss:Class<YamlModel>? = YamlModel::class.java
         var mapper = YAMLMapper()
 
-      return  YamlArrayToObjectList(yml, classsss)
+      return  yamlArrayToObjectList(yml, classsss)
     }
 
 
 
     @Throws(IOException::class)
-    fun <T> YamlArrayToObjectList(yaml: String?, tClass: Class<T>?): ArrayList<T>? {
+    fun <T> yamlArrayToObjectList(yaml: String?, tClass: Class<T>?): ArrayList<T>? {
         //val mapper = ObjectMapper()
         val mapper = ObjectMapper(YAMLFactory()) // jackson databind
 

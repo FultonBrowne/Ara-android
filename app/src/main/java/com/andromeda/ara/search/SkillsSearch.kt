@@ -55,7 +55,12 @@ class SkillsSearch {
             val insert = OnDeviceSkills(ctx).open()
             var yml = ArrayList<YamlModel>()
             yml.add(YamlModel("OPEN_APP", "TERM",""))
-            insert.insert("open", "open", mapper.writeValueAsString(yml))
+            insert.insert("open", "app", mapper.writeValueAsString(yml))
+            insert.insert("open the", "app", mapper.writeValueAsString(yml))
+            yml.clear()
+            yml.add(YamlModel("CALL", "TERM",""))
+            insert.insert("call", "", mapper.writeValueAsString(yml))
+            insert.insert("dial", "", mapper.writeValueAsString(yml))
 
         }
         return listOf(finalAct, pre, end)

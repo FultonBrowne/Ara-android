@@ -16,6 +16,7 @@
 
 package com.andromeda.ara.phoneData;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -40,7 +41,7 @@ public class CalUtility {
         assert cursor != null;
         cursor.moveToFirst();
         // fetching calendars name
-        String[] CNames = new String[cursor.getCount()];
+        @SuppressWarnings("MismatchedReadAndWriteOfArray") String[] CNames = new String[cursor.getCount()];
 
         // fetching calendars id
         main.clear();
@@ -62,7 +63,7 @@ public class CalUtility {
     }
 
     private static String getDate(long milliSeconds) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());

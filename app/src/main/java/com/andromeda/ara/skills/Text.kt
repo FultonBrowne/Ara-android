@@ -13,12 +13,19 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.andromeda.ara.skills
 
-package com.andromeda.ara.feeds
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 
-class Shortcuts {
-    fun getAllShortCuts(){
-
-
+class Text {
+    fun sendText(ctx: Context) {
+        val uri = Uri.parse("smsto:YOUR_SMS_NUMBER")
+        val intent = Intent(Intent.ACTION_SENDTO, uri)
+        intent.putExtra("sms_body", "The SMS text")
+        ctx.startActivity(intent)
     }
+
+    fun readText() {}
 }

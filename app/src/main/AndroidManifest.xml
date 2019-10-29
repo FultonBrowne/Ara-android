@@ -33,6 +33,17 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <provider
+            android:name=".services.AraSkillsDBCP"
+            android:authorities="mainDB"
+            android:enabled="true"
+            android:exported="true"></provider>
+
+        <service
+            android:name=".services.AraActions"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity
             android:name=".activitys.AccountSettings"
             android:label="@string/title_activity_account_settings" />

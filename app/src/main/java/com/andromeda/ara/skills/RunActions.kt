@@ -31,22 +31,30 @@ class RunActions {
         val arg1: String
         if (yaml != null) {
             //for (i in yaml) {
-                if (yaml[0].action == "OPEN_APP") {
+            when (yaml[0].action) {
+                "OPEN_APP" -> {
                     arg1 = if (yaml[0].arg1 == "TERM") searchTerm
                     else yaml[0].arg1
                     OpenApp().openApp(arg1, ctx)
                 }
-            else if(yaml[0].action == "CALL"){
+                "CALL" -> {
                     arg1 = if (yaml[0].arg1 == "TERM") searchTerm
                     else yaml[0].arg1
-            Phone().call(arg1, ctx, act)
+                    Phone().call(arg1, ctx, act)
 
                 }
-            else if(yaml[0].action== "TEXT"){
+                "TEXT" -> {
                     arg1 = if (yaml[0].arg1 == "TERM") searchTerm
                     else yaml[0].arg1
                     Text().sendText(arg1, ctx)
                 }
+                "TOG_MEDIA" -> {
+                    Media().playPause(ctx)
+                }
+
+
+                //}
+            }
 
 
             //}

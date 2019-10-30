@@ -33,11 +33,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <provider
+        <!--<provider
             android:name=".services.AraSkillsDBCP"
             android:authorities="mainDB"
             android:enabled="true"
-            android:exported="true"></provider>
+            android:exported="true"></provider>-->
 
         <service
             android:name=".services.AraActions"

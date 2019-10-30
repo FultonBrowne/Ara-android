@@ -259,23 +259,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                if (drawer.getCurrentSelection() == 1) {
                     Intent browserIntent;
 
                     browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
                     startActivity(browserIntent);
 
-                } else {
-                    Intent intent = new Intent(ctx, AllContent.class);
 
-                    intent.putExtra("NAME", rssFeedModel1.get(position).title);
-                    intent.putExtra("ACT", rssFeedModel1.get(position).description);
-                    intent.putExtra("PIC", rssFeedModel1.get(position).image);
-
-                    //startActivity(browserIntent);
-
-                    startActivity(intent);
-                }
             }
 
 

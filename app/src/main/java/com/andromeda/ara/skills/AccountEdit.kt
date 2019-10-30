@@ -16,15 +16,8 @@
 
 package com.andromeda.ara.skills
 
-class Settings {
-    fun airPlaneMode(){
+class AccountEdit {
+    fun changeName(){
 
     }
-    fun wiFi(){
-
-    }
-    fun bluTooth(){
-
-    }
-
 }

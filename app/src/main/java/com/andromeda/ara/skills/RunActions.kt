@@ -43,7 +43,9 @@ class RunActions {
 
                 }
             else if(yaml[0].action== "TEXT"){
-                    Text().sendText(searchTerm, ctx)
+                    arg1 = if (yaml[0].arg1 == "TERM") searchTerm
+                    else yaml[0].arg1
+                    Text().sendText(arg1, ctx)
                 }
 
 

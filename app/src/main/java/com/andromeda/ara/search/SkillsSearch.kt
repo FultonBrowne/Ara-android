@@ -65,6 +65,10 @@ class SkillsSearch {
             yml.add(YamlModel("CALL", "TERM",""))
             insert.insert("call", "", mapper.writeValueAsString(yml))
             insert.insert("dial", "", mapper.writeValueAsString(yml))
+            yml.clear()
+            yml.add(YamlModel("TEXT", "TERM",""))
+            insert.insert("send a text", "", mapper.writeValueAsString(yml))
+            insert.insert("send a text to", "", mapper.writeValueAsString(yml))
 
         }
         return listOf(finalAct, pre, end)

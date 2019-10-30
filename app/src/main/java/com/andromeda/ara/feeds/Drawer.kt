@@ -78,7 +78,7 @@ class Drawer {
             Locl(ctx)
             rssFeedModel1 = shopping().getShops(java.lang.Double.toString(Locl.longitude), java.lang.Double.toString(Locl.latitude))
         }
-        if (drawerItem == 5L) {
+        else if (drawerItem == 5L) {
 
             ActivityCompat.requestPermissions(activity,
                     arrayOf(Manifest.permission.READ_CALENDAR),
@@ -87,6 +87,9 @@ class Drawer {
         }
         else if (drawerItem == 6L){
             rssFeedModel1 = ApiOutputToRssFeed().main(Skills().getThem())
+        }
+        else if (drawerItem == 7L){
+            rssFeedModel1 = Devices().getAll()
         }
         if (drawerItem == 104L) {
             rssFeedModel1.addAll(Rss().parseRss(3))

@@ -22,20 +22,20 @@ import java.util.*
 
 class Devices {
     fun getAll(): ArrayList<RssFeedModel> {
+        print("adding")
+        print("added")
         val returnVal = ArrayList<RssFeedModel>()
         val toBeParsed = Data.list(DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
-        for(i in toBeParsed.get().currentPage.items){
-            i.id
-            println(i.id)
-
-        }
+        print("getting ids")
+        print("done")
         returnVal.add(RssFeedModel("nothing the here", "", "", "", ""))
+        //returnVal.add(RssFeedModel(toBeParsed.get().currentPage.items[0].deserializedValue.name, "","", "", ""))
         return returnVal
     }
     fun addOne(toAdd: DeviceModel){
         Data.create(toAdd.id, toAdd, DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
     }
-    fun changeStatus(toSwitch:DeviceModel){
+    fun changeStatus(toSwitch:DeviceModel, id:String){
 
     }
 }

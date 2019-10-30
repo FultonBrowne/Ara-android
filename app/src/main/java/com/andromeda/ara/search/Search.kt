@@ -30,7 +30,7 @@ class Search {
     fun main(mainval: String, log:String,lat:String, ctx:Context, act:Activity): ArrayList<RssFeedModel> {
         var outputList: ArrayList<RssFeedModel> = java.util.ArrayList()
         var local = SkillsSearch().search(mainval, ctx)
-        if (local[0] != ""){
+        if (local[0] != "" && mainval != ""){
             val parsed = Parse().parse(local[0])
             RunActions().doIt(parsed, mainval.replace(local[1]+ " ", ""), ctx, act)
 

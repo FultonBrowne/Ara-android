@@ -54,6 +54,7 @@ import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.util.Adapter;
+import com.andromeda.ara.util.LogIn;
 import com.andromeda.ara.util.RecyclerTouchListener;
 import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.Locl;
@@ -146,9 +147,10 @@ public class MainActivity extends AppCompatActivity {
         }
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
                 Analytics.class, Crashes.class, Auth.class, Data.class);
-        logIn();
         final TagManager main53 = new TagManager(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        new LogIn().logIn(mPrefs, getApplication());
+
         //Get data stored for welcome screen
 
         //name of the preference

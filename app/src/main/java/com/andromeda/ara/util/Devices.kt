@@ -16,6 +16,9 @@
 
 package com.andromeda.ara.util
 
+import android.app.Activity
+import android.content.Context
+import android.os.AsyncTask
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
 import java.util.*
@@ -31,6 +34,9 @@ class Devices {
         print("done")
         returnVal.add(RssFeedModel("nothing the here", "", "", "", ""))
         //returnVal.add(RssFeedModel(toBeParsed.get().currentPage.items[0].deserializedValue.name, "","", "", ""))
+        Activity().runOnUiThread {
+            toBeParsed.get()
+        }
         toBeParsed.get()
         return returnVal
     }

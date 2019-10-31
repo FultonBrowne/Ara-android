@@ -24,7 +24,8 @@ import com.microsoft.appcenter.data.DefaultPartitions
 import java.util.*
 
 class Devices {
-    fun getAll(): ArrayList<RssFeedModel> {
+    fun getAll(activity: Activity): ArrayList<RssFeedModel> {
+        var done = false
         print("adding")
         print("added")
         val returnVal = ArrayList<RssFeedModel>()
@@ -34,8 +35,10 @@ class Devices {
         print("done")
         returnVal.add(RssFeedModel("nothing the here", "", "", "", ""))
         //returnVal.add(RssFeedModel(toBeParsed.get().currentPage.items[0].deserializedValue.name, "","", "", ""))
-        Activity().runOnUiThread {
-            toBeParsed.get()
+        activity.runOnUiThread {
+                print(toBeParsed.isDone)
+
+
         }
         toBeParsed.get()
         return returnVal

@@ -27,6 +27,7 @@ import net.minidev.json.JSONArray
 
 class LogIn {
     fun logIn(mPrefs:SharedPreferences, ctx:Context) {
+
         Auth.setEnabled(true)
         Auth.signIn().thenAccept { signInResult: SignInResult ->
             if (signInResult.exception == null) { // Sign-in succeeded.

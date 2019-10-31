@@ -89,7 +89,7 @@ class Drawer {
             rssFeedModel1 = ApiOutputToRssFeed().main(Skills().getThem())
         }
         else if (drawerItem == 7L){
-            rssFeedModel1 = Devices().getAll()
+            rssFeedModel1 = Devices().getAll(activity)
         }
         if (drawerItem == 104L) {
             rssFeedModel1.addAll(Rss().parseRss(3))

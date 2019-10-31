@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 Analytics.class, Crashes.class, Auth.class, Data.class);
         final TagManager main53 = new TagManager(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        new LogIn().logIn(mPrefs, getApplication());
+
 
         //Get data stored for welcome screen
 
@@ -317,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
-
+        new LogIn().logIn(mPrefs, getApplication());
     }
 
     private void checkScreenOrientation() {

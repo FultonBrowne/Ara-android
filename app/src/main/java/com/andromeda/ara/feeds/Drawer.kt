@@ -33,7 +33,7 @@ import java.util.ArrayList
 
 class Drawer {
     @Throws(IOException::class)
-    fun main(drawerItem: Long, ctx: Context, Db: TagManager, activity: Activity): Adapter {
+    fun main(drawerItem: Long, ctx: Context, Db: TagManager, activity: Activity): MutableList<RssFeedModel> {
         var rssFeedModel1: MutableList<RssFeedModel> = ArrayList()
 
 
@@ -103,6 +103,6 @@ class Drawer {
         if (drawerItem == 105L) {
             rssFeedModel1.addAll(Rss().parseRss(4))
         }
-        return Adapter(rssFeedModel1)
+        return rssFeedModel1
     }
 }

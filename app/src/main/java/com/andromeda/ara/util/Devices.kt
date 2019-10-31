@@ -25,11 +25,13 @@ class Devices {
         print("adding")
         print("added")
         val returnVal = ArrayList<RssFeedModel>()
-        val toBeParsed = Data.list(DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+        val toBeParsed = Data.list(DeviceModel::class.java
+                , DefaultPartitions.USER_DOCUMENTS)
         print("getting ids")
         print("done")
         returnVal.add(RssFeedModel("nothing the here", "", "", "", ""))
         //returnVal.add(RssFeedModel(toBeParsed.get().currentPage.items[0].deserializedValue.name, "","", "", ""))
+        toBeParsed.get()
         return returnVal
     }
     fun addOne(toAdd: DeviceModel){

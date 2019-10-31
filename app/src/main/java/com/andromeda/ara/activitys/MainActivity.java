@@ -240,7 +240,8 @@ public class MainActivity extends AppCompatActivity {
 
                     MainActivity.this.runOnUiThread(() -> {
                         try {
-                            recyclerView.setAdapter(new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this));
+                            rssFeedModel1 = new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this);
+                            recyclerView.setAdapter(new Adapter(rssFeedModel1));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

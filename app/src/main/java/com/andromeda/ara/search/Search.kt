@@ -16,8 +16,13 @@
 
 package com.andromeda.ara.search
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
+import androidx.core.app.ActivityCompat
 import com.andromeda.ara.R
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
@@ -30,6 +35,16 @@ class Search {
     fun main(mainval: String, log:String,lat:String, ctx:Context, act:Activity): ArrayList<RssFeedModel> {
         var outputList: ArrayList<RssFeedModel> = java.util.ArrayList()
         var local = SkillsSearch().search(mainval, ctx)
+        var lat:Double = 0.0
+        var log: Double = 0.0
+        val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+
+            val location: Location? = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+            lat = location?.latitude!!
+            log = location?.longitude
+
+        }
         if (local[0] != "" && mainval != ""){
             val parsed = Parse().parse(local[0])
             RunActions().doIt(parsed, mainval.replace(local[1]+ " ", ""), ctx, act)
@@ -41,7 +56,7 @@ class Search {
         //search ara server
         var searchMode1 = mainval.toLowerCase(Locale("en"))
         searchMode1 = searchMode1.replace(" ", "%20")
-        val test1 = AraSearch().arrayOfOutputModels(searchMode1, log, lat)
+        val test1 = AraSearch().arrayOfOutputModels(searchMode1, log.toString(), lat.toString())
         outputList = ApiOutputToRssFeed().main(test1)
         println(outputList[0].out)
         println(R.string.done_search)

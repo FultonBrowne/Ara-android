@@ -17,6 +17,12 @@
 package com.andromeda.ara.feeds
 
 
+import android.Manifest
+import android.content.Context.LOCATION_SERVICE
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
+import androidx.core.app.ActivityCompat
 import com.andromeda.ara.util.RssFeedModel
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
 import java.io.IOException
@@ -26,6 +32,7 @@ import java.util.*
 class Food {
     fun getFood(log: String, lat: String): ArrayList<RssFeedModel> {
         val rssFeedModel1: ArrayList<RssFeedModel> = ArrayList()
+
         val main = RssFeedModel("", "", "", "", "")
         val apiFactory = YelpFusionApiFactory()
         try {

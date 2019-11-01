@@ -19,6 +19,9 @@ package com.andromeda.ara.feeds
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.widget.Toast
 
 import androidx.core.app.ActivityCompat
@@ -35,6 +38,17 @@ class Drawer {
     @Throws(IOException::class)
     fun main(drawerItem: Long, ctx: Context, Db: TagManager, activity: Activity): MutableList<RssFeedModel> {
         var rssFeedModel1: MutableList<RssFeedModel> = ArrayList()
+        var lat:Double = 0.0
+        var log: Double = 0.0
+        val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+
+        val location: Location? = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+            lat = location?.latitude!!
+            log = location?.longitude
+
+        }
+
 
 
         if (drawerItem == 1L) {
@@ -73,16 +87,14 @@ class Drawer {
             }
 
         } else if (drawerItem == 3L) {
-            rssFeedModel1 = Food().getFood(java.lang.Double.toString(Locl.longitude), java.lang.Double.toString(Locl.latitude))
+            rssFeedModel1 = Food().getFood(java.lang.Double.toString(log!!), java.lang.Double.toString(lat))
         } else if (drawerItem == 4L) {
             Locl(ctx)
-            rssFeedModel1 = shopping().getShops(java.lang.Double.toString(Locl.longitude), java.lang.Double.toString(Locl.latitude))
+            rssFeedModel1 = shopping().getShops(java.lang.Double.toString(log), java.lang.Double.toString(lat))
         }
         else if (drawerItem == 5L) {
 
-            ActivityCompat.requestPermissions(activity,
-                    arrayOf(Manifest.permission.READ_CALENDAR),
-                    1)
+
             rssFeedModel1 = CalUtility.readCalendarEvent(ctx)
         }
         else if (drawerItem == 6L){

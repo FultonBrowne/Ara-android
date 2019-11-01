@@ -26,6 +26,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -379,10 +381,20 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
-                //RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
-                requestLocationPermission();
-                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query, Double.toString(Locl.longitude), Double.toString(Locl.latitude), getApplicationContext(), MainActivity.this));
+                Double lat = 0.0;
+                Double log = 0.0;
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
+                    //RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
+                    LocationManager locationManager = locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+                    assert locationManager != null;
+                    Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    requestLocationPermission();
+                    assert location != null;
+                    lat = location.getLatitude();
+                    log = location.getLongitude();
+                }
+                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query, Double.toString(lat), Double.toString(log), getApplicationContext(), MainActivity.this));
                 rssFeedModel1.addAll(0, rssFeedModel2);
                 mAdapter.notifyDataSetChanged();
 

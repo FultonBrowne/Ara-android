@@ -38,7 +38,7 @@ class Search {
         var lat:Double = 0.0
         var log: Double = 0.0
         val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
 
             val location: Location? = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
             lat = location?.latitude!!

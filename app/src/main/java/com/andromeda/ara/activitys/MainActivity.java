@@ -341,7 +341,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openSettingsActivity(MenuItem menuItem) {
-        startActivity(new Intent(this, SettingsActivity.class));
+        //startActivity(new Intent(this, SettingsActivity.class));
+        Intent browserIntent;
+
+        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://AraLogIn.b2clogin.com/AraLogIn.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_edit_profile&client_id=12ffcb72-f4d8-49bf-98d6-852b6225c3bb&nonce=defaultNonce&redirect_uri=https%3A%2F%2Fjwt.ms&scope=openid&response_type=id_token&prompt=login"));
+        startActivity(browserIntent);
+
     }
 
 
@@ -455,7 +460,7 @@ public class MainActivity extends AppCompatActivity {
         if (mHour < 12) {
             mTime = "Good morning";
         }
-        if (mHour >= 12 && mHour < 16) {
+        else if (mHour >= 12 && mHour < 16) {
             mTime = "good afternoon";
         } else{
             mTime = "Good evening";
@@ -487,44 +492,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
-    }
-
-
-    public void logIn() {
-        Auth.signIn().thenAccept(signInResult -> {
-
-
-            if (signInResult.getException() == null) {
-
-                // Sign-in succeeded.
-                try {
-                    String accountId = signInResult.getUserInformation().getAccountId();
-                    String idToken = signInResult.getUserInformation().getIdToken();
-                    System.out.println(accountId);
-                    JWT parsedToken = JWTParser.parse(idToken);
-                    Map<String, Object> claims = parsedToken.getJWTClaimsSet().getClaims();
-                    System.out.print("check if null");
-                    net.minidev.json.JSONArray emails = (net.minidev.json.JSONArray) claims.get("emails");
-                    String displayName = (String) claims.get("given_name");
-                    mPrefs.edit().putString("name", displayName).apply();
-                    System.out.print(displayName);
-                    if (emails != null && !emails.isEmpty()) {
-                        String firstEmail = emails.get(0).toString();
-                        mPrefs.edit().putString("email", firstEmail).apply();
-                        System.out.print(firstEmail);
-                    }
-                    else System.out.print("emails null");
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-            } else {
-                Toast.makeText(getApplicationContext(), "Log in failed", Toast.LENGTH_LONG).show();
-
-            }
-
-        });
 
     }
 

@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -87,6 +88,7 @@ public class VoiceMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println(bufferSizeInBytes);
         setContentView(R.layout.activity_voice_main);
+        Toast.makeText(this, "to stop recording hit the 'X' button", Toast.LENGTH_LONG).show();
 
         recyclerView = findViewById(R.id.listVoice);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -26,21 +26,17 @@ import java.util.*
 class Devices {
     fun getAll(activity: Activity): ArrayList<RssFeedModel> {
         var done = false
-        print("adding")
-        print("added")
         val returnVal = ArrayList<RssFeedModel>()
         val toBeParsed = Data.list(DeviceModel::class.java
                 , DefaultPartitions.USER_DOCUMENTS)
-        print("getting ids")
-        print("done")
+
         returnVal.add(RssFeedModel("nothing the here", "", "", "", ""))
         //returnVal.add(RssFeedModel(toBeParsed.get().currentPage.items[0].deserializedValue.name, "","", "", ""))
-        activity.runOnUiThread {
-                print(toBeParsed.isDone)
 
+        System.out.println(toBeParsed.isDone)
+        while (!toBeParsed.isDone) println("work, ")
 
-        }
-        toBeParsed.get()
+        //toBeParsed.get()
         return returnVal
     }
     fun addOne(toAdd: DeviceModel){

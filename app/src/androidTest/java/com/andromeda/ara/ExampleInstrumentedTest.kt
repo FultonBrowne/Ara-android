@@ -13,22 +13,25 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package com.andromeda.ara.skills
+package com.andromeda.ara
 
-import android.content.Context
-import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.net.Uri
-import com.andromeda.ara.phoneData.GetContacts
+import androidx.test.InstrumentationRegistry
+import androidx.test.runner.AndroidJUnit4
+import org.junit.Assert
+import org.junit.Test
+import org.junit.runner.RunWith
 
-class Text {
-    fun sendText(search:String, ctx: Context) {
-        val num = GetContacts().search(search, ctx)
-        val uri = Uri.parse("smsto:$num")
-        val intent = Intent(Intent.ACTION_SENDTO, uri)
-        intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
-        intent.putExtra("sms_body", "The SMS text")
-        ctx.startActivity(intent)
+/**
+ * Instrumentation test, which will execute on an Android device.
+ *
+ * @see [Testing documentation](http://d.android.com/tools/testing)
+ */
+@RunWith(AndroidJUnit4::class)
+class ExampleInstrumentedTest {
+    @Test
+    @Throws(Exception::class)
+    fun useAppContext() { // Context of the app under test.
+        val appContext = InstrumentationRegistry.getTargetContext()
+        Assert.assertEquals("com.andromeda.ara", appContext.packageName)
     }
-
 }

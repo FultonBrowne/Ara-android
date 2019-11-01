@@ -47,7 +47,7 @@ class SkillsSearch {
                 end = cursor.getString(2)
                 act = cursor.getString(3)
                 cursor.moveToNext()
-                if(phrase.startsWith(pre, true) || phrase.endsWith(end, true)){
+                if(phrase.startsWith(pre, true)){
                     finalAct = act
                     break
 
@@ -69,6 +69,8 @@ class SkillsSearch {
             yml.add(YamlModel("TEXT", "TERM",""))
             insert.insert("send a text", "", mapper.writeValueAsString(yml))
             insert.insert("send a text to","", mapper.writeValueAsString(yml))
+            insert.insert("text", "", mapper.writeValueAsString(yml))
+
 
         }
         return listOf(finalAct, pre, end)

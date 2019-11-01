@@ -40,9 +40,12 @@ class Search {
         val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
 
-            val location: Location? = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-            lat = location?.latitude!!
-            log = location?.longitude
+            val location: Location? = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            if (location != null) {
+                lat = location.latitude
+                log = location.longitude
+            }
+
 
         }
         if (local[0] != "" && mainval != ""){

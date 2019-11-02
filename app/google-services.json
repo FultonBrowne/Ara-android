@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "482122331006",
+    "firebase_url": "https://ara-android-67c71.firebaseio.com",
+    "project_id": "ara-android-67c71",
+    "storage_bucket": "ara-android-67c71.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482122331006:android:5ca4b1bb4d8da873fa392f",
+        "android_client_info": {
+          "package_name": "com.andromeda.ara"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482122331006-bbj71mogcj7h00nh0te9dgc3ia46ialh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwCyzu9ff3W0Q5QVlhhvCf-BsT5xBD3_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482122331006-bbj71mogcj7h00nh0te9dgc3ia46ialh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

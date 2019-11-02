@@ -57,6 +57,7 @@ import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.LogIn;
+import com.andromeda.ara.util.PushUtil;
 import com.andromeda.ara.util.RecyclerTouchListener;
 import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.Locl;
@@ -148,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        Push.setListener(new PushUtil());
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
                 Analytics.class, Crashes.class, Auth.class, Data.class, Push.class);
         final TagManager main53 = new TagManager(this);

@@ -21,18 +21,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".voice.VoiceMain">
-    <com.google.android.material.bottomappbar.BottomAppBar android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        app:fabAlignmentMode="center"
-        android:id="@+id/bottom_app_bar"
 
-        android:layout_gravity="bottom">
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+
+        app:elevation="10dp"
+        app:fabAlignmentMode="center">
 
         <TextView
-        android:layout_width="wrap_content"
-        android:text="@string/test"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
 
-        android:layout_height="match_parent"/>
+            android:text="@string/test" />
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

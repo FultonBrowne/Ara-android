@@ -137,15 +137,15 @@ public class MainActivity extends AppCompatActivity {
                         public void onDismiss(DialogInterface dialog) {
                             requestPermissions(
                                     new String[]
-                                            {android.Manifest.permission.READ_CONTACTS}
-                                    , 1);
+                                            {Manifest.permission.READ_CALENDAR, Manifest.permission.READ_CONTACTS, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION}
+                                    , 123);
                         }
                     });
                     builder.show();
                 } else {
                     ActivityCompat.requestPermissions(this,
-                            new String[]{android.Manifest.permission.READ_CONTACTS},
-                            1);
+                            new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.READ_CONTACTS, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION},
+                            123);
                 }
             }
         }
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         screenWidth = checkScreenWidth();
 
         final Activity ctx = this;
-        requestLocationPermission();
+        //requestLocationPermission();
 
 
         StrictMode.ThreadPolicy policy = new
@@ -176,10 +176,6 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             time();
         }
-        ActivityCompat.requestPermissions(MainActivity.this,
-                new String[]{Manifest.permission.READ_CALENDAR},
-                1);
-
 
         Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);

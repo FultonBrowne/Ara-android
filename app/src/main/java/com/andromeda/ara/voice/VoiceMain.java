@@ -16,7 +16,6 @@
 
 package com.andromeda.ara.voice;
 
-import android.Manifest;
 import android.content.res.AssetManager;
 import android.media.AudioRecord;
 import android.os.Build;
@@ -26,7 +25,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -97,9 +95,8 @@ public class VoiceMain extends AppCompatActivity {
         requestMicrophonePermission();
 
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             startRecording();
-        }
+
     }
 
     public void back(View view) {

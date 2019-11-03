@@ -101,6 +101,7 @@ public class VoiceMain extends AppCompatActivity {
             color = getColor(R.color.colorPrimary);
             fab.setBackgroundColor(color);
             while (isRecording){
+                fab.setBackgroundColor(color);
 
             }
         }
@@ -134,6 +135,7 @@ public class VoiceMain extends AppCompatActivity {
                 os = new FileOutputStream(getCacheDir() + "/record.pcm");
                 while (isRecording) {
                     audioRecorder.read(Data, 0, getRawDataLength(Data));
+                    System.out.println(Data[0]);
                     try {
                         os.write(Data, 0, bufferSizeInBytes);
                     } catch (Exception e) {

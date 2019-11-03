@@ -17,6 +17,7 @@
 package com.andromeda.ara.voice;
 
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.media.AudioRecord;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.andromeda.ara.R;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.RssFeedModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -93,6 +95,8 @@ public class VoiceMain extends AppCompatActivity {
         Adapter adapter = new Adapter(Collections.singletonList(new RssFeedModel("hello", "how can I help", "", "", "")));
         recyclerView.setAdapter(adapter);
         requestMicrophonePermission();
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        fab.setBackgroundColor(Color.parseColor("#mycolor"));
 
         super.onCreate(savedInstanceState);
             startRecording();

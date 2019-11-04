@@ -22,6 +22,7 @@ import android.media.AudioRecord;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.Toast;
 
@@ -99,7 +100,6 @@ public class VoiceMain extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            color = getColor(R.color.colorPrimary);
             fab.setBackgroundColor(color);
             while (isRecording){
                 fab.setBackgroundColor(color);
@@ -137,6 +137,7 @@ public class VoiceMain extends AppCompatActivity {
                 while (isRecording) {
                     audioRecorder.read(Data, 0, getRawDataLength(Data));
                     System.out.println(Data[0]);
+                    if (Data[0] == 0) System.out.println("is blank");
                     try {
                         os.write(Data, 0, bufferSizeInBytes);
                     } catch (Exception e) {

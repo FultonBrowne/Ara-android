@@ -343,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
         //startActivity(new Intent(this, SettingsActivity.class));
         Intent browserIntent;
 
-        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://AraLogIn.b2clogin.com/AraLogIn.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_edit_profile&client_id=12ffcb72-f4d8-49bf-98d6-852b6225c3bb&nonce=defaultNonce&redirect_uri=https%3A%2F%2Fjwt.ms&scope=openid&response_type=id_token&prompt=login"));
+        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://aralogin.b2clogin.com/AraLogIn.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_changeInfo&client_id=e4e16983-2565-496c-aa70-8fe0f1bf0907&nonce=defaultNonce&redirect_uri=https%3A%2F%2Fjwt.ms&scope=openid&response_type=id_token&prompt=login"));
         startActivity(browserIntent);
 
     }

@@ -96,6 +96,7 @@ public class VoiceMain extends AppCompatActivity {
         Adapter adapter = new Adapter(Collections.singletonList(new RssFeedModel("hello", "how can I help", "", "", "")));
         recyclerView.setAdapter(adapter);
         requestMicrophonePermission();
+
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             color = getColor(R.color.colorPrimary);

@@ -22,37 +22,22 @@
     android:layout_height="match_parent"
     tools:context=".voice.VoiceMain">
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-
-        app:elevation="10dp"
-        app:fabAlignmentMode="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-
-            android:text="@string/test" />
-    </com.google.android.material.bottomappbar.BottomAppBar>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
-        app:layout_anchor="@id/bottom_app_bar"
-
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:onClick="back"
+        android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/xbutton"
-        android:focusable="true" />
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="back"
+        app:srcCompat="@drawable/xbutton" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listVoice"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:elevation="0dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

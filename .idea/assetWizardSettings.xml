@@ -137,7 +137,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Users/pholtor/AppData/Local/JetBrains/Toolbox/apps/AndroidStudio/ch-0/192.5871855/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_settings_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/home/fulton/androidCanary/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/stop/baseline_stop_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -148,8 +148,8 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="settings" />
-                            <entry key="sourceFile" value="C:\Users\pholtor\Downloads\iconfinder-icon.svg" />
+                            <entry key="outputName" value="ic_baseline_stop_24" />
+                            <entry key="sourceFile" value="$USER_HOME$/C:\Users\pholtor\Downloads\iconfinder-icon.svg" />
                           </map>
                         </option>
                       </PersistentState>

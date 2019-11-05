@@ -34,6 +34,7 @@ import com.andromeda.ara.R;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.RssFeedModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -102,8 +103,14 @@ public class VoiceMain extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
             startRecording();
+            runTransition();
+
+        }
+        void runTransition(){
+
             runOnUiThread(() -> {
                 imageView = findViewById(R.id.imageView);
+                imageView.setVisibility(View.VISIBLE);
 
                 AnimationDrawable transition = (AnimationDrawable) imageView.getBackground();
                 transition.setEnterFadeDuration(5000);
@@ -122,6 +129,8 @@ public class VoiceMain extends AppCompatActivity {
         if (isRecording) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 stopRecording();
+                FloatingActionButton fab2 = findViewById(R.id.floatingActionButton2);
+                fab2.setVisibility(View.VISIBLE);
             }
         } else onBackPressed();
     }
@@ -300,5 +309,15 @@ public class VoiceMain extends AppCompatActivity {
 
     public void exit(View view) {
         onBackPressed();
+    }
+
+    public void record(View view) {
+        audioRecorder = new AudioRecord(AUDIO_SOURCE,
+                SAMPLE_RATE_HZ,
+                CHANNEL_CONFIG,
+                AUDIO_FORMAT,
+                bufferSizeInBytes);
+        runTransition();
+        startRecording();
     }
 }

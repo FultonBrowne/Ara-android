@@ -18,12 +18,14 @@ package com.andromeda.ara.voice;
 
 import android.content.res.AssetManager;
 import android.graphics.Color;
+import android.graphics.drawable.TransitionDrawable;
 import android.media.AudioRecord;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -98,19 +100,22 @@ public class VoiceMain extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         requestMicrophonePermission();
 
-        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            fab.setBackgroundColor(color);
-            while (isRecording){
-                fab.setBackgroundColor(color);
 
-            }
-        }
+
 
         super.onCreate(savedInstanceState);
             startRecording();
+            runOnUiThread(() -> {
+                while(isRecording){
+                ImageView imageView = findViewById(R.id.imageView);
 
-    }
+                TransitionDrawable transition = (TransitionDrawable) imageView.getBackground();
+                transition.startTransition(500);}
+            });
+        }
+
+
+
 
     public void back(View view) {
         if (isRecording) {
@@ -136,7 +141,7 @@ public class VoiceMain extends AppCompatActivity {
                 os = new FileOutputStream(getCacheDir() + "/record.pcm");
                 while (isRecording) {
                     audioRecorder.read(Data, 0, getRawDataLength(Data));
-                    System.out.println(Data[0]);
+
                     if (Data[0] == 0) System.out.println("is blank");
                     try {
                         os.write(Data, 0, bufferSizeInBytes);

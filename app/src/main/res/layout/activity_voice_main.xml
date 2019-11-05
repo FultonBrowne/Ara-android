@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="16dp"
         android:layout_gravity="bottom"
-        app:srcCompat="@drawable/example_appwidget_preview" />
+        android:background="@drawable/animate" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"

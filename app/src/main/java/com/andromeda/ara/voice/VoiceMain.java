@@ -295,12 +295,7 @@ public class VoiceMain extends AppCompatActivity {
         }
     }
     private void stopAnimation(){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                imageView.setVisibility(View.INVISIBLE);
-            }
-        });
+        runOnUiThread(() -> imageView.setVisibility(View.INVISIBLE));
     }
 
     public void exit(View view) {

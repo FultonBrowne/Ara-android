@@ -18,6 +18,7 @@ package com.andromeda.ara.voice;
 
 import android.content.res.AssetManager;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.media.AudioRecord;
 import android.os.Build;
@@ -106,11 +107,16 @@ public class VoiceMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
             startRecording();
             runOnUiThread(() -> {
-                while(isRecording){
+                //while(isRecording){
                 ImageView imageView = findViewById(R.id.imageView);
 
-                TransitionDrawable transition = (TransitionDrawable) imageView.getBackground();
-                transition.startTransition(500);}
+                AnimationDrawable transition = (AnimationDrawable) imageView.getBackground();
+                transition.setEnterFadeDuration(5000);
+
+                // setting exit fade animation duration to 2 seconds
+                transition.setExitFadeDuration(2000);
+                transition.run();
+                //}
             });
         }
 

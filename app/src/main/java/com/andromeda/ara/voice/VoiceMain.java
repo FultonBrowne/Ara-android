@@ -111,6 +111,7 @@ public class VoiceMain extends AppCompatActivity {
                 // setting exit fade animation duration to 2 seconds
                 transition.setExitFadeDuration(2000);
                 transition.run();
+
             });
         }
 
@@ -149,7 +150,7 @@ public class VoiceMain extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                imageView.setVisibility(View.INVISIBLE);
+                stopAnimation();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -292,5 +293,13 @@ public class VoiceMain extends AppCompatActivity {
         while ((read = in.read(buffer)) != -1) {
             out.write(buffer, 0, read);
         }
+    }
+    private void stopAnimation(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                imageView.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 }

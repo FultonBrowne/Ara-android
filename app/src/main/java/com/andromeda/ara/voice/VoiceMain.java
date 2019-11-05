@@ -302,4 +302,8 @@ public class VoiceMain extends AppCompatActivity {
             }
         });
     }
+
+    public void exit(View view) {
+        onBackPressed();
+    }
 }

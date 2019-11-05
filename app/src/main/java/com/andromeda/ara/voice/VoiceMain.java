@@ -149,6 +149,7 @@ public class VoiceMain extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                imageView.setVisibility(View.INVISIBLE);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

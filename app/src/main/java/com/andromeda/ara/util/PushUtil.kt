@@ -44,6 +44,10 @@ class PushUtil : PushListener {
             dialog.setPositiveButton(R.string.ok, null)
             dialog.show()
         } else { /* Display a toast when a background push is clicked. */
+            val  db = pushNotification.customData["db"]?.get(0)
+            db //push new skills
+
+
             Toast.makeText(activity, "test", Toast.LENGTH_LONG).show() // For example R.string.push_toast would be "Push clicked with data=%1s"
         }
     }

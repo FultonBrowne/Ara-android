@@ -17,14 +17,11 @@
 package com.andromeda.ara.voice;
 
 import android.content.res.AssetManager;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.media.AudioRecord;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -37,7 +34,6 @@ import com.andromeda.ara.R;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.RssFeedModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -76,7 +72,7 @@ public class VoiceMain extends AppCompatActivity {
     private FileOutputStream os = null;
     private Thread recordingThread;
     boolean isRecording;
-    Integer color;
+    ImageView imageView;
 
     private int bufferSizeInBytes = AudioRecord.getMinBufferSize(SAMPLE_RATE_HZ, CHANNEL_CONFIG, AUDIO_FORMAT);
 
@@ -107,8 +103,7 @@ public class VoiceMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
             startRecording();
             runOnUiThread(() -> {
-                //while(isRecording){
-                ImageView imageView = findViewById(R.id.imageView);
+                imageView = findViewById(R.id.imageView);
 
                 AnimationDrawable transition = (AnimationDrawable) imageView.getBackground();
                 transition.setEnterFadeDuration(5000);
@@ -116,7 +111,6 @@ public class VoiceMain extends AppCompatActivity {
                 // setting exit fade animation duration to 2 seconds
                 transition.setExitFadeDuration(2000);
                 transition.run();
-                //}
             });
         }
 

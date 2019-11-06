@@ -394,9 +394,9 @@ public class MainActivity extends AppCompatActivity {
                     assert locationManager != null;
                     Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     requestLocationPermission();
-                    assert location != null;
+                    if(!(location == null)){
                     lat = location.getLatitude();
-                    log = location.getLongitude();
+                    log = location.getLongitude();}
                 }
                 ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query, Double.toString(lat), Double.toString(log), getApplicationContext(), MainActivity.this));
                 rssFeedModel1.addAll(0, rssFeedModel2);

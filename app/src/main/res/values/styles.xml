@@ -30,9 +30,7 @@
         <item name="android:windowBackground">@drawable/layerlist</item>
 
 
-
     </style>
-
 
 
     <style name="AppTheme.NoActionBar">
@@ -57,7 +55,7 @@
         <item name="android:layout_marginRight">4dp</item>
     </style>
 
-    <style name="ButtonDialogAlert" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog"/>
+    <style name="ButtonDialogAlert" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog" />
 
     <style name="AppTheme.Translucent" parent="AppTheme.NoActionBar">
         <item name="android:windowNoTitle">true</item>

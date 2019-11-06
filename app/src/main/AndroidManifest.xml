@@ -33,9 +33,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <meta-data
-            android:name="com.google.android.actions"
-            android:resource="@xml/actions" />
+
 
         <service
             android:name=".services.SkillsUpdateSystem"

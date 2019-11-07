@@ -254,8 +254,7 @@ public class MainActivity extends AppCompatActivity {
                     // do something with the clicked item :D
                 })
                 .build());
-
-
+        Toast.makeText(this, Boolean.toString(mPrefs.contains("getData")), Toast.LENGTH_LONG).show();
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);
         StrictMode.setThreadPolicy(policy);

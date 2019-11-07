@@ -17,13 +17,14 @@
 package com.andromeda.ara.activitys
 
 import android.os.Bundle
-import android.view.View
+import android.widget.CompoundButton.OnCheckedChangeListener
 import android.widget.Switch
-import com.google.android.material.snackbar.Snackbar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import com.andromeda.ara.R
 import kotlinx.android.synthetic.main.activity_prefs.*
+
 
 class PrefsActivity : AppCompatActivity() {
 
@@ -42,7 +43,12 @@ class PrefsActivity : AppCompatActivity() {
         switch3.isChecked = prefs.getBoolean("EAS", false)
         switch4.isChecked = prefs.getBoolean("heyAra", true)
         switch5.isChecked = prefs.getBoolean("notify", true)
-
+        switch1.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("getData", isChecked).apply()
+        }
+        switch2.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("araAccount", isChecked).apply()
+        }
 
 
     }

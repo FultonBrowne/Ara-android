@@ -19,6 +19,7 @@ package com.andromeda.ara.activitys
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import com.andromeda.ara.R
 import kotlinx.android.synthetic.main.activity_prefs.*
 
@@ -28,9 +29,6 @@ class PrefsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prefs)
         setSupportActionBar(toolbar)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
     }
 }

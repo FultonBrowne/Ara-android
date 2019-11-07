@@ -17,6 +17,8 @@
 package com.andromeda.ara.activitys
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Switch
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
@@ -30,5 +32,18 @@ class PrefsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_prefs)
         setSupportActionBar(toolbar)
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val switch1 = findViewById<Switch>(R.id.switch1)
+        val switch2 = findViewById<Switch>(R.id.switch2)
+        val switch3 = findViewById<Switch>(R.id.switch3)
+        val switch4 = findViewById<Switch>(R.id.switch4)
+        val switch5 = findViewById<Switch>(R.id.switch5)
+        switch1.isChecked = prefs.getBoolean("getData", true)
+        switch2.isChecked = prefs.getBoolean("araAccount", true)
+        switch3.isChecked = prefs.getBoolean("EAS", false)
+        switch4.isChecked = prefs.getBoolean("heyAra", true)
+        switch5.isChecked = prefs.getBoolean("notify", true)
+
+
+
     }
 }

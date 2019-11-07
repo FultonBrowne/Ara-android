@@ -34,7 +34,8 @@
             android:id="@+id/PrefCardPriv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/semi_transparent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,21 +47,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Send crash reports to andromeda" />
+                    android:text="Send crash reports to andromeda"
+                    android:textColor="#FFFFFF" />
 
                 <Switch
                     android:id="@+id/switch2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Ara acount" />
+                    android:text="Ara acount"
+                    android:textColor="#FFFFFF" />
 
                 <Switch
                     android:id="@+id/switch3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Enchanced Ara server" />
+                    android:text="Enchanced Ara server"
+                    android:textColor="#FFFFFF" />
 
 
             </LinearLayout>
@@ -68,7 +72,8 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/semi_transparent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,13 +84,16 @@
                     android:id="@+id/switch4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Listen for  'Hey Ara'" />
+                    android:text="Listen for  'Hey Ara'"
+                    android:textColor="#FFFFFF" />
 
                 <Switch
                     android:id="@+id/switch5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Update notifications" />
+                    android:text="Update notifications"
+                    android:textColor="#FFFFFF" />
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

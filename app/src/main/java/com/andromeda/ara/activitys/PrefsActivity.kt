@@ -49,6 +49,15 @@ class PrefsActivity : AppCompatActivity() {
         switch2.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("araAccount", isChecked).apply()
         }
+        switch3.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("EAS", isChecked).apply()
+        }
+        switch4.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("heyAra", isChecked).apply()
+        }
+        switch5.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("notify", isChecked).apply()
+        }
 
 
     }

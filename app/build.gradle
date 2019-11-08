@@ -101,6 +101,7 @@ ext.compose_version = "0.1.0-dev02"
 dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'
 
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -108,7 +109,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'androidx.preference:preference:1.1.0'
-    def appCenterSdkVersion = '2.5.0'
+    def appCenterSdkVersion = '2.4.1'
     implementation "com.microsoft.appcenter:appcenter-push:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-auth:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-data:${appCenterSdkVersion}"
@@ -146,7 +147,7 @@ dependencies {
 
     implementation "com.google.code.gson:gson:2.8.6"
 
-    implementation "com.microsoft.appcenter:appcenter-analytics:2.5.0"
+    implementation "com.microsoft.appcenter:appcenter-analytics:2.4.1"
     implementation "com.microsoft.appcenter:appcenter-crashes:2.4.1"
     implementation "androidx.ui:ui-tooling:$compose_version"
     implementation "androidx.ui:ui-layout:$compose_version"

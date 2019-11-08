@@ -82,7 +82,7 @@ android {
         abortOnError false
     }
     compileOptions {
-        sourceCompatibility = 1.8
+        sourceCompatibility = "1.8"
         targetCompatibility = 1.8
     }
 

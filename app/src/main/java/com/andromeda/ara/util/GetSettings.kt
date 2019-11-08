@@ -18,12 +18,16 @@ package com.andromeda.ara.util
 
 import android.content.Context
 import androidx.preference.PreferenceManager
+import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.auth.Auth
+import com.microsoft.appcenter.crashes.Crashes
 
 class GetSettings {
     fun starUp(ctx:Context){
         val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
         Auth.setEnabled(prefs.getBoolean("araAccount", true))
+        Crashes.setEnabled(prefs.getBoolean("getData", true))
+        Analytics.setEnabled(prefs.getBoolean("getData", true))
 
 
     }

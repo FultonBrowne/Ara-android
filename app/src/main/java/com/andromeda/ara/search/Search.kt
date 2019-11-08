@@ -33,6 +33,7 @@ import java.util.*
 
 class Search {
     fun main(mainval: String, log:String,lat:String, ctx:Context, act:Activity): ArrayList<RssFeedModel> {
+
         var outputList: ArrayList<RssFeedModel> = java.util.ArrayList()
         var local = SkillsSearch().search(mainval, ctx)
         var lat:Double = 0.0

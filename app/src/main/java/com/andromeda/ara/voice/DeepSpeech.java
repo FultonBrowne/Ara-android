@@ -51,7 +51,7 @@ class DeepSpeech {
 
     private String doInference(String audioFile, Context ctx) {
 
-        String decoded = "err";
+        final String[] decoded = {"err"};
         System.out.println("new");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -67,21 +67,13 @@ class DeepSpeech {
 
             wave.seek(20);
             char audioFormat = this.readLEChar(wave);
-            System.out.println("check is pcm");
-            System.out.println(audioFormat);
             if ((audioFormat != 1)) throw new AssertionError(); // 1 is PCM
-            System.out.println("is pcm");
-
             wave.seek(22);
             char numChannels = this.readLEChar(wave);
             if ((numChannels != 1)) throw new AssertionError(); // MONO
-            System.out.println("is mono");
-
             wave.seek(24);
             int sampleRate = this.readLEInt(wave);
             if ((sampleRate != 16000)) throw new AssertionError(); // desired sample rate
-            System.out.println("is 1600");
-
             wave.seek(34);
             char bitsPerSample = this.readLEChar(wave);
             if ((bitsPerSample != 16)) throw new AssertionError(); // 16 bits per sample
@@ -91,23 +83,14 @@ class DeepSpeech {
             if ((bufferSize <= 0)) throw new AssertionError();
 
             wave.seek(44);
-            System.out.println("wave seek done");
             byte[] bytes = new byte[bufferSize];
             wave.readFully(bytes);
-            System.out.println("read wave bytes");
-
             short[] shorts = new short[bytes.length / 2];
             System.out.println("num info");
             ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
-            System.out.println("buffer stuff done");
-
-
-            System.out.println("time");
-            System.out.println(shorts.length);
-
-            decoded = this._m.stt(shorts, shorts.length);
-            System.out.println("decoded");
-            System.out.println(decoded);
+            new Thread(()->
+            decoded[0] = this._m.stt(shorts, shorts.length));
+            System.out.println(decoded[0]);
 
 
         } catch (IOException e) {
@@ -115,7 +98,7 @@ class DeepSpeech {
 
         }
 
-        return decoded;
+        return decoded[0];
     }
 
     private char readLEChar(RandomAccessFile f) throws IOException {

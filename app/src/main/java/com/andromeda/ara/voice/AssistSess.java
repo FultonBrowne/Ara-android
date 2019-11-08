@@ -50,6 +50,7 @@ public class AssistSess extends VoiceInteractionSession {
         //new intent
         Toast.makeText(context, context.getString(R.string.hi), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(context, VoiceMain.class);
+
         //Run the intent
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startAssistantActivity(intent);

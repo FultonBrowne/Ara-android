@@ -27,12 +27,15 @@ public class AssistServ extends VoiceInteractionService {
     public void onReady() {
         super.onReady();
 
+
         Log.v(getString(R.string.tag_AssistantService), getString(R.string.msg_onReady));
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
+
         Log.v(getString(R.string.tag_AssistantService), getString(R.string.msg_onCreate));
     }
+
 }

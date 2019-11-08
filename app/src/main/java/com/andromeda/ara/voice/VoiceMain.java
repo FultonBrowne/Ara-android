@@ -175,7 +175,7 @@ public class VoiceMain extends AppCompatActivity {
             audioRecorder = null;
             recordingThread = null;
             final String[] phrase = new String[1];
-            Thread reconize = new Thread(() -> {
+            Thread recognize = new Thread(() -> {
                 try {
                     copyAssets();
                     rawToWave(new File(getCacheDir() + "/record.pcm"), new File(getCacheDir() + "/record.wav"));
@@ -198,8 +198,8 @@ public class VoiceMain extends AppCompatActivity {
 
                 }
             });
-            reconize.setPriority(Thread.MAX_PRIORITY);
-            reconize.start();
+            recognize.setPriority(Thread.MAX_PRIORITY);
+            recognize.start();
             System.out.println("result =" + phrase[0]);
         }
     }

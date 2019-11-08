@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.list);
 
 
+
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Home").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.home);
         SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName("Tags").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.tag);
         SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName("Food").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.food);
@@ -208,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
                 .withThreeSmallProfileImages(true)
 
                 .build();
+        Thread welcomeScreen = new Thread(()->{
         if (!welcomeScreenShown) {
             // here you can launch another activity if you like
             // the code below will display a popup
@@ -219,7 +221,8 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean(welcomeScreenShownPref, true);
             editor.apply();
-        }
+        }});
+        welcomeScreen.start();
 
         runOnUiThread(() -> drawer = new DrawerBuilder()
                 .withActivity(ctx)
@@ -384,6 +387,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public boolean onQueryTextSubmit(String query) {
+
                 Double lat = 0.0;
                 Double log = 0.0;
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {

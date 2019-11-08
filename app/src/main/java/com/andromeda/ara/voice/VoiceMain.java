@@ -175,7 +175,7 @@ public class VoiceMain extends AppCompatActivity {
             audioRecorder = null;
             recordingThread = null;
             final String[] phrase = new String[1];
-            runOnUiThread(() -> {
+            Thread reconize = new Thread(() -> {
                 try {
                     copyAssets();
                     rawToWave(new File(getCacheDir() + "/record.pcm"), new File(getCacheDir() + "/record.wav"));
@@ -184,7 +184,13 @@ public class VoiceMain extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], "0.0", "0.0", getApplicationContext(), VoiceMain.this));
-                recyclerView.setAdapter(new Adapter(rssFeedModels));
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView.setAdapter(new Adapter(rssFeedModels));
+
+                    }
+                });
                 try{
                 new TTS().start(getApplicationContext(), rssFeedModels.get(0).out);
                 }
@@ -192,6 +198,8 @@ public class VoiceMain extends AppCompatActivity {
 
                 }
             });
+            reconize.setPriority(Thread.MAX_PRIORITY);
+            reconize.start();
             System.out.println("result =" + phrase[0]);
         }
     }

@@ -56,6 +56,7 @@ import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.util.Adapter;
+import com.andromeda.ara.util.GetSettings;
 import com.andromeda.ara.util.LogIn;
 import com.andromeda.ara.util.PushUtil;
 import com.andromeda.ara.util.RecyclerTouchListener;
@@ -152,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
         Push.setListener(new PushUtil());
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
                 Analytics.class, Crashes.class, Auth.class, Data.class, Push.class);
+        new GetSettings().starUp(this);
+
         final TagManager main53 = new TagManager(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -257,7 +260,6 @@ public class MainActivity extends AppCompatActivity {
                     // do something with the clicked item :D
                 })
                 .build());
-        Toast.makeText(this, Boolean.toString(mPrefs.contains("getData")), Toast.LENGTH_LONG).show();
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);
         StrictMode.setThreadPolicy(policy);
@@ -310,10 +312,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(view -> {
             // Start the recording and recognition thread
             requestMicrophonePermission();
-
-            //String phrase = new run().run1(ctx, ctx);
-            //Toast.makeText(ctx, phrase, Toast.LENGTH_LONG).show();
-            //mAdapter.notifyDataSetChanged();
             Intent intent = new Intent(ctx, VoiceMain.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

@@ -69,7 +69,7 @@ public class AssistServ extends VoiceInteractionService {
     public void onReady() {
         super.onReady();
          mHotwordDetector = createAlwaysOnHotwordDetector(
-                "Hey Ara", Locale.forLanguageTag("en-US"), mHotwordCallback);
+                "hello ara", Locale.forLanguageTag("en-US"), mHotwordCallback);
 
 
         Log.v(getString(R.string.tag_AssistantService), getString(R.string.msg_onReady));
@@ -89,20 +89,21 @@ public class AssistServ extends VoiceInteractionService {
         private void hotwordAvailabilityChangeHelper(Integer availability) {
             Log.i(TAG, "Hotword availability = $availability");
             switch (availability) {
-                case AlwaysOnHotwordDetector.STATE_HARDWARE_UNAVAILABLE : Log.i(TAG, "STATE_HARDWARE_UNAVAILABLE");
-                case AlwaysOnHotwordDetector.STATE_KEYPHRASE_UNSUPPORTED : Log.i(TAG, "STATE_KEYPHRASE_UNSUPPORTED");
+                case AlwaysOnHotwordDetector.STATE_HARDWARE_UNAVAILABLE :{ Log.i(TAG, "STATE_HARDWARE_UNAVAILABLE");
+                break;}
+                case AlwaysOnHotwordDetector.STATE_KEYPHRASE_UNSUPPORTED : {Log.i(TAG, "STATE_KEYPHRASE_UNSUPPORTED");
+                break;}
                 case AlwaysOnHotwordDetector.STATE_KEYPHRASE_UNENROLLED : {
                     Log.i(TAG, "STATE_KEYPHRASE_UNENROLLED");
-                    try {
+
                         Intent enroll = mHotwordDetector.createEnrollIntent();
                         Log.i(TAG, "Need to enroll with " + enroll);
-                    }
-                    catch (Exception e){}
+
 
                 }
                 case AlwaysOnHotwordDetector.STATE_KEYPHRASE_ENROLLED :{
                     Log.i(TAG, "STATE_KEYPHRASE_ENROLLED - starting recognition");
-                    try{
+
                     if (mHotwordDetector.startRecognition(
                             0)) {
                         Log.i(TAG, "startRecognition succeeded");
@@ -110,12 +111,8 @@ public class AssistServ extends VoiceInteractionService {
                         Log.i(TAG, "startRecognition failed");
                     }
                 }
-                    catch (Exception e){}
-
-                }
                 break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + availability);
+
             }
         }
 }

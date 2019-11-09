@@ -16,6 +16,7 @@
 
 package com.andromeda.ara.voice;
 
+import android.content.Context;
 import android.content.Intent;
 import android.service.voice.AlwaysOnHotwordDetector;
 import android.service.voice.VoiceInteractionService;
@@ -24,6 +25,7 @@ import android.service.voice.VoiceInteractionSessionService;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 
 import com.andromeda.ara.R;
 
@@ -32,6 +34,7 @@ import java.util.Locale;
 //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class AssistServ extends VoiceInteractionService {
     private static final String TAG = "v";
+    Context ctx;
     public AlwaysOnHotwordDetector mHotwordDetector;
     private AlwaysOnHotwordDetector.Callback mHotwordCallback = new AlwaysOnHotwordDetector.Callback() {
 
@@ -67,7 +70,8 @@ public class AssistServ extends VoiceInteractionService {
     };
     @Override
     public void onReady() {
-        super.onReady();
+        super.onReady();ctx = this;
+
          mHotwordDetector = createAlwaysOnHotwordDetector(
                 "hello ara", Locale.forLanguageTag("en-US"), mHotwordCallback);
 
@@ -77,6 +81,8 @@ public class AssistServ extends VoiceInteractionService {
 
     @Override
     public void onCreate() {
+        //PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
+
         super.onCreate();
 
         Log.v(getString(R.string.tag_AssistantService), getString(R.string.msg_onCreate));
@@ -88,6 +94,7 @@ public class AssistServ extends VoiceInteractionService {
     }
         private void hotwordAvailabilityChangeHelper(Integer availability) {
             Log.i(TAG, "Hotword availability = $availability");
+
             switch (availability) {
                 case AlwaysOnHotwordDetector.STATE_HARDWARE_UNAVAILABLE :{ Log.i(TAG, "STATE_HARDWARE_UNAVAILABLE");
                 break;}

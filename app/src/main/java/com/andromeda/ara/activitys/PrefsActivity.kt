@@ -16,7 +16,10 @@
 
 package com.andromeda.ara.activitys
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.CompoundButton.OnCheckedChangeListener
 import android.widget.Switch
 import android.widget.Toast
@@ -60,5 +63,16 @@ class PrefsActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    fun account(view: View) {
+
+       val browserIntent =  Intent(Intent.ACTION_VIEW, Uri.parse("https://AraLogIn.b2clogin.com/AraLogIn.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_changeInfo&client_id=e4e16983-2565-496c-aa70-8fe0f1bf0907&nonce=defaultNonce&redirect_uri=https%3A%2F%2Fjwt.ms&scope=openid&response_type=id_token&prompt=login"));
+        startActivity(browserIntent)
+    }
+
+    fun passwordReset(view: View) {
+        val browserIntent =  Intent(Intent.ACTION_VIEW, Uri.parse("https://AraLogIn.b2clogin.com/AraLogIn.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_passwordReset&client_id=c6063f12-fa37-47bc-aa5d-604e60d197c2&nonce=defaultNonce&redirect_uri=https%3A%2F%2Faralogin.b2clogin.com%2Faralogin.onmicrosoft.com%2Foauth2%2Fauthresp&scope=openid&response_type=code&prompt=login"));
+        startActivity(browserIntent)
     }
 }

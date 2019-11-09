@@ -63,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Enchanced Ara server"
+                    android:text="Enchanced Ara server (coming soon)"
                     android:textColor="#FFFFFF" />
 
 
@@ -73,6 +73,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
             app:cardBackgroundColor="@color/semi_transparent">
 
             <LinearLayout
@@ -94,6 +95,32 @@
                     android:text="Update notifications"
                     android:textColor="#FFFFFF" />
 
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/semi_transparent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="account"
+                    android:text="Account settings" />
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="passwordReset"
+                    android:text="Reset password" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

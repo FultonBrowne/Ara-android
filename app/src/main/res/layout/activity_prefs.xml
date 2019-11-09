@@ -21,6 +21,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/settingsback"
+    android:scaleType= "centerInside"
     android:fitsSystemWindows="true"
     tools:context=".activitys.PrefsActivity">
 

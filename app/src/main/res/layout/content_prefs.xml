@@ -85,7 +85,7 @@
                     android:id="@+id/switch4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Listen for  'Hey Ara'"
+                    android:text="Listen for  'Hey Ara' (coming soon)"
                     android:textColor="#FFFFFF" />
 
                 <Switch

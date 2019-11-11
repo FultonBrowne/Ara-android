@@ -52,7 +52,7 @@ class LogIn {
                 }
             } else {
                 signInResult.exception.printStackTrace()
-                Toast.makeText(ctx, "Log in failed", Toast.LENGTH_LONG).show()
+
             }
         }
     }

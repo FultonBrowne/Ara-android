@@ -48,6 +48,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.andromeda.ara.constants.ConstantUtils.AUDIO_FORMAT;
 import static com.andromeda.ara.constants.ConstantUtils.AUDIO_FORMAT_PCM;
@@ -74,6 +76,7 @@ public class VoiceMain extends AppCompatActivity {
     private Thread recordingThread;
     boolean isRecording;
     ImageView imageView;
+    Boolean blankRunning = false;
 
     private int bufferSizeInBytes = AudioRecord.getMinBufferSize(SAMPLE_RATE_HZ, CHANNEL_CONFIG, AUDIO_FORMAT);
 
@@ -149,10 +152,33 @@ public class VoiceMain extends AppCompatActivity {
             try {
                 new File(getCacheDir(), "record.pcm");
                 os = new FileOutputStream(getCacheDir() + "/record.pcm");
+
                 while (isRecording) {
                     audioRecorder.read(Data, 0, getRawDataLength(Data));
+                    System.out.println(Data[0]);
 
-                    if (Data[0] == 0) System.out.println("is blank");
+                    if (Data[0] == 0) {
+                        System.out.println("blank");
+                        blankRunning = false;
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if(!blankRunning) {
+                                            stopRecording();
+                                            FloatingActionButton fab2 = findViewById(R.id.floatingActionButton2);
+                                            fab2.setVisibility(View.VISIBLE);
+                                        }
+                                    }
+                                });
+
+                            }
+                        }, 4000);
+                    }
+                    else blankRunning = true;
                     try {
                         os.write(Data, 0, bufferSizeInBytes);
                     } catch (Exception e) {
@@ -184,13 +210,7 @@ public class VoiceMain extends AppCompatActivity {
                     e.printStackTrace();
                 }                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], "0.0", "0.0", getApplicationContext(), VoiceMain.this));
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        recyclerView.setAdapter(new Adapter(rssFeedModels));
-
-                    }
-                });
+                runOnUiThread(() -> recyclerView.setAdapter(new Adapter(rssFeedModels)));
                 try{
                 new TTS().start(getApplicationContext(), rssFeedModels.get(0).out);
                 }

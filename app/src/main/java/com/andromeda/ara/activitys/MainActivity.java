@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+
         Push.setListener(new PushUtil());
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
                 Analytics.class, Crashes.class, Auth.class, Data.class, Push.class);
@@ -208,8 +209,8 @@ public class MainActivity extends AppCompatActivity {
 
             String whatsNewTitle = ("Welcome to ara for android!");
             String whatsNewText = ("Thank you for downloading and investing in the next generation of intelligent voice assistants.");
-            new AlertDialog.Builder(this).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
-                    getText(R.string.textOK), (dialog, which) -> dialog.dismiss()).show();
+            //new AlertDialog.Builder(this).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
+              //      getText(R.string.textOK), (dialog, which) -> dialog.dismiss()).show();
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean(welcomeScreenShownPref, true);
             editor.apply();

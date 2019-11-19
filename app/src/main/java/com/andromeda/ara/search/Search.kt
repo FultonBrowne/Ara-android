@@ -62,11 +62,7 @@ class Search {
         searchMode1 = searchMode1.replace(" ", "%20")
         val test1 = AraSearch().arrayOfOutputModels(searchMode1, log.toString(), lat.toString())
         outputList = ApiOutputToRssFeed().main(test1)
-        println(outputList[0].out)
-        if(test1?.get(0)?.exes  != ""){
-            val parsed = Parse().parse(test1?.get(0)?.exes)
-            RunActions().doIt(parsed, mainval, ctx, act)
-        }
+
 
 
 

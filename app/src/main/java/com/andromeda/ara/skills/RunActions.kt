@@ -19,6 +19,7 @@ package com.andromeda.ara.skills
 import android.accounts.Account
 import android.app.Activity
 import android.content.Context
+import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.util.YamlModel
 import com.fasterxml.jackson.core.type.TypeReference
 import org.yaml.snakeyaml.Yaml
@@ -26,41 +27,41 @@ import java.util.*
 
 
 class RunActions {
-    fun doIt(yaml: ArrayList<YamlModel>?, searchTerm: String, ctx:Context, act: Activity) {
+    fun doIt(yaml: ArrayList<YamlModel>?, searchTerm: String, ctx:Context, act: Activity): ArrayList<RssFeedModel> {
+        val returnedVal = ArrayList<RssFeedModel>()
 
-        val arg1: String
+        var arg1: String
         if (yaml != null) {
-            //for (i in yaml) {
-            when (yaml[0].action) {
+            for (i in yaml) {
+            when (i.action) {
                 "OPEN_APP" -> {
-                    arg1 = if (yaml[0].arg1 == "TERM") searchTerm
-                    else yaml[0].arg1
+                    arg1 = if (i.arg1 == "TERM") searchTerm
+                    else i.arg1
                     OpenApp().openApp(arg1, ctx)
                 }
                 "CALL" -> {
-                    arg1 = if (yaml[0].arg1 == "TERM") searchTerm
-                    else yaml[0].arg1
+                    arg1 = if (i.arg1 == "TERM") searchTerm
+                    else i.arg1
                     Phone().call(arg1, ctx, act)
 
                 }
                 "TEXT" -> {
-                    arg1 = if (yaml[0].arg1 == "TERM") searchTerm
-                    else yaml[0].arg1
+                    arg1 = if (i.arg1 == "TERM") searchTerm
+                    else i.arg1
                     Text().sendText(arg1, ctx)
                 }
                 "TOG_MEDIA" -> {
                     Media().playPause(ctx)
                 }
+                "OUTPUT" -> {
+                    returnedVal.add(RssFeedModel(i.arg2,"", i.arg2, "", ""))
+                }
 
 
-
-                //}
+                }
             }
-
-
-            //}
         }
 
-
+        return returnedVal
     }
 }

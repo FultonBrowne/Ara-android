@@ -70,7 +70,7 @@ class Rss {
 
             }
             if (mode == 0){
-                items.add(CalUtility.main[0])
+                items.add(0, CalUtility.main[0])
             }
 
         } catch (e: IOException) {

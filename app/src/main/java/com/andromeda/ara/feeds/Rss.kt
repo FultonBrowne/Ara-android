@@ -16,6 +16,7 @@
 
 package com.andromeda.ara.feeds
 
+import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.RssFeedModel
 import com.rometools.rome.feed.synd.SyndEntry
 import com.rometools.rome.io.FeedException
@@ -55,8 +56,7 @@ class Rss {
 
             val feedAllData = SyndFeedInput().build(xmlReader)
             val iterator = feedAllData.entries.iterator()
-            while (iterator
-                            .hasNext()) {
+            while (iterator.hasNext()) {
                 val syndEntry = iterator.next() as SyndEntry
 
                 mFeedDescription = syndEntry.description.value
@@ -69,19 +69,21 @@ class Rss {
 
 
             }
-
+            if (mode == 0){
+                items.add(CalUtility.main[0])
+            }
 
         } catch (e: IOException) {
             mFeedLink = "err"
-            mFeedTitle = "err"
-            mFeedDescription = "err"
+            mFeedTitle = "please connect"
+            mFeedDescription = ""
             val rssFeedModel = RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "", "")
             items.add(rssFeedModel)
 
         } catch (e: FeedException) {
-            mFeedLink = "err"
-            mFeedTitle = "err"
-            mFeedDescription = "err"
+            mFeedLink = ""
+            mFeedTitle = "feed error"
+            mFeedDescription = "We will fix it, don't worry"
             val rssFeedModel = RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "", "")
             items.add(rssFeedModel)
 

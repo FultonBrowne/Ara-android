@@ -22,6 +22,7 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.andromeda.ara.R;
+import com.andromeda.ara.util.CalModel;
 import com.andromeda.ara.util.RssFeedModel;
 
 import java.text.SimpleDateFormat;
@@ -30,6 +31,7 @@ import java.util.Calendar;
 
 public class CalUtility {
     public static ArrayList<RssFeedModel> main = new ArrayList<>();
+    public static ArrayList<CalModel> complexDataMain = new ArrayList<>();
 
     public static ArrayList<RssFeedModel> readCalendarEvent(Context context) {
         Cursor cursor = context.getContentResolver()
@@ -67,6 +69,19 @@ public class CalUtility {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());
+    }
+    public static ArrayList<CalModel> getComplexData(Context context){
+        Cursor cursor = context.getContentResolver()
+                .query(
+                        Uri.parse("content://com.android.calendar/events"),
+                        new String[]{context.getString(R.string.calender_id), context.getString(R.string.title), context.getString(R.string.description),
+                                context.getString(R.string.dtstart), context.getString(R.string.dtend), context.getString(R.string.eventLocation)}, null,
+                        null, null);
+        assert cursor != null;
+        cursor.moveToFirst();
+
+        complexDataMain.clear();
+        return complexDataMain;
     }
 
 }

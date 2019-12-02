@@ -33,7 +33,7 @@ import java.util.*
 class Search {
     fun main(mainval: String, ctx: Context, act: Activity): ArrayList<RssFeedModel> {
 
-        var outputList: ArrayList<RssFeedModel> = java.util.ArrayList()
+        var outputList: ArrayList<RssFeedModel> = ArrayList()
         val local = SkillsSearch().search(mainval, ctx)
         var lat = 0.0
         var log = 0.0
@@ -56,16 +56,12 @@ class Search {
         }
         else{
 
-        outputList.add(RssFeedModel("", "", "", "",""))
-        //search ara server
-        var searchMode1 = mainval.toLowerCase(Locale("en"))
-        searchMode1 = searchMode1.replace(" ", "%20")
-        val test1 = AraSearch().arrayOfOutputModels(searchMode1, log.toString(), lat.toString())
-        outputList = ApiOutputToRssFeed().main(test1)
-
-
-
-
+            outputList.add(RssFeedModel("", "", "", "",""))
+            //search ara server
+            var searchMode1 = mainval.toLowerCase(Locale("en"))
+            searchMode1 = searchMode1.replace(" ", "%20")
+            val test1 = AraSearch().arrayOfOutputModels(searchMode1, log.toString(), lat.toString())
+            outputList = ApiOutputToRssFeed().main(test1)
             println(R.string.done_search)
         }
 

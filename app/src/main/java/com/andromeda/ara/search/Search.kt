@@ -28,16 +28,15 @@ import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.RssFeedModel
-import com.andromeda.ara.voice.TTS
 import java.util.*
 
 class Search {
-    fun main(mainval: String, log:String,lat:String, ctx:Context, act:Activity): ArrayList<RssFeedModel> {
+    fun main(mainval: String, ctx: Context, act: Activity): ArrayList<RssFeedModel> {
 
         var outputList: ArrayList<RssFeedModel> = java.util.ArrayList()
-        var local = SkillsSearch().search(mainval, ctx)
-        var lat:Double = 0.0
-        var log: Double = 0.0
+        val local = SkillsSearch().search(mainval, ctx)
+        var lat = 0.0
+        var log = 0.0
         val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
 

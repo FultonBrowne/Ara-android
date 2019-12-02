@@ -386,7 +386,7 @@ public class MainActivity extends AppCompatActivity {
                     lat = location.getLatitude();
                     log = location.getLongitude();}
                 }
-                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query, Double.toString(lat), Double.toString(log), getApplicationContext(), MainActivity.this));
+                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query, getApplicationContext(), MainActivity.this));
                 rssFeedModel1.addAll(0, rssFeedModel2);
                 mAdapter.notifyDataSetChanged();
 

@@ -208,7 +208,7 @@ public class VoiceMain extends AppCompatActivity {
                     phrase[0] = new DeepSpeech().run(getCacheDir() + "/record.wav", this.getApplicationContext());
                 } catch (IOException e) {
                     e.printStackTrace();
-                }                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], "0.0", "0.0", getApplicationContext(), VoiceMain.this));
+                }                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this));
 
                 runOnUiThread(() -> recyclerView.setAdapter(new Adapter(rssFeedModels)));
                 try{

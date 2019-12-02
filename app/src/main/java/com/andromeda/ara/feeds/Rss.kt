@@ -23,6 +23,7 @@ import com.rometools.rome.io.FeedException
 import com.rometools.rome.io.SyndFeedInput
 import com.rometools.rome.io.XmlReader
 import java.io.IOException
+import java.lang.IndexOutOfBoundsException
 import java.net.URL
 import java.util.*
 
@@ -70,7 +71,12 @@ class Rss {
 
             }
             if (mode == 0){
-                items.add(0, CalUtility.main[0])
+                try {
+                    items.add(0, CalUtility.main[0])
+                }
+                catch (e: IndexOutOfBoundsException){
+                    e.printStackTrace()
+                }
             }
 
         } catch (e: IOException) {

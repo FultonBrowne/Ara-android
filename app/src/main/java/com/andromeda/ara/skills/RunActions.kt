@@ -54,7 +54,7 @@ class RunActions {
                     Media().playPause(ctx)
                 }
                 "OUTPUT" -> {
-                    returnedVal.add(RssFeedModel(i.arg2,"", i.arg2, "", ""))
+                    returnedVal.add(RssFeedModel(i.arg2,"", i.arg1, "", ""))
                 }
 
 

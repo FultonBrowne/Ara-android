@@ -36,7 +36,7 @@ class SkillsSearch {
         insert.insert("open the", "app", mapper.writeValueAsString(yml))
         yml.clear()
         yml.add(YamlModel("CALL", "TERM",""))
-        yml.add(YamlModel("CALL", "calling",""))
+        yml.add(YamlModel("OUTPUT", "calling",""))
         insert.insert("call", "", mapper.writeValueAsString(yml))
         insert.insert("dial", "", mapper.writeValueAsString(yml))
         yml.clear()

@@ -26,6 +26,24 @@ import java.util.*
 
 class SkillsSearch {
     fun search(phrase:String, ctx:Context): List<String> {
+        val mapper = ObjectMapper(YAMLFactory())
+        print(mapper.writeValueAsString(YamlModel("OPEN_APP", "TERM","")))
+        val insert = OnDeviceSkills(ctx).open()
+        val yml = ArrayList<YamlModel>()
+
+        yml.add(YamlModel("OPEN_APP", "TERM",""))
+        insert.insert("open", "app", mapper.writeValueAsString(yml))
+        insert.insert("open the", "app", mapper.writeValueAsString(yml))
+        yml.clear()
+        yml.add(YamlModel("CALL", "TERM",""))
+        yml.add(YamlModel("CALL", "calling",""))
+        insert.insert("call", "", mapper.writeValueAsString(yml))
+        insert.insert("dial", "", mapper.writeValueAsString(yml))
+        yml.clear()
+        yml.add(YamlModel("TEXT", "TERM",""))
+        insert.insert("send a text", "", mapper.writeValueAsString(yml))
+        insert.insert("send a text to","", mapper.writeValueAsString(yml))
+        insert.insert("text", "", mapper.writeValueAsString(yml))
 
 
         val dB = OnDeviceSkills(ctx).open()
@@ -34,11 +52,13 @@ class SkillsSearch {
         var end = ""
         var act: String
         var finalAct = ""
+
         // Check the SDK version and whether the permission is already granted or not.
         // Check the SDK version and whether the permission is already granted or not.
 
-        if (cursor != null && cursor.moveToFirst()) {
+
             cursor.moveToFirst()
+
 
 
             while (!cursor.isAfterLast) {
@@ -53,26 +73,10 @@ class SkillsSearch {
 
                 }
             }
-        } else {
-            val mapper = ObjectMapper(YAMLFactory())
-            print(mapper.writeValueAsString(YamlModel("OPEN_APP", "TERM","")))
-            val insert = OnDeviceSkills(ctx).open()
-            val yml = ArrayList<YamlModel>()
-            yml.add(YamlModel("OPEN_APP", "TERM",""))
-            insert.insert("open", "app", mapper.writeValueAsString(yml))
-            insert.insert("open the", "app", mapper.writeValueAsString(yml))
-            yml.clear()
-            yml.add(YamlModel("CALL", "TERM",""))
-            insert.insert("call", "", mapper.writeValueAsString(yml))
-            insert.insert("dial", "", mapper.writeValueAsString(yml))
-            yml.clear()
-            yml.add(YamlModel("TEXT", "TERM",""))
-            insert.insert("send a text", "", mapper.writeValueAsString(yml))
-            insert.insert("send a text to","", mapper.writeValueAsString(yml))
-            insert.insert("text", "", mapper.writeValueAsString(yml))
 
 
-        }
+
+
         return listOf(finalAct, pre, end)
     }
 

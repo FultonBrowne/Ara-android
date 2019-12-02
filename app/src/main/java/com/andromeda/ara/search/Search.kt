@@ -51,7 +51,8 @@ class Search {
         }
         if (local[0] != "" && mainval != ""){
             val parsed = Parse().parse(local[0])
-            RunActions().doIt(parsed, mainval.replace(local[1]+ " ", ""), ctx, act)
+            val doIt = RunActions().doIt(parsed, mainval.replace(local[1]+ " ", ""), ctx, act)
+            outputList.addAll(doIt)
 
         }
         else{

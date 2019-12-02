@@ -38,18 +38,23 @@ public class OnDeviceSkills {
         database = dbHelper.getWritableDatabase();
         return this;
     }
+
     public void close() {
         dbHelper.close();
     }
+
     public void insert(String pre, String end, String act) {
         ContentValues contentValue = new ContentValues();
         contentValue.put(OnDeviceSkillsDB.PRE, pre);
         contentValue.put(OnDeviceSkillsDB.END, end);
         contentValue.put(OnDeviceSkillsDB.ACT, act);
-        System.out.println("hello"+act);
+        database.insertWithOnConflict(OnDeviceSkillsDB.TABLE_NAME,null,contentValue,SQLiteDatabase.CONFLICT_REPLACE);
 
-        database.insert(OnDeviceSkillsDB.TABLE_NAME, null, contentValue);
     }
+
+
+
+
     public Cursor fetch() {
         String[] columns = new String[]{OnDeviceSkillsDB.ID, OnDeviceSkillsDB.PRE, OnDeviceSkillsDB.END, OnDeviceSkillsDB.ACT};
         Cursor cursor = database.query(OnDeviceSkillsDB.TABLE_NAME, columns, null, null, null, null, null);

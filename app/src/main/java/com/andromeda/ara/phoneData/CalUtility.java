@@ -28,6 +28,7 @@ import com.andromeda.ara.util.RssFeedModel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class CalUtility {
     public static ArrayList<RssFeedModel> main = new ArrayList<>();
@@ -79,8 +80,22 @@ public class CalUtility {
                         null, null);
         assert cursor != null;
         cursor.moveToFirst();
+        @SuppressWarnings("MismatchedReadAndWriteOfArray") String[] CNames = new String[cursor.getCount()];
 
         complexDataMain.clear();
+        for (int i = 0; i < CNames.length; i++) {
+
+            String nameOfEvent = cursor.getString(1);
+            Date startDates =new Date(Long.parseLong(cursor.getString(3)));
+            String descriptions = (cursor.getString(2));
+            complexDataMain.add(new CalModel(nameOfEvent, descriptions, startDates));
+            CNames[i] = cursor.getString(1);
+            cursor.moveToNext();
+
+
+        }
+
+
         return complexDataMain;
     }
 

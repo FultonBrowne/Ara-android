@@ -22,7 +22,7 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.andromeda.ara.R;
-import com.andromeda.ara.util.CalModel;
+import com.andromeda.ara.util.FeedDateParseModel;
 import com.andromeda.ara.util.RssFeedModel;
 
 import java.text.SimpleDateFormat;
@@ -32,7 +32,7 @@ import java.util.Date;
 
 public class CalUtility {
     public static ArrayList<RssFeedModel> main = new ArrayList<>();
-    public static ArrayList<CalModel> complexDataMain = new ArrayList<>();
+    public static ArrayList<FeedDateParseModel> complexDataMain = new ArrayList<>();
 
     public static ArrayList<RssFeedModel> readCalendarEvent(Context context) {
         Cursor cursor = context.getContentResolver()
@@ -71,7 +71,7 @@ public class CalUtility {
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());
     }
-    public static ArrayList<CalModel> getComplexData(Context context){
+    public static ArrayList<FeedDateParseModel> getComplexData(Context context){
         Cursor cursor = context.getContentResolver()
                 .query(
                         Uri.parse("content://com.android.calendar/events"),
@@ -86,14 +86,17 @@ public class CalUtility {
         for (int i = 0; i < CNames.length; i++) {
 
             String nameOfEvent = cursor.getString(1);
-            Date startDates =new Date(Long.parseLong(cursor.getString(3)));
+            String startDates = (getDate(Long.parseLong(cursor.getString(3))));
+            Date startDatesAsTime = (new Date(Long.parseLong(cursor.getString(3))));
+            String endDates = (getDate(Long.parseLong(cursor.getString(4))));
             String descriptions = (cursor.getString(2));
-            complexDataMain.add(new CalModel(nameOfEvent, descriptions, startDates));
+            complexDataMain.add(new FeedDateParseModel(nameOfEvent, "", startDates + endDates + System.lineSeparator() + descriptions, "", "", startDatesAsTime));
             CNames[i] = cursor.getString(1);
             cursor.moveToNext();
 
 
         }
+        cursor.close();
 
 
         return complexDataMain;

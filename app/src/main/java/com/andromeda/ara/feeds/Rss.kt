@@ -17,6 +17,7 @@
 package com.andromeda.ara.feeds
 
 import com.andromeda.ara.phoneData.CalUtility
+import com.andromeda.ara.util.FeedDateParseModel
 import com.andromeda.ara.util.RssFeedModel
 import com.rometools.rome.feed.synd.SyndEntry
 import com.rometools.rome.io.FeedException
@@ -36,9 +37,10 @@ class Rss {
         var mFeedTitle: String
         var mFeedLink: String
         var mFeedDescription: String
+        var mFeedDate:Date
 
 
-        val items = ArrayList<RssFeedModel>()
+        val items = ArrayList<FeedDateParseModel>()
         var xmlReader: XmlReader? = null
 
         try {
@@ -63,16 +65,17 @@ class Rss {
                 mFeedDescription = syndEntry.description.value
                 mFeedTitle = syndEntry.title
                 mFeedLink = syndEntry.link
+                mFeedDate = syndEntry.updatedDate
 
 
-                val rssFeedModel = RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "", "")
+                val rssFeedModel = FeedDateParseModel(mFeedDescription, mFeedLink, mFeedTitle, "", "", mFeedDate)
                 items.add(rssFeedModel)
 
 
             }
             if (mode == 0){
                 try {
-                    items.add(0, CalUtility.main[0])
+                    items.addAll(CalUtility.complexDataMain)
                 }
                 catch (e: IndexOutOfBoundsException){
                     e.printStackTrace()
@@ -83,22 +86,26 @@ class Rss {
             mFeedLink = "err"
             mFeedTitle = "please connect"
             mFeedDescription = ""
-            val rssFeedModel = RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "", "")
+            val rssFeedModel = FeedDateParseModel(mFeedDescription, mFeedLink, mFeedTitle, "", "",  Date(0,0,0,0,0,0))
             items.add(rssFeedModel)
 
         } catch (e: FeedException) {
             mFeedLink = ""
             mFeedTitle = "feed error"
             mFeedDescription = "We will fix it, don't worry"
-            val rssFeedModel = RssFeedModel(mFeedDescription, mFeedLink, mFeedTitle, "", "")
+            val rssFeedModel = FeedDateParseModel(mFeedDescription, mFeedLink, mFeedTitle, "", "", Date(0,0,0,0,0,0))
             items.add(rssFeedModel)
 
         } finally {
             xmlReader?.close()
         }
+        val toReturn = ArrayList<RssFeedModel>()
+        for (i in items){
+            toReturn.add(i.toRssFeedModel())
+        }
 
 
-        return items
+        return toReturn
 
 
     }

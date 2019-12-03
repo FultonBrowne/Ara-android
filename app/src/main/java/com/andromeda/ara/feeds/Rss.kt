@@ -41,7 +41,7 @@ class Rss {
         var mFeedDate:Date
 
 
-        val items = ArrayList<FeedDateParseModel>()
+        var items = ArrayList<FeedDateParseModel>()
         var xmlReader: XmlReader? = null
 
         try {
@@ -74,9 +74,11 @@ class Rss {
 
 
             }
-            if (mode == 0){
+            if (mode == 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
                 try {
                     items.addAll(CalUtility.complexDataMain)
+                        items = sortDate(items)
+
                 }
                 catch (e: IndexOutOfBoundsException){
                     e.printStackTrace()
@@ -111,7 +113,7 @@ class Rss {
 
     }
     @RequiresApi(Build.VERSION_CODES.N)
-    fun sortDateSyndEntry(tosort: ArrayList<FeedDateParseModel>): ArrayList<FeedDateParseModel> { //sort by date
+    fun sortDate(tosort: ArrayList<FeedDateParseModel>): ArrayList<FeedDateParseModel> { //sort by date
         tosort.sortWith(Comparator.comparing { obj: FeedDateParseModel -> obj.date })
         // return sorted value
         tosort.reverse()

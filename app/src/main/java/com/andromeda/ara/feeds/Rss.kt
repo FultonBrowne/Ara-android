@@ -16,6 +16,8 @@
 
 package com.andromeda.ara.feeds
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.FeedDateParseModel
 import com.andromeda.ara.util.RssFeedModel
@@ -24,7 +26,6 @@ import com.rometools.rome.io.FeedException
 import com.rometools.rome.io.SyndFeedInput
 import com.rometools.rome.io.XmlReader
 import java.io.IOException
-import java.lang.IndexOutOfBoundsException
 import java.net.URL
 import java.util.*
 
@@ -108,5 +109,12 @@ class Rss {
         return toReturn
 
 
+    }
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun sortDateSyndEntry(tosort: ArrayList<FeedDateParseModel>): ArrayList<FeedDateParseModel> { //sort by date
+        tosort.sortWith(Comparator.comparing { obj: FeedDateParseModel -> obj.date })
+        // return sorted value
+        tosort.reverse()
+        return tosort
     }
 }

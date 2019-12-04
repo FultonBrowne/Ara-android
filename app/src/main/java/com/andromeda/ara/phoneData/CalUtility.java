@@ -88,6 +88,7 @@ public class CalUtility {
             String nameOfEvent = cursor.getString(1);
             String startDates = (getDate(Long.parseLong(cursor.getString(3))));
             Date startDatesAsTime = (new Date(Long.parseLong(cursor.getString(3))));
+            System.out.println(startDatesAsTime);
             String endDates = (getDate(Long.parseLong(cursor.getString(4))));
             String descriptions = (cursor.getString(2));
             complexDataMain.add(new FeedDateParseModel(nameOfEvent, "", startDates + endDates + System.lineSeparator() + descriptions, "", "", startDatesAsTime));

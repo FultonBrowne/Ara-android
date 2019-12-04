@@ -58,7 +58,7 @@ class Drawer {
         if (drawerItem == 1L) {
             Toast.makeText(ctx, ctx.getString(R.string.number_1), Toast.LENGTH_SHORT).show()
 
-            rssFeedModel1.addAll(Rss().parseRss(0))
+            rssFeedModel1.addAll(Rss().parseRss(0, ctx))
 
         } else if (drawerItem == 2L) {
             var title1: String
@@ -107,16 +107,16 @@ class Drawer {
             rssFeedModel1 = Devices().getAll(activity)
         }
         if (drawerItem == 104L) {
-            rssFeedModel1.addAll(Rss().parseRss(3))
+            rssFeedModel1.addAll(Rss().parseRss(3, ctx))
         } else if (drawerItem == 102L) {
-            rssFeedModel1.addAll(Rss().parseRss(2))
+            rssFeedModel1.addAll(Rss().parseRss(2, ctx))
         }
         if (drawerItem == 103L) {
-            rssFeedModel1.addAll(Rss().parseRss(1))
+            rssFeedModel1.addAll(Rss().parseRss(1, ctx))
         }
 
         if (drawerItem == 105L) {
-            rssFeedModel1.addAll(Rss().parseRss(4))
+            rssFeedModel1.addAll(Rss().parseRss(4, ctx))
         }
         return rssFeedModel1
     }

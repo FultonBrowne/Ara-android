@@ -16,6 +16,7 @@
 
 package com.andromeda.ara.feeds
 
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.andromeda.ara.phoneData.CalUtility
@@ -34,7 +35,7 @@ import java.util.*
  */
 class Rss {
     @Throws(IOException::class)
-    fun parseRss(mode: Int = 0): List<RssFeedModel> {
+    fun parseRss(mode: Int = 0, ctx: Context): List<RssFeedModel> {
         var mFeedTitle: String
         var mFeedLink: String
         var mFeedDescription: String
@@ -66,7 +67,7 @@ class Rss {
                 mFeedDescription = syndEntry.description.value
                 mFeedTitle = syndEntry.title
                 mFeedLink = syndEntry.link
-                mFeedDate = syndEntry.updatedDate
+                mFeedDate = syndEntry.publishedDate
 
 
                 val rssFeedModel = FeedDateParseModel(mFeedDescription, mFeedLink, mFeedTitle, "", "", mFeedDate)
@@ -76,7 +77,8 @@ class Rss {
             }
             if (mode == 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
                 try {
-                    items.addAll(CalUtility.complexDataMain)
+                    items.addAll(CalUtility.getComplexData(ctx))
+                    println("got the cal")
                         items = sortDate(items)
 
                 }
@@ -86,6 +88,7 @@ class Rss {
             }
 
         } catch (e: IOException) {
+            e.printStackTrace()
             mFeedLink = "err"
             mFeedTitle = "please connect"
             mFeedDescription = ""
@@ -93,6 +96,7 @@ class Rss {
             items.add(rssFeedModel)
 
         } catch (e: FeedException) {
+            e.printStackTrace()
             mFeedLink = ""
             mFeedTitle = "feed error"
             mFeedDescription = "We will fix it, don't worry"

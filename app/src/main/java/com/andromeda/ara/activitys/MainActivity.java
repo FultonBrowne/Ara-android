@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
 
         ctx.runOnUiThread(() -> {
             try {
-                rssFeedModel1 = (new Rss().parseRss(0));
+                rssFeedModel1 = (new Rss().parseRss(0, ctx));
             } catch (IOException e) {
                 e.printStackTrace();
             }

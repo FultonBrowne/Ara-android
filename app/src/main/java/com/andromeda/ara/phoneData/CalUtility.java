@@ -26,6 +26,9 @@ import com.andromeda.ara.util.FeedDateParseModel;
 import com.andromeda.ara.util.RssFeedModel;
 
 import java.text.SimpleDateFormat;
+import java.time.Clock;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -72,10 +75,12 @@ public class CalUtility {
         return formatter.format(calendar.getTime());
     }
     public static ArrayList<FeedDateParseModel> getComplexData(Context context){
+        Date currentDate = new Date(System.currentTimeMillis());
+        System.out.println(currentDate);
         Cursor cursor = context.getContentResolver()
                 .query(
                         Uri.parse("content://com.android.calendar/events"),
-                        new String[]{context.getString(R.string.calender_id), context.getString(R.string.title), context.getString(R.string.description),
+                         new String[]{context.getString(R.string.calender_id), context.getString(R.string.title), context.getString(R.string.description),
                                 context.getString(R.string.dtstart), context.getString(R.string.dtend), context.getString(R.string.eventLocation)}, null,
                         null, null);
         assert cursor != null;
@@ -91,7 +96,15 @@ public class CalUtility {
             System.out.println(startDatesAsTime);
             String endDates = (getDate(Long.parseLong(cursor.getString(4))));
             String descriptions = (cursor.getString(2));
-            complexDataMain.add(new FeedDateParseModel(nameOfEvent, "", startDates + endDates + System.lineSeparator() + descriptions, "", "", startDatesAsTime));
+            long toSub;
+            if (currentDate.getTime() < startDatesAsTime.getTime()){
+                toSub = startDatesAsTime.getTime() - currentDate.getTime();
+                toSub = toSub * 2;
+                startDatesAsTime = new Date(startDatesAsTime.getTime() - toSub) ;
+                complexDataMain.add(new FeedDateParseModel(nameOfEvent, "", startDates + endDates + System.lineSeparator() + descriptions, "", "", startDatesAsTime));
+
+
+            }
             CNames[i] = cursor.getString(1);
             cursor.moveToNext();
 

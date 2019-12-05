@@ -21,7 +21,7 @@
 
     <item>
         <bitmap
-            android:gravity="center"
+            android:gravity="fill|center"
             android:src="@drawable/splash" />
     </item>
     <item>

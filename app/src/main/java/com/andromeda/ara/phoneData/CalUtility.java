@@ -101,7 +101,7 @@ public class CalUtility {
                 toSub = startDatesAsTime.getTime() - currentDate.getTime();
                 toSub = toSub * 2;
                 startDatesAsTime = new Date(startDatesAsTime.getTime() - toSub) ;
-                complexDataMain.add(new FeedDateParseModel(nameOfEvent, "", startDates + endDates + System.lineSeparator() + descriptions, "", "", startDatesAsTime));
+                complexDataMain.add(new FeedDateParseModel(nameOfEvent, startDates + endDates + System.lineSeparator() + descriptions, "", "", "", startDatesAsTime));
 
 
             }

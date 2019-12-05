@@ -96,14 +96,14 @@ public class CalUtility {
             System.out.println(startDatesAsTime);
             String endDates = (getDate(Long.parseLong(cursor.getString(4))));
             String descriptions = (cursor.getString(2));
+            long ltime= currentDate.getTime()+4*24*60*60*1000;
+            Date today4=new Date(ltime);
             long toSub;
-            if (currentDate.getTime() < startDatesAsTime.getTime()){
+            if (currentDate.getTime() < startDatesAsTime.getTime() && !startDatesAsTime.after(today4)){
                 toSub = startDatesAsTime.getTime() - currentDate.getTime();
                 toSub = toSub * 2;
                 startDatesAsTime = new Date(startDatesAsTime.getTime() - toSub) ;
                 complexDataMain.add(new FeedDateParseModel(nameOfEvent, startDates + endDates + System.lineSeparator() + descriptions, "", "", "", startDatesAsTime));
-
-
             }
             CNames[i] = cursor.getString(1);
             cursor.moveToNext();

@@ -70,7 +70,7 @@ class Rss {
                 mFeedDate = syndEntry.publishedDate
 
 
-                val rssFeedModel = FeedDateParseModel(mFeedDescription, mFeedLink, mFeedTitle, "", "", mFeedDate)
+                val rssFeedModel = FeedDateParseModel(mFeedTitle,mFeedDescription , mFeedLink, "", "", mFeedDate)
                 items.add(rssFeedModel)
 
 

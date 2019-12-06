@@ -21,10 +21,12 @@
 
     <item>
         <bitmap
-            android:gravity="fill|center"
+            android:gravity="fill|left|center"
+
             android:src="@drawable/splash" />
     </item>
     <item>
-        <bitmap android:gravity="center" android:src="@mipmap/ic_launcher_foreground" />
+        <bitmap android:gravity="center" android:src="@mipmap/ic_launcher_foreground"
+            />
     </item>
 </layer-list>

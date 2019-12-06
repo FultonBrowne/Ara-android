@@ -34,14 +34,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".activitys.PrefsActivity"
-            android:label="@string/title_activity_prefs"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:name=".activitys.PrefsActivity"
+                android:label="@string/title_activity_prefs"
+                android:theme="@style/AppTheme.NoActionBar"/>
 
-        <service
-            android:name=".services.SkillsUpdateSystem"
-            android:enabled="true"
-            android:exported="true" />
         <!--
         <provider
             android:name=".services.AraSkillsDBCP"

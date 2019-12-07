@@ -23,7 +23,7 @@ import java.util.ArrayList
 
 class Skills {
     fun getThem(): ArrayList<OutputModel>? {
-        val url = URL("https://araserver.herokuapp.com/store")
+        val url = URL("https://ara-server.azurewebsites.net/store")
         println(url)
         //parse Json
         return JsonParse().search(url.readText())

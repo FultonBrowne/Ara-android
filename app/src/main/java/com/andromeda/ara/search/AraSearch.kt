@@ -31,7 +31,7 @@ class AraSearch {
     fun arrayOfOutputModels(search: String, log:String, lat:String): ArrayList<OutputModel>? {
         //get URL
 
-            val url = URL("https://araserver.herokuapp.com/api/$search&log=$log&lat=$lat")
+            val url = URL("https://ara-server.azurewebsites.net/api/$search&log=$log&lat=$lat")
 
         println(url)
         var text = "[{\"title\":\"Blank Input Received\",\"link\":\"https://github.com/fultonbrowne/ara-android\",\"description\":\"Please Try Again\",\"OutputTxt\":\"Error Was Encountered\",\"exes\":\"\"}]"

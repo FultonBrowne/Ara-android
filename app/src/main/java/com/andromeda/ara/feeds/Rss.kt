@@ -46,12 +46,12 @@ class Rss {
         var xmlReader: XmlReader? = null
 
         try {
-            var feed = URL("https://araserver.herokuapp.com/")
+            var feed = URL("https://ara-server.azurewebsites.net/")
             when (mode) {
-                1 -> feed = URL("https://araserver.herokuapp.com/world")
-                2 -> feed = URL("https://araserver.herokuapp.com/tech")
-                3 -> feed = URL("https://araserver.herokuapp.com/us")
-                4 -> feed = URL("https://araserver.herokuapp.com/money")
+                1 -> feed = URL("https://ara-server.azurewebsites.net/world")
+                2 -> feed = URL("https://ara-server.azurewebsites.netm/tech")
+                3 -> feed = URL("https://ara-server.azurewebsites.net/us")
+                4 -> feed = URL("https://ara-server.azurewebsites.net/money")
             }
 
 

@@ -62,7 +62,6 @@ class SkillsSearch {
 
 
             while (!cursor.isAfterLast) {
-
                 pre = cursor.getString(1)
                 end = cursor.getString(2)
                 act = cursor.getString(3)
@@ -70,7 +69,6 @@ class SkillsSearch {
                 if(phrase.startsWith(pre, true)){
                     finalAct = act
                     break
-
                 }
             }
 

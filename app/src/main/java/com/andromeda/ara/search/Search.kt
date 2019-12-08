@@ -28,13 +28,15 @@ import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.RssFeedModel
+import java.net.InetAddress
 import java.util.*
+
 
 class Search {
     fun main(mainval: String, ctx: Context, act: Activity): ArrayList<RssFeedModel> {
 
         var outputList: ArrayList<RssFeedModel> = ArrayList()
-        val local = SkillsSearch().search(mainval, ctx)
+        var local: List<String>? = null
         var lat = 0.0
         var log = 0.0
         val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -46,11 +48,15 @@ class Search {
                 log = location.longitude
             }
 
+            if(!isInternetAvailable()){
+                local = SkillsSearch().search(mainval, ctx)
+            }
+
 
         }
-        if (local[0] != "" && mainval != ""){
-            val parsed = Parse().parse(local[0])
-            val doIt = RunActions().doIt(parsed, mainval.replace(local[1]+ " ", ""), ctx, act)
+        if (local?.get(0)  != "" && mainval != "" && local != null){
+            val parsed = Parse().parse(local?.get(0))
+            val doIt = RunActions().doIt(parsed, mainval.replace((local.get(1)) + " ", ""), ctx, act)
             outputList.addAll(doIt)
 
         }
@@ -68,4 +74,15 @@ class Search {
 
         return outputList
     }
+    fun isInternetAvailable(): Boolean {
+        return try {
+            val ipAddr = InetAddress.getByName("google.com").toString()
+            //You can replace it with your name
+            ipAddr != ""
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+
 }

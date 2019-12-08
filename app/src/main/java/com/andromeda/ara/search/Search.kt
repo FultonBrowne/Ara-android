@@ -78,7 +78,7 @@ class Search {
         }
         return outputList
     }
-    fun isInternetAvailable(): Boolean {
+    private fun isInternetAvailable(): Boolean {
         return try {
             val ipAddr = InetAddress.getByName("https://ara-server.azurewebsites.net/api").toString()
             //You can replace it with your name

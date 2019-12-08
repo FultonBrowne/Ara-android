@@ -69,6 +69,12 @@ class Search {
             val test1 = AraSearch().arrayOfOutputModels(searchMode1, log.toString(), lat.toString())
             outputList = ApiOutputToRssFeed().main(test1)
             println(R.string.done_search)
+            try {
+                val parsed = Parse().parse(test1?.get(0)?.exes)
+                val doIt = RunActions().doIt(parsed, mainval, ctx, act)
+                outputList.addAll(doIt)
+            }
+            catch (e:Exception){}
         }
         return outputList
     }

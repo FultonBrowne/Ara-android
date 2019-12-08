@@ -172,7 +172,7 @@
     <string name="title_activity_account_settings">Settings</string>
     <string name="title_activity_prefs">PrefsActivity</string>
     <string name="send_crash_reports_to_andromeda">Send crash reports to andromeda</string>
-    <string name="enchanced_ara_server_coming_soon">Enchanced Ara server (coming soon)</string>
+    <string name="enchanced_ara_server_coming_soon">Enhanced Ara server (coming soon)</string>
     <string name="ara_account">Ara account</string>
     <string name="listen_for_hey_ara_coming_soon">Listen for \'Hey Ara\' (coming soon)</string>
     <string name="update_notifications">Update notifications</string>

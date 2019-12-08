@@ -47,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Send crash reports to andromeda"
+                    android:text="@string/send_crash_reports_to_andromeda"
                     android:textColor="#FFFFFF" />
 
                 <Switch
@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Ara acount"
+                    android:text="@string/ara_account"
                     android:textColor="#FFFFFF" />
 
                 <Switch
@@ -63,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Enchanced Ara server (coming soon)"
+                    android:text="@string/enchanced_ara_server_coming_soon"
                     android:textColor="#FFFFFF" />
 
 
@@ -85,14 +85,14 @@
                     android:id="@+id/switch4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Listen for  'Hey Ara' (coming soon)"
+                    android:text="@string/listen_for_hey_ara_coming_soon"
                     android:textColor="#FFFFFF" />
 
                 <Switch
                     android:id="@+id/switch5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Update notifications"
+                    android:text="@string/update_notifications"
                     android:textColor="#FFFFFF" />
 
             </LinearLayout>
@@ -115,14 +115,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="account"
-                    android:text="Account settings" />
+                    android:text="@string/account_settings" />
 
                 <Button
                     android:id="@+id/button3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="passwordReset"
-                    android:text="Reset password" />
+                    android:text="@string/reset_password" />
+                <Button
+                        android:text="@string/submit_a_feature_request_or_bug"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/button4"
+                />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

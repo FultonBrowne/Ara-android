@@ -127,6 +127,7 @@
                         android:text="@string/submit_a_feature_request_or_bug"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:id="@+id/button4"
+                        android:onClick="bug"
                 />
             </LinearLayout>
 

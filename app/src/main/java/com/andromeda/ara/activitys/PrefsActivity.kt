@@ -75,4 +75,8 @@ class PrefsActivity : AppCompatActivity() {
         val browserIntent =  Intent(Intent.ACTION_VIEW, Uri.parse("https://AraLogIn.b2clogin.com/AraLogIn.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_passwordReset&client_id=c6063f12-fa37-47bc-aa5d-604e60d197c2&nonce=defaultNonce&redirect_uri=https%3A%2F%2Faralogin.b2clogin.com%2Faralogin.onmicrosoft.com%2Foauth2%2Fauthresp&scope=openid&response_type=code&prompt=login"));
         startActivity(browserIntent)
     }
+    fun bug(view: View) {
+        val browserIntent =  Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FultonBrowne/Ara-android/issues"));
+        startActivity(browserIntent)
+    }
 }

@@ -44,6 +44,7 @@ class AraSearch {
 
         }
 
+
         return JsonParse().search(text)
 
 

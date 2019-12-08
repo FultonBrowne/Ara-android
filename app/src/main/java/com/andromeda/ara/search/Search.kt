@@ -70,13 +70,11 @@ class Search {
             outputList = ApiOutputToRssFeed().main(test1)
             println(R.string.done_search)
         }
-
-
         return outputList
     }
     fun isInternetAvailable(): Boolean {
         return try {
-            val ipAddr = InetAddress.getByName("google.com").toString()
+            val ipAddr = InetAddress.getByName("https://ara-server.azurewebsites.net/api").toString()
             //You can replace it with your name
             ipAddr != ""
         } catch (e: Exception) {

@@ -48,9 +48,8 @@ class Search {
                 log = location.longitude
             }
 
-            if(!isInternetAvailable()){
                 local = SkillsSearch().search(mainval, ctx)
-            }
+
 
 
         }

@@ -29,4 +29,8 @@
         <bitmap android:gravity="top|left" android:src="@mipmap/ic_launcher_foreground"
             />
     </item>
+    <item>
+        <bitmap android:gravity="bottom" android:src="@drawable/bottom_icon"
+        />
+    </item>
 </layer-list>

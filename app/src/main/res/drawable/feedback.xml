@@ -20,7 +20,7 @@
 
     <item>
         <bitmap
-                android:gravity="center|bottom|clip_vertical"
+                android:gravity="fill|left|center"
                 android:src="@drawable/backformain" />
     </item>
 

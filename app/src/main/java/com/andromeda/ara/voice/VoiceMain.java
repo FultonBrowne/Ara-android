@@ -97,7 +97,7 @@ public class VoiceMain extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.listVoice);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Adapter adapter = new Adapter(Collections.singletonList(new RssFeedModel("hello", "how can I help", "", "", "")));
+        Adapter adapter = new Adapter(Collections.singletonList(new RssFeedModel("hello", "how can I help", "", "", "", true)));
         recyclerView.setAdapter(adapter);
         requestMicrophonePermission();
 

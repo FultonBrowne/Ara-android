@@ -38,7 +38,7 @@ public class ApiOutputToRssFeed {
                 String mlink = tofeed.get(i).link;
                 String mOut = tofeed.get(i).OutputTxt;
                 String mPic = "";
-                RssFeedModel mainModel = new RssFeedModel(mInfo, mlink, mTitle, mPic, mOut);
+                RssFeedModel mainModel = new RssFeedModel(mInfo, mlink, mTitle, mPic, mOut, true);
                 System.out.println(mOut);
                 feedModels.add(mainModel);
 

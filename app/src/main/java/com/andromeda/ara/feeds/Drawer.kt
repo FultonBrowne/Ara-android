@@ -76,7 +76,7 @@ class Drawer {
 
                     title1 = cursor.getString(1)
                     web1 = cursor.getString(2)
-                    test = RssFeedModel(title1, web1, "", "", "")
+                    test = RssFeedModel(title1, web1, "", "", "", false)
 
                     rssFeedModel1.add(test)
                     cursor.moveToNext()
@@ -84,7 +84,7 @@ class Drawer {
             } else {
                 title1 = "nothing"
                 web1 = "reload app"
-                test = RssFeedModel(title1, web1, "", "", "")
+                test = RssFeedModel(title1, web1, "", "", "", false)
                 rssFeedModel1.add(test)
 
 

@@ -58,7 +58,7 @@ public class CalUtility {
             String startDates = (getDate(Long.parseLong(cursor.getString(3))));
             String endDates = (getDate(Long.parseLong(cursor.getString(4))));
             String descriptions = (cursor.getString(2));
-            main.add(new RssFeedModel(nameOfEvent, "", startDates + endDates + System.lineSeparator() + descriptions, "", ""));
+            main.add(new RssFeedModel(nameOfEvent, "", startDates + endDates + System.lineSeparator() + descriptions, "", "", true));
             CNames[i] = cursor.getString(1);
             cursor.moveToNext();
 

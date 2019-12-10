@@ -25,13 +25,15 @@ public class RssFeedModel {
     public String description;
     public String image;
     public String out;
+    public Boolean longText;
 
-    public RssFeedModel(String description, String link, String title, String image, @Nullable String out) {
+    public RssFeedModel(String description, String link, String title, String image, @Nullable String out, Boolean longText) {
         this.title = title;
         this.link = link;
         this.description = description;
         this.image = image;
         this.out = out;
+        this.longText = longText;
     }
 }
 

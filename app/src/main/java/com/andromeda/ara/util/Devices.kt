@@ -28,7 +28,7 @@ class Devices {
         val toBeParsed = Data.list(DeviceModel::class.java
                 , DefaultPartitions.USER_DOCUMENTS)
 
-        returnVal.add(RssFeedModel("nothing the here", "", "", "", ""))
+        returnVal.add(RssFeedModel("nothing the here", "", "", "", "", true))
         //returnVal.add(RssFeedModel(toBeParsed.get().currentPage.items[0].deserializedValue.name, "","", "", ""))
 
         //toBeParsed.get()

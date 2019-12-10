@@ -19,6 +19,8 @@ package com.andromeda.ara.skills
 import android.accounts.Account
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.util.YamlModel
 import com.fasterxml.jackson.core.type.TypeReference
@@ -55,6 +57,12 @@ class RunActions {
                 }
                 "OUTPUT" -> {
                     returnedVal.add(RssFeedModel(i.arg2,"", i.arg1, "", "", true))
+                }
+                "SITE" -> {
+                    arg1 = if (i.arg1 == "TERM") searchTerm
+                    else i.arg1
+                    val browserIntent =  Intent(Intent.ACTION_VIEW, Uri.parse(arg1))
+                    act.startActivity(browserIntent)
                 }
 
 

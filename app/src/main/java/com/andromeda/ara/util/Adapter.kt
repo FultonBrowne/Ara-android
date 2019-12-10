@@ -16,6 +16,8 @@
 
 package com.andromeda.ara.util
 
+import android.text.InputFilter
+import android.text.InputFilter.LengthFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +25,7 @@ import android.view.animation.AlphaAnimation
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
+
 
 /**
  * Adapter class for RSS
@@ -41,7 +44,12 @@ class Adapter(private val mRssFeedModels: List<RssFeedModel>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {
         //set values
         val rssFeedModel = mRssFeedModels[position]
-        (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView).text = rssFeedModel.description
+        val desc = (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView)
+        desc.text = rssFeedModel.description
+        val filterArray = arrayOfNulls<InputFilter>(1)
+        filterArray[0] = LengthFilter(40)
+
+        if (!rssFeedModel.longText) desc.filters = filterArray
         (holder.rssFeedView.findViewById<View>(R.id.content) as TextView).text = rssFeedModel.title
         //animate
         setFadeAnimation(holder.itemView)

@@ -16,7 +16,7 @@
 
 package com.andromeda.ara.skills
 
-import com.andromeda.ara.util.YamlModel
+import com.andromeda.ara.util.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.type.CollectionType
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
@@ -25,9 +25,9 @@ import java.io.IOException
 
 
 class Parse{
-    fun parse(yml:String?): ArrayList<YamlModel>? {
+    fun parse(yml:String?): ArrayList<SkillsModel>? {
         print(yml)
-        val classsss:Class<YamlModel>? = YamlModel::class.java
+        val classsss:Class<SkillsModel>? = SkillsModel::class.java
         var mapper = YAMLMapper()
 
       return  yamlArrayToObjectList(yml, classsss)

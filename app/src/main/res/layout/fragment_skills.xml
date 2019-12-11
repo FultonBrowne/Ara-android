@@ -16,7 +16,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
+              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical">
 
@@ -44,4 +44,8 @@
             android:text="arg2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/arg2"/>
+    <Button
+            android:text="save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/button5" tools:text="save"/>
 </LinearLayout>

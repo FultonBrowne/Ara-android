@@ -16,20 +16,17 @@
 
 package com.andromeda.ara.skills
 
-import android.accounts.Account
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.andromeda.ara.util.RssFeedModel
-import com.andromeda.ara.util.YamlModel
-import com.fasterxml.jackson.core.type.TypeReference
-import org.yaml.snakeyaml.Yaml
+import com.andromeda.ara.util.SkillsModel
 import java.util.*
 
 
 class RunActions {
-    fun doIt(yaml: ArrayList<YamlModel>?, searchTerm: String, ctx:Context, act: Activity): ArrayList<RssFeedModel> {
+    fun doIt(yaml: ArrayList<SkillsModel>?, searchTerm: String, ctx:Context, act: Activity): ArrayList<RssFeedModel> {
         val returnedVal = ArrayList<RssFeedModel>()
 
         var arg1: String

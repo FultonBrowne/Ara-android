@@ -16,18 +16,16 @@
 
 package com.andromeda.ara.util;
 
-public class YamlModel {
+public class SkillsModel {
     public String action;
     public String arg1;
     public String arg2;
 
 
-    public YamlModel(String action, String arg1, String arg2) {
+    public SkillsModel(String action, String arg1, String arg2) {
         this.action = action;
         this.arg1 = arg1;
         this.arg2 = arg2;
     }
-    public YamlModel(){
 
-    }
 }

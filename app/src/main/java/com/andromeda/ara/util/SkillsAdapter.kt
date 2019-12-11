@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.fragment_skills.view.*
  * TODO: Replace the implementation with code for your data type.
  */
 class SkillsAdapter(
-        private val mValues: List<DummyItem>,
+        private val mValues: List<SkillsModel>,
         private val mListener: OnListFragmentInteractionListener?)
     : RecyclerView.Adapter<SkillsAdapter.ViewHolder>() {
 
@@ -58,8 +58,8 @@ class SkillsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mIdView.text = item.id
-        holder.mContentView.text = item.content
+        holder.mIdView.text = item.action
+        holder.mContentView.text = item.arg1
 
         with(holder.mView) {
             tag = item

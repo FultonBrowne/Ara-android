@@ -30,6 +30,8 @@ import com.andromeda.ara.R
 import com.andromeda.ara.skills.dummy.DummyContent
 import com.andromeda.ara.skills.dummy.DummyContent.DummyItem
 import com.andromeda.ara.util.SkillsAdapter
+import com.andromeda.ara.util.SkillsModel
+import java.util.ArrayList
 
 /**
  * A fragment representing a list of Items.
@@ -62,7 +64,10 @@ class skillsFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = SkillsAdapter(DummyContent.ITEMS, listener)
+                val yml = ArrayList<SkillsModel>()
+
+                yml.add(SkillsModel("OPEN_APP", "TERM", ""))
+                adapter = SkillsAdapter(yml, listener)
             }
         }
         return view
@@ -73,7 +78,7 @@ class skillsFragment : Fragment() {
         if (context is OnListFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
+            throw RuntimeException("$context must implement OnListFragmentInteractionListener")
         }
     }
 
@@ -102,8 +107,6 @@ class skillsFragment : Fragment() {
 
         // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
                 skillsFragment().apply {

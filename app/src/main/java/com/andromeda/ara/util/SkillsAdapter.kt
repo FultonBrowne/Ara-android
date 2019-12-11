@@ -24,7 +24,7 @@ import android.widget.TextView
 import com.andromeda.ara.R
 
 
-import com.andromeda.ara.skills.skillsFragment.OnListFragmentInteractionListener
+import com.andromeda.ara.skills.SkillsFragment.OnListFragmentInteractionListener
 import com.andromeda.ara.skills.dummy.DummyContent.DummyItem
 
 import kotlinx.android.synthetic.main.fragment_skills.view.*

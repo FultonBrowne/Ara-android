@@ -27,7 +27,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.andromeda.ara.R
 
-import com.andromeda.ara.skills.dummy.DummyContent
 import com.andromeda.ara.skills.dummy.DummyContent.DummyItem
 import com.andromeda.ara.util.SkillsAdapter
 import com.andromeda.ara.util.SkillsModel
@@ -36,9 +35,9 @@ import java.util.ArrayList
 /**
  * A fragment representing a list of Items.
  * Activities containing this fragment MUST implement the
- * [skillsFragment.OnListFragmentInteractionListener] interface.
+ * [SkillsFragment.OnListFragmentInteractionListener] interface.
  */
-class skillsFragment : Fragment() {
+class SkillsFragment : Fragment() {
 
     // TODO: Customize parameters
     private var columnCount = 1
@@ -109,7 +108,7 @@ class skillsFragment : Fragment() {
         const val ARG_COLUMN_COUNT = "column-count"
         @JvmStatic
         fun newInstance(columnCount: Int) =
-                skillsFragment().apply {
+                SkillsFragment().apply {
                     arguments = Bundle().apply {
                         putInt(ARG_COLUMN_COUNT, columnCount)
                     }

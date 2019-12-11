@@ -29,9 +29,7 @@ class Devices {
                 , DefaultPartitions.USER_DOCUMENTS)
 
         returnVal.add(RssFeedModel("nothing the here", "", "", "", "", true))
-        //returnVal.add(RssFeedModel(toBeParsed.get().currentPage.items[0].deserializedValue.name, "","", "", ""))
-
-        //toBeParsed.get()
+        //returnVal.add(RssFeedModel(toBeParsed.get().currentPage.items[0].deserializedValue.name, "","", "", "", true))
         return returnVal
     }
     fun addOne(toAdd: DeviceModel){

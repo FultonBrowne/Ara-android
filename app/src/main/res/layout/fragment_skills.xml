@@ -18,7 +18,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:orientation="horizontal">
+              android:orientation="vertical">
 
     <TextView
             android:id="@+id/item_number"
@@ -33,4 +33,15 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:textAppearance="?attr/textAppearanceListItem"/>
+    <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/spinner_task"/>
+    <MultiAutoCompleteTextView
+            android:text="agr1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/arg1"/>
+    <MultiAutoCompleteTextView
+            android:text="arg2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/arg2"/>
 </LinearLayout>

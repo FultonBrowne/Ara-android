@@ -23,6 +23,8 @@ import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import com.andromeda.ara.util.OnDeviceSkills
 import com.andromeda.ara.util.OnDeviceSkillsDB
+import com.andromeda.ara.util.RssFeedModel
+import java.util.ArrayList
 
 class UserSkills (c: Context?){
     private var dbHelper: OnDeviceSkillsDB? = null
@@ -58,4 +60,16 @@ class UserSkills (c: Context?){
         cursor?.moveToFirst()
         return cursor
     }
+
+    fun getAsRssFeedModel(){
+        val cursor = fetch()
+        val toReturn = ArrayList<RssFeedModel>()
+        if (cursor != null) {
+            while (!cursor.isAfterLast){
+                toReturn.add(RssFeedModel("TODO", cursor.getString(3), cursor.getString(2), "", "", true ))
+            }
+
+        }
+    }
+
 }

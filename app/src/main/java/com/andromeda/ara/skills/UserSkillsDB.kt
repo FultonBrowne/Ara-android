@@ -44,6 +44,7 @@ class UserSkillsDB(context: Context) : SQLiteOpenHelper(context, UserSkillsDB.DB
         const val ID = "_id"
         const val PRE = "hotword"
         const val ACT = "action"
+        const val NAME = "name"
 
         // Database Information
         private const val DB_NAME = "USERSKILLS.DB"
@@ -53,6 +54,7 @@ class UserSkillsDB(context: Context) : SQLiteOpenHelper(context, UserSkillsDB.DB
 
         // Creating table query
         private const val CREATE_TABLE = ("create table " + TABLE_NAME + "(" + ID
-                + " INTEGER PRIMARY KEY AUTOINCREMENT, " + PRE + " TEXT NOT NULL, " + ACT + " TEXT);")
+                + " INTEGER PRIMARY KEY AUTOINCREMENT, " + PRE + " TEXT NOT NULL, " + NAME + " TEXT NOT NULL, "+ ACT + " TEXT);")
+
     }
 }

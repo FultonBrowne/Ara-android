@@ -16,16 +16,24 @@
 
 package com.andromeda.ara.util
 
-import android.text.InputFilter
+
+
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 
-class SkillsAdapter(private val list: List<SkillsModel>) : RecyclerView.Adapter<SkillsAdapter.FeedModelViewHolder>() {
+
+class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : RecyclerView.Adapter<SkillsAdapter.FeedModelViewHolder>() {
+    val activity = act
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): SkillsAdapter.FeedModelViewHolder {
         //Inflate the card view
         val v = LayoutInflater.from(parent.context)
@@ -40,8 +48,19 @@ class SkillsAdapter(private val list: List<SkillsModel>) : RecyclerView.Adapter<
         val model = list[position]
         val desc = (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView)
         desc.text = model.action
-        val filterArray = arrayOfNulls<InputFilter>(1)
-        filterArray[0] = InputFilter.LengthFilter(40)
+        val spinner = holder.rssFeedView.findViewById<View>(R.id.spinner_task) as Spinner
+        var adapter1: ArrayAdapter<CharSequence?> = ArrayAdapter.createFromResource(this.activity.applicationContext, R.array.action_array, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter1);
+        spinner.setOnItemSelectedListener(object : OnItemSelectedListener {
+            override fun onItemSelected(arg0: AdapterView<*>?, arg1: View,
+                                        position: Int, id: Long) {
+            }
+
+            override fun onNothingSelected(arg0: AdapterView<*>?) {}
+        })
+
+
 
         setFadeAnimation(holder.itemView)
     }

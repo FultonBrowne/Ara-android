@@ -62,6 +62,13 @@
         <item>6 hours</item>
         <item>Never</item>
     </string-array>
+    <string-array name="action_array">
+        <item>call</item>
+        <item>text</item>
+        <item>pause or play media</item>
+        <item>print text</item>
+        <item>open an app</item>
+    </string-array>
     <string-array name="pref_sync_frequency_values">
         <item>15</item>
         <item>30</item>

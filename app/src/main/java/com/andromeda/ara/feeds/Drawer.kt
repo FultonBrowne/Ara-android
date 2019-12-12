@@ -103,7 +103,9 @@ class Drawer {
         }
         else if (drawerItem == 6L){
             //rssFeedModel1 = ApiOutputToRssFeed().main(Skills().getThem())
-            rssFeedModel1 = UserSkills(ctx).getAsRssFeedModel()
+            val userSkills = UserSkills(ctx)
+            userSkills.open()
+            rssFeedModel1 = userSkills.getAsRssFeedModel()
 
         }
         else if (drawerItem == 7L){

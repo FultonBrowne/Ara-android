@@ -27,7 +27,7 @@ import com.andromeda.ara.util.RssFeedModel
 import java.util.ArrayList
 
 class UserSkills (c: Context?){
-    private var dbHelper: OnDeviceSkillsDB? = null
+    private var dbHelper: UserSkillsDB? = null
 
     private var context: Context? =c
 
@@ -37,7 +37,7 @@ class UserSkills (c: Context?){
 
     @Throws(SQLException::class)
     fun open(): UserSkills? {
-        dbHelper = OnDeviceSkillsDB(context!!)
+        dbHelper = UserSkillsDB(context!!)
         database = dbHelper!!.writableDatabase
         return this
     }
@@ -46,11 +46,12 @@ class UserSkills (c: Context?){
         dbHelper!!.close()
     }
 
-    fun insert(pre: String?, end: String?, act: String?) {
+    fun insert(pre: String?, name: String?, act: String?) {
         val contentValue = ContentValues()
         contentValue.put(UserSkillsDB.PRE, pre)
         contentValue.put(UserSkillsDB.ACT, act)
-        database!!.insertWithOnConflict(OnDeviceSkillsDB.TABLE_NAME, null, contentValue, SQLiteDatabase.CONFLICT_REPLACE)
+        contentValue.put(UserSkillsDB.NAME, name)
+        database!!.insertWithOnConflict(UserSkillsDB.TABLE_NAME, null, contentValue, SQLiteDatabase.CONFLICT_REPLACE)
     }
 
 
@@ -62,6 +63,7 @@ class UserSkills (c: Context?){
     }
 
     fun getAsRssFeedModel(): ArrayList<RssFeedModel> {
+
         val cursor = fetch()
         val toReturn = ArrayList<RssFeedModel>()
         if (cursor != null) {

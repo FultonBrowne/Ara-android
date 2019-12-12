@@ -179,11 +179,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(DrawerModeConstants.HOME).withName("Home").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.home);
-        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName("Tags").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.tag);
-        SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName("Food").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.food);
-        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(4).withName("Shopping").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.shop);
-        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5).withName("Agenda").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.ic_today_black_24dp);
-        SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(6).withName("Shortcuts").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.shortcut);
+        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.TAGS).withName("Tags").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.tag);
+        SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.FOOD).withName("Food").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.food);
+        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.SHOP).withName("Shopping").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.shop);
+        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.CAL).withName("Agenda").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.ic_today_black_24dp);
+        SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.SHORTCUTS).withName("Shortcuts").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.shortcut);
         SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Devices").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.devices);
         SecondaryDrawerItem news1 = new SecondaryDrawerItem().withIdentifier(102).withName("Tech").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.technews);
         SecondaryDrawerItem news3 = new SecondaryDrawerItem().withIdentifier(104).withName("Domestic").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.domnews);
@@ -264,7 +264,6 @@ public class MainActivity extends AppCompatActivity {
 
                     browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
                     startActivity(browserIntent);
-
 
             }
 

@@ -14,13 +14,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.constants
+package com.andromeda.ara.util
 
-object DrawerModeConstants {
-    const val HOME = 1
-    const val TAGS = 2
-    const val FOOD = 3
-    const val SHOP = 4
-    const val CAL = 5
-    const val SHORTCUTS = 6
+class CardOnClick {
+    fun mainFun(){
+
+    }
 }

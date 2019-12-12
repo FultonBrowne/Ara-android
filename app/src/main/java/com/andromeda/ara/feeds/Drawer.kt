@@ -28,6 +28,7 @@ import androidx.core.app.ActivityCompat
 
 import com.andromeda.ara.R
 import com.andromeda.ara.phoneData.CalUtility
+import com.andromeda.ara.skills.UserSkills
 import com.andromeda.ara.util.*
 
 import java.io.IOException
@@ -101,7 +102,9 @@ class Drawer {
             rssFeedModel1 = CalUtility.readCalendarEvent(ctx)
         }
         else if (drawerItem == 6L){
-            rssFeedModel1 = ApiOutputToRssFeed().main(Skills().getThem())
+            //rssFeedModel1 = ApiOutputToRssFeed().main(Skills().getThem())
+            rssFeedModel1 = UserSkills(ctx).getAsRssFeedModel()
+
         }
         else if (drawerItem == 7L){
             rssFeedModel1 = Devices().getAll(activity)

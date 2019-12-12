@@ -61,7 +61,7 @@ class UserSkills (c: Context?){
         return cursor
     }
 
-    fun getAsRssFeedModel(){
+    fun getAsRssFeedModel(): ArrayList<RssFeedModel> {
         val cursor = fetch()
         val toReturn = ArrayList<RssFeedModel>()
         if (cursor != null) {
@@ -70,6 +70,7 @@ class UserSkills (c: Context?){
             }
 
         }
+        return toReturn
     }
 
 }

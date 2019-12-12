@@ -29,7 +29,7 @@ class SkillsAdapter(private val list: List<SkillsModel>) : RecyclerView.Adapter<
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): SkillsAdapter.FeedModelViewHolder {
         //Inflate the card view
         val v = LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_skills_list, parent, false)
+                .inflate(R.layout.fragment_skills, parent, false)
 
         return FeedModelViewHolder(v)
     }
@@ -39,13 +39,10 @@ class SkillsAdapter(private val list: List<SkillsModel>) : RecyclerView.Adapter<
         //set values
         val model = list[position]
         val desc = (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView)
-        //desc.text = model.description
+        desc.text = model.action
         val filterArray = arrayOfNulls<InputFilter>(1)
         filterArray[0] = InputFilter.LengthFilter(40)
 
-       // if (!model.longText) desc.filters = filterArray
-        //(holder.rssFeedView.findViewById<View>(R.id.content) as TextView).text = model.title
-        //animate
         setFadeAnimation(holder.itemView)
     }
 

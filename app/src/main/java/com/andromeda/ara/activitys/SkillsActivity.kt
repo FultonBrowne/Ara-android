@@ -17,10 +17,13 @@
 package com.andromeda.ara.activitys
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
-
+import com.andromeda.ara.util.SkillsAdapter
+import com.andromeda.ara.util.SkillsModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_skills.*
 
 class SkillsActivity : AppCompatActivity() {
@@ -34,6 +37,12 @@ class SkillsActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+        val recView = findViewById<RecyclerView>(R.id.listSkills)
+        recView.layoutManager = LinearLayoutManager(this)
+        val test = mutableListOf<SkillsModel>( SkillsModel("", "", ""))
+        val adapter = SkillsAdapter(test)
+        recView.adapter = adapter
+
     }
 
 }

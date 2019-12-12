@@ -16,19 +16,19 @@
 
 package com.andromeda.ara.util
 
-import android.R
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+import com.andromeda.ara.activitys.About
+import com.andromeda.ara.activitys.SkillsActivity
 import com.andromeda.ara.constants.DrawerModeConstants
 
 
 class CardOnClick {
-    fun mainFun(mode:Int, linkText:String, act:Activity){
-        if(mode == DrawerModeConstants.SHORTCUTS){
-
+    fun mainFun(mode:Long, linkText:String, act:Activity, ctx:Context){
+        if(mode == DrawerModeConstants.SHORTCUTS.toLong()){
+            act.startActivity(Intent(ctx, SkillsActivity::class.java))
 
         }
         else{

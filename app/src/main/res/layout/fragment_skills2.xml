@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         tools:showIn="@layout/activity_skills"
         tools:context=".activitys.SkillsActivityFragment">
-    <include android:layout_width="0dp" android:layout_height="0dp" layout="@layout/fragment_skills"
+    <include android:layout_width="0dp" android:layout_height="0dp" layout="@layout/fragment_skills_list"
              app:layout_constraintStart_toStartOf="parent"
              app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
              app:layout_constraintBottom_toBottomOf="parent"/>

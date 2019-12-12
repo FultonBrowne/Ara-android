@@ -17,6 +17,7 @@
 package com.andromeda.ara.activitys
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,7 +38,7 @@ class SkillsActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
-        val recView = findViewById<RecyclerView>(R.id.listSkills)
+        val recView = findViewById<View>(R.id.listSkills) as RecyclerView
         recView.layoutManager = LinearLayoutManager(this)
         val test = mutableListOf<SkillsModel>( SkillsModel("", "", ""))
         val adapter = SkillsAdapter(test)

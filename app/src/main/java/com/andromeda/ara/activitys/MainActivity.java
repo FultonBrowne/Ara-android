@@ -54,14 +54,7 @@ import com.andromeda.ara.constants.DrawerModeConstants;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.search.Search;
-import com.andromeda.ara.util.Adapter;
-import com.andromeda.ara.util.GetSettings;
-import com.andromeda.ara.util.LogIn;
-import com.andromeda.ara.util.PushUtil;
-import com.andromeda.ara.util.RecyclerTouchListener;
-import com.andromeda.ara.util.RssFeedModel;
-import com.andromeda.ara.util.Locl;
-import com.andromeda.ara.util.TagManager;
+import com.andromeda.ara.util.*;
 import com.andromeda.ara.voice.VoiceMain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.microsoft.appcenter.AppCenter;
@@ -114,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences mPrefs;
     String mEmail;
     String mName;
+    Activity act;
 
 
 
@@ -141,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        act = this;
 
         Push.setListener(new PushUtil());
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
@@ -260,10 +255,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                    Intent browserIntent;
+                    //Intent browserIntent;
 
-                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
-                    startActivity(browserIntent);
+                    //browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
+                    //startActivity(browserIntent);
+                new CardOnClick().mainFun(mode, rssFeedModel1.get(position).link, act, getApplicationContext());
 
             }
 

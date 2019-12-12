@@ -20,7 +20,7 @@
     <string name="action_about">About</string>
     <string name="greet">Hello, can I help?</string>
     <string name="greet1">Hello, @string/greet</string>
-    <string name="blank" />
+    <string name="blank"/>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -83,7 +83,7 @@
         <item>3</item>
     </string-array>
 
-    <string-array name="multi_select_list_preference_default_value" />
+    <string-array name="multi_select_list_preference_default_value"/>
 
     <string name="pref_title_system_sync_settings">System sync settings</string>
 
@@ -103,7 +103,8 @@
     <string name="add_widget">Add widget</string>
     <string name="title_activity_about">about</string>
     <string name="large_text">
-        Ara is a privacy and productivity and minded open source voice assistant. Ara uses the latest cutting edge, open source tech such as OpenNLP, Mozilla DeepSpeech, and TensorFlow.
+        Ara is a privacy and productivity and minded open source voice assistant. Ara uses the latest cutting edge, open
+        source tech such as OpenNLP, Mozilla DeepSpeech, and TensorFlow.
     </string>
     <string name="image">Camera</string>
     <string-array name="front">Hello @array/pref_example_list_values</string-array>
@@ -120,7 +121,7 @@
     <string name="prompt_firstname">First name</string>
     <string name="welcome1">Welcome to Ara! To start what is your first name?</string>
     <string name="done">finish and open Ara</string>
-    <string name="themeMode" />
+    <string name="themeMode"/>
     <string name="theme">Force dark theme</string>
     <string name="keytheme">list_preference_1</string>
     <string name="default1">System default</string>
@@ -179,4 +180,5 @@
     <string name="account_settings">Account settings</string>
     <string name="reset_password">Reset password</string>
     <string name="submit_a_feature_request_or_bug">Submit A feature request or bug</string>
+    <string name="title_activity_skills">SkillsActivity</string>
 </resources>

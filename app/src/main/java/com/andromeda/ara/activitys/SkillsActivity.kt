@@ -14,28 +14,26 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util
+package com.andromeda.ara.activitys
 
-import android.R
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import com.andromeda.ara.constants.DrawerModeConstants
+import android.os.Bundle
+import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AppCompatActivity
+import com.andromeda.ara.R
 
+import kotlinx.android.synthetic.main.activity_skills.*
 
-class CardOnClick {
-    fun mainFun(mode:Int, linkText:String, act:Activity){
-        if(mode == DrawerModeConstants.SHORTCUTS){
+class SkillsActivity : AppCompatActivity() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_skills)
+        setSupportActionBar(toolbar)
 
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
         }
-        else{
-
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(linkText))
-                    act.startActivity(browserIntent)
-        }
-
     }
+
 }

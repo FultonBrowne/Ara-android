@@ -14,28 +14,22 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util
+package com.andromeda.ara.activitys
 
-import android.R
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import com.andromeda.ara.constants.DrawerModeConstants
+import androidx.fragment.app.Fragment
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.andromeda.ara.R
 
+/**
+ * A placeholder fragment containing a simple view.
+ */
+class SkillsActivityFragment : Fragment() {
 
-class CardOnClick {
-    fun mainFun(mode:Int, linkText:String, act:Activity){
-        if(mode == DrawerModeConstants.SHORTCUTS){
-
-
-        }
-        else{
-
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(linkText))
-                    act.startActivity(browserIntent)
-        }
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_skills2, container, false)
     }
 }

@@ -55,7 +55,7 @@
         <item name="android:layout_marginRight">4dp</item>
     </style>
 
-    <style name="ButtonDialogAlert" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog" />
+    <style name="ButtonDialogAlert" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog"/>
 
     <style name="AppTheme.Translucent" parent="AppTheme.NoActionBar">
         <item name="android:windowNoTitle">true</item>
@@ -67,8 +67,8 @@
     </style>
 
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 </resources>

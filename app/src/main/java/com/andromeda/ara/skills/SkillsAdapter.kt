@@ -24,11 +24,9 @@ import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.util.SkillsModel
-import kotlinx.android.synthetic.main.fragment_skills.view.*
 import java.util.ArrayList
 
 

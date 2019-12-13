@@ -48,11 +48,12 @@ class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : Recycle
         desc.text = model.action
         val spinner = holder.rssFeedView.findViewById<View>(R.id.spinner_task) as Spinner
         val adapter1: ArrayAdapter<CharSequence?> = ArrayAdapter.createFromResource(this.activity.applicationContext, R.array.action_array, android.R.layout.simple_spinner_item);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.setAdapter(adapter1);
         spinner.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelected(arg0: AdapterView<*>?, arg1: View,
                                         position: Int, id: Long) {
+
             }
 
             override fun onNothingSelected(arg0: AdapterView<*>?) {}
@@ -67,7 +68,19 @@ class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : Recycle
         val arg1Text = holder.rssFeedView.findViewById<View>(R.id.arg1) as AutoCompleteTextView
         val arg2Text = holder.rssFeedView.findViewById<View>(R.id.arg2) as AutoCompleteTextView
         arg1Text.setAdapter(adapter)
-        arg2Text
+        arg2Text.setAdapter(adapter)
+        arg1Text.setOnDismissListener(object : AutoCompleteTextView.OnDismissListener{
+            override fun onDismiss() {
+
+            }
+
+        })
+        arg2Text.setOnDismissListener(object : AutoCompleteTextView.OnDismissListener{
+            override fun onDismiss() {
+
+            }
+
+        })
 
 
 

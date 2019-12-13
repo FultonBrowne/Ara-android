@@ -17,7 +17,6 @@
 package com.andromeda.ara.skills
 
 
-
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
@@ -25,13 +24,15 @@ import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.util.SkillsModel
+import kotlinx.android.synthetic.main.fragment_skills.view.*
 import java.util.ArrayList
 
 
-class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : RecyclerView.Adapter<SkillsAdapter.FeedModelViewHolder>() {
+class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : RecyclerView.Adapter<SkillsAdapter.FeedModelViewHolder>() {
     val activity = act
     val outList = ArrayList<TempSkillsStore>()
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): FeedModelViewHolder {
@@ -46,8 +47,8 @@ class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : Recycle
     override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {
         //set values
         val model = list[position]
-        val skills:SkillsModel? = null
-        val toOut:TempSkillsStore? = null
+        val skills: SkillsModel? = null
+        val toOut: TempSkillsStore? = null
         val desc = (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView)
         desc.text = model.action
         val spinner = holder.rssFeedView.findViewById<View>(R.id.spinner_task) as Spinner
@@ -57,6 +58,7 @@ class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : Recycle
         spinner.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelected(arg0: AdapterView<*>?, arg1: View,
                                         position: Int, id: Long) {
+                val text = adapter1.getItem(position).toString()
 
             }
 
@@ -73,22 +75,13 @@ class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : Recycle
         val arg2Text = holder.rssFeedView.findViewById<View>(R.id.arg2) as AutoCompleteTextView
         arg1Text.setAdapter(adapter)
         arg2Text.setAdapter(adapter)
-        arg1Text.setOnDismissListener(object : AutoCompleteTextView.OnDismissListener{
-            override fun onDismiss() {
-
-            }
-
-        })
-        arg2Text.setOnDismissListener(object : AutoCompleteTextView.OnDismissListener{
-            override fun onDismiss() {
-
-            }
-
-        })
+        arg1Text.setOnDismissListener { val text = arg1Text.text.toString() }
+        arg2Text.setOnDismissListener { val text = arg1Text.text.toString() }
 
 
 
         setFadeAnimation(holder.itemView)
+
     }
 
     override fun getItemCount(): Int {

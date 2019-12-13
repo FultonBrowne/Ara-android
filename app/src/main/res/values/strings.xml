@@ -83,6 +83,9 @@
         <item>Entry 2</item>
         <item>Entry 3</item>
     </string-array>
+    <string-array name="arg">
+        <item>Primary term</item>
+    </string-array>
 
     <string-array name="list_preference_entry_values">
         <item>1</item>

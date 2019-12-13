@@ -59,8 +59,15 @@ class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : Recycle
         })
         //TODO work on this
         spinner.setSelection(1)
+        //Creating the instance of ArrayAdapter containing list of fruit names
+        //Creating the instance of ArrayAdapter containing list of fruit names
+        val language = arrayOf("topic from command")
+        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(this.activity.applicationContext, android.R.layout.select_dialog_item, language)
+
         val arg1Text = holder.rssFeedView.findViewById<View>(R.id.arg1) as AutoCompleteTextView
         val arg2Text = holder.rssFeedView.findViewById<View>(R.id.arg2) as AutoCompleteTextView
+        arg1Text.setAdapter(adapter)
+        arg2Text
 
 
 

@@ -22,7 +22,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
-import com.andromeda.ara.util.SkillsAdapter
+import com.andromeda.ara.skills.Parse
+import com.andromeda.ara.skills.SkillsAdapter
 import com.andromeda.ara.util.SkillsModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_skills.*
@@ -33,7 +34,6 @@ class SkillsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_skills)
         setSupportActionBar(toolbar)
-
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
@@ -41,9 +41,9 @@ class SkillsActivity : AppCompatActivity() {
         val recView = findViewById<View>(R.id.listSkills) as RecyclerView
         recView.layoutManager = LinearLayoutManager(this)
         val test = mutableListOf<SkillsModel>( SkillsModel("test", "test", ""))
-        val adapter = SkillsAdapter(test, this)
+        val toAdapter = Parse().parse(intent.getStringExtra("linktext"))
+        val adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
         recView.adapter = adapter
-
     }
 
 }

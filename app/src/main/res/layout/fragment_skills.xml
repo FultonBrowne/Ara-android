@@ -44,8 +44,5 @@
             android:text="arg2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/arg2"/>
-    <Button
-            android:text="save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/button5" tools:text="save"/>
+
 </LinearLayout>

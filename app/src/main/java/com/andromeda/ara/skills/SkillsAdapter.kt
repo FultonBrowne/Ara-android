@@ -14,7 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util
+package com.andromeda.ara.skills
 
 
 
@@ -30,11 +30,12 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
+import com.andromeda.ara.util.SkillsModel
 
 
 class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : RecyclerView.Adapter<SkillsAdapter.FeedModelViewHolder>() {
     val activity = act
-    override fun onCreateViewHolder(parent: ViewGroup, type: Int): SkillsAdapter.FeedModelViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, type: Int): FeedModelViewHolder {
         //Inflate the card view
         val v = LayoutInflater.from(parent.context)
                 .inflate(R.layout.fragment_skills, parent, false)
@@ -49,7 +50,7 @@ class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : Recycle
         val desc = (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView)
         desc.text = model.action
         val spinner = holder.rssFeedView.findViewById<View>(R.id.spinner_task) as Spinner
-        var adapter1: ArrayAdapter<CharSequence?> = ArrayAdapter.createFromResource(this.activity.applicationContext, R.array.action_array, android.R.layout.simple_spinner_item);
+        val adapter1: ArrayAdapter<CharSequence?> = ArrayAdapter.createFromResource(this.activity.applicationContext, R.array.action_array, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter1);
         spinner.setOnItemSelectedListener(object : OnItemSelectedListener {
@@ -59,6 +60,8 @@ class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : Recycle
 
             override fun onNothingSelected(arg0: AdapterView<*>?) {}
         })
+        //TODO work on this
+        spinner.setSelection(1)
 
 
 

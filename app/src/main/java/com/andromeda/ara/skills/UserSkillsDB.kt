@@ -16,14 +16,9 @@
 
 package com.andromeda.ara.skills
 
-import android.app.Activity
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import androidx.recyclerview.widget.RecyclerView
-import com.andromeda.ara.util.OnDeviceSkillsDB
-import com.andromeda.ara.util.SkillsAdapter
-import com.andromeda.ara.util.SkillsModel
 
 class UserSkillsDB(context: Context) : SQLiteOpenHelper(context, UserSkillsDB.DB_NAME, null, UserSkillsDB.DB_VERSION) {
     override fun onCreate(db: SQLiteDatabase) {

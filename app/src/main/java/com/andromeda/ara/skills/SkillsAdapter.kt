@@ -47,23 +47,26 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
     override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {
         //set values
         val model = list[position]
-        val skills: SkillsModel? = null
-        val toOut: TempSkillsStore? = null
+        val mainNum = position
+        var skills: SkillsModel = model
+        var toOut: TempSkillsStore? = null
         val desc = (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView)
         desc.text = model.action
         val spinner = holder.rssFeedView.findViewById<View>(R.id.spinner_task) as Spinner
         val adapter1: ArrayAdapter<CharSequence?> = ArrayAdapter.createFromResource(this.activity.applicationContext, R.array.action_array, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.setAdapter(adapter1);
-        spinner.setOnItemSelectedListener(object : OnItemSelectedListener {
+        spinner.adapter = adapter1;
+        spinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(arg0: AdapterView<*>?, arg1: View,
                                         position: Int, id: Long) {
                 val text = adapter1.getItem(position).toString()
+                skills = SkillsModel(text, skills.arg1, skills.arg2)
+                toOut = TempSkillsStore(skills, mainNum)
 
             }
 
             override fun onNothingSelected(arg0: AdapterView<*>?) {}
-        })
+        }
         //TODO work on this
         spinner.setSelection(1)
         //Creating the instance of ArrayAdapter containing list of fruit names
@@ -75,8 +78,12 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
         val arg2Text = holder.rssFeedView.findViewById<View>(R.id.arg2) as AutoCompleteTextView
         arg1Text.setAdapter(adapter)
         arg2Text.setAdapter(adapter)
-        arg1Text.setOnDismissListener { val text = arg1Text.text.toString() }
-        arg2Text.setOnDismissListener { val text = arg1Text.text.toString() }
+        arg1Text.setOnDismissListener { val text = arg1Text.text.toString()
+            skills = SkillsModel(model.action, text, skills.arg2)
+            toOut = TempSkillsStore(skills, mainNum)}
+        arg2Text.setOnDismissListener { val text = arg1Text.text.toString()
+            skills = SkillsModel(model.action, skills.arg1, text)
+            toOut = TempSkillsStore(skills, mainNum)}
 
 
 

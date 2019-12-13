@@ -54,6 +54,7 @@ import com.andromeda.ara.constants.DrawerModeConstants;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.search.Search;
+import com.andromeda.ara.skills.UserSkills;
 import com.andromeda.ara.util.*;
 import com.andromeda.ara.voice.VoiceMain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -491,4 +492,10 @@ public class MainActivity extends AppCompatActivity {
         Auth.signOut();
     }
 
+    public void addSkill(MenuItem item) {
+        UserSkills userSkills = new UserSkills(this);
+        userSkills.open();
+        userSkills.insert("test", "test", "test");
+
+    }
 }

@@ -63,12 +63,12 @@ class UserSkills (c: Context?){
     }
 
     fun getAsRssFeedModel(): ArrayList<RssFeedModel> {
-
         val cursor = fetch()
         val toReturn = ArrayList<RssFeedModel>()
         if (cursor != null) {
             while (!cursor.isAfterLast){
-                toReturn.add(RssFeedModel("TODO", cursor.getString(3), cursor.getString(2), "", "", true ))
+                toReturn.add(RssFeedModel("TODO", cursor.getString(1), cursor.getString(2), "", "", true ))
+                cursor.moveToNext()
             }
 
         }

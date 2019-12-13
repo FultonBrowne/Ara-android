@@ -39,5 +39,8 @@
         app:showAsAction="never" />
     <item android:title="@string/log_out"
         android:onClick="logOut"/>
+    <item android:title="@string/skillmenu"
+          android:onClick="addSkill"/>
+
 
 </menu>

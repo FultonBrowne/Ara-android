@@ -28,10 +28,12 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.util.SkillsModel
+import java.util.ArrayList
 
 
 class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : RecyclerView.Adapter<SkillsAdapter.FeedModelViewHolder>() {
     val activity = act
+    val outList = ArrayList<TempSkillsStore>()
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): FeedModelViewHolder {
         //Inflate the card view
         val v = LayoutInflater.from(parent.context)
@@ -44,6 +46,8 @@ class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : Recycle
     override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {
         //set values
         val model = list[position]
+        val skills:SkillsModel? = null
+        val toOut:TempSkillsStore? = null
         val desc = (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView)
         desc.text = model.action
         val spinner = holder.rssFeedView.findViewById<View>(R.id.spinner_task) as Spinner

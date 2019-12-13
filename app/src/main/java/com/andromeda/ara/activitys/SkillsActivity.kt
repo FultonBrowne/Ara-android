@@ -40,7 +40,6 @@ class SkillsActivity : AppCompatActivity() {
         }
         val recView = findViewById<View>(R.id.listSkills) as RecyclerView
         recView.layoutManager = LinearLayoutManager(this)
-        val test = mutableListOf<SkillsModel>( SkillsModel("test", "test", ""))
         val toAdapter = Parse().parse(intent.getStringExtra("linktext"))
         val adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
         recView.adapter = adapter

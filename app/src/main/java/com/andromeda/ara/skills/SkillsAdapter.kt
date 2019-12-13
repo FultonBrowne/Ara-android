@@ -23,11 +23,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
-import android.widget.AdapterView
+import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.util.SkillsModel
@@ -62,6 +59,8 @@ class SkillsAdapter(private val list: List<SkillsModel>, act:Activity) : Recycle
         })
         //TODO work on this
         spinner.setSelection(1)
+        val arg1Text = holder.rssFeedView.findViewById<View>(R.id.arg1) as AutoCompleteTextView
+        val arg2Text = holder.rssFeedView.findViewById<View>(R.id.arg2) as AutoCompleteTextView
 
 
 

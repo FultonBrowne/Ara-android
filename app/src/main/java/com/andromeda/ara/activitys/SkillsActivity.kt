@@ -25,11 +25,14 @@ import com.andromeda.ara.R
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.SkillsAdapter
 import com.andromeda.ara.skills.UserSkills
-import com.andromeda.ara.util.SkillsModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_skills.*
+import java.lang.NullPointerException
+import java.util.*
 
 class SkillsActivity : AppCompatActivity() {
+    var id = 0
+    var adapter:SkillsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,15 +44,24 @@ class SkillsActivity : AppCompatActivity() {
         }
         val recView = findViewById<View>(R.id.listSkills) as RecyclerView
         recView.layoutManager = LinearLayoutManager(this)
-        val id = intent.getIntExtra("linktext", 0)
+        id = intent.getIntExtra("linktext", 0)
         val db = UserSkills(this)
         db.open()
-        val toAdapter = Parse().parse(db.fromId(id))
-        val adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
+        val toAdapter = Parse().parse(db.actFromId(id))
+        adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
         recView.adapter = adapter
+        db.close()
     }
 
     fun save(view: View) {
+        val db = UserSkills(this)
+        if (id == 0) throw NullPointerException("CAN NOT SAVE ID NULL")
+
+        db.open()
+
+        val list = adapter?.outList
+
+        db.insert(db.preFromId(id), db.nameFromId(id), "", id)
 
     }
 

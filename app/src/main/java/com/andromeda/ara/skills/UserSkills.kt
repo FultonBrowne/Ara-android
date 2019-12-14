@@ -46,12 +46,12 @@ class UserSkills (c: Context?){
         dbHelper!!.close()
     }
 
-    fun insert(pre: String?, name: String?, act: String?) {
+    fun insert(pre: String?, name: String?, act: String?, id:Int) {
         val contentValue = ContentValues()
         contentValue.put(UserSkillsDB.PRE, pre)
         contentValue.put(UserSkillsDB.ACT, act)
         contentValue.put(UserSkillsDB.NAME, name)
-        contentValue.put(UserSkillsDB.ID, Math.random())
+        contentValue.put(UserSkillsDB.ID, id)
         database!!.insertWithOnConflict(UserSkillsDB.TABLE_NAME, null, contentValue, SQLiteDatabase.CONFLICT_REPLACE)
     }
 
@@ -68,14 +68,28 @@ class UserSkills (c: Context?){
         val toReturn = ArrayList<RssFeedModel>()
         if (cursor != null) {
             while (!cursor.isAfterLast){
-                toReturn.add(RssFeedModel("TODO", cursor.getString(1), cursor.getString(0), "", "", true ))
+                toReturn.add(RssFeedModel("TODO", cursor.getString(0), cursor.getString(1), "", "", true ))
                 cursor.moveToNext()
             }
 
         }
         return toReturn
     }
-    fun fromId(id:Int): String {
+    fun actFromId(id:Int): String {
+        val cursor = fetch()
+        var toReturn = ""
+        if (cursor != null) {
+            while (!cursor.isAfterLast){
+                if (id == cursor.getInt(0)){
+                    toReturn = cursor.getString(3)
+                    break
+                }
+                    cursor.moveToNext()
+            }
+        }
+        return toReturn
+    }
+    fun nameFromId(id:Int): String {
         val cursor = fetch()
         var toReturn = ""
         if (cursor != null) {
@@ -84,7 +98,21 @@ class UserSkills (c: Context?){
                     toReturn = cursor.getString(2)
                     break
                 }
-                    cursor.moveToNext()
+                cursor.moveToNext()
+            }
+        }
+        return toReturn
+    }
+    fun preFromId(id:Int): String {
+        val cursor = fetch()
+        var toReturn = ""
+        if (cursor != null) {
+            while (!cursor.isAfterLast){
+                if (id == cursor.getInt(0)){
+                    toReturn = cursor.getString(1)
+                    break
+                }
+                cursor.moveToNext()
             }
         }
         return toReturn

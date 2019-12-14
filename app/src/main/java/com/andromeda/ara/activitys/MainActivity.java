@@ -57,6 +57,9 @@ import com.andromeda.ara.search.Search;
 import com.andromeda.ara.skills.UserSkills;
 import com.andromeda.ara.util.*;
 import com.andromeda.ara.voice.VoiceMain;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
@@ -495,7 +498,14 @@ public class MainActivity extends AppCompatActivity {
     public void addSkill(MenuItem item) {
         UserSkills userSkills = new UserSkills(this);
         userSkills.open();
-        userSkills.insert("test", "test", "test", (int) (Math.random() * ((30000) + 1)));
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        ArrayList<SkillsModel> toYML = new ArrayList<>();
+        toYML.add(new SkillsModel("test", "test","test"));
+        try {
+            userSkills.insert("test", "test", mapper.writeValueAsString(toYML), (int) (Math.random() * ((30000) + 1)));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
     }
 }

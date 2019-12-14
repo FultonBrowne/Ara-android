@@ -68,7 +68,7 @@ class UserSkills (c: Context?){
         val toReturn = ArrayList<RssFeedModel>()
         if (cursor != null) {
             while (!cursor.isAfterLast){
-                toReturn.add(RssFeedModel("TODO", cursor.getString(0), cursor.getString(1), "", "", true ))
+                toReturn.add(RssFeedModel(cursor.getString(cursor.getColumnIndex("action") ), cursor.getString(0), cursor.getString(1), "", "", true ))
                 cursor.moveToNext()
             }
 
@@ -81,7 +81,7 @@ class UserSkills (c: Context?){
         if (cursor != null) {
             while (!cursor.isAfterLast){
                 if (id == cursor.getInt(0)){
-                    toReturn = cursor.getString(3)
+                    toReturn = cursor.getString(cursor.getColumnIndex("action"))
                     break
                 }
                     cursor.moveToNext()

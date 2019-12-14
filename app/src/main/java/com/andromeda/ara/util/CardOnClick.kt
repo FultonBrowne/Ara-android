@@ -28,7 +28,10 @@ import com.andromeda.ara.constants.DrawerModeConstants
 class CardOnClick {
     fun mainFun(mode:Long, linkText:String, act:Activity, ctx:Context){
         if(mode == DrawerModeConstants.SHORTCUTS.toLong()){
-            act.startActivity(Intent(ctx, SkillsActivity::class.java))
+            val i =Intent(ctx, SkillsActivity::class.java)
+            print(linkText)
+            i.putExtra("linktext", linkText.toInt())
+            act.startActivity(i)
 
         }
         else{

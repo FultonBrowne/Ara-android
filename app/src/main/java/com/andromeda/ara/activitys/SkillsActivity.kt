@@ -52,6 +52,7 @@ class SkillsActivity : AppCompatActivity() {
         id = intent.getIntExtra("linktext", 0)
         val db = UserSkills(this)
         db.open()
+        println("test")
         println(db.actFromId(id))
         val toAdapter = Parse().parse(db.actFromId(id))
         adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }

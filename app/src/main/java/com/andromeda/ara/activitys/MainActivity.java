@@ -501,6 +501,8 @@ public class MainActivity extends AppCompatActivity {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         ArrayList<SkillsModel> toYML = new ArrayList<>();
         toYML.add(new SkillsModel("test", "test","test"));
+        toYML.add(new SkillsModel("test", "test","test"));
+        toYML.add(new SkillsModel("test", "test","test"));
         try {
             userSkills.insert("test", "test", mapper.writeValueAsString(toYML), (int) (Math.random() * ((30000) + 1)));
         } catch (JsonProcessingException e) {

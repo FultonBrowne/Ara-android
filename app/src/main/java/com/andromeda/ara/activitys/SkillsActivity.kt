@@ -17,6 +17,7 @@
 package com.andromeda.ara.activitys
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +38,7 @@ import java.util.*
 
 class SkillsActivity : AppCompatActivity() {
     var id = 0
-    var adapter:SkillsAdapter? = null
+    private var adapter:SkillsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +61,7 @@ class SkillsActivity : AppCompatActivity() {
         db.close()
     }
 
-    fun save(view: View) {
+    fun save(view: View?) {
         val db = UserSkills(this)
         if (id == 0) throw NullPointerException("CAN NOT SAVE ID NULL")
 
@@ -78,11 +79,21 @@ class SkillsActivity : AppCompatActivity() {
         db.insert(db.preFromId(id), db.nameFromId(id), mapper.writeValueAsString(toYAML), id)
 
     }
-    fun sortOrder(tosort: ArrayList<TempSkillsStore>?): ArrayList<TempSkillsStore>? { //sort by order
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        save(null)
+        moveTaskToBack(false)
+    }
+
+    private fun sortOrder(tosort: ArrayList<TempSkillsStore>?): ArrayList<TempSkillsStore>? { //sort by order
         tosort?.sortBy { obj: TempSkillsStore -> obj.order }
         // return sorted value
         tosort?.reverse()
         return tosort
+    }
+    fun addItem(m:MenuItem){
+
     }
 
 }

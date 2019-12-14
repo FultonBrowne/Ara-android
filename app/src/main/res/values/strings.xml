@@ -192,4 +192,5 @@
     <string name="submit_a_feature_request_or_bug">Submit A feature request or bug</string>
     <string name="title_activity_skills">SkillsActivity</string>
     <string name="skillmenu">add skill</string>
+    <string name="add">add</string>
 </resources>

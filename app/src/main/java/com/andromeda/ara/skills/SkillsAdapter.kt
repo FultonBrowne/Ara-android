@@ -57,7 +57,7 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
         spinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(arg0: AdapterView<*>?, arg1: View,
                                         position: Int, id: Long) {
-                val text = adapter1.getItem(position).toString()
+                val text = SkillsMap().map(position)
                 skills = SkillsModel(text, skills.arg1, skills.arg2)
                 toOut = TempSkillsStore(skills, mainNum)
 

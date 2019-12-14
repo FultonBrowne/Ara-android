@@ -495,7 +495,7 @@ public class MainActivity extends AppCompatActivity {
     public void addSkill(MenuItem item) {
         UserSkills userSkills = new UserSkills(this);
         userSkills.open();
-        userSkills.insert("test", "test", "test");
+        userSkills.insert("test", "test", "test", (int) (Math.random() * ((30000) + 1)));
 
     }
 }

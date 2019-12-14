@@ -24,7 +24,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.SkillsAdapter
+import com.andromeda.ara.skills.TempSkillsStore
 import com.andromeda.ara.skills.UserSkills
+import com.andromeda.ara.util.FeedDateParseModel
+import com.andromeda.ara.util.SkillsModel
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_skills.*
 import java.lang.NullPointerException
@@ -58,11 +63,24 @@ class SkillsActivity : AppCompatActivity() {
         if (id == 0) throw NullPointerException("CAN NOT SAVE ID NULL")
 
         db.open()
-
         val list = adapter?.outList
+        val sortedList = sortOrder(list)
+        val toYAML = ArrayList<SkillsModel>()
+        if (sortedList != null) {
+            for (i in sortedList){
+                toYAML.add(i.mainData)
+            }
+        }
+        val mapper = ObjectMapper(YAMLFactory())
 
-        db.insert(db.preFromId(id), db.nameFromId(id), "", id)
+        db.insert(db.preFromId(id), db.nameFromId(id), mapper.writeValueAsString(toYAML), id)
 
+    }
+    fun sortOrder(tosort: ArrayList<TempSkillsStore>?): ArrayList<TempSkillsStore>? { //sort by order
+        tosort?.sortBy { obj: TempSkillsStore -> obj.order }
+        // return sorted value
+        tosort?.reverse()
+        return tosort
     }
 
 }

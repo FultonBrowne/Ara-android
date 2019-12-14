@@ -74,5 +74,18 @@ class UserSkills (c: Context?){
         }
         return toReturn
     }
+    fun fromId(id:Int){
+        val cursor = fetch()
+        var toReturn = ""
+        if (cursor != null) {
+            while (!cursor.isAfterLast){
+                if (id == cursor.getInt(0)){
+                    toReturn = cursor.getString(2)
+                    break
+                }
+                    cursor.moveToNext()
+            }
+        }
+    }
 
 }

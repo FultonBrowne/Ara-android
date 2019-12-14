@@ -70,18 +70,23 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
         //Creating the instance of ArrayAdapter containing list of fruit names
         //Creating the instance of ArrayAdapter containing list of fruit names
         val language = arrayOf("topic from command")
-        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(this.activity.applicationContext, android.R.layout.select_dialog_item, language)
+        val adapter: ArrayAdapter<String> = ArrayAdapter(this.activity.applicationContext, android.R.layout.select_dialog_item, language)
 
         val arg1Text = holder.rssFeedView.findViewById<View>(R.id.arg1) as AutoCompleteTextView
         val arg2Text = holder.rssFeedView.findViewById<View>(R.id.arg2) as AutoCompleteTextView
         arg1Text.setAdapter(adapter)
         arg2Text.setAdapter(adapter)
-        arg1Text.setOnDismissListener { val text = arg1Text.text.toString()
+        arg1Text.setOnDismissListener {
+            val text = arg1Text.text.toString()
             skills = SkillsModel(model.action, text, skills.arg2)
-            toOut = TempSkillsStore(skills, mainNum)}
+            toOut = TempSkillsStore(skills, mainNum)
+        }
+
+
         arg2Text.setOnDismissListener { val text = arg1Text.text.toString()
             skills = SkillsModel(model.action, skills.arg1, text)
-            toOut = TempSkillsStore(skills, mainNum)}
+            toOut = TempSkillsStore(skills, mainNum)
+        }
 
 
 

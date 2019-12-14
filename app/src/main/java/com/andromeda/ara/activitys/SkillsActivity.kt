@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.SkillsAdapter
+import com.andromeda.ara.skills.UserSkills
 import com.andromeda.ara.util.SkillsModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_skills.*
@@ -41,7 +42,9 @@ class SkillsActivity : AppCompatActivity() {
         val recView = findViewById<View>(R.id.listSkills) as RecyclerView
         recView.layoutManager = LinearLayoutManager(this)
         val id = intent.getIntExtra("linktext", 0)
-        val toAdapter = Parse().parse(intent.getStringExtra("linktext"))
+        val db = UserSkills(this)
+        db.open()
+        val toAdapter = Parse().parse(db.fromId(id))
         val adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
         recView.adapter = adapter
     }

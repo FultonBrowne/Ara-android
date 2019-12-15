@@ -16,9 +16,18 @@
 
 package com.andromeda.ara.services
 
+import com.microsoft.appcenter.AppCenter
+
 class SyncFuns {
     fun updateSkills(){
-
+        checkAC()
     }
-    fun updateDevices(){}
+    fun updateDevices(){
+        checkAC()
+    }
+    fun checkAC(){
+        if(!AppCenter.isConfigured()){
+            throw NullPointerException("app center not ready")
+        }
+    }
 }

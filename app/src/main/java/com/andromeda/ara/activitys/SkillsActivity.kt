@@ -80,11 +80,6 @@ class SkillsActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        save(null)
-        moveTaskToBack(false)
-    }
 
     private fun sortOrder(tosort: ArrayList<TempSkillsStore>?): ArrayList<TempSkillsStore>? { //sort by order
         tosort?.sortBy { obj: TempSkillsStore -> obj.order }

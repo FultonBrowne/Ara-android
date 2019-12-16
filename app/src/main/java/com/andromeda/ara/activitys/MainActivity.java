@@ -32,6 +32,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -145,8 +146,10 @@ public class MainActivity extends AppCompatActivity {
         act = this;
 
         Push.setListener(new PushUtil());
+        AppCenter.setLogLevel(Log.VERBOSE);
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
                 Analytics.class, Crashes.class, Auth.class, Data.class, Push.class);
+        Data.setEnabled(true);
         new GetSettings().starUp(this);
 
         final TagManager main53 = new TagManager(this);

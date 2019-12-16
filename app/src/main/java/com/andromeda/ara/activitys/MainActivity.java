@@ -53,8 +53,9 @@ import com.andromeda.ara.R;
 import com.andromeda.ara.constants.DrawerModeConstants;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.Rss;
+import com.andromeda.ara.feeds.Skills;
 import com.andromeda.ara.search.Search;
-import com.andromeda.ara.skills.UserSkills;
+
 import com.andromeda.ara.util.*;
 import com.andromeda.ara.voice.VoiceMain;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -67,6 +68,8 @@ import com.microsoft.appcenter.auth.Auth;
 import com.microsoft.appcenter.auth.SignInResult;
 import com.microsoft.appcenter.crashes.Crashes;
 import com.microsoft.appcenter.data.Data;
+import com.microsoft.appcenter.data.DefaultPartitions;
+import com.microsoft.appcenter.data.models.WriteOptions;
 import com.microsoft.appcenter.push.Push;
 import com.microsoft.appcenter.utils.async.AppCenterConsumer;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -496,15 +499,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addSkill(MenuItem item) {
-        UserSkills userSkills = new UserSkills(this);
-        userSkills.open();
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         ArrayList<SkillsModel> toYML = new ArrayList<>();
         toYML.add(new SkillsModel("test", "test","test"));
         toYML.add(new SkillsModel("test", "test","test"));
         toYML.add(new SkillsModel("test", "test","test"));
         try {
-            userSkills.insert("test", "test", mapper.writeValueAsString(toYML), (int) (Math.random() * ((30000) + 1)));
+            int i = (int) (Math.random() * ((30000) + 1));
+            Data.create(Integer.toString(i), new SkillsDBModel(new SkillsModel(mapper.writeValueAsString(toYML), "test",  "name"), "name"), SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS);
+
+
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

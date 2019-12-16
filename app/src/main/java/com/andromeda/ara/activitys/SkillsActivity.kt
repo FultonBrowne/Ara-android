@@ -26,12 +26,12 @@ import com.andromeda.ara.R
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.SkillsAdapter
 import com.andromeda.ara.skills.TempSkillsStore
-import com.andromeda.ara.skills.UserSkills
-import com.andromeda.ara.util.FeedDateParseModel
 import com.andromeda.ara.util.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.google.android.material.snackbar.Snackbar
+import com.microsoft.appcenter.data.Data
+import com.microsoft.appcenter.data.DefaultPartitions
 import kotlinx.android.synthetic.main.activity_skills.*
 import java.lang.NullPointerException
 import java.util.*
@@ -51,21 +51,12 @@ class SkillsActivity : AppCompatActivity() {
         val recView = findViewById<View>(R.id.listSkills) as RecyclerView
         recView.layoutManager = LinearLayoutManager(this)
         id = intent.getIntExtra("linktext", 0)
-        val db = UserSkills(this)
-        db.open()
-        println("test")
-        println(db.actFromId(id))
-        val toAdapter = Parse().parse(db.actFromId(id))
+        val toAdapter = Parse().parse(Data.read(id.toString(), SkillsModel::class.java, DefaultPartitions.USER_DOCUMENTS).get().deserializedValue.action);
         adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
-        recView.adapter = adapter
-        db.close()
-    }
+        recView.adapter = adapter }
 
     fun save(view: View?) {
-        val db = UserSkills(this)
         if (id == 0) throw NullPointerException("CAN NOT SAVE ID NULL")
-
-        db.open()
         val list = adapter?.outList
         val sortedList = sortOrder(list)
         val toYAML = ArrayList<SkillsModel>()
@@ -75,9 +66,7 @@ class SkillsActivity : AppCompatActivity() {
             }
         }
         val mapper = ObjectMapper(YAMLFactory())
-
-        db.insert(db.preFromId(id), db.nameFromId(id), mapper.writeValueAsString(toYAML), id)
-
+        val yml = mapper.writeValueAsString(toYAML)
     }
 
 

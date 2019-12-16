@@ -23,16 +23,15 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.widget.Toast
-
 import androidx.core.app.ActivityCompat
-
 import com.andromeda.ara.R
 import com.andromeda.ara.phoneData.CalUtility
-import com.andromeda.ara.skills.UserSkills
 import com.andromeda.ara.util.*
-
+import com.microsoft.appcenter.data.Data
+import com.microsoft.appcenter.data.DefaultPartitions
+import com.yelp.fusion.client.models.User
 import java.io.IOException
-import java.util.ArrayList
+import java.util.*
 
 
 class Drawer {
@@ -103,9 +102,14 @@ class Drawer {
         }
         else if (drawerItem == 6L){
             //rssFeedModel1 = ApiOutputToRssFeed().main(Skills().getThem())
-            val userSkills = UserSkills(ctx)
-            userSkills.open()
-            rssFeedModel1 = userSkills.getAsRssFeedModel()
+            //val userSkills = UserSkills(ctx)
+            //userSkills.open()
+            //rssFeedModel1 = userSkills.getAsRssFeedModel()
+
+            for( i in Data.list(SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).get().currentPage.items){
+                rssFeedModel1.add(RssFeedModel(i.id, i.id,"","","",false ))
+            }
+            //rssFeedModel1.add()
 
         }
         else if (drawerItem == 7L){

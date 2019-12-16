@@ -26,9 +26,14 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.andromeda.ara.R
 import com.andromeda.ara.phoneData.CalUtility
-import com.andromeda.ara.util.*
+import com.andromeda.ara.util.Devices
+import com.andromeda.ara.util.RssFeedModel
+import com.andromeda.ara.util.SkillsDBModel
+import com.andromeda.ara.util.TagManager
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
+import com.microsoft.appcenter.data.models.PaginatedDocuments
+import com.microsoft.appcenter.utils.async.AppCenterConsumer
 import com.yelp.fusion.client.models.User
 import java.io.IOException
 import java.util.*
@@ -105,10 +110,20 @@ class Drawer {
             //val userSkills = UserSkills(ctx)
             //userSkills.open()
             //rssFeedModel1 = userSkills.getAsRssFeedModel()
+            Data.list(SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept(object : AppCenterConsumer<PaginatedDocuments<SkillsDBModel?>?> {
+                override fun accept(documentWrappers: PaginatedDocuments<SkillsDBModel?>?) { // Do something here
 
-            for( i in Data.list(SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).get().currentPage.items){
-                rssFeedModel1.add(RssFeedModel(i.id, i.id,"","","",false ))
-            }
+                    if (documentWrappers != null) {
+                        for(i in documentWrappers.currentPage.items){
+                            println("looking")
+                            rssFeedModel1.add(RssFeedModel(i.deserializedValue!!.name, i.id, "", "", "", true))
+                        }
+                    }
+                    else print("error")
+                }
+            })
+
+
             //rssFeedModel1.add()
 
         }

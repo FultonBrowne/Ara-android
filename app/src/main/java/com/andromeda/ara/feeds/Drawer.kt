@@ -41,7 +41,7 @@ import java.util.*
 
 class Drawer {
     @Throws(IOException::class)
-    fun main(drawerItem: Long, ctx: Context, Db: TagManager, activity: Activity): MutableList<RssFeedModel> {
+   @Synchronized fun main(drawerItem: Long, ctx: Context, Db: TagManager, activity: Activity): MutableList<RssFeedModel>? {
         var rssFeedModel1: MutableList<RssFeedModel> = ArrayList()
         var lat:Double = 0.0
         var log: Double = 0.0
@@ -64,6 +64,7 @@ class Drawer {
             Toast.makeText(ctx, ctx.getString(R.string.number_1), Toast.LENGTH_SHORT).show()
 
             rssFeedModel1.addAll(Rss().parseRss(0, ctx))
+            return rssFeedModel1
 
         } else if (drawerItem == 2L) {
             var title1: String
@@ -91,6 +92,7 @@ class Drawer {
                 web1 = "reload app"
                 test = RssFeedModel(title1, web1, "", "", "", false)
                 rssFeedModel1.add(test)
+                return rssFeedModel1
 
 
             }
@@ -99,49 +101,55 @@ class Drawer {
             rssFeedModel1 = Food().getFood(log.toString(), java.lang.Double.toString(lat))
         } else if (drawerItem == 4L) {
             rssFeedModel1 = shopping().getShops(java.lang.Double.toString(log), java.lang.Double.toString(lat))
+            return rssFeedModel1
         }
         else if (drawerItem == 5L) {
 
 
             rssFeedModel1 = CalUtility.readCalendarEvent(ctx)
+            return rssFeedModel1
         }
         else if (drawerItem == 6L){
-            //rssFeedModel1 = ApiOutputToRssFeed().main(Skills().getThem())
-            //val userSkills = UserSkills(ctx)
-            //userSkills.open()
-            //rssFeedModel1 = userSkills.getAsRssFeedModel()
-            Data.list(SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept(object : AppCenterConsumer<PaginatedDocuments<SkillsDBModel?>?> {
-                override fun accept(documentWrappers: PaginatedDocuments<SkillsDBModel?>?) { // Do something here
+            Data.list(SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept { documentWrappers ->
+                // Do something here
 
-                    if (documentWrappers != null) {
-                        for(i in documentWrappers.currentPage.items){
-                            println("looking")
-                            rssFeedModel1.add(RssFeedModel(i.deserializedValue!!.name, i.id, "", "", "", true))
-                        }
+                if (documentWrappers != null) {
+                    for(i in documentWrappers.currentPage.items){
+                        println("looking")
+                        rssFeedModel1.add(RssFeedModel("test", i.id, "", "", "", true))
+                        println(rssFeedModel1)
                     }
-                    else print("error")
-                }
-            })
+                    println("done")
 
+                } else print("error")
 
-            //rssFeedModel1.add()
+            }
+            return rssFeedModel1
+
 
         }
         else if (drawerItem == 7L){
             rssFeedModel1 = Devices().getAll(activity)
+            return rssFeedModel1
         }
-        if (drawerItem == 104L) {
+        else if (drawerItem == 104L) {
             rssFeedModel1.addAll(Rss().parseRss(3, ctx))
+            return rssFeedModel1
         } else if (drawerItem == 102L) {
             rssFeedModel1.addAll(Rss().parseRss(2, ctx))
+            return rssFeedModel1
         }
-        if (drawerItem == 103L) {
+        else if (drawerItem == 103L) {
             rssFeedModel1.addAll(Rss().parseRss(1, ctx))
+            return rssFeedModel1
         }
 
-        if (drawerItem == 105L) {
+        else if (drawerItem == 105L) {
             rssFeedModel1.addAll(Rss().parseRss(4, ctx))
+            return rssFeedModel1
         }
-        return rssFeedModel1
+        println("returning")
+        return null
+
     }
 }

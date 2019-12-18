@@ -26,19 +26,25 @@ import com.andromeda.ara.R
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.SkillsAdapter
 import com.andromeda.ara.skills.TempSkillsStore
+import com.andromeda.ara.util.SkillsDBModel
 import com.andromeda.ara.util.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.google.android.material.snackbar.Snackbar
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
+import com.microsoft.appcenter.data.models.ReadOptions
+import com.microsoft.appcenter.data.models.WriteOptions
+import com.yelp.fusion.client.models.User
 import kotlinx.android.synthetic.main.activity_skills.*
-import java.lang.NullPointerException
 import java.util.*
+
 
 class SkillsActivity : AppCompatActivity() {
     var id:String? = ""
     private var adapter:SkillsAdapter? = null
+    var name = ""
+    var runOn = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,9 +57,20 @@ class SkillsActivity : AppCompatActivity() {
         val recView = findViewById<View>(R.id.listSkills) as RecyclerView
         recView.layoutManager = LinearLayoutManager(this)
         id = intent.getStringExtra("linktext")
-        val toAdapter = Parse().parse(Data.read(id.toString(), SkillsModel::class.java, DefaultPartitions.USER_DOCUMENTS).get().deserializedValue.action);
-        adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
-        recView.adapter = adapter }
+        Data.read(id, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept { userDocumentWrapper ->
+            if (userDocumentWrapper.error == null) {
+                runOnUiThread {
+                    val actionToRun = userDocumentWrapper.deserializedValue.action.action
+                    val toAdapter = Parse().parse(actionToRun);
+                    name = userDocumentWrapper.deserializedValue.name
+                    runOn = userDocumentWrapper.deserializedValue.action.arg1
+                    adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
+                    recView.adapter = adapter
+                }
+
+            }
+        }
+         }
 
     fun save(view: View?) {
         if (id == "") throw NullPointerException("CAN NOT SAVE ID NULL")
@@ -66,7 +83,9 @@ class SkillsActivity : AppCompatActivity() {
             }
         }
         val mapper = ObjectMapper(YAMLFactory())
+
         val yml = mapper.writeValueAsString(toYAML)
+        Data.replace(id, SkillsDBModel(SkillsModel(yml,runOn, "" ), name), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
     }
 
 

@@ -65,8 +65,12 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
 
             override fun onNothingSelected(arg0: AdapterView<*>?) {}
         }
-        //TODO work on this
-        spinner.setSelection(SkillsMap().mapFlip(model.action)!!)
+        try {
+            spinner.setSelection(SkillsMap().mapFlip(model.action)!!)
+        }
+        catch (e:Exception){
+
+        }
         //Creating the instance of ArrayAdapter containing list of fruit names
         //Creating the instance of ArrayAdapter containing list of fruit names
         val language = arrayOf("topic from command")

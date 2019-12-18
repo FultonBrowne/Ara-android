@@ -27,6 +27,7 @@ import com.andromeda.ara.constants.DrawerModeConstants
 
 class CardOnClick {
     fun mainFun(mode:Long, linkText:String, act:Activity, ctx:Context){
+        println("link text")
         if(mode == DrawerModeConstants.SHORTCUTS.toLong()){
             val i =Intent(ctx, SkillsActivity::class.java)
             print(linkText)

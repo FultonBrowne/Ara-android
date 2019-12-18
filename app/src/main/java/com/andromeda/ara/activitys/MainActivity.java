@@ -57,6 +57,7 @@ import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.feeds.Skills;
 import com.andromeda.ara.search.Search;
 
+import com.andromeda.ara.skills.NewSkillPopUp;
 import com.andromeda.ara.util.*;
 import com.andromeda.ara.voice.VoiceMain;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -527,12 +528,11 @@ public class MainActivity extends AppCompatActivity {
     public void addSkill(MenuItem item) {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         ArrayList<SkillsModel> toYML = new ArrayList<>();
-        toYML.add(new SkillsModel("test", "test","test"));
-        toYML.add(new SkillsModel("test", "test","test"));
-        toYML.add(new SkillsModel("test", "test","test"));
+        toYML.add(new SkillsModel("CALL", "",""));
+
         try {
             int i = (int) (Math.random() * ((30000) + 1));
-            Data.create(Integer.toString(i), new SkillsDBModel(new SkillsModel(mapper.writeValueAsString(toYML), "test",  "name"), "name"), SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS);
+            Data.create(Integer.toString(i), new SkillsDBModel(new SkillsModel(mapper.writeValueAsString(toYML), "",  ""), new NewSkillPopUp().main(this)), SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS);
 
 
         } catch (JsonProcessingException e) {

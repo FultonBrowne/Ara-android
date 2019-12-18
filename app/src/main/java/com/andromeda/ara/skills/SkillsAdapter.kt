@@ -47,7 +47,7 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
         val model = list[position]
         val mainNum = position
         var skills: SkillsModel = model
-        var toOut: TempSkillsStore? = null
+        var toOut: TempSkillsStore = TempSkillsStore(skills, mainNum)
         val desc = (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView)
         desc.text = model.action
         val spinner = holder.rssFeedView.findViewById<View>(R.id.spinner_task) as Spinner
@@ -58,8 +58,10 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
             override fun onItemSelected(arg0: AdapterView<*>?, arg1: View,
                                         position: Int, id: Long) {
                 val text = SkillsMap().map(position)
+                outList.remove(toOut)
                 skills = SkillsModel(text, skills.arg1, skills.arg2)
                 toOut = TempSkillsStore(skills, mainNum)
+                outList.add(toOut)
 
             }
 
@@ -81,15 +83,19 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
         arg1Text.setAdapter(adapter)
         arg2Text.setAdapter(adapter)
         arg1Text.setOnDismissListener {
+            outList.remove(toOut)
             val text = arg1Text.text.toString()
             skills = SkillsModel(model.action, text, skills.arg2)
             toOut = TempSkillsStore(skills, mainNum)
+            outList.add(toOut)
         }
 
 
         arg2Text.setOnDismissListener { val text = arg1Text.text.toString()
+            outList.remove(toOut)
             skills = SkillsModel(model.action, skills.arg1, text)
             toOut = TempSkillsStore(skills, mainNum)
+            outList.add(toOut)
         }
 
 

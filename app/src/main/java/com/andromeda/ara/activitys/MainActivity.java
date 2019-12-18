@@ -529,10 +529,11 @@ public class MainActivity extends AppCompatActivity {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         ArrayList<SkillsModel> toYML = new ArrayList<>();
         toYML.add(new SkillsModel("CALL", "",""));
+        String name = new NewSkillPopUp().main(this);
 
         try {
             int i = (int) (Math.random() * ((30000) + 1));
-            Data.create(Integer.toString(i), new SkillsDBModel(new SkillsModel(mapper.writeValueAsString(toYML), "",  ""), new NewSkillPopUp().main(this)), SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS);
+            Data.create(Integer.toString(i), new SkillsDBModel(new SkillsModel(mapper.writeValueAsString(toYML), "",  ""), "test thing"), SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS);
 
 
         } catch (JsonProcessingException e) {

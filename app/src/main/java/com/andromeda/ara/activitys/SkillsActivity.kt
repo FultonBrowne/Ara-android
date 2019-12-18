@@ -45,14 +45,15 @@ class SkillsActivity : AppCompatActivity() {
     private var adapter:SkillsAdapter? = null
     var name = ""
     var runOn = ""
+    var recView:RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_skills)
         setSupportActionBar(toolbar)
 
-        val recView = findViewById<View>(R.id.listSkills) as RecyclerView
-        recView.layoutManager = LinearLayoutManager(this)
+        recView = findViewById<View>(R.id.listSkills) as RecyclerView
+        recView!!.layoutManager = LinearLayoutManager(this)
         id = intent.getStringExtra("linktext")
         Data.read(id, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept { userDocumentWrapper ->
             if (userDocumentWrapper.error == null) {
@@ -62,7 +63,7 @@ class SkillsActivity : AppCompatActivity() {
                     name = userDocumentWrapper.deserializedValue.name
                     runOn = userDocumentWrapper.deserializedValue.action.arg1
                     adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
-                    recView.adapter = adapter
+                    recView!!.adapter = adapter
                 }
 
             }
@@ -96,6 +97,36 @@ class SkillsActivity : AppCompatActivity() {
         return tosort
     }
     fun addItem(m:MenuItem){
+        if (id == "") throw NullPointerException("CAN NOT SAVE ID NULL")
+        val list = adapter?.outList
+        val sortedList = sortOrder(list)
+        val toYAML = ArrayList<SkillsModel>()
+        if (sortedList != null) {
+            for (i in sortedList){
+                println(i)
+                toYAML.add(i.mainData)
+            }
+        }
+        else throw NullPointerException()
+        toYAML.add(SkillsModel("CALL", "", ""))
+        val mapper = ObjectMapper(YAMLFactory())
+
+        val yml = mapper.writeValueAsString(toYAML)
+        println(yml)
+        Data.replace(id, SkillsDBModel(SkillsModel(yml,runOn, "" ), name), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+        Data.read(id, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept { userDocumentWrapper ->
+            if (userDocumentWrapper.error == null) {
+                runOnUiThread {
+                    val actionToRun = userDocumentWrapper.deserializedValue.action.action
+                    val toAdapter = Parse().parse(actionToRun);
+                    name = userDocumentWrapper.deserializedValue.name
+                    runOn = userDocumentWrapper.deserializedValue.action.arg1
+                    adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
+                    recView?.adapter = adapter
+                }
+
+            }
+        }
 
     }
 

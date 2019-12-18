@@ -30,7 +30,7 @@ class NewSkillPopUp {
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setTitle("Title")
         val input = EditText(ctx)
-        input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
 // Set up the buttons

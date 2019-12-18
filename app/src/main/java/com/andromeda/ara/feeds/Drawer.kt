@@ -41,7 +41,7 @@ import java.util.*
 
 class Drawer {
     @Throws(IOException::class)
-   @Synchronized fun main(drawerItem: Long, ctx: Context, Db: TagManager, activity: Activity): MutableList<RssFeedModel>? {
+    fun main(drawerItem: Long, ctx: Context, Db: TagManager, activity: Activity): MutableList<RssFeedModel>? {
         var rssFeedModel1: MutableList<RssFeedModel> = ArrayList()
         var lat:Double = 0.0
         var log: Double = 0.0
@@ -109,25 +109,10 @@ class Drawer {
             rssFeedModel1 = CalUtility.readCalendarEvent(ctx)
             return rssFeedModel1
         }
-        else if (drawerItem == 6L){
-            Data.list(SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept { documentWrappers ->
-                // Do something here
-
-                if (documentWrappers != null) {
-                    for(i in documentWrappers.currentPage.items){
-                        println("looking")
-                        rssFeedModel1.add(RssFeedModel("test", i.id, "", "", "", true))
-                        println(rssFeedModel1)
-                    }
-                    println("done")
-
-                } else print("error")
-
-            }
-            return rssFeedModel1
 
 
-        }
+
+
         else if (drawerItem == 7L){
             rssFeedModel1 = Devices().getAll(activity)
             return rssFeedModel1

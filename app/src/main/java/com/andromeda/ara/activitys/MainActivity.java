@@ -70,6 +70,8 @@ import com.microsoft.appcenter.auth.SignInResult;
 import com.microsoft.appcenter.crashes.Crashes;
 import com.microsoft.appcenter.data.Data;
 import com.microsoft.appcenter.data.DefaultPartitions;
+import com.microsoft.appcenter.data.models.DocumentWrapper;
+import com.microsoft.appcenter.data.models.PaginatedDocuments;
 import com.microsoft.appcenter.data.models.WriteOptions;
 import com.microsoft.appcenter.push.Push;
 import com.microsoft.appcenter.utils.async.AppCenterConsumer;
@@ -80,6 +82,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
+import com.yelp.fusion.client.models.User;
 import org.jetbrains.annotations.Contract;
 
 import java.io.IOException;
@@ -244,12 +247,33 @@ public class MainActivity extends AppCompatActivity {
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
 
                     MainActivity.this.runOnUiThread(() -> {
+                        if(drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS){
+
+                            Data.list(SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(new AppCenterConsumer<PaginatedDocuments<SkillsDBModel>>() {
+                                @Override
+                                public void accept(PaginatedDocuments<SkillsDBModel> documentWrappers) {
+                                    rssFeedModel1.clear();
+                                    if(!(documentWrappers == null)){
+                                    for ( DocumentWrapper<SkillsDBModel> i : documentWrappers.getCurrentPage().getItems()) {
+                                        rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), "", "", "", false));
+                                    }
+                                        recyclerView.setAdapter(new Adapter(rssFeedModel1));
+                                        mode = drawerItem.getIdentifier();
+                                }
+                                    else System.out.println("fail");
+                                }
+
+                            });
+
+                        }
+                        else{
                         try {
                             rssFeedModel1 = new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this);
                             recyclerView.setAdapter(new Adapter(rssFeedModel1));
                             mode = drawerItem.getIdentifier();
                         } catch (IOException e) {
                             e.printStackTrace();
+                        }
                         }
                     });
 

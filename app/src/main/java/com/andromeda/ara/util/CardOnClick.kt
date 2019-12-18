@@ -30,7 +30,7 @@ class CardOnClick {
         if(mode == DrawerModeConstants.SHORTCUTS.toLong()){
             val i =Intent(ctx, SkillsActivity::class.java)
             print(linkText)
-            i.putExtra("linktext", linkText.toInt())
+            i.putExtra("linktext", linkText)
             act.startActivity(i)
 
         }

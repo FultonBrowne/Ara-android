@@ -37,7 +37,7 @@ import java.lang.NullPointerException
 import java.util.*
 
 class SkillsActivity : AppCompatActivity() {
-    var id = 0
+    var id:String? = ""
     private var adapter:SkillsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,13 +50,13 @@ class SkillsActivity : AppCompatActivity() {
         }
         val recView = findViewById<View>(R.id.listSkills) as RecyclerView
         recView.layoutManager = LinearLayoutManager(this)
-        id = intent.getIntExtra("linktext", 0)
+        id = intent.getStringExtra("linktext")
         val toAdapter = Parse().parse(Data.read(id.toString(), SkillsModel::class.java, DefaultPartitions.USER_DOCUMENTS).get().deserializedValue.action);
         adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
         recView.adapter = adapter }
 
     fun save(view: View?) {
-        if (id == 0) throw NullPointerException("CAN NOT SAVE ID NULL")
+        if (id == "") throw NullPointerException("CAN NOT SAVE ID NULL")
         val list = adapter?.outList
         val sortedList = sortOrder(list)
         val toYAML = ArrayList<SkillsModel>()

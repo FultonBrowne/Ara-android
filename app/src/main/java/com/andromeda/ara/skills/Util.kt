@@ -21,7 +21,7 @@ import android.content.Intent
 import com.andromeda.ara.services.AraActions
 
 class Util {
-    fun timer(ctx:Context, time:String){
+    fun timer(ctx: Context, time: String) {
         val i = Intent(ctx, AraActions::class.java)
         i.putExtra("type", 1)
         ctx.startService(i)

@@ -18,7 +18,7 @@ package com.andromeda.ara.util
 
 import java.util.*
 
-data class FeedDateParseModel(val title:String, val description:String, val link:String, val image:String, val out:String?, val date:Date) {
+data class FeedDateParseModel(val title: String, val description: String, val link: String, val image: String, val out: String?, val date: Date) {
     fun toRssFeedModel(): RssFeedModel {
         return RssFeedModel(description, link, title, image, out, false)
     }

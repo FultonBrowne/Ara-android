@@ -16,18 +16,18 @@
   -->
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
-    android:opacity="translucent"
-    >
+            android:opacity="translucent"
+>
 
     <item>
         <bitmap
-            android:gravity="fill|left|center"
+                android:gravity="fill|left|center"
 
-            android:src="@drawable/splash" />
+                android:src="@drawable/splash"/>
     </item>
     <item>
         <bitmap android:gravity="top|left" android:src="@mipmap/ic_launcher_foreground"
-            />
+        />
     </item>
     <item>
         <bitmap android:gravity="bottom" android:src="@drawable/bottom_icon"

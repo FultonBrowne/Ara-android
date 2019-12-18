@@ -24,15 +24,14 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper
 import java.io.IOException
 
 
-class Parse{
-    fun parse(yml:String?): ArrayList<SkillsModel>? {
+class Parse {
+    fun parse(yml: String?): ArrayList<SkillsModel>? {
         print(yml)
-        val classsss:Class<SkillsModel>? = SkillsModel::class.java
+        val classsss: Class<SkillsModel>? = SkillsModel::class.java
         var mapper = YAMLMapper()
 
-      return  yamlArrayToObjectList(yml, classsss)
+        return yamlArrayToObjectList(yml, classsss)
     }
-
 
 
     @Throws(IOException::class)

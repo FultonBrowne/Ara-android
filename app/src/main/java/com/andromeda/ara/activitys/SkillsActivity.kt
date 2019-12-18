@@ -31,22 +31,18 @@ import com.andromeda.ara.util.SkillsDBModel
 import com.andromeda.ara.util.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.google.android.material.snackbar.Snackbar
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
-import com.microsoft.appcenter.data.models.ReadOptions
-import com.microsoft.appcenter.data.models.WriteOptions
-import com.yelp.fusion.client.models.User
 import kotlinx.android.synthetic.main.activity_skills.*
 import java.util.*
 
 
 class SkillsActivity : AppCompatActivity() {
-    var id:String? = ""
-    private var adapter:SkillsAdapter? = null
+    var id: String? = ""
+    private var adapter: SkillsAdapter? = null
     var name = ""
     var runOn = ""
-    var recView:RecyclerView? = null
+    var recView: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +65,7 @@ class SkillsActivity : AppCompatActivity() {
 
             }
         }
-         }
+    }
 
     fun save(view: View?) {
         if (id == "") throw NullPointerException("CAN NOT SAVE ID NULL")
@@ -77,17 +73,16 @@ class SkillsActivity : AppCompatActivity() {
         val sortedList = sortOrder(list)
         val toYAML = ArrayList<SkillsModel>()
         if (sortedList != null) {
-            for (i in sortedList){
+            for (i in sortedList) {
                 println(i)
                 toYAML.add(i.mainData)
             }
-        }
-        else throw NullPointerException()
+        } else throw NullPointerException()
         val mapper = ObjectMapper(YAMLFactory())
 
         val yml = mapper.writeValueAsString(toYAML)
         println(yml)
-        Data.replace(id, SkillsDBModel(SkillsModel(yml,runOn, "" ), name), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+        Data.replace(id, SkillsDBModel(SkillsModel(yml, runOn, ""), name), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
     }
 
 
@@ -97,29 +92,30 @@ class SkillsActivity : AppCompatActivity() {
         tosort?.reverse()
         return tosort
     }
-    override fun onCreateOptionsMenu(menu: Menu):Boolean {
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_skills, menu);
         return true
     }
-    fun addItem(m:MenuItem){
+
+    fun addItem(m: MenuItem) {
         if (id == "") throw NullPointerException("CAN NOT SAVE ID NULL")
         val list = adapter?.outList
         val sortedList = sortOrder(list)
         val toYAML = ArrayList<SkillsModel>()
         if (sortedList != null) {
-            for (i in sortedList){
+            for (i in sortedList) {
                 println(i)
                 toYAML.add(i.mainData)
             }
-        }
-        else throw NullPointerException()
+        } else throw NullPointerException()
         toYAML.add(SkillsModel("CALL", "", ""))
         val mapper = ObjectMapper(YAMLFactory())
 
         val yml = mapper.writeValueAsString(toYAML)
         println(yml)
-        Data.replace(id, SkillsDBModel(SkillsModel(yml,runOn, "" ), name), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+        Data.replace(id, SkillsDBModel(SkillsModel(yml, runOn, ""), name), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
         Data.read(id, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept { userDocumentWrapper ->
             if (userDocumentWrapper.error == null) {
                 runOnUiThread {

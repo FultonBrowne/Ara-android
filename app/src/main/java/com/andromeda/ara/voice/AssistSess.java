@@ -26,10 +26,8 @@ import android.os.Bundle;
 import android.service.voice.VoiceInteractionSession;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-
 import com.andromeda.ara.R;
 import com.andromeda.ara.activitys.MainActivity;
 

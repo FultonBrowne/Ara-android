@@ -16,17 +16,17 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.andromeda.ara.activitys.About">
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.andromeda.ara.activitys.About">
     <item
-        android:id="@+id/tags"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+            android:id="@+id/tags"
+            android:orderInCategory="100"
+            android:title="@string/action_settings"
+            app:showAsAction="never"/>
     <item
-        android:id="@+id/home"
-        android:orderInCategory="100"
-        android:title="@string/botton_menu_title"
-        app:showAsAction="never" />
+            android:id="@+id/home"
+            android:orderInCategory="100"
+            android:title="@string/botton_menu_title"
+            app:showAsAction="never"/>
 </menu>

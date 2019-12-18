@@ -23,7 +23,7 @@ import java.util.*
 
 
 class Media {
-    fun playPause(ctx:Context){
+    fun playPause(ctx: Context) {
         val mediaEvent = Intent(Intent.ACTION_MEDIA_BUTTON)
         val event = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY)
         mediaEvent.putExtra(Intent.EXTRA_KEY_EVENT, event)
@@ -39,7 +39,8 @@ class Media {
         }, 100)
 
     }
-    fun volumeUp(){
+
+    fun volumeUp() {
 
     }
 }

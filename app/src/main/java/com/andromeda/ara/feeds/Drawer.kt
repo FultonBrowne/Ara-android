@@ -28,13 +28,7 @@ import com.andromeda.ara.R
 import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.Devices
 import com.andromeda.ara.util.RssFeedModel
-import com.andromeda.ara.util.SkillsDBModel
 import com.andromeda.ara.util.TagManager
-import com.microsoft.appcenter.data.Data
-import com.microsoft.appcenter.data.DefaultPartitions
-import com.microsoft.appcenter.data.models.PaginatedDocuments
-import com.microsoft.appcenter.utils.async.AppCenterConsumer
-import com.yelp.fusion.client.models.User
 import java.io.IOException
 import java.util.*
 
@@ -43,13 +37,13 @@ class Drawer {
     @Throws(IOException::class)
     fun main(drawerItem: Long, ctx: Context, Db: TagManager, activity: Activity): MutableList<RssFeedModel>? {
         var rssFeedModel1: MutableList<RssFeedModel> = ArrayList()
-        var lat:Double = 0.0
+        var lat: Double = 0.0
         var log: Double = 0.0
         val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             println("running location system")
 
-        val location: Location? = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            val location: Location? = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
 
             if (location != null) {
                 log = location.longitude
@@ -102,34 +96,24 @@ class Drawer {
         } else if (drawerItem == 4L) {
             rssFeedModel1 = shopping().getShops(java.lang.Double.toString(log), java.lang.Double.toString(lat))
             return rssFeedModel1
-        }
-        else if (drawerItem == 5L) {
+        } else if (drawerItem == 5L) {
 
 
             rssFeedModel1 = CalUtility.readCalendarEvent(ctx)
             return rssFeedModel1
-        }
-
-
-
-
-        else if (drawerItem == 7L){
+        } else if (drawerItem == 7L) {
             rssFeedModel1 = Devices().getAll(activity)
             return rssFeedModel1
-        }
-        else if (drawerItem == 104L) {
+        } else if (drawerItem == 104L) {
             rssFeedModel1.addAll(Rss().parseRss(3, ctx))
             return rssFeedModel1
         } else if (drawerItem == 102L) {
             rssFeedModel1.addAll(Rss().parseRss(2, ctx))
             return rssFeedModel1
-        }
-        else if (drawerItem == 103L) {
+        } else if (drawerItem == 103L) {
             rssFeedModel1.addAll(Rss().parseRss(1, ctx))
             return rssFeedModel1
-        }
-
-        else if (drawerItem == 105L) {
+        } else if (drawerItem == 105L) {
             rssFeedModel1.addAll(Rss().parseRss(4, ctx))
             return rssFeedModel1
         }

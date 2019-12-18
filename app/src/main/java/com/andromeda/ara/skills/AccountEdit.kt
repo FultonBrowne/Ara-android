@@ -17,7 +17,7 @@
 package com.andromeda.ara.skills
 
 class AccountEdit {
-    fun changeName(){
+    fun changeName() {
 
     }
 }

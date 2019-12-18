@@ -16,12 +16,12 @@
 
 package com.andromeda.ara.skills
 
-import java.util.ArrayList
+import java.util.*
 
 class SkillsListParse {
-    fun parseTheList(mainToAdd:TempSkillsStore, toMerge:ArrayList<TempSkillsStore>): ArrayList<TempSkillsStore> {
-        for (i in toMerge){
-            if (i.order == mainToAdd.order){
+    fun parseTheList(mainToAdd: TempSkillsStore, toMerge: ArrayList<TempSkillsStore>): ArrayList<TempSkillsStore> {
+        for (i in toMerge) {
+            if (i.order == mainToAdd.order) {
                 toMerge.remove(i)
                 toMerge.add(mainToAdd)
             }

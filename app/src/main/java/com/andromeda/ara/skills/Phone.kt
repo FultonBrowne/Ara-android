@@ -24,15 +24,16 @@ import com.andromeda.ara.phoneData.GetContacts
 
 
 class Phone {
-    fun call(contact:String, ctx:Context, act:Activity){
+    fun call(contact: String, ctx: Context, act: Activity) {
         //make this a thing
-        var phone =GetContacts().search(contact, ctx)
+        var phone = GetContacts().search(contact, ctx)
         val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         ctx.startActivity(intent)
 
     }
-    fun recentCalls(){
+
+    fun recentCalls() {
 
     }
 }

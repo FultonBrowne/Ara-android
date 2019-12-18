@@ -39,7 +39,7 @@ class Rss {
         var mFeedTitle: String
         var mFeedLink: String
         var mFeedDescription: String
-        var mFeedDate:Date
+        var mFeedDate: Date
 
 
         var items = ArrayList<FeedDateParseModel>()
@@ -70,19 +70,18 @@ class Rss {
                 mFeedDate = syndEntry.publishedDate
 
 
-                val rssFeedModel = FeedDateParseModel(mFeedTitle,mFeedDescription , mFeedLink, "", "", mFeedDate)
+                val rssFeedModel = FeedDateParseModel(mFeedTitle, mFeedDescription, mFeedLink, "", "", mFeedDate)
                 items.add(rssFeedModel)
 
 
             }
-            if (mode == 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            if (mode == 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 try {
                     items.addAll(CalUtility.getComplexData(ctx))
                     println("got the cal")
-                        items = sortDate(items)
+                    items = sortDate(items)
 
-                }
-                catch (e: IndexOutOfBoundsException){
+                } catch (e: IndexOutOfBoundsException) {
                     e.printStackTrace()
                 }
             }
@@ -92,7 +91,7 @@ class Rss {
             mFeedLink = "err"
             mFeedTitle = "please connect"
             mFeedDescription = ""
-            val rssFeedModel = FeedDateParseModel(mFeedDescription, mFeedLink, mFeedTitle, "", "",  Date(0,0,0,0,0,0))
+            val rssFeedModel = FeedDateParseModel(mFeedDescription, mFeedLink, mFeedTitle, "", "", Date(0, 0, 0, 0, 0, 0))
             items.add(rssFeedModel)
 
         } catch (e: FeedException) {
@@ -100,14 +99,14 @@ class Rss {
             mFeedLink = ""
             mFeedTitle = "feed error"
             mFeedDescription = "We will fix it, don't worry"
-            val rssFeedModel = FeedDateParseModel(mFeedDescription, mFeedLink, mFeedTitle, "", "", Date(0,0,0,0,0,0))
+            val rssFeedModel = FeedDateParseModel(mFeedDescription, mFeedLink, mFeedTitle, "", "", Date(0, 0, 0, 0, 0, 0))
             items.add(rssFeedModel)
 
         } finally {
             xmlReader?.close()
         }
         val toReturn = ArrayList<RssFeedModel>()
-        for (i in items){
+        for (i in items) {
             toReturn.add(i.toRssFeedModel())
         }
 
@@ -116,6 +115,7 @@ class Rss {
 
 
     }
+
     @RequiresApi(Build.VERSION_CODES.N)
     fun sortDate(tosort: ArrayList<FeedDateParseModel>): ArrayList<FeedDateParseModel> { //sort by date
         tosort.sortWith(Comparator.comparing { obj: FeedDateParseModel -> obj.date })

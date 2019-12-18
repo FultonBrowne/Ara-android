@@ -18,15 +18,13 @@ package com.andromeda.ara.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.widget.Toast
-import androidx.preference.Preference
 import com.microsoft.appcenter.auth.Auth
 import com.microsoft.appcenter.auth.SignInResult
 import com.nimbusds.jwt.JWTParser
 import net.minidev.json.JSONArray
 
 class LogIn {
-    fun logIn(mPrefs:SharedPreferences, ctx:Context) {
+    fun logIn(mPrefs: SharedPreferences, ctx: Context) {
 
         Auth.setEnabled(true)
         Auth.signIn().thenAccept { signInResult: SignInResult ->

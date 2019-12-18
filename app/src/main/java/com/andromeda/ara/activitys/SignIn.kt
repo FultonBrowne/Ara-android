@@ -16,12 +16,10 @@
 
 package com.andromeda.ara.activitys
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.microsoft.appcenter.auth.Auth
-import com.microsoft.appcenter.AppCenter
-
 
 
 class SignIn : AppCompatActivity() {

@@ -19,31 +19,30 @@ package com.andromeda.ara.skills
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.core.content.ContextCompat.startActivity
 
 
 class OpenApp {
-    fun openApp(appName:String, ctx:Context){
+    fun openApp(appName: String, ctx: Context) {
         val apps = ctx.packageManager.getInstalledApplications(0)
         print(apps)
         var returnedApp = ""
 
-            val pm: PackageManager = ctx.packageManager
+        val pm: PackageManager = ctx.packageManager
 //get a list of installed apps.
-            //get a list of installed apps.
-            val packages = pm.getInstalledApplications(PackageManager.GET_META_DATA)
+        //get a list of installed apps.
+        val packages = pm.getInstalledApplications(PackageManager.GET_META_DATA)
 
-            for (packageInfo in packages) {
+        for (packageInfo in packages) {
 
-                if(packageInfo.loadLabel(pm).toString().toLowerCase() == appName){
-                    returnedApp = packageInfo.packageName
-                }
+            if (packageInfo.loadLabel(pm).toString().toLowerCase() == appName) {
+                returnedApp = packageInfo.packageName
             }
+        }
         val launchIntent: Intent? = ctx.packageManager.getLaunchIntentForPackage(returnedApp)
         launchIntent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         launchIntent?.let { ctx.startActivity(it) }
-        }
-
     }
+
+}
 
 

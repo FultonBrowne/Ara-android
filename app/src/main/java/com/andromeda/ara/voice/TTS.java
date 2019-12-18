@@ -24,14 +24,13 @@ import java.util.Locale;
 public class TTS {
     private TextToSpeech t1;
 
-   void start(Context ctx, String text) {
+    void start(Context ctx, String text) {
         t1 = new TextToSpeech(ctx, status -> {
             if (status != TextToSpeech.ERROR) {
                 t1.setLanguage(Locale.UK);
                 t1.speak(text, TextToSpeech.QUEUE_FLUSH, null, "123456789");
                 System.out.println("done");
-            }
-            else System.out.println("errrrrrrrrr");
+            } else System.out.println("errrrrrrrrr");
         });
     }
 

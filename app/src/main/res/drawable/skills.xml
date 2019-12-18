@@ -23,6 +23,6 @@
         <bitmap
                 android:gravity="fill|left|center"
 
-                android:src="@drawable/skillsback" />
+                android:src="@drawable/skillsback"/>
     </item>
 </layer-list>

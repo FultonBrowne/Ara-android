@@ -20,7 +20,7 @@ import androidx.compose.Composable
 
 class Buttons {
     @Composable
-    fun buttonRound(){
+    fun buttonRound() {
 
     }
 }

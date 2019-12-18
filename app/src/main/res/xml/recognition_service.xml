@@ -16,7 +16,7 @@
   -->
 
 <voice-interaction-service
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:recognitionService=".voice.AssistServ"
-    android:sessionService=".voice.AssistSessServ"
-    android:supportsAssist="true"/>
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:recognitionService=".voice.AssistServ"
+        android:sessionService=".voice.AssistSessServ"
+        android:supportsAssist="true"/>

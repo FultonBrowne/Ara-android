@@ -17,15 +17,11 @@
 package com.andromeda.ara.voice;
 
 
-
 import android.content.Context;
 import android.os.Build;
-
 import androidx.annotation.RequiresApi;
-
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
@@ -43,7 +39,7 @@ class DeepSpeech {
     private void newModel(Context ctx) {
         System.out.println("working");
         if (this._m == null) {
-            this._m = new DeepSpeechModel(ctx.getCacheDir()+"/main.tflite", ctx.getCacheDir()+"/alphabet.txt", 50);
+            this._m = new DeepSpeechModel(ctx.getCacheDir() + "/main.tflite", ctx.getCacheDir() + "/alphabet.txt", 50);
         }
 
     }
@@ -88,8 +84,8 @@ class DeepSpeech {
             short[] shorts = new short[bytes.length / 2];
             System.out.println("num info");
             ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
-            new Thread(()->
-            decoded[0] = this._m.stt(shorts, shorts.length));
+            new Thread(() ->
+                    decoded[0] = this._m.stt(shorts, shorts.length));
             System.out.println(decoded[0]);
 
 

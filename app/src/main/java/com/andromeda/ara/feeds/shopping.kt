@@ -27,7 +27,7 @@ class shopping {
      */
     fun getShops(log: String, lat: String): ArrayList<RssFeedModel> {
         val rssFeedModel1: ArrayList<RssFeedModel> = ArrayList()
-        val main = RssFeedModel("", "", "", "","", false)
+        val main = RssFeedModel("", "", "", "", "", false)
         val apiFactory = YelpFusionApiFactory()
         try {
             val params = HashMap<String, String>()
@@ -62,13 +62,13 @@ class shopping {
                     rssFeedModel1.add(RssFeedModel(info, web, title, image, "", true))
                 }
             } else {
-                rssFeedModel1.add(RssFeedModel("err1", "err", "err", "err","", false))
+                rssFeedModel1.add(RssFeedModel("err1", "err", "err", "err", "", false))
             }
 
 
         } catch (e: IOException) {
             e.printStackTrace()
-            rssFeedModel1.add(RssFeedModel("err", "err", "err", "err","", false))
+            rssFeedModel1.add(RssFeedModel("err", "err", "err", "err", "", false))
         }
 
 

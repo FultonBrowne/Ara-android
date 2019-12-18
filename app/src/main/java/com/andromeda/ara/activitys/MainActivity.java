@@ -26,18 +26,15 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -49,14 +46,11 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.andromeda.ara.R;
 import com.andromeda.ara.constants.DrawerModeConstants;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.Rss;
-import com.andromeda.ara.feeds.Skills;
 import com.andromeda.ara.search.Search;
-
 import com.andromeda.ara.skills.NewSkillPopUp;
 import com.andromeda.ara.util.*;
 import com.andromeda.ara.voice.VoiceMain;
@@ -67,13 +61,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.auth.Auth;
-import com.microsoft.appcenter.auth.SignInResult;
 import com.microsoft.appcenter.crashes.Crashes;
 import com.microsoft.appcenter.data.Data;
 import com.microsoft.appcenter.data.DefaultPartitions;
 import com.microsoft.appcenter.data.models.DocumentWrapper;
 import com.microsoft.appcenter.data.models.PaginatedDocuments;
-import com.microsoft.appcenter.data.models.WriteOptions;
 import com.microsoft.appcenter.push.Push;
 import com.microsoft.appcenter.utils.async.AppCenterConsumer;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -82,19 +74,15 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-
-import com.yelp.fusion.client.models.User;
 import org.jetbrains.annotations.Contract;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.EasyPermissions;
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -120,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
     String mEmail;
     String mName;
     Activity act;
-
 
 
     @Override
@@ -185,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.list);
 
 
-
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(DrawerModeConstants.HOME).withName("Home").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.home);
         SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.TAGS).withName("Tags").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.tag);
         SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.FOOD).withName("Food").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.food);
@@ -212,19 +198,20 @@ public class MainActivity extends AppCompatActivity {
                 .withThreeSmallProfileImages(true)
 
                 .build();
-        Thread welcomeScreen = new Thread(()->{
-        if (!welcomeScreenShown) {
-            // here you can launch another activity if you like
-            // the code below will display a popup
+        Thread welcomeScreen = new Thread(() -> {
+            if (!welcomeScreenShown) {
+                // here you can launch another activity if you like
+                // the code below will display a popup
 
-            String whatsNewTitle = ("Welcome to ara for android!");
-            String whatsNewText = ("Thank you for downloading and investing in the next generation of intelligent voice assistants.");
-            //new AlertDialog.Builder(this).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
-              //      getText(R.string.textOK), (dialog, which) -> dialog.dismiss()).show();
-            SharedPreferences.Editor editor = mPrefs.edit();
-            editor.putBoolean(welcomeScreenShownPref, true);
-            editor.apply();
-        }});
+                String whatsNewTitle = ("Welcome to ara for android!");
+                String whatsNewText = ("Thank you for downloading and investing in the next generation of intelligent voice assistants.");
+                //new AlertDialog.Builder(this).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
+                //      getText(R.string.textOK), (dialog, which) -> dialog.dismiss()).show();
+                SharedPreferences.Editor editor = mPrefs.edit();
+                editor.putBoolean(welcomeScreenShownPref, true);
+                editor.apply();
+            }
+        });
         welcomeScreen.start();
 
         runOnUiThread(() -> drawer = new DrawerBuilder()
@@ -248,33 +235,31 @@ public class MainActivity extends AppCompatActivity {
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
 
                     MainActivity.this.runOnUiThread(() -> {
-                        if(drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS){
+                        if (drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS) {
 
                             Data.list(SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(new AppCenterConsumer<PaginatedDocuments<SkillsDBModel>>() {
                                 @Override
                                 public void accept(PaginatedDocuments<SkillsDBModel> documentWrappers) {
                                     rssFeedModel1.clear();
-                                    if(!(documentWrappers == null)){
-                                    for ( DocumentWrapper<SkillsDBModel> i : documentWrappers.getCurrentPage().getItems()) {
-                                        rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), "", "", "", false));
-                                    }
+                                    if (!(documentWrappers == null)) {
+                                        for (DocumentWrapper<SkillsDBModel> i : documentWrappers.getCurrentPage().getItems()) {
+                                            rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), "", "", "", false));
+                                        }
                                         recyclerView.setAdapter(new Adapter(rssFeedModel1));
                                         mode = drawerItem.getIdentifier();
-                                }
-                                    else System.out.println("fail");
+                                    } else System.out.println("fail");
                                 }
 
                             });
 
-                        }
-                        else{
-                        try {
-                            rssFeedModel1 = new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this);
-                            recyclerView.setAdapter(new Adapter(rssFeedModel1));
-                            mode = drawerItem.getIdentifier();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        } else {
+                            try {
+                                rssFeedModel1 = new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this);
+                                recyclerView.setAdapter(new Adapter(rssFeedModel1));
+                                mode = drawerItem.getIdentifier();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
 
@@ -289,10 +274,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                    //Intent browserIntent;
+                //Intent browserIntent;
 
-                    //browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
-                    //startActivity(browserIntent);
+                //browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
+                //startActivity(browserIntent);
                 new CardOnClick().mainFun(mode, rssFeedModel1.get(position).link, act, getApplicationContext());
 
             }
@@ -414,18 +399,18 @@ public class MainActivity extends AppCompatActivity {
                     assert locationManager != null;
                     Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     requestLocationPermission();
-                    if(!(location == null)){
-                    lat = location.getLatitude();
-                    log = location.getLongitude();}
+                    if (!(location == null)) {
+                        lat = location.getLatitude();
+                        log = location.getLongitude();
+                    }
                 }
                 try {
 
 
-                ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query, getApplicationContext(), MainActivity.this));
-                rssFeedModel1.addAll(0, rssFeedModel2);
-                mAdapter.notifyDataSetChanged();
-                }
-                catch (Exception e){
+                    ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query, getApplicationContext(), MainActivity.this));
+                    rssFeedModel1.addAll(0, rssFeedModel2);
+                    mAdapter.notifyDataSetChanged();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -485,10 +470,9 @@ public class MainActivity extends AppCompatActivity {
         int mHour = LocalTime.now().getHour();
         if (mHour < 12) {
             mTime = "Good morning";
-        }
-        else if (mHour >= 12 && mHour < 16) {
+        } else if (mHour >= 12 && mHour < 16) {
             mTime = "good afternoon";
-        } else{
+        } else {
             mTime = "Good evening";
         }
     }
@@ -528,12 +512,12 @@ public class MainActivity extends AppCompatActivity {
     public void addSkill(MenuItem item) {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         ArrayList<SkillsModel> toYML = new ArrayList<>();
-        toYML.add(new SkillsModel("CALL", "",""));
+        toYML.add(new SkillsModel("CALL", "", ""));
         String name = new NewSkillPopUp().main(this);
 
         try {
             int i = (int) (Math.random() * ((30000) + 1));
-            Data.create(Integer.toString(i), new SkillsDBModel(new SkillsModel(mapper.writeValueAsString(toYML), "",  ""), "test thing"), SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS);
+            Data.create(Integer.toString(i), new SkillsDBModel(new SkillsModel(mapper.writeValueAsString(toYML), "", ""), "test thing"), SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS);
 
 
         } catch (JsonProcessingException e) {

@@ -27,7 +27,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.util.SkillsModel
-import java.util.ArrayList
+import java.util.*
 
 
 class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : RecyclerView.Adapter<SkillsAdapter.FeedModelViewHolder>() {
@@ -69,8 +69,7 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
         }
         try {
             spinner.setSelection(SkillsMap().mapFlip(model.action)!!)
-        }
-        catch (e:Exception){
+        } catch (e: Exception) {
 
         }
         //Creating the instance of ArrayAdapter containing list of fruit names
@@ -91,7 +90,8 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
         }
 
 
-        arg2Text.setOnDismissListener { val text = arg1Text.text.toString()
+        arg2Text.setOnDismissListener {
+            val text = arg1Text.text.toString()
             outList.remove(toOut)
             skills = SkillsModel(model.action, skills.arg1, text)
             toOut = TempSkillsStore(skills, mainNum)

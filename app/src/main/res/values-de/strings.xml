@@ -20,7 +20,7 @@
     <string name="action_about">Über</string>
     <string name="greet">Hallo, kann ich helfen?</string>
     <string name="greet1">Hallo, @string/greet</string>
-    <string name="blank" />
+    <string name="blank"/>
     <string name="title_activity_settings">Einstellungen</string>
 
     <!-- Strings related to Settings -->
@@ -30,10 +30,10 @@
 
     <string name="pref_title_social_recommendations">Soziale Empfehlungen aktivieren</string>
     <string name="pref_description_social_recommendations">
-Empfehlungen für Kontaktpersonen basierend auf Ihrem Nachrichtenverlauf
+        Empfehlungen für Kontaktpersonen basierend auf Ihrem Nachrichtenverlauf
     </string>
-  <string name="botton_menu_title">home</string>
-  <string name="new_app_widget2_title">WIDGET DEMNÄCHST VERFÜGBAR</string>
+    <string name="botton_menu_title">home</string>
+    <string name="new_app_widget2_title">WIDGET DEMNÄCHST VERFÜGBAR</string>
 
     <string name="pref_title_display_name">Angezeigter Name</string>
     <string name="pref_default_display_name">Max Mustermann</string>
@@ -83,7 +83,7 @@ Empfehlungen für Kontaktpersonen basierend auf Ihrem Nachrichtenverlauf
         <item>3</item>
     </string-array>
 
-    <string-array name="multi_select_list_preference_default_value" />
+    <string-array name="multi_select_list_preference_default_value"/>
 
     <string name="pref_title_system_sync_settings">Systemeinstellungen synchronisieren</string>
 
@@ -206,7 +206,7 @@ Empfehlungen für Kontaktpersonen basierend auf Ihrem Nachrichtenverlauf
     <string name="prompt_firstname">Vorname</string>
     <string name="welcome1">Willkommen bei Ara! Zum Anfang, wie lautet Ihr Vorname?</string>
     <string name="done">Abschließen und Ara öffnen</string>
-    <string name="themeMode" />
+    <string name="themeMode"/>
     <string name="theme">Dunkelmodus erzwingen</string>
     <string name="keytheme">list_preference_1</string>
     <string name="default1">Systemstandard</string>

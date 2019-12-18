@@ -17,7 +17,7 @@
   -->
 
 <voice-interaction-service xmlns:android="http://schemas.android.com/apk/res/android"
-    android:recognitionService=".MainAraRS"
-    android:sessionService=".MainInteractionSessionService"
-    android:settingsActivity=".SettingsActivity"
-    android:supportsAssist="true" />
+                           android:recognitionService=".MainAraRS"
+                           android:sessionService=".MainInteractionSessionService"
+                           android:settingsActivity=".SettingsActivity"
+                           android:supportsAssist="true"/>

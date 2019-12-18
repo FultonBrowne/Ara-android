@@ -19,7 +19,7 @@ package com.andromeda.ara.feeds
 import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.OutputModel
 import java.net.URL
-import java.util.ArrayList
+import java.util.*
 
 class Skills {
     fun getThem(): ArrayList<OutputModel>? {

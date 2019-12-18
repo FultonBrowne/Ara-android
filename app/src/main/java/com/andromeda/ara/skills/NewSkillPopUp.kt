@@ -18,14 +18,13 @@ package com.andromeda.ara.skills
 
 
 import android.content.Context
-import android.content.DialogInterface
 import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 
 
 class NewSkillPopUp {
-    fun main(ctx:Context): String {
+    fun main(ctx: Context): String {
         var text = ""
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setTitle("Title")

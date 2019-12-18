@@ -23,7 +23,7 @@ import com.microsoft.appcenter.auth.Auth
 import com.microsoft.appcenter.crashes.Crashes
 
 class GetSettings {
-    fun starUp(ctx:Context){
+    fun starUp(ctx: Context) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
         Auth.setEnabled(prefs.getBoolean("araAccount", true))
         Crashes.setEnabled(prefs.getBoolean("getData", true))

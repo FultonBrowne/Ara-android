@@ -16,48 +16,48 @@
   -->
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:onClick="exit"
-    tools:context=".voice.VoiceMain">
+                                                     xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                     xmlns:tools="http://schemas.android.com/tools"
+                                                     android:layout_width="match_parent"
+                                                     android:layout_height="match_parent"
+                                                     android:onClick="exit"
+                                                     tools:context=".voice.VoiceMain">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/animate" />
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/animate"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
 
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="32dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="back"
-        app:srcCompat="@drawable/ic_baseline_stop_24" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="32dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="back"
+            app:srcCompat="@drawable/ic_baseline_stop_24"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
-        android:layout_width="wrap_content"
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="wrap_content"
 
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="128dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="record"
-        android:visibility="invisible"
-        app:srcCompat="@drawable/mic" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="128dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="record"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/mic"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listVoice"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="0dp" />
+            android:id="@+id/listVoice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="0dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

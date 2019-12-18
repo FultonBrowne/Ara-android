@@ -65,16 +65,17 @@ fun DefaultPreview() {
 
     }
 }
+
 @Composable
 fun NewsStory() {
     val image = +imageResource(R.drawable.aboutpic)
 
     Column(
             crossAxisSize = LayoutSize.Expand,
-            modifier=Spacing(16.dp)
-    
+            modifier = Spacing(16.dp)
+
     ) {
-        
+
         Container(expanded = true, height = 180.dp) {
             Clip(shape = RoundedCornerShape(8.dp)) {
                 DrawImage(image)

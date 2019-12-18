@@ -15,30 +15,30 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.andromeda.ara.activitys.MainActivity">
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.andromeda.ara.activitys.MainActivity">
     <item
-        android:id="@+id/action_settings"
-        android:onClick="openSettingsActivity"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+            android:id="@+id/action_settings"
+            android:onClick="openSettingsActivity"
+            android:orderInCategory="100"
+            android:title="@string/action_settings"
+            app:showAsAction="never"/>
     <item
-        android:id="@+id/app_bar_search"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:orderInCategory="101"
-        android:title="@string/app_name"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom" />
+            android:id="@+id/app_bar_search"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:orderInCategory="101"
+            android:title="@string/app_name"
+            app:actionViewClass="androidx.appcompat.widget.SearchView"
+            app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/action_about"
-        android:onClick="about"
-        android:orderInCategory="100"
-        android:title="@string/action_about"
-        app:showAsAction="never" />
+            android:id="@+id/action_about"
+            android:onClick="about"
+            android:orderInCategory="100"
+            android:title="@string/action_about"
+            app:showAsAction="never"/>
     <item android:title="@string/log_out"
-        android:onClick="logOut"/>
+          android:onClick="logOut"/>
     <item android:title="@string/skillmenu"
           android:onClick="addSkill"/>
 

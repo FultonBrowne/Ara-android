@@ -70,7 +70,9 @@
     <string name="news">habari</string>
     <string name="number_1">nambari 1</string>
     <string name="pref_default_display_name">John Smith</string>
-    <string name="pref_description_social_recommendations">Pendekezo kwa watu kuwasiliana kulingana na historia ya ujumbe</string>
+    <string name="pref_description_social_recommendations">Pendekezo kwa watu kuwasiliana kulingana na historia ya
+        ujumbe
+    </string>
     <string name="pref_header_data_sync">Data na sawazisha</string>
     <string name="pref_header_general">Jumla</string>
     <string name="pref_header_notifications">Ujumbe</string>

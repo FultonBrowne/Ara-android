@@ -29,10 +29,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-
 import com.andromeda.ara.R;
 
 import static android.content.Context.LOCATION_SERVICE;

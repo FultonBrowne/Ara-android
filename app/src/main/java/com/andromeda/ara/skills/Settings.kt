@@ -17,13 +17,15 @@
 package com.andromeda.ara.skills
 
 class Settings {
-    fun airPlaneMode(){
+    fun airPlaneMode() {
 
     }
-    fun wiFi(){
+
+    fun wiFi() {
 
     }
-    fun bluTooth(){
+
+    fun bluTooth() {
 
     }
 

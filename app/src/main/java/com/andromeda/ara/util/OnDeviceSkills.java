@@ -48,11 +48,9 @@ public class OnDeviceSkills {
         contentValue.put(OnDeviceSkillsDB.PRE, pre);
         contentValue.put(OnDeviceSkillsDB.END, end);
         contentValue.put(OnDeviceSkillsDB.ACT, act);
-        database.insertWithOnConflict(OnDeviceSkillsDB.TABLE_NAME,null,contentValue,SQLiteDatabase.CONFLICT_REPLACE);
+        database.insertWithOnConflict(OnDeviceSkillsDB.TABLE_NAME, null, contentValue, SQLiteDatabase.CONFLICT_REPLACE);
 
     }
-
-
 
 
     public Cursor fetch() {
@@ -61,8 +59,8 @@ public class OnDeviceSkills {
         if (cursor != null) {
             cursor.moveToFirst();
         }
-        return  cursor;
+        return cursor;
 
 
-        }
     }
+}

@@ -20,7 +20,7 @@
     <string name="action_about">Over</string>
     <string name="greet">Hallo, kan ik helpen?</string>
     <string name="greet1">Hallo, @string/greet</string>
-    <string name="blank" />
+    <string name="blank"/>
     <string name="title_activity_settings">Instellingen</string>
 
     <!-- Strings related to Settings -->
@@ -32,8 +32,8 @@
     <string name="pref_description_social_recommendations">Aanbevelingen voor mensen om te contacteren
         op basis van jouw berichtgeschiedenis
     </string>
-  <string name="botton_menu_title">home</string>
-  <string name="new_app_widget2_title">WIDGET BINNENKORT</string>
+    <string name="botton_menu_title">home</string>
+    <string name="new_app_widget2_title">WIDGET BINNENKORT</string>
 
     <string name="pref_title_display_name">Weergavenaam</string>
     <string name="pref_default_display_name">John Smith</string>
@@ -83,7 +83,7 @@
         <item>3</item>
     </string-array>
 
-    <string-array name="multi_select_list_preference_default_value" />
+    <string-array name="multi_select_list_preference_default_value"/>
 
     <string name="pref_title_system_sync_settings">Systeem synchronisatie instellingen</string>
 
@@ -206,7 +206,7 @@
     <string name="prompt_firstname">Voornaam</string>
     <string name="welcome1">Welkom bij Ara! Om te beginnen, wat is jouw voornaam?</string>
     <string name="done">Klaar en open Ara</string>
-    <string name="themeMode" />
+    <string name="themeMode"/>
     <string name="theme">Forceer donker thema</string>
     <string name="keytheme">list_preference_1</string>
     <string name="default1">Systeem standaard</string>

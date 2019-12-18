@@ -25,25 +25,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.andromeda.ara.R;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.RssFeedModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -51,25 +42,8 @@ import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.andromeda.ara.constants.ConstantUtils.AUDIO_FORMAT;
-import static com.andromeda.ara.constants.ConstantUtils.AUDIO_FORMAT_PCM;
-import static com.andromeda.ara.constants.ConstantUtils.AUDIO_SOURCE;
-import static com.andromeda.ara.constants.ConstantUtils.BITS_PER_SAMPLE;
-import static com.andromeda.ara.constants.ConstantUtils.BLOCK_ALIGN;
-import static com.andromeda.ara.constants.ConstantUtils.BYTE_RATE;
-import static com.andromeda.ara.constants.ConstantUtils.CHANNEL_CONFIG;
-import static com.andromeda.ara.constants.ConstantUtils.CHUNK_ID;
-import static com.andromeda.ara.constants.ConstantUtils.CHUNK_SIZE;
-import static com.andromeda.ara.constants.ConstantUtils.FORMAT;
-import static com.andromeda.ara.constants.ConstantUtils.NUMBER_OF_CHANNELS;
-import static com.andromeda.ara.constants.ConstantUtils.REQUEST_RECORD_AUDIO;
-import static com.andromeda.ara.constants.ConstantUtils.SAMPLE_RATE_HZ;
-import static com.andromeda.ara.constants.ConstantUtils.SUB_CHUNK_ID_1;
-import static com.andromeda.ara.constants.ConstantUtils.SUB_CHUNK_ID_2;
-import static com.andromeda.ara.constants.ConstantUtils.SUB_CHUNK__SIZE_1;
-import static com.andromeda.ara.util.VoiceMainUtils.writeInt;
-import static com.andromeda.ara.util.VoiceMainUtils.writeShort;
-import static com.andromeda.ara.util.VoiceMainUtils.writeString;
+import static com.andromeda.ara.constants.ConstantUtils.*;
+import static com.andromeda.ara.util.VoiceMainUtils.*;
 
 public class VoiceMain extends AppCompatActivity {
     private FileOutputStream os = null;
@@ -102,30 +76,27 @@ public class VoiceMain extends AppCompatActivity {
         requestMicrophonePermission();
 
 
-
-
         super.onCreate(savedInstanceState);
-            startRecording();
-            runTransition();
+        startRecording();
+        runTransition();
 
-        }
-        void runTransition(){
+    }
 
-            runOnUiThread(() -> {
-                imageView = findViewById(R.id.imageView);
-                imageView.setVisibility(View.VISIBLE);
+    void runTransition() {
 
-                AnimationDrawable transition = (AnimationDrawable) imageView.getBackground();
-                transition.setEnterFadeDuration(5000);
+        runOnUiThread(() -> {
+            imageView = findViewById(R.id.imageView);
+            imageView.setVisibility(View.VISIBLE);
 
-                // setting exit fade animation duration to 2 seconds
-                transition.setExitFadeDuration(2000);
-                transition.run();
+            AnimationDrawable transition = (AnimationDrawable) imageView.getBackground();
+            transition.setEnterFadeDuration(5000);
 
-            });
-        }
+            // setting exit fade animation duration to 2 seconds
+            transition.setExitFadeDuration(2000);
+            transition.run();
 
-
+        });
+    }
 
 
     public void back(View view) {
@@ -167,7 +138,7 @@ public class VoiceMain extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        if(!blankRunning) {
+                                        if (!blankRunning) {
                                             stopRecording();
                                             FloatingActionButton fab2 = findViewById(R.id.floatingActionButton2);
                                             fab2.setVisibility(View.VISIBLE);
@@ -177,8 +148,7 @@ public class VoiceMain extends AppCompatActivity {
 
                             }
                         }, 4000);
-                    }
-                    else blankRunning = true;
+                    } else blankRunning = true;
                     try {
                         os.write(Data, 0, bufferSizeInBytes);
                     } catch (Exception e) {
@@ -208,13 +178,13 @@ public class VoiceMain extends AppCompatActivity {
                     phrase[0] = new DeepSpeech().run(getCacheDir() + "/record.wav", this.getApplicationContext());
                 } catch (IOException e) {
                     e.printStackTrace();
-                }                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this));
+                }
+                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this));
 
                 runOnUiThread(() -> recyclerView.setAdapter(new Adapter(rssFeedModels)));
-                try{
-                new TTS().start(getApplicationContext(), rssFeedModels.get(0).out);
-                }
-                catch (Exception ignored){
+                try {
+                    new TTS().start(getApplicationContext(), rssFeedModels.get(0).out);
+                } catch (Exception ignored) {
 
                 }
             });
@@ -331,7 +301,8 @@ public class VoiceMain extends AppCompatActivity {
             out.write(buffer, 0, read);
         }
     }
-    private void stopAnimation(){
+
+    private void stopAnimation() {
         runOnUiThread(() -> imageView.setVisibility(View.INVISIBLE));
     }
 

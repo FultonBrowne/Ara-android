@@ -26,6 +26,7 @@ import android.view.ViewGroup.LayoutParams
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatDelegate
+
 /**
  * A [android.preference.PreferenceActivity] which implements and proxies the necessary calls
  * to be used with AppCompat.

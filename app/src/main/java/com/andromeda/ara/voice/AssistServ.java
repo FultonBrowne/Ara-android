@@ -20,13 +20,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.service.voice.AlwaysOnHotwordDetector;
 import android.service.voice.VoiceInteractionService;
-import android.service.voice.VoiceInteractionSession;
-import android.service.voice.VoiceInteractionSessionService;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
-import androidx.preference.PreferenceManager;
-
 import com.andromeda.ara.R;
 
 import java.util.Locale;
@@ -68,11 +63,13 @@ public class AssistServ extends VoiceInteractionService {
 
 
     };
+
     @Override
     public void onReady() {
-        super.onReady();ctx = this;
+        super.onReady();
+        ctx = this;
 
-         mHotwordDetector = createAlwaysOnHotwordDetector(
+        mHotwordDetector = createAlwaysOnHotwordDetector(
                 "hello ara", Locale.forLanguageTag("en-US"), mHotwordCallback);
 
 
@@ -92,34 +89,39 @@ public class AssistServ extends VoiceInteractionService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
     }
-        private void hotwordAvailabilityChangeHelper(Integer availability) {
-            Log.i(TAG, "Hotword availability = $availability");
 
-            switch (availability) {
-                case AlwaysOnHotwordDetector.STATE_HARDWARE_UNAVAILABLE :{ Log.i(TAG, "STATE_HARDWARE_UNAVAILABLE");
-                break;}
-                case AlwaysOnHotwordDetector.STATE_KEYPHRASE_UNSUPPORTED : {Log.i(TAG, "STATE_KEYPHRASE_UNSUPPORTED");
-                break;}
-                case AlwaysOnHotwordDetector.STATE_KEYPHRASE_UNENROLLED : {
-                    Log.i(TAG, "STATE_KEYPHRASE_UNENROLLED");
+    private void hotwordAvailabilityChangeHelper(Integer availability) {
+        Log.i(TAG, "Hotword availability = $availability");
 
-                        Intent enroll = mHotwordDetector.createEnrollIntent();
-                        Log.i(TAG, "Need to enroll with " + enroll);
-
-
-                }
-                case AlwaysOnHotwordDetector.STATE_KEYPHRASE_ENROLLED :{
-                    Log.i(TAG, "STATE_KEYPHRASE_ENROLLED - starting recognition");
-
-                    if (mHotwordDetector.startRecognition(
-                            0)) {
-                        Log.i(TAG, "startRecognition succeeded");
-                    } else {
-                        Log.i(TAG, "startRecognition failed");
-                    }
-                }
+        switch (availability) {
+            case AlwaysOnHotwordDetector.STATE_HARDWARE_UNAVAILABLE: {
+                Log.i(TAG, "STATE_HARDWARE_UNAVAILABLE");
                 break;
+            }
+            case AlwaysOnHotwordDetector.STATE_KEYPHRASE_UNSUPPORTED: {
+                Log.i(TAG, "STATE_KEYPHRASE_UNSUPPORTED");
+                break;
+            }
+            case AlwaysOnHotwordDetector.STATE_KEYPHRASE_UNENROLLED: {
+                Log.i(TAG, "STATE_KEYPHRASE_UNENROLLED");
+
+                Intent enroll = mHotwordDetector.createEnrollIntent();
+                Log.i(TAG, "Need to enroll with " + enroll);
+
 
             }
+            case AlwaysOnHotwordDetector.STATE_KEYPHRASE_ENROLLED: {
+                Log.i(TAG, "STATE_KEYPHRASE_ENROLLED - starting recognition");
+
+                if (mHotwordDetector.startRecognition(
+                        0)) {
+                    Log.i(TAG, "startRecognition succeeded");
+                } else {
+                    Log.i(TAG, "startRecognition failed");
+                }
+            }
+            break;
+
         }
+    }
 }

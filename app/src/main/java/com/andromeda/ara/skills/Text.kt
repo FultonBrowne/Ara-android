@@ -22,7 +22,7 @@ import android.net.Uri
 import com.andromeda.ara.phoneData.GetContacts
 
 class Text {
-    fun sendText(search:String, ctx: Context) {
+    fun sendText(search: String, ctx: Context) {
         val num = GetContacts().search(search, ctx)
         val uri = Uri.parse("smsto:$num")
         val intent = Intent(Intent.ACTION_SENDTO, uri)

@@ -20,7 +20,7 @@
     <string name="action_about">Acerca de</string>
     <string name="greet">ola, como puedo ayudarte?</string>
     <string name="greet1">Hola, @string/greet</string>
-    <string name="blank" />
+    <string name="blank"/>
     <string name="title_activity_settings">Configuracion</string>
 
     <!-- Strings related to Settings -->
@@ -29,7 +29,9 @@
     <string name="pref_header_general">General</string>
 
     <string name="pref_title_social_recommendations">Habilitar recomendaciones sociales</string>
-    <string name="pref_description_social_recommendations">Recomendaciones a personas para contactar basado en tu historial de mensajes</string>
+    <string name="pref_description_social_recommendations">Recomendaciones a personas para contactar basado en tu
+        historial de mensajes
+    </string>
 
     <string name="pref_title_display_name">Nombre a mostrar</string>
     <string name="pref_default_display_name">John Smith</string>
@@ -79,7 +81,7 @@
         <item>3</item>
     </string-array>
 
-    <string-array name="multi_select_list_preference_default_value" />
+    <string-array name="multi_select_list_preference_default_value"/>
 
     <string name="pref_title_system_sync_settings">Configuraciones de sincronización del sistema</string>
 
@@ -105,19 +107,23 @@
         "El material se basa en la realidad táctil, inspirado por el estudio del papel y la tinta, aún "
         "tecnológicamente avanzado y abierto a la imaginación y la magia.\n"
         "Las superficies y los bordes del material proporcionan señales visuales basadas en la realidad."
-        "El uso de atributos táctiles familiares ayuda a los usuarios a comprender rápidamente las posibilidades. Sin embargo, "
+        "El uso de atributos táctiles familiares ayuda a los usuarios a comprender rápidamente las posibilidades. Sin
+        embargo, "
         "la flexibilidad del material crea nuevas posibilidades que reemplazan a las del mundo físico "
         "sin romper las reglas de la física.\n"
-        "Los fundamentos de la luz, la superficie y el movimiento son clave para transmitir cómo se mueven los objetos, "
+        "Los fundamentos de la luz, la superficie y el movimiento son clave para transmitir cómo se mueven los objetos,
+        "
         "interactuar y existir en el espacio y en relación entre sí. La iluminación realista muestra las costuras, "
         "divide el espacio e indica partes móviles.\n\n"
 
         "Audaz, gráfico, intencional.\n\n"
 
-        "Los elementos fundamentales de la tipografía de diseño basado en impresión, cuadrículas, espacio, escala, color "
+        "Los elementos fundamentales de la tipografía de diseño basado en impresión, cuadrículas, espacio, escala, color
+        "
         "y uso de imágenes guían los tratamientos visuales. Estos elementos hacen mucho más que agradar a la vista."
         " Crean jerarquía, significado y enfoque. Opciones de color deliberadas, imágenes borde con borde,"
-        "la tipografía a gran escala y el espacio en blanco intencional crean una interfaz audaz y gráfica que sumerge al usuario en la experiencia.\n"
+        "la tipografía a gran escala y el espacio en blanco intencional crean una interfaz audaz y gráfica que sumerge
+        al usuario en la experiencia.\n"
         "El énfasis en las acciones del usuario hace que la funcionalidad principal sea evidente de inmediato "
         "y proporciona puntos de referencia para el usuario.\n\n"
 
@@ -133,7 +139,8 @@
         "Mundo 3D.\n\n"
 
         "El entorno material es un espacio 3D, lo que significa que todos los objetos tienen dimensiones x, y y z. "
-        "El eje z está perpendicularmente alineado con el plano de la pantalla, con el eje z positivo que se extiende hacia el espectador. "
+        "El eje z está perpendicularmente alineado con el plano de la pantalla, con el eje z positivo que se extiende
+        hacia el espectador. "
         "Cada hoja de material ocupa una sola posición a lo largo del eje z y tiene un grosor estándar de 1dp. \n "
         "En la web, el eje z se usa para capas y no para perspectiva. "
         "El mundo 3D se emula manipulando el eje y. \n \n "
@@ -146,7 +153,8 @@
         "crea sombras suaves desde todos los ángulos. \n "
         "Las sombras en el entorno material son proyectadas por estas dos fuentes de luz."
         "En el desarrollo de Android, las sombras ocurren cuando las fuentes de luz están bloqueadas por "
-        "láminas de material en varias posiciones a lo largo del eje z. En la web, las sombras se representan manipulando solo el eje y.
+        "láminas de material en varias posiciones a lo largo del eje z. En la web, las sombras se representan
+        manipulando solo el eje y.
         "El siguiente ejemplo muestra la tarjeta con una altura de 6dp. \n \n "
 
 
@@ -162,7 +170,8 @@
         "La elevación en reposo para un tipo de componente es consistente en todas las aplicaciones (por ejemplo, "
         "la elevación de FAB no varía de 6dp en una aplicación a 16dp en otra aplicación). \n"
         "Los componentes pueden tener diferentes elevaciones de descanso a través de las plataformas, "
-        "dependiendo de la profundidad del entorno (por ejemplo, el televisor tiene una profundidad mayor que el móvil o la computadora de escritorio). \n \n "
+        "dependiendo de la profundidad del entorno (por ejemplo, el televisor tiene una profundidad mayor que el móvil o
+        la computadora de escritorio). \n \n "
 
 
         "Elevación receptiva y compensaciones de elevación dinámica.\n\n"
@@ -173,21 +182,25 @@
         "Las compensaciones de elevación dinámica son la elevación de la meta hacia la que se mueve un componente, "
         "en relación con el estado de reposo del componente. "
         "Aseguran que los cambios de elevación sean consistentes en las acciones y los tipos de componentes. "
-        "Por ejemplo, todos los componentes que se levantan en la prensa tienen el mismo cambio de elevación en relación con su elevación en reposo. \n "
+        "Por ejemplo, todos los componentes que se levantan en la prensa tienen el mismo cambio de elevación en relación
+        con su elevación en reposo. \n "
         "Una vez que el evento de entrada se completa o cancela, el componente volverá a su elevación en reposo. \n \n "
 
 
         "Evitar la interferencia de elevación.\n\n"
 
-        "Los componentes con elevaciones receptivas pueden encontrarse con otros componentes a medida que se mueven entre "
+        "Los componentes con elevaciones receptivas pueden encontrarse con otros componentes a medida que se mueven
+        entre "
         "sus elevaciones en reposo y las compensaciones de elevaciones dinámicas. "
         "Debido a que el material no puede pasar a través de otro material, los componentes evitan interferir "
         "entre sí de muchas maneras, ya sea por componente o utilizando todo diseño de la aplicación. \n "
         "A nivel de componente, los componentes pueden moverse o eliminarse antes de que causen interferencia."
-        "Por ejemplo, un botón de acción flotante (FAB) puede desaparecer o moverse fuera de la pantalla antes de que un usuario tome una tarjeta, "
+        "Por ejemplo, un botón de acción flotante (FAB) puede desaparecer o moverse fuera de la pantalla antes de que un
+        usuario tome una tarjeta, "
         "o puede moverse si aparece una barra de snack. \n"
         "En el nivel de diseño, diseñe el diseño de su aplicación para minimizar las oportunidades de interferencia. "
-        "Por ejemplo, coloque la FAB a un lado del flujo de una tarjeta para que la FAB no interfiera cuando un usuario intente recoger una de las tarjetas. \n \n "
+        "Por ejemplo, coloque la FAB a un lado del flujo de una tarjeta para que la FAB no interfiera cuando un usuario
+        intente recoger una de las tarjetas. \n \n "
 
     </string>
     <string name="image">Camara</string>
@@ -205,7 +218,7 @@
     <string name="prompt_firstname">Nombre</string>
     <string name="welcome1">Bienvenido a Ara! Para comenzar, cual es tu nombre?</string>
     <string name="done">Terminar y abrir Ara</string>
-    <string name="themeMode" />
+    <string name="themeMode"/>
     <string name="theme">Forzar tema oscuro</string>
     <string name="keytheme">lista_preferencia_1</string>
     <string name="default1">Sistema por defecto</string>

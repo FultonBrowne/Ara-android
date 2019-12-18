@@ -45,7 +45,7 @@ class GetContacts {
                     while (pCur!!.moveToNext()) {
                         val phoneNo: String = pCur.getString(pCur.getColumnIndex(
                                 ContactsContract.CommonDataKinds.Phone.NUMBER))
-                        if(name == search){
+                        if (name == search) {
                             no = phoneNo
                         }
 

@@ -20,25 +20,23 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import com.andromeda.ara.activitys.About
 import com.andromeda.ara.activitys.SkillsActivity
 import com.andromeda.ara.constants.DrawerModeConstants
 
 
 class CardOnClick {
-    fun mainFun(mode:Long, linkText:String, act:Activity, ctx:Context){
+    fun mainFun(mode: Long, linkText: String, act: Activity, ctx: Context) {
         println("link text")
-        if(mode == DrawerModeConstants.SHORTCUTS.toLong()){
-            val i =Intent(ctx, SkillsActivity::class.java)
+        if (mode == DrawerModeConstants.SHORTCUTS.toLong()) {
+            val i = Intent(ctx, SkillsActivity::class.java)
             print(linkText)
             i.putExtra("linktext", linkText)
             act.startActivity(i)
 
-        }
-        else{
+        } else {
 
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(linkText))
-                    act.startActivity(browserIntent)
+            act.startActivity(browserIntent)
         }
 
     }

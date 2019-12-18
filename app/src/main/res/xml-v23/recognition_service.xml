@@ -16,7 +16,7 @@
   -->
 
 <voice-interaction-service
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:recognitionService="com.andromeda.ara.voice.AssistServ"
-    android:sessionService="com.andromeda.ara.voice.AssistSessServ"
-    android:supportsAssist="true"/>
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:recognitionService="com.andromeda.ara.voice.AssistServ"
+        android:sessionService="com.andromeda.ara.voice.AssistSessServ"
+        android:supportsAssist="true"/>

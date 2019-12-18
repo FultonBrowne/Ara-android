@@ -35,10 +35,11 @@ class Views {
 
         }
     }
-        @Composable
-        fun constLayout(height:Float, width:Float){
-            ConstrainedBox(constraints = DpConstraints.tightConstraints(Dp(width), Dp(height))) {
 
-            }
+    @Composable
+    fun constLayout(height: Float, width: Float) {
+        ConstrainedBox(constraints = DpConstraints.tightConstraints(Dp(width), Dp(height))) {
+
+        }
     }
 }

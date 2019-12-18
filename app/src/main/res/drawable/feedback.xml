@@ -15,13 +15,13 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/colorPrimary"/>
 
     <item>
         <bitmap
                 android:gravity="fill|left|center"
-                android:src="@drawable/backformain" />
+                android:src="@drawable/backformain"/>
     </item>
 
 </layer-list>

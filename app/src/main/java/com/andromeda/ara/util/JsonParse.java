@@ -24,8 +24,7 @@ import java.util.ArrayList;
 public class JsonParse {
     public ArrayList<OutputModel> search(String jsontxt) {
         Gson gson = new Gson();
-        return gson.fromJson(jsontxt, new TypeToken<ArrayList<OutputModel>>()
-        {
+        return gson.fromJson(jsontxt, new TypeToken<ArrayList<OutputModel>>() {
         }.getType());
 
     }

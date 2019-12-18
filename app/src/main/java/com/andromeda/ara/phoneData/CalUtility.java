@@ -20,15 +20,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-
 import com.andromeda.ara.R;
 import com.andromeda.ara.util.FeedDateParseModel;
 import com.andromeda.ara.util.RssFeedModel;
 
 import java.text.SimpleDateFormat;
-import java.time.Clock;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -74,13 +70,14 @@ public class CalUtility {
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());
     }
-    public static ArrayList<FeedDateParseModel> getComplexData(Context context){
+
+    public static ArrayList<FeedDateParseModel> getComplexData(Context context) {
         Date currentDate = new Date(System.currentTimeMillis());
         System.out.println(currentDate);
         Cursor cursor = context.getContentResolver()
                 .query(
                         Uri.parse("content://com.android.calendar/events"),
-                         new String[]{context.getString(R.string.calender_id), context.getString(R.string.title), context.getString(R.string.description),
+                        new String[]{context.getString(R.string.calender_id), context.getString(R.string.title), context.getString(R.string.description),
                                 context.getString(R.string.dtstart), context.getString(R.string.dtend), context.getString(R.string.eventLocation)}, null,
                         null, null);
         assert cursor != null;
@@ -96,13 +93,13 @@ public class CalUtility {
             System.out.println(startDatesAsTime);
             String endDates = (getDate(Long.parseLong(cursor.getString(4))));
             String descriptions = (cursor.getString(2));
-            long ltime= currentDate.getTime()+4*24*60*60*1000;
-            Date today4=new Date(ltime);
+            long ltime = currentDate.getTime() + 4 * 24 * 60 * 60 * 1000;
+            Date today4 = new Date(ltime);
             long toSub;
-            if (currentDate.getTime() < startDatesAsTime.getTime() && !startDatesAsTime.after(today4)){
+            if (currentDate.getTime() < startDatesAsTime.getTime() && !startDatesAsTime.after(today4)) {
                 toSub = startDatesAsTime.getTime() - currentDate.getTime();
                 toSub = toSub * 2;
-                startDatesAsTime = new Date(startDatesAsTime.getTime() - toSub) ;
+                startDatesAsTime = new Date(startDatesAsTime.getTime() - toSub);
                 complexDataMain.add(new FeedDateParseModel(nameOfEvent, startDates + endDates + System.lineSeparator() + descriptions, "", "", "", startDatesAsTime));
             }
             CNames[i] = cursor.getString(1);

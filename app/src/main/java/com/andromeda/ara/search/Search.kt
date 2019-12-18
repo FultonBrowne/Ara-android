@@ -40,7 +40,7 @@ class Search {
         var lat = 0.0
         var log = 0.0
         val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             val location: Location? = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             if (location != null) {
@@ -48,20 +48,18 @@ class Search {
                 log = location.longitude
             }
 
-                local = SkillsSearch().search(mainval, ctx)
-
+            local = SkillsSearch().search(mainval, ctx)
 
 
         }
-        if (local?.get(0)  != "" && mainval != "" && local != null){
+        if (local?.get(0) != "" && mainval != "" && local != null) {
             val parsed = Parse().parse(local?.get(0))
             val doIt = RunActions().doIt(parsed, mainval.replace((local.get(1)) + " ", ""), ctx, act)
             outputList.addAll(doIt)
 
-        }
-        else{
+        } else {
 
-            outputList.add(RssFeedModel("", "", "", "","", false))
+            outputList.add(RssFeedModel("", "", "", "", "", false))
             //search ara server
             var searchMode1 = mainval.toLowerCase(Locale("en"))
             searchMode1 = searchMode1.replace(" ", "%20")
@@ -72,11 +70,12 @@ class Search {
                 val parsed = Parse().parse(test1?.get(0)?.exes)
                 val doIt = RunActions().doIt(parsed, mainval, ctx, act)
                 outputList.addAll(doIt)
+            } catch (e: Exception) {
             }
-            catch (e:Exception){}
         }
         return outputList
     }
+
     private fun isInternetAvailable(): Boolean {
         return try {
             val ipAddr = InetAddress.getByName("https://ara-server.azurewebsites.net/api").toString()

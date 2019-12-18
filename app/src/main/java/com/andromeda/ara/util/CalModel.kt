@@ -18,4 +18,4 @@ package com.andromeda.ara.util
 
 import java.util.*
 
-data class CalModel(val name:String, val info:String, val date: Date)
+data class CalModel(val name: String, val info: String, val date: Date)

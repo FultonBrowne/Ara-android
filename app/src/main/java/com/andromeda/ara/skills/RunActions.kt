@@ -26,42 +26,41 @@ import java.util.*
 
 
 class RunActions {
-    fun doIt(yaml: ArrayList<SkillsModel>?, searchTerm: String, ctx:Context, act: Activity): ArrayList<RssFeedModel> {
+    fun doIt(yaml: ArrayList<SkillsModel>?, searchTerm: String, ctx: Context, act: Activity): ArrayList<RssFeedModel> {
         val returnedVal = ArrayList<RssFeedModel>()
 
         var arg1: String
         if (yaml != null) {
             for (i in yaml) {
-            when (i.action) {
-                "OPEN_APP" -> {
-                    arg1 = if (i.arg1 == "TERM") searchTerm
-                    else i.arg1
-                    OpenApp().openApp(arg1, ctx)
-                }
-                "CALL" -> {
-                    arg1 = if (i.arg1 == "TERM") searchTerm
-                    else i.arg1
-                    Phone().call(arg1, ctx, act)
+                when (i.action) {
+                    "OPEN_APP" -> {
+                        arg1 = if (i.arg1 == "TERM") searchTerm
+                        else i.arg1
+                        OpenApp().openApp(arg1, ctx)
+                    }
+                    "CALL" -> {
+                        arg1 = if (i.arg1 == "TERM") searchTerm
+                        else i.arg1
+                        Phone().call(arg1, ctx, act)
 
-                }
-                "TEXT" -> {
-                    arg1 = if (i.arg1 == "TERM") searchTerm
-                    else i.arg1
-                    Text().sendText(arg1, ctx)
-                }
-                "TOG_MEDIA" -> {
-                    Media().playPause(ctx)
-                }
-                "OUTPUT" -> {
-                    returnedVal.add(RssFeedModel(i.arg2,"", i.arg1, "", "", true))
-                }
-                "SITE" -> {
-                    arg1 = if (i.arg1 == "TERM") searchTerm
-                    else i.arg1
-                    val browserIntent =  Intent(Intent.ACTION_VIEW, Uri.parse(arg1))
-                    act.startActivity(browserIntent)
-                }
-
+                    }
+                    "TEXT" -> {
+                        arg1 = if (i.arg1 == "TERM") searchTerm
+                        else i.arg1
+                        Text().sendText(arg1, ctx)
+                    }
+                    "TOG_MEDIA" -> {
+                        Media().playPause(ctx)
+                    }
+                    "OUTPUT" -> {
+                        returnedVal.add(RssFeedModel(i.arg2, "", i.arg1, "", "", true))
+                    }
+                    "SITE" -> {
+                        arg1 = if (i.arg1 == "TERM") searchTerm
+                        else i.arg1
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(arg1))
+                        act.startActivity(browserIntent)
+                    }
 
 
                 }

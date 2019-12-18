@@ -25,7 +25,7 @@ import java.util.*
 
 
 class SkillsSearch {
-    fun search(phrase:String, ctx:Context): List<String> {
+    fun search(phrase: String, ctx: Context): List<String> {
         val mapper = ObjectMapper(YAMLFactory())
         print(mapper.writeValueAsString(SkillsModel("OPEN_APP", "TERM", "")))
         val insert = OnDeviceSkills(ctx).open()
@@ -42,13 +42,13 @@ class SkillsSearch {
         yml.clear()
         yml.add(SkillsModel("TEXT", "TERM", ""))
         insert.insert("send a text", "", mapper.writeValueAsString(yml))
-        insert.insert("send a text to","", mapper.writeValueAsString(yml))
+        insert.insert("send a text to", "", mapper.writeValueAsString(yml))
         insert.insert("text", "", mapper.writeValueAsString(yml))
 
 
         val dB = OnDeviceSkills(ctx).open()
         val cursor = dB.fetch()
-        var pre =""
+        var pre = ""
         var end = ""
         var act: String
         var finalAct = ""
@@ -57,20 +57,20 @@ class SkillsSearch {
         // Check the SDK version and whether the permission is already granted or not.
 
 
-            cursor.moveToFirst()
+        cursor.moveToFirst()
 
 
 
-            while (!cursor.isAfterLast) {
-                pre = cursor.getString(1)
-                end = cursor.getString(2)
-                act = cursor.getString(3)
-                cursor.moveToNext()
-                if(phrase.startsWith(pre, true)){
-                    finalAct = act
-                    break
-                }
+        while (!cursor.isAfterLast) {
+            pre = cursor.getString(1)
+            end = cursor.getString(2)
+            act = cursor.getString(3)
+            cursor.moveToNext()
+            if (phrase.startsWith(pre, true)) {
+                finalAct = act
+                break
             }
+        }
 
 
 

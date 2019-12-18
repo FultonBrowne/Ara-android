@@ -47,9 +47,9 @@ class PushUtil : PushListener {
             val pre = pushNotification.customData["db"]?.get(0)
             val end = pushNotification.customData["db"]?.get(1)
             val act = pushNotification.customData["db"]?.get(2)
-            OnDeviceSkills(activity.applicationContext).insert(pre.toString(),end.toString(),act.toString())
+            OnDeviceSkills(activity.applicationContext).insert(pre.toString(), end.toString(), act.toString())
 
-             //push new skills
+            //push new skills
 
 
             Toast.makeText(activity, "test", Toast.LENGTH_LONG).show() // For example R.string.push_toast would be "Push clicked with data=%1s"

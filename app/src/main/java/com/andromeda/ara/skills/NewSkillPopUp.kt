@@ -35,8 +35,8 @@ class NewSkillPopUp {
 
 // Set up the buttons
         // Set up the buttons
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which -> text = input.text.toString() })
-        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+        builder.setPositiveButton("OK") { _, _ -> text = input.text.toString() }
+        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
 
         builder.show()
         return text

@@ -17,6 +17,7 @@
 package com.andromeda.ara.activitys
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -95,6 +96,11 @@ class SkillsActivity : AppCompatActivity() {
         // return sorted value
         tosort?.reverse()
         return tosort
+    }
+    override fun onCreateOptionsMenu(menu: Menu):Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_skills, menu);
+        return true
     }
     fun addItem(m:MenuItem){
         if (id == "") throw NullPointerException("CAN NOT SAVE ID NULL")

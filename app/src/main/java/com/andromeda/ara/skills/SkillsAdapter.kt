@@ -18,16 +18,18 @@ package com.andromeda.ara.skills
 
 
 import android.app.Activity
-import android.text.InputType
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
-import android.view.inputmethod.InputMethod
-import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.util.SkillsModel
@@ -83,24 +85,44 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
 
         val arg1Text = holder.rssFeedView.findViewById<View>(R.id.arg1) as TextView
         val arg2Text = holder.rssFeedView.findViewById<View>(R.id.arg2) as TextView
-        arg1Text.setOnEditorActionListener { textView: TextView, i: Int, keyEvent: KeyEvent ->
-            outList.remove(toOut)
-            val text = arg1Text.text.toString()
-            skills = SkillsModel(model.action, text, skills.arg2)
-            toOut = TempSkillsStore(skills, mainNum)
-            outList.add(toOut)
-        }
+        arg1Text.text = toOut.mainData.arg1
+        arg2Text.text = toOut.mainData.arg2
+        arg1Text.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) { // Do something after Text Change
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { // Do something before Text Change
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                outList.remove(toOut)
+                val text = arg1Text.text.toString()
+                outList.remove(toOut)
+                skills = SkillsModel(skills.action, text, arg2Text.text.toString())
+                toOut = TempSkillsStore(skills, mainNum)
+                outList.add(toOut)
+
+            }
+        })
 
 
-        arg2Text.setOnEditorActionListener{ textView: TextView, i: Int, keyEvent: KeyEvent ->
-            outList.remove(toOut)
-            val text = arg1Text.text.toString()
-            outList.remove(toOut)
-            skills = SkillsModel(model.action, skills.arg1, text)
-            toOut = TempSkillsStore(skills, mainNum)
-            outList.add(toOut)
-        }
+        arg2Text.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) { // Do something after Text Change
+            }
 
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { // Do something before Text Change
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                outList.remove(toOut)
+                val text = arg2Text.text.toString()
+                outList.remove(toOut)
+                skills = SkillsModel(skills.action, arg1Text.text.toString(), text)
+                toOut = TempSkillsStore(skills, mainNum)
+                outList.add(toOut)
+
+            }
+        })
 
 
         setFadeAnimation(holder.itemView)

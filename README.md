@@ -9,7 +9,8 @@ By Andromeda Software
 [![Known Vulnerabilities](https://snyk.io/test/github/FultonBrowne/Ara-android/badge.svg?style=flat-square)](https://snyk.io/test/github/FultonBrowne/Ara-android})
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7f28f04b88a74e67a2e301f16e9a2db0)](https://www.codacy.com/app/FultonBrowne/Ara-android?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=FultonBrowne/Ara-android&amp;utm_campaign=Badge_Grade?style=flat-square)
 [![Gitter](https://badges.gitter.im/Arabyandromeda/community.svg?style=flat-square)](https://gitter.im/Arabyandromeda/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+<a href="https://www.buymeacoffee.com/28EcqNL" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
 
 ## Usage
 -   Open in android studio and use the normal steps to run

@@ -18,10 +18,14 @@ package com.andromeda.ara.skills
 
 
 import android.app.Activity
+import android.text.InputType
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
+import android.view.inputmethod.InputMethod
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.recyclerview.widget.RecyclerView
@@ -77,11 +81,9 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
         val language = arrayOf("topic from command")
         val adapter: ArrayAdapter<String> = ArrayAdapter(this.activity.applicationContext, android.R.layout.select_dialog_item, language)
 
-        val arg1Text = holder.rssFeedView.findViewById<View>(R.id.arg1) as AutoCompleteTextView
-        val arg2Text = holder.rssFeedView.findViewById<View>(R.id.arg2) as AutoCompleteTextView
-        arg1Text.setAdapter(adapter)
-        arg2Text.setAdapter(adapter)
-        arg1Text.setOnDismissListener {
+        val arg1Text = holder.rssFeedView.findViewById<View>(R.id.arg1) as TextView
+        val arg2Text = holder.rssFeedView.findViewById<View>(R.id.arg2) as TextView
+        arg1Text.setOnEditorActionListener { textView: TextView, i: Int, keyEvent: KeyEvent ->
             outList.remove(toOut)
             val text = arg1Text.text.toString()
             skills = SkillsModel(model.action, text, skills.arg2)
@@ -90,7 +92,8 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
         }
 
 
-        arg2Text.setOnDismissListener {
+        arg2Text.setOnEditorActionListener{ textView: TextView, i: Int, keyEvent: KeyEvent ->
+            outList.remove(toOut)
             val text = arg1Text.text.toString()
             outList.remove(toOut)
             skills = SkillsModel(model.action, skills.arg1, text)

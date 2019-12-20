@@ -36,6 +36,7 @@ class CardOnClick {
                 val parsed = Parse().parse(linkText)
                 val doIt = RunActions().doIt(parsed, "", ctx, act)
             } catch (e: Exception) {
+                e.printStackTrace()
             }
 
         } else {

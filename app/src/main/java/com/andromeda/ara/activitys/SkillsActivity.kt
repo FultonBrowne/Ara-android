@@ -27,6 +27,7 @@ import com.andromeda.ara.R
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.SkillsAdapter
 import com.andromeda.ara.skills.TempSkillsStore
+import com.andromeda.ara.util.AraPopUps
 import com.andromeda.ara.util.SkillsDBModel
 import com.andromeda.ara.util.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -41,8 +42,9 @@ class SkillsActivity : AppCompatActivity() {
     var id: String? = ""
     private var adapter: SkillsAdapter? = null
     var name = ""
-    var runOn = ""
-    var recView: RecyclerView? = null
+    private var runOn = ""
+    private var recView: RecyclerView? = null
+    private var allData:SkillsDBModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,19 +54,7 @@ class SkillsActivity : AppCompatActivity() {
         recView = findViewById<View>(R.id.listSkills) as RecyclerView
         recView!!.layoutManager = LinearLayoutManager(this)
         id = intent.getStringExtra("linktext")
-        Data.read(id, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept { userDocumentWrapper ->
-            if (userDocumentWrapper.error == null) {
-                runOnUiThread {
-                    val actionToRun = userDocumentWrapper.deserializedValue.action.action
-                    val toAdapter = Parse().parse(actionToRun);
-                    name = userDocumentWrapper.deserializedValue.name
-                    runOn = userDocumentWrapper.deserializedValue.action.arg1
-                    adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
-                    recView!!.adapter = adapter
-                }
-
-            }
-        }
+        reload()
     }
 
     fun save(view: View?) {
@@ -117,9 +107,19 @@ class SkillsActivity : AppCompatActivity() {
         val yml = mapper.writeValueAsString(toYAML)
         println(yml)
         Data.replace(id, SkillsDBModel(SkillsModel(yml, runOn, ""), name), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+       reload()
+    }
+
+    fun voicePhrase(item: MenuItem) {}
+    fun rename(item: MenuItem) {
+        id?.let { allData?.let { it1 -> AraPopUps().renameSkill(this, it, it1) } }
+        reload()
+    }
+    private fun reload(){
         Data.read(id, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept { userDocumentWrapper ->
             if (userDocumentWrapper.error == null) {
                 runOnUiThread {
+                    allData = userDocumentWrapper.deserializedValue
                     val actionToRun = userDocumentWrapper.deserializedValue.action.action
                     val toAdapter = Parse().parse(actionToRun);
                     name = userDocumentWrapper.deserializedValue.name
@@ -130,11 +130,6 @@ class SkillsActivity : AppCompatActivity() {
 
             }
         }
-
-    }
-
-    fun voicePhrase(item: MenuItem) {}
-    fun rename(item: MenuItem) {
     }
 
 }

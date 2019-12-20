@@ -18,7 +18,7 @@
 buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
-        classpath 'com.google.android.material:material:1.2.0-alpha02'
+        classpath 'com.google.android.material:material:1.2.0-alpha03'
         classpath 'com.google.gms:google-services:4.3.3'
 
     }

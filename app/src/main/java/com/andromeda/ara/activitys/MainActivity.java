@@ -274,10 +274,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                //Intent browserIntent;
-
-                //browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssFeedModel1.get(position).link));
-                //startActivity(browserIntent);
                 new CardOnClick().mainFun(mode, rssFeedModel1.get(position).link, act, getApplicationContext());
 
             }
@@ -285,9 +281,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLongClick(View view, int position) {
-                insert(rssFeedModel1.get(position).title, rssFeedModel1.get(position).link, main53);
-
-                Toast.makeText(getApplicationContext(), "Tagged", Toast.LENGTH_SHORT).show();
+                new CardOnClick().longClick(rssFeedModel1.get(position), getApplicationContext(), main53, mode, act);
 
             }
         }));

@@ -338,6 +338,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -370,10 +371,6 @@ public class MainActivity extends AppCompatActivity {
                     assert locationManager != null;
                     Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     requestLocationPermission();
-                    if (!(location == null)) {
-                        lat = location.getLatitude();
-                        log = location.getLongitude();
-                    }
                 }
                 try {
 
@@ -427,14 +424,6 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
-    void insert(String main, String link, @NonNull TagManager main53) {
-        main53.open();
-        main53.insert(main, link);
-        main53.close();
-    }
-
-
     @RequiresApi(26)
     public void time() {
 
@@ -446,6 +435,16 @@ public class MainActivity extends AppCompatActivity {
         } else {
             mTime = "Good evening";
         }
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+    }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+
     }
 
 

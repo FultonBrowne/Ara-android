@@ -50,7 +50,6 @@ class SkillsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_skills)
         setSupportActionBar(toolbar)
-
         recView = findViewById<View>(R.id.listSkills) as RecyclerView
         recView!!.layoutManager = LinearLayoutManager(this)
         id = intent.getStringExtra("linktext")
@@ -62,14 +61,9 @@ class SkillsActivity : AppCompatActivity() {
         val list = adapter?.outList
         val sortedList = sortOrder(list)
         val toYAML = ArrayList<SkillsModel>()
-        if (sortedList != null) {
-            for (i in sortedList) {
-                println(i)
-                toYAML.add(i.mainData)
-            }
-        } else throw NullPointerException()
+        if (sortedList != null) for (i in sortedList) toYAML.add(i.mainData)
+        else throw NullPointerException()
         val mapper = ObjectMapper(YAMLFactory())
-
         val yml = mapper.writeValueAsString(toYAML)
         println(yml)
         Data.replace(id, SkillsDBModel(SkillsModel(yml, runOn, ""), name), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
@@ -97,7 +91,6 @@ class SkillsActivity : AppCompatActivity() {
         val toYAML = ArrayList<SkillsModel>()
         if (sortedList != null) {
             for (i in sortedList) {
-                println(i)
                 toYAML.add(i.mainData)
             }
         } else throw NullPointerException()

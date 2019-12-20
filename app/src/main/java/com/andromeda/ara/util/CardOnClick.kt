@@ -26,15 +26,19 @@ import com.andromeda.ara.activitys.SkillsActivity
 import com.andromeda.ara.constants.DrawerModeConstants
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
+import com.microsoft.appcenter.data.Data
+import com.microsoft.appcenter.data.DefaultPartitions
 
 
 class CardOnClick {
     fun mainFun(mode: Long, linkText: String, act: Activity, ctx: Context) {
-        println("link text")
         if (mode == DrawerModeConstants.SHORTCUTS.toLong()) {
             try {
-                val parsed = Parse().parse(linkText)
-                val doIt = RunActions().doIt(parsed, "", ctx, act)
+                Data.read(linkText, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept {
+                    val parsed = Parse().parse(it.deserializedValue.action.action)
+                    val doIt = RunActions().doIt(parsed, "", ctx, act)
+                }
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }

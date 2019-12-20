@@ -83,6 +83,7 @@ class SkillsActivity : AppCompatActivity() {
         val yml = mapper.writeValueAsString(toYAML)
         println(yml)
         Data.replace(id, SkillsDBModel(SkillsModel(yml, runOn, ""), name), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+        onBackPressed()
     }
 
 
@@ -133,6 +134,7 @@ class SkillsActivity : AppCompatActivity() {
     }
 
     fun voicePhrase(item: MenuItem) {}
-    fun rename(item: MenuItem) {}
+    fun rename(item: MenuItem) {
+    }
 
 }

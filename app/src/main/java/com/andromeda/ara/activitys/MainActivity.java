@@ -51,7 +51,7 @@ import com.andromeda.ara.constants.DrawerModeConstants;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.search.Search;
-import com.andromeda.ara.skills.NewSkillPopUp;
+import com.andromeda.ara.util.AraPopUps;
 import com.andromeda.ara.util.*;
 import com.andromeda.ara.voice.VoiceMain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.SHOP).withName("Shopping").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.shop);
         SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.CAL).withName("Agenda").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.ic_today_black_24dp);
         SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.SHORTCUTS).withName("Shortcuts").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.shortcut);
-        SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Devices").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.devices);
+        SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.DEVICES).withName("Devices").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.devices);
         SecondaryDrawerItem news1 = new SecondaryDrawerItem().withIdentifier(102).withName("Tech").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.technews);
         SecondaryDrawerItem news3 = new SecondaryDrawerItem().withIdentifier(104).withName("Domestic").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.domnews);
         SecondaryDrawerItem news4 = new SecondaryDrawerItem().withIdentifier(105).withName(getString(R.string.moneyText)).withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.money);
@@ -480,6 +480,6 @@ public class MainActivity extends AppCompatActivity {
         Auth.signOut();
     }
     public void addSkill(MenuItem item) {
-       new NewSkillPopUp().main(this);
+       new AraPopUps().newSkill(this);
     }
 }

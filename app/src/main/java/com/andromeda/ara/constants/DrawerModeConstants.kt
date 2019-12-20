@@ -23,4 +23,5 @@ object DrawerModeConstants {
     const val SHOP = 4
     const val CAL = 5
     const val SHORTCUTS = 6
+    const val DEVICES = 7
 }

@@ -14,15 +14,13 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.skills
+package com.andromeda.ara.util
 
 
 import android.content.Context
 import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import com.andromeda.ara.util.SkillsDBModel
-import com.andromeda.ara.util.SkillsModel
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
@@ -31,8 +29,8 @@ import com.microsoft.appcenter.data.DefaultPartitions
 import java.util.*
 
 
-class NewSkillPopUp {
-    fun main(ctx: Context): String {
+class AraPopUps {
+    fun newSkill(ctx: Context): String {
         val mapper = ObjectMapper(YAMLFactory())
         val toYML = ArrayList<SkillsModel>()
         toYML.add(SkillsModel("CALL", "", ""))
@@ -42,21 +40,34 @@ class NewSkillPopUp {
         val input = EditText(ctx)
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
-
-// Set up the buttons
-        // Set up the buttons
         builder.setPositiveButton("OK") { _, _ -> text = input.text.toString()
             try {
                 val i = (Math.random() * (30000 + 1)).toInt()
-                Data.create(Integer.toString(i), SkillsDBModel(SkillsModel(mapper.writeValueAsString(toYML), "", ""), text), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+                Data.create(i.toString(), SkillsDBModel(SkillsModel(mapper.writeValueAsString(toYML), "", ""), text), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
             } catch (e: JsonProcessingException) {
                 e.printStackTrace()
             }
-
         }
         builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
 
         builder.show()
         return text
     }
+    fun renameSkill(ctx: Context, id:String, allData: SkillsDBModel) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
+        builder.setTitle("Title")
+        val input = EditText(ctx)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+        builder.setPositiveButton("OK") { _, _ ->
+            val text = input.text.toString()
+            allData.name = text
+            Data.replace(id, allData, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+        }
+
+            builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+
+            builder.show()
+        }
+
 }

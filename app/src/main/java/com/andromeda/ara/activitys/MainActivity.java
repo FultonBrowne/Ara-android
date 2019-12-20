@@ -54,9 +54,6 @@ import com.andromeda.ara.search.Search;
 import com.andromeda.ara.skills.NewSkillPopUp;
 import com.andromeda.ara.util.*;
 import com.andromeda.ara.voice.VoiceMain;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
@@ -144,10 +141,6 @@ public class MainActivity extends AppCompatActivity {
 
         final TagManager main53 = new TagManager(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-
-        //Get data stored for welcome screen
-
         //name of the preference
         String welcomeScreenShownPref = "welcomeScreenShown";
         boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
@@ -198,22 +191,6 @@ public class MainActivity extends AppCompatActivity {
                 .withThreeSmallProfileImages(true)
 
                 .build();
-        Thread welcomeScreen = new Thread(() -> {
-            if (!welcomeScreenShown) {
-                // here you can launch another activity if you like
-                // the code below will display a popup
-
-                String whatsNewTitle = ("Welcome to ara for android!");
-                String whatsNewText = ("Thank you for downloading and investing in the next generation of intelligent voice assistants.");
-                //new AlertDialog.Builder(this).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
-                //      getText(R.string.textOK), (dialog, which) -> dialog.dismiss()).show();
-                SharedPreferences.Editor editor = mPrefs.edit();
-                editor.putBoolean(welcomeScreenShownPref, true);
-                editor.apply();
-            }
-        });
-        welcomeScreen.start();
-
         runOnUiThread(() -> drawer = new DrawerBuilder()
                 .withActivity(ctx)
                 .withToolbar(mActionBarToolbar)
@@ -502,21 +479,7 @@ public class MainActivity extends AppCompatActivity {
     public void logOut(MenuItem item) {
         Auth.signOut();
     }
-
     public void addSkill(MenuItem item) {
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        ArrayList<SkillsModel> toYML = new ArrayList<>();
-        toYML.add(new SkillsModel("CALL", "", ""));
-        String name = new NewSkillPopUp().main(this);
-
-        try {
-            int i = (int) (Math.random() * ((30000) + 1));
-            Data.create(Integer.toString(i), new SkillsDBModel(new SkillsModel(mapper.writeValueAsString(toYML), "", ""), "test thing"), SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS);
-
-
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
+       new NewSkillPopUp().main(this);
     }
 }

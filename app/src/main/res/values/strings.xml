@@ -193,4 +193,6 @@
     <string name="title_activity_skills">SkillsActivity</string>
     <string name="skillmenu">add skill</string>
     <string name="add">add</string>
+    <string name="rename">Rename</string>
+    <string name="voicephrase">Voice phrase</string>
 </resources>

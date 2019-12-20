@@ -23,4 +23,14 @@
           android:onClick="addItem"
           android:orderInCategory="100"
           app:showAsAction="never"/>
+    <item android:id="@+id/rename"
+          android:title="@string/rename"
+          android:onClick="rename"
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
+    <item android:id="@+id/voicep"
+          android:title="@string/voicephrase"
+          android:onClick="voicePhrase"
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
 </menu>

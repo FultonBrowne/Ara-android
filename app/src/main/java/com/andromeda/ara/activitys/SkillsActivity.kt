@@ -132,4 +132,7 @@ class SkillsActivity : AppCompatActivity() {
 
     }
 
+    fun voicePhrase(item: MenuItem) {}
+    fun rename(item: MenuItem) {}
+
 }

@@ -61,6 +61,7 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
         val adapter1: ArrayAdapter<CharSequence?> = ArrayAdapter.createFromResource(this.activity.applicationContext, R.array.action_array, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter1;
+        val userHintTextView = holder.rssFeedView.findViewById<View>(R.id.userhint) as TextView
         spinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(arg0: AdapterView<*>?, arg1: View,
                                         position: Int, id: Long) {
@@ -68,6 +69,7 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
                 outList.remove(toOut)
                 skills = SkillsModel(text, skills.arg1, skills.arg2)
                 toOut = TempSkillsStore(skills, mainNum)
+                userHintTextView.setText(URL("https://ara-server.azurewebsites.net/skillsdata/$text").readText())
                 outList.add(toOut)
 
             }
@@ -86,7 +88,7 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
 
         val arg1Text = holder.rssFeedView.findViewById<View>(R.id.arg1) as TextView
         val arg2Text = holder.rssFeedView.findViewById<View>(R.id.arg2) as TextView
-        val userHintTextView = holder.rssFeedView.findViewById<View>(R.id.userhint) as TextView
+
         userHintTextView.text = URL("https://ara-server.azurewebsites.net/skillsdata/" + skills.action).readText()
         arg1Text.text = toOut.mainData.arg1
         arg2Text.text = toOut.mainData.arg2

@@ -33,10 +33,6 @@ class Devices {
         return returnVal
     }
 
-    fun addOne(toAdd: DeviceModel) {
-        Data.create(toAdd.id, toAdd, DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
-    }
-
     fun changeStatus(toSwitch: DeviceModel, id: String) {
 
     }

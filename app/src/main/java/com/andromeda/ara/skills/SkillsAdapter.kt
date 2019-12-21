@@ -33,6 +33,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.util.SkillsModel
+import java.net.URL
 import java.util.*
 
 
@@ -85,6 +86,8 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
 
         val arg1Text = holder.rssFeedView.findViewById<View>(R.id.arg1) as TextView
         val arg2Text = holder.rssFeedView.findViewById<View>(R.id.arg2) as TextView
+        val userHintTextView = holder.rssFeedView.findViewById<View>(R.id.userhint) as TextView
+        userHintTextView.text = URL("https://ara-server.azurewebsites.net/skillsdata/" + skills.action).readText()
         arg1Text.text = toOut.mainData.arg1
         arg2Text.text = toOut.mainData.arg2
         arg1Text.addTextChangedListener(object : TextWatcher {

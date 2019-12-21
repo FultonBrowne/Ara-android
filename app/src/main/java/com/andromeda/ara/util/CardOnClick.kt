@@ -36,7 +36,7 @@ class CardOnClick {
             try {
                 Data.read(linkText, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept {
                     val parsed = Parse().parse(it.deserializedValue.action.action)
-                    val doIt = RunActions().doIt(parsed, "", ctx, act)
+                    RunActions().doIt(parsed, "", ctx, act)
                 }
 
             } catch (e: Exception) {
@@ -61,7 +61,7 @@ class CardOnClick {
         insert(selected.title, selected.link, cursor)
         Toast.makeText(ctx, "Tagged", Toast.LENGTH_SHORT).show()
     }
-    fun insert(main: String?, link: String?, main53: TagManager) {
+    private fun insert(main: String?, link: String?, main53: TagManager) {
         main53.open()
         main53.insert(main, link)
         main53.close()

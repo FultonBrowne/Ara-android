@@ -18,7 +18,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_margin="16dp"
-        android:background="@color/semi_transparent" android:layout_height="wrap_content"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/semi_transparent">
     <LinearLayout
             android:layout_width="match_parent"
@@ -41,6 +41,7 @@
         <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/spinner_task"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/userhint"/>
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/arg1"/>

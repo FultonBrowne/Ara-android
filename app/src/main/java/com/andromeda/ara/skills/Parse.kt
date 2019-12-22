@@ -29,7 +29,6 @@ class Parse {
         print(yml)
         val classsss: Class<SkillsModel>? = SkillsModel::class.java
         var mapper = YAMLMapper()
-
         return yamlArrayToObjectList(yml, classsss)
     }
 

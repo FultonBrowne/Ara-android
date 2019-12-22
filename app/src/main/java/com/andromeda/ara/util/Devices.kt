@@ -32,6 +32,9 @@ class Devices {
         //returnVal.add(RssFeedModel(toBeParsed.get().currentPage.items[0].deserializedValue.name, "","", "", "", true))
         return returnVal
     }
+    fun addOne(){
+        //Data.create(Math.random(), DeviceModel("test1234567890", "LIGHT", ))
+    }
 
     fun changeStatus(toSwitch: DeviceModel, id: String) {
 

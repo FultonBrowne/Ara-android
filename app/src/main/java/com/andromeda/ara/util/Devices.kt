@@ -17,6 +17,8 @@
 package com.andromeda.ara.util
 
 import android.app.Activity
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
 import java.util.*
@@ -25,6 +27,7 @@ class Devices {
     fun getAll(activity: Activity): ArrayList<RssFeedModel> {
         var done = false
         val returnVal = ArrayList<RssFeedModel>()
+        addOne()
         val toBeParsed = Data.list(DeviceModel::class.java
                 , DefaultPartitions.USER_DOCUMENTS)
 
@@ -33,7 +36,11 @@ class Devices {
         return returnVal
     }
     fun addOne(){
-        //Data.create(Math.random(), DeviceModel("test1234567890", "LIGHT", ))
+        val mapper = ObjectMapper(YAMLFactory())
+        val toYml =ArrayList<LightStatusModel>()
+        val i = (Math.random() * (30000 + 1)).toInt()
+        toYml.add(LightStatusModel(true, null, null))
+        Data.create(i.toString(), DeviceModel("test1234567890", "LIGHT",mapper.writeValueAsString(toYml), "" ),  DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
     }
 
     fun changeStatus(toSwitch: DeviceModel, id: String) {

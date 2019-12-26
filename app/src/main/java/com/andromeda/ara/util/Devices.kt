@@ -27,7 +27,7 @@ class Devices {
     fun getAll(activity: Activity): ArrayList<RssFeedModel> {
         var done = false
         val returnVal = ArrayList<RssFeedModel>()
-        addOne()
+        //addOne()
         val toBeParsed = Data.list(DeviceModel::class.java
                 , DefaultPartitions.USER_DOCUMENTS)
 

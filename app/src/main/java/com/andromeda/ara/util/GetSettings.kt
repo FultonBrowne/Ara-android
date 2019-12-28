@@ -26,8 +26,8 @@ class GetSettings {
     fun starUp(ctx: Context) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
         Auth.setEnabled(prefs.getBoolean("araAccount", true))
-        Crashes.setEnabled(prefs.getBoolean("getData", true))
-        Analytics.setEnabled(prefs.getBoolean("getData", true))
+        Crashes.setEnabled(prefs.getBoolean("getData", false))
+        Analytics.setEnabled(prefs.getBoolean("getData", false))
 
 
     }

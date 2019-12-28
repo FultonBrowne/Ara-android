@@ -136,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
         Push.setListener(new PushUtil());
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
                 Analytics.class, Crashes.class, Auth.class, Data.class, Push.class);
-        Data.setEnabled(true);
         new GetSettings().starUp(this);
 
         final TagManager main53 = new TagManager(this);

@@ -21,7 +21,6 @@ buildscript {
         mavenCentral()
         jcenter()
         maven { url 'https://jitpack.io' }
-        maven { url 'http://dl.bintray.com/jetbrains/spek' }
         maven { url 'https://jitpack.io' }
 
     }

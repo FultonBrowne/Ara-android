@@ -196,4 +196,6 @@
     <string name="rename">Rename</string>
     <string name="voicephrase">Voice phrase</string>
     <string name="domeNews">Domestic</string>
+    <string name="use_an_external_ara_server">Use an external ara server</string>
+    <string name="other_server">other server</string>
 </resources>

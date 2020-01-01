@@ -94,6 +94,13 @@
                         android:layout_height="wrap_content"
                         android:text="@string/update_notifications"
                         android:textColor="#FFFFFF"/>
+                <Switch android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:id="@+id/useOtherServer"
+                        android:text="@string/use_an_external_ara_server"/>
+                <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:id="@+id/otherServer"
+                          android:text="@string/other_server"
+                />
 
             </LinearLayout>
 

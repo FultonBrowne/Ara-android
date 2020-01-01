@@ -39,11 +39,13 @@ class PrefsActivity : AppCompatActivity() {
         val switch3 = findViewById<Switch>(R.id.switch3)
         val switch4 = findViewById<Switch>(R.id.switch4)
         val switch5 = findViewById<Switch>(R.id.switch5)
+        val switch6 = findViewById<Switch>(R.id.useOtherServer)
         switch1.isChecked = prefs.getBoolean("getData", true)
         switch2.isChecked = prefs.getBoolean("araAccount", true)
         switch3.isChecked = prefs.getBoolean("EAS", false)
         switch4.isChecked = prefs.getBoolean("heyAra", true)
         switch5.isChecked = prefs.getBoolean("notify", true)
+        switch6.isChecked = prefs.getBoolean("useOther", false)
         switch1.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("getData", isChecked).apply()
         }
@@ -58,6 +60,9 @@ class PrefsActivity : AppCompatActivity() {
         }
         switch5.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("notify", isChecked).apply()
+        }
+        switch6.setOnCheckedChangeListener {_, isChecked ->
+            prefs.edit().putBoolean("useOther", isChecked).apply()
         }
 
 

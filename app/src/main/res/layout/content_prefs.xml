@@ -101,7 +101,7 @@
                 <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:id="@+id/otherServer"
                           android:textColor="#FFFFFF"
-                          android:text="@string/other_server"/>
+                          />
 
             </LinearLayout>
 

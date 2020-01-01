@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019. Fulton Browne
+ * Copyright (c) 2020. Fulton Browne
  *  This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
  *     the Free Software Foundation, either version 3 of the License, or
@@ -28,6 +28,9 @@ class GetSettings {
         Auth.setEnabled(prefs.getBoolean("araAccount", true))
         Crashes.setEnabled(prefs.getBoolean("getData", false))
         Analytics.setEnabled(prefs.getBoolean("getData", false))
+        if (prefs.getBoolean("useOther", false)){
+
+        }
 
 
     }

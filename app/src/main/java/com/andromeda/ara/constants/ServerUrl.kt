@@ -17,4 +17,5 @@
 package com.andromeda.ara.constants
 
 object ServerUrl {
+    var url = "https://ara-server.azurewebsites.net/"
 }

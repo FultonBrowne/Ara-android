@@ -31,10 +31,10 @@ class GetSettings {
         Crashes.setEnabled(prefs.getBoolean("getData", false))
         Analytics.setEnabled(prefs.getBoolean("getData", false))
         if (prefs.getBoolean("useOther", false)){
-            ServerUrl.url = prefs.getString("otherServer", "")!!
+            ServerUrl.url = prefs.getString("serverText", "")!!
+
             Toast.makeText(ctx, ServerUrl.url, Toast.LENGTH_LONG).show()
         }
-
-
+        System.err.println(ServerUrl.url + "hello")
     }
 }

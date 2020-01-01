@@ -20,6 +20,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import com.andromeda.ara.util.Locl.latitude
+import com.andromeda.ara.util.Locl.longitude
 import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.util.SkillsModel
 import java.util.*
@@ -61,8 +63,11 @@ class RunActions {
                         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(arg1))
                         act.startActivity(browserIntent)
                     }
-
-
+                    "MAPS" -> {
+                        val uri = java.lang.String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude)
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+                        ctx.startActivity(intent)
+                    }
                 }
             }
         }

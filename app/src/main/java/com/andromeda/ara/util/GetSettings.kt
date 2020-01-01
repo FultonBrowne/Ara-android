@@ -17,6 +17,7 @@
 package com.andromeda.ara.util
 
 import android.content.Context
+import android.widget.Toast
 import androidx.preference.PreferenceManager
 import com.andromeda.ara.constants.ServerUrl
 import com.microsoft.appcenter.analytics.Analytics
@@ -31,6 +32,7 @@ class GetSettings {
         Analytics.setEnabled(prefs.getBoolean("getData", false))
         if (prefs.getBoolean("useOther", false)){
             ServerUrl.url = prefs.getString("otherServer", "")!!
+            Toast.makeText(ctx, ServerUrl.url, Toast.LENGTH_LONG).show()
         }
 
 

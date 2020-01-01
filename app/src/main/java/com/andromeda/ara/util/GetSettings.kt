@@ -18,6 +18,7 @@ package com.andromeda.ara.util
 
 import android.content.Context
 import androidx.preference.PreferenceManager
+import com.andromeda.ara.constants.ServerUrl
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.auth.Auth
 import com.microsoft.appcenter.crashes.Crashes
@@ -29,7 +30,7 @@ class GetSettings {
         Crashes.setEnabled(prefs.getBoolean("getData", false))
         Analytics.setEnabled(prefs.getBoolean("getData", false))
         if (prefs.getBoolean("useOther", false)){
-
+            ServerUrl.url = prefs.getString("otherServer", "")!!
         }
 
 

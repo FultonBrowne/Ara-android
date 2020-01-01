@@ -19,7 +19,10 @@ package com.andromeda.ara.activitys
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
@@ -40,6 +43,7 @@ class PrefsActivity : AppCompatActivity() {
         val switch4 = findViewById<Switch>(R.id.switch4)
         val switch5 = findViewById<Switch>(R.id.switch5)
         val switch6 = findViewById<Switch>(R.id.useOtherServer)
+        val text = findViewById<EditText>(R.id.otherServer)
         switch1.isChecked = prefs.getBoolean("getData", true)
         switch2.isChecked = prefs.getBoolean("araAccount", true)
         switch3.isChecked = prefs.getBoolean("EAS", false)
@@ -64,6 +68,18 @@ class PrefsActivity : AppCompatActivity() {
         switch6.setOnCheckedChangeListener {_, isChecked ->
             prefs.edit().putBoolean("useOther", isChecked).apply()
         }
+        text.addTextChangedListener(object: TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                prefs.edit().putString("serverText", s.toString()).apply()
+            }
+
+        })
 
 
     }

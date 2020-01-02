@@ -16,13 +16,17 @@
 
 package com.andromeda.ara.util
 
+import android.app.Activity
+import android.app.PendingIntent
+import android.content.Intent
+import android.nfc.NfcAdapter
 import org.ndeftools.Message
 import org.ndeftools.MimeRecord
 import org.ndeftools.externaltype.AndroidApplicationRecord
 
 
 class NfcTransmit {
-    fun main() {
+    fun main(act:Activity) {
         val aar = AndroidApplicationRecord();
         aar.packageName = "com.andromeda.ara";
         val mimeRecord = MimeRecord()
@@ -31,7 +35,11 @@ class NfcTransmit {
         val message = Message() //  org.ndeftools.Message
         message.add(aar)
         message.add(mimeRecord)
+        val nfcAdapter = NfcAdapter.getDefaultAdapter(act)
+        val nfcPendingIntent = PendingIntent.getActivity(act, 0, Intent(act, this.javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0)
 
 
     }
+
+
 }

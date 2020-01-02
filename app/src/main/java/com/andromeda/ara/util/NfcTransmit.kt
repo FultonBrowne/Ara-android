@@ -16,10 +16,22 @@
 
 package com.andromeda.ara.util
 
-
-
+import org.ndeftools.Message
+import org.ndeftools.MimeRecord
+import org.ndeftools.externaltype.AndroidApplicationRecord
 
 
 class NfcTransmit {
+    fun main() {
+        val aar = AndroidApplicationRecord();
+        aar.packageName = "com.andromeda.ara";
+        val mimeRecord = MimeRecord()
+        mimeRecord.mimeType = "text/plain"
+        mimeRecord.data = "This is my data".toByteArray(charset("UTF-8"))
+        val message = Message() //  org.ndeftools.Message
+        message.add(aar)
+        message.add(mimeRecord)
 
+
+    }
 }

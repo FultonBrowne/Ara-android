@@ -47,7 +47,7 @@ class Rss {
         var xmlReader: XmlReader? = null
 
         try {
-            var url = ServerUrl.url
+            val url = ServerUrl.url
             var feed = URL(url)
             when (mode) {
                 1 -> feed = URL("$url/world")
@@ -111,8 +111,6 @@ class Rss {
         for (i in items) {
             toReturn.add(i.toRssFeedModel())
         }
-
-
         return toReturn
 
 

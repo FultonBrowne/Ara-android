@@ -133,7 +133,7 @@ dependencies {
     implementation 'io.github.ranga543:yelp-fusion-client:0.1.4'
 
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
 
     implementation 'androidx.cardview:cardview:1.0.0'
 

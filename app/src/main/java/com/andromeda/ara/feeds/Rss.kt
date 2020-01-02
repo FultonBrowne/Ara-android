@@ -19,6 +19,7 @@ package com.andromeda.ara.feeds
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.FeedDateParseModel
 import com.andromeda.ara.util.RssFeedModel
@@ -46,12 +47,13 @@ class Rss {
         var xmlReader: XmlReader? = null
 
         try {
-            var feed = URL("https://ara-server.azurewebsites.net/")
+            var url = ServerUrl.url
+            var feed = URL(url)
             when (mode) {
-                1 -> feed = URL("https://ara-server.azurewebsites.net/world")
-                2 -> feed = URL("https://ara-server.azurewebsites.netm/tech")
-                3 -> feed = URL("https://ara-server.azurewebsites.net/us")
-                4 -> feed = URL("https://ara-server.azurewebsites.net/money")
+                1 -> feed = URL("$url/world")
+                2 -> feed = URL("$url/tech")
+                3 -> feed = URL("$url/us")
+                4 -> feed = URL("$url/money")
             }
 
 

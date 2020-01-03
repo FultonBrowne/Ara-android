@@ -264,36 +264,24 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }));
-
-        if (screenWidth > getResources().getInteger(R.integer.max_screen_width)) {
-            checkScreenOrientation();
-        } else {
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        }
         System.out.println("pre feed");
 
-        ctx.runOnUiThread(() -> {
             try {
                 rssFeedModel1 = (new Rss().parseRss(0, ctx));
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            System.out.println("feed done");
             mAdapter = new Adapter(rssFeedModel1);
 
             recyclerView.setAdapter(mAdapter);
-
-        });
-
-        setSupportActionBar(mActionBarToolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
+            FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             // Start the recording and recognition thread
             requestMicrophonePermission();
             Intent intent = new Intent(ctx, VoiceMain.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-
-
         });
         new LogIn().logIn(mPrefs, getApplication());
 

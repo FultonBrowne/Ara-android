@@ -22,7 +22,6 @@
                                                      android:layout_height="match_parent"
                                                      android:fitsSystemWindows="true"
                                                      android:id="@+id/mainscreeninmainactivity"
-                                                     android:background="@drawable/feedback"
                                                      tools:context="com.andromeda.ara.activitys.MainActivity">
 
 

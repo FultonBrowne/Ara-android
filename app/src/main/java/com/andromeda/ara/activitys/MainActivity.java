@@ -295,7 +295,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
-        new LogIn().logIn(mPrefs, getApplication());
+        try{
+        new LogIn().logIn(mPrefs, getApplication());}
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void checkScreenOrientation() {

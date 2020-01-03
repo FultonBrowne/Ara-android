@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         act = this;
+        System.out.println("done part 1");
 
         Push.setListener(new PushUtil());
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
@@ -158,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             time();
         }
+        System.out.println("prefs");
 
         Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
@@ -176,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         SecondaryDrawerItem news4 = new SecondaryDrawerItem().withIdentifier(105).withName(getString(R.string.moneyText)).withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.money);
         SecondaryDrawerItem news2 = new SecondaryDrawerItem().withIdentifier(103).withName("World").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.worldnews);
         SecondaryDrawerItem newsmain = new SecondaryDrawerItem().withIdentifier(101).withName("News").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.semi_transparent).withSubItems(news1, news2, news3, news4).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.news);
-
+        System.out.println("items");
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 //.withHeaderBackground(R.drawable.back)
@@ -243,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
                     // do something with the clicked item :D
                 })
                 .build());
+        System.out.println("drawer");
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);
         StrictMode.setThreadPolicy(policy);
@@ -295,11 +298,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
-        try{
-        new LogIn().logIn(mPrefs, getApplication());}
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        new LogIn().logIn(mPrefs, getApplication());
+
     }
 
     private void checkScreenOrientation() {
@@ -345,54 +345,45 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search)
-                .getActionView();
-        if (null != searchView) {
-            assert searchManager != null;
-            searchView.setSearchableInfo(searchManager
-                    .getSearchableInfo(getComponentName()));
-            searchView.setIconifiedByDefault(true);
-        }
-
-        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
-            @Contract(pure = true)
-            public boolean onQueryTextChange(String newText) {
-                // this is your adapter that will be filtered
-                return true;
-            }
-
-            public boolean onQueryTextSubmit(String query) {
-
-                double lat = 0.0;
-                double log = 0.0;
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
-                    //RssFeedModel rssFeedModel2 = (new com.andromeda.ara.Wolfram().Wolfram1(input));
-                    LocationManager locationManager = locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-                    assert locationManager != null;
-                    Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                    requestLocationPermission();
-                }
-                try {
+        runOnUiThread(() -> {
+            System.out.println("menu 1");
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+            SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search)
+                    .getActionView();
+                assert searchManager != null;
+                searchView.setSearchableInfo(searchManager
+                        .getSearchableInfo(getComponentName()));
+                searchView.setIconifiedByDefault(true);
 
 
-                    ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query, getApplicationContext(), MainActivity.this));
-                    rssFeedModel1.addAll(0, rssFeedModel2);
-                    mAdapter.notifyDataSetChanged();
-                } catch (Exception e) {
-                    e.printStackTrace();
+            SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+                public boolean onQueryTextChange(String newText) {
+                    // this is your adapter that will be filtered
+                    return true;
                 }
 
+                public boolean onQueryTextSubmit(String query) {
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
+                        LocationManager locationManager = locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+                        assert locationManager != null;
+                        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    }
+                    try {
+                        ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query, getApplicationContext(), MainActivity.this));
+                        rssFeedModel1.addAll(0, rssFeedModel2);
+                        mAdapter.notifyDataSetChanged();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-                return true;
-            }
-        };
-        assert searchView != null;
-        searchView.setOnQueryTextListener(queryTextListener);
 
-
+                    return true;
+                }
+            };
+            searchView.setOnQueryTextListener(queryTextListener);
+        });
         return true;
     }
 

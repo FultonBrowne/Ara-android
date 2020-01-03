@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                 .withThreeSmallProfileImages(true)
 
                 .build();
-        runOnUiThread(() -> drawer = new DrawerBuilder()
+        drawer = new DrawerBuilder()
                 .withActivity(ctx)
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                     return false;
                     // do something with the clicked item :D
                 })
-                .build());
+                .build();
         System.out.println("drawer");
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);
@@ -270,6 +270,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
+        System.out.println("pre feed");
 
         ctx.runOnUiThread(() -> {
             try {
@@ -283,10 +284,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
-        //recyclerView.setAdapter(new Adapter(parseFeed()));
-
-        //Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {

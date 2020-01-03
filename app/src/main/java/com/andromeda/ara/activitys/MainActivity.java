@@ -232,12 +232,13 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                         else if(drawerItem.getIdentifier() == DrawerModeConstants.DEVICES){
+                            System.out.println("devices");
 
                             Data.list(DeviceModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(documentWrappers -> {
                                 rssFeedModel1.clear();
                                 if (!(documentWrappers == null)) {
                                     for (DocumentWrapper<DeviceModel> i : documentWrappers.getCurrentPage().getItems()) {
-                                        rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), "", "", "", false));
+                                        rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), i.getDeserializedValue().getGroup(), "", "", false));
                                     }
                                     recyclerView.setAdapter(new Adapter(rssFeedModel1));
                                     mode = drawerItem.getIdentifier();

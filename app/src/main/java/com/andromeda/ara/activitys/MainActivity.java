@@ -230,7 +230,21 @@ public class MainActivity extends AppCompatActivity {
 
                             });
 
-                        } else {
+                        }
+                        else if(drawerItem.getIdentifier() == DrawerModeConstants.DEVICES){
+
+                            Data.list(DeviceModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(documentWrappers -> {
+                                rssFeedModel1.clear();
+                                if (!(documentWrappers == null)) {
+                                    for (DocumentWrapper<DeviceModel> i : documentWrappers.getCurrentPage().getItems()) {
+                                        rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), "", "", "", false));
+                                    }
+                                    recyclerView.setAdapter(new Adapter(rssFeedModel1));
+                                    mode = drawerItem.getIdentifier();
+                                } else System.out.println("fail");
+                            });
+                        }
+                        else {
                             try {
                                 rssFeedModel1 = new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this);
                                 recyclerView.setAdapter(new Adapter(rssFeedModel1));

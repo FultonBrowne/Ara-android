@@ -55,71 +55,86 @@ class Drawer {
 
 
 
-        if (drawerItem == DrawerModeConstants.HOME) {
-            Toast.makeText(ctx, ctx.getString(R.string.number_1), Toast.LENGTH_SHORT).show()
+        when (drawerItem) {
+            DrawerModeConstants.HOME -> {
+                Toast.makeText(ctx, ctx.getString(R.string.number_1), Toast.LENGTH_SHORT).show()
 
-            rssFeedModel1.addAll(Rss().parseRss(0, ctx))
-            return rssFeedModel1
-
-        } else if (drawerItem == DrawerModeConstants.TAGS) {
-            var title1: String
-            var web1: String
-            Db.open()
-            val cursor = Db.fetch()
-            var test: RssFeedModel
-
-
-            if (cursor != null && cursor.moveToFirst()) {
-                cursor.moveToFirst()
-
-
-                while (!cursor.isAfterLast) {
-
-                    title1 = cursor.getString(1)
-                    web1 = cursor.getString(2)
-                    test = RssFeedModel(title1, web1, "", "", "", false)
-
-                    rssFeedModel1.add(test)
-                    cursor.moveToNext()
-                }
-            } else {
-                title1 = "nothing"
-                web1 = "reload app"
-                test = RssFeedModel(title1, web1, "", "", "", false)
-                rssFeedModel1.add(test)
+                rssFeedModel1.addAll(Rss().parseRss(0, ctx))
                 return rssFeedModel1
 
+            }
+            DrawerModeConstants.TAGS -> {
+                var title1: String
+                var web1: String
+                Db.open()
+                val cursor = Db.fetch()
+                var test: RssFeedModel
+
+
+                if (cursor != null && cursor.moveToFirst()) {
+                    cursor.moveToFirst()
+
+
+                    while (!cursor.isAfterLast) {
+
+                        title1 = cursor.getString(1)
+                        web1 = cursor.getString(2)
+                        test = RssFeedModel(title1, web1, "", "", "", false)
+
+                        rssFeedModel1.add(test)
+                        cursor.moveToNext()
+                    }
+                } else {
+                    title1 = "nothing"
+                    web1 = "reload app"
+                    test = RssFeedModel(title1, web1, "", "", "", false)
+                    rssFeedModel1.add(test)
+
+
+                }
+                return rssFeedModel1
 
             }
+            DrawerModeConstants.FOOD -> {
+                rssFeedModel1 = Food().getFood(log.toString(), java.lang.Double.toString(lat))
+                return rssFeedModel1
+            }
+            DrawerModeConstants.SHOP -> {
+                rssFeedModel1 = shopping().getShops(java.lang.Double.toString(log), java.lang.Double.toString(lat))
+                return rssFeedModel1
+            }
+            DrawerModeConstants.CAL -> {
 
-        } else if (drawerItem == DrawerModeConstants.FOOD) {
-            rssFeedModel1 = Food().getFood(log.toString(), java.lang.Double.toString(lat))
-        } else if (drawerItem == DrawerModeConstants.SHOP) {
-            rssFeedModel1 = shopping().getShops(java.lang.Double.toString(log), java.lang.Double.toString(lat))
-            return rssFeedModel1
-        } else if (drawerItem == DrawerModeConstants.CAL) {
 
+                rssFeedModel1 = CalUtility.readCalendarEvent(ctx)
+                return rssFeedModel1
+            }
+            DrawerModeConstants.DEVICES -> {
+                rssFeedModel1 = Devices().getAll(activity)
+                return rssFeedModel1
+            }
+            104L -> {
+                rssFeedModel1.addAll(Rss().parseRss(3, ctx))
+                return rssFeedModel1
+            }
+            102L -> {
+                rssFeedModel1.addAll(Rss().parseRss(2, ctx))
+                return rssFeedModel1
+            }
+            103L -> {
+                rssFeedModel1.addAll(Rss().parseRss(1, ctx))
+                return rssFeedModel1
+            }
+            105L -> {
+                rssFeedModel1.addAll(Rss().parseRss(4, ctx))
+                return rssFeedModel1
+            }
+            else -> {
+                println("returning")
+                return null
 
-            rssFeedModel1 = CalUtility.readCalendarEvent(ctx)
-            return rssFeedModel1
-        } else if (drawerItem == DrawerModeConstants.DEVICES) {
-            rssFeedModel1 = Devices().getAll(activity)
-            return rssFeedModel1
-        } else if (drawerItem == 104L) {
-            rssFeedModel1.addAll(Rss().parseRss(3, ctx))
-            return rssFeedModel1
-        } else if (drawerItem == 102L) {
-            rssFeedModel1.addAll(Rss().parseRss(2, ctx))
-            return rssFeedModel1
-        } else if (drawerItem == 103L) {
-            rssFeedModel1.addAll(Rss().parseRss(1, ctx))
-            return rssFeedModel1
-        } else if (drawerItem == 105L) {
-            rssFeedModel1.addAll(Rss().parseRss(4, ctx))
-            return rssFeedModel1
+            }
         }
-        println("returning")
-        return null
 
     }
 }

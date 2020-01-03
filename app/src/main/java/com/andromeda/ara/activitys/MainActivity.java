@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                 .withThreeSmallProfileImages(true)
 
                 .build();
-        drawer = new DrawerBuilder()
+        runOnUiThread(() -> drawer = new DrawerBuilder()
                 .withActivity(ctx)
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                                 rssFeedModel1 = new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this);
                                 recyclerView.setAdapter(new Adapter(rssFeedModel1));
                                 mode = drawerItem.getIdentifier();
-                            } catch (IOException e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
@@ -244,7 +244,8 @@ public class MainActivity extends AppCompatActivity {
                     return false;
                     // do something with the clicked item :D
                 })
-                .build();
+                .build());
+
         System.out.println("drawer");
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);

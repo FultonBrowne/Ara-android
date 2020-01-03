@@ -25,6 +25,7 @@ import android.location.LocationManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.andromeda.ara.R
+import com.andromeda.ara.constants.DrawerModeConstants
 import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.Devices
 import com.andromeda.ara.util.RssFeedModel
@@ -54,13 +55,13 @@ class Drawer {
 
 
 
-        if (drawerItem == 1L) {
+        if (drawerItem == DrawerModeConstants.HOME) {
             Toast.makeText(ctx, ctx.getString(R.string.number_1), Toast.LENGTH_SHORT).show()
 
             rssFeedModel1.addAll(Rss().parseRss(0, ctx))
             return rssFeedModel1
 
-        } else if (drawerItem == 2L) {
+        } else if (drawerItem == DrawerModeConstants.TAGS) {
             var title1: String
             var web1: String
             Db.open()
@@ -91,17 +92,17 @@ class Drawer {
 
             }
 
-        } else if (drawerItem == 3L) {
+        } else if (drawerItem == DrawerModeConstants.FOOD) {
             rssFeedModel1 = Food().getFood(log.toString(), java.lang.Double.toString(lat))
-        } else if (drawerItem == 4L) {
+        } else if (drawerItem == DrawerModeConstants.SHOP) {
             rssFeedModel1 = shopping().getShops(java.lang.Double.toString(log), java.lang.Double.toString(lat))
             return rssFeedModel1
-        } else if (drawerItem == 5L) {
+        } else if (drawerItem == DrawerModeConstants.CAL) {
 
 
             rssFeedModel1 = CalUtility.readCalendarEvent(ctx)
             return rssFeedModel1
-        } else if (drawerItem == 7L) {
+        } else if (drawerItem == DrawerModeConstants.DEVICES) {
             rssFeedModel1 = Devices().getAll(activity)
             return rssFeedModel1
         } else if (drawerItem == 104L) {

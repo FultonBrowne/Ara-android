@@ -21,7 +21,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/skills"
+        android:background="@color/md_blue_grey_800"
         tools:context=".activitys.SkillsActivity">
 
     <com.google.android.material.appbar.AppBarLayout

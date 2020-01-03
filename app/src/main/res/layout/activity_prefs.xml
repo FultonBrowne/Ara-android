@@ -20,7 +20,7 @@
                                                      xmlns:tools="http://schemas.android.com/tools"
                                                      android:layout_width="match_parent"
                                                      android:layout_height="match_parent"
-                                                     android:background="@drawable/settingsback"
+                                                     android:background="@color/md_blue_grey_800"
                                                      android:scaleType="centerInside"
                                                      android:fitsSystemWindows="true"
                                                      tools:context=".activitys.PrefsActivity">
@@ -29,7 +29,7 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_height"
-            android:background="@color/semi_transparent"
+            android:background="@color/colorPrimary"
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                app:contentScrim="@color/semi_transparent"
+                app:contentScrim="@color/primary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:toolbarId="@+id/toolbar">
 

@@ -24,10 +24,8 @@
                                                    android:layout_height="wrap_content"
                                                    android:layout_marginTop="5dp"
                                                    android:layout_marginBottom="5dp"
-
-
                                                    android:elevation="0dp"
-                                                   app:cardBackgroundColor="@color/semi_transparent"
+                                                   app:cardBackgroundColor="@color/md_grey_500"
                                                    app:cardCornerRadius="8dp"
                                                    app:cardUseCompatPadding="true"
                                                    card_view:cardPreventCornerOverlap="false">

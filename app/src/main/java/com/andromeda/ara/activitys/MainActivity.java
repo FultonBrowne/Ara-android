@@ -71,7 +71,6 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import org.jetbrains.annotations.Contract;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -142,8 +141,6 @@ public class MainActivity extends AppCompatActivity {
         final TagManager main53 = new TagManager(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         //name of the preference
-        String welcomeScreenShownPref = "welcomeScreenShown";
-        boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
 
         mName = mPrefs.getString("name", "please log in");
         mEmail = mPrefs.getString("email", "please log in");

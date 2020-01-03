@@ -18,6 +18,7 @@ package com.andromeda.ara.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.andromeda.ara.constants.User
 import com.microsoft.appcenter.auth.Auth
 import com.microsoft.appcenter.auth.SignInResult
 import com.nimbusds.jwt.JWTParser
@@ -41,6 +42,9 @@ class LogIn {
                     mPrefs.edit().putString("name", displayName).apply()
                     print(displayName)
                     if (emails != null && !emails.isEmpty()) {
+                        User.name =displayName!!
+                        User.id = accountId
+                        User.email = emails[0].toString()
                         val firstEmail = emails[0].toString()
                         mPrefs.edit().putString("email", firstEmail).apply()
                         print(firstEmail)

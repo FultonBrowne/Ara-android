@@ -17,6 +17,7 @@
 package com.andromeda.ara.util
 
 
+import android.app.Activity
 import android.content.Context
 import android.text.InputType
 import android.widget.EditText
@@ -72,7 +73,7 @@ class AraPopUps {
 
             builder.show()
         }
-    fun newDevice(ctx: Context){
+    fun newDevice(ctx: Context, act:Activity){
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setTitle("Title")
         val input = EditText(ctx)
@@ -83,6 +84,7 @@ class AraPopUps {
             Data.create(i .toString(), DeviceModel(input.text.toString(), "LIGHT", "---\\n- \\\"on\\\": true\\n  powerLevel: null\\n  color: null\\n\"", ""), DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
             val url = URL("${url}newdevice/user=${id}&id=$i")
             val deviceKey = GetUrlAra().getIt(url)
+            NfcTransmit().main("", ctx, act)
 
         }
         builder.show()

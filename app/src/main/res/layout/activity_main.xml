@@ -22,7 +22,7 @@
                                                      android:layout_height="match_parent"
                                                      android:fitsSystemWindows="true"
                                                      android:id="@+id/mainscreeninmainactivity"
-                                                     android:background="@color/md_blue_grey_800"
+                                                     android:background="@color/colorBack"
                                                      tools:context="com.andromeda.ara.activitys.MainActivity">
 
 

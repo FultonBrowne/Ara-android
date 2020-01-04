@@ -19,7 +19,7 @@
 
     <gradient
             android:angle="0"
-            android:centerColor="@color/semi_transparent"
+            android:centerColor="@color/card_color"
             android:endColor="@color/colorPrimary"
             android:startColor="@color/colorPrimary"
             android:type="linear"/>

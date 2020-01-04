@@ -20,8 +20,8 @@
     <gradient
             android:angle="0"
             android:centerColor="@color/colorPrimary"
-            android:endColor="@color/semi_transparent"
-            android:startColor="@color/semi_transparent"
+            android:endColor="@color/card_color"
+            android:startColor="@color/card_color"
             android:type="linear"/>
 
     <corners

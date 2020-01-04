@@ -474,4 +474,8 @@ public class MainActivity extends AppCompatActivity {
     public void addSkill(MenuItem item) {
        new AraPopUps().newSkill(this);
     }
+
+    public void addDevice(MenuItem item) {
+
+    }
 }

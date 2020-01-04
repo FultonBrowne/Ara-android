@@ -41,6 +41,8 @@
           android:onClick="logOut"/>
     <item android:title="@string/skillmenu"
           android:onClick="addSkill"/>
+    <item android:title="@string/add_device"
+          android:onClick="addDevice"/>
 
 
 </menu>

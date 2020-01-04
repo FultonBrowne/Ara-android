@@ -480,7 +480,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addDevice(MenuItem item) throws MalformedURLException {
-
+        new AraPopUps().newDevice(this);
 
     }
 }

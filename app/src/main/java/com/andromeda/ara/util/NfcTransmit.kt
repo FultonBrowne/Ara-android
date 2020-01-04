@@ -17,29 +17,34 @@
 package com.andromeda.ara.util
 
 import android.app.Activity
-import android.app.PendingIntent
-import android.content.Intent
+import android.content.Context
+import android.nfc.NdefMessage
+import android.nfc.NdefRecord
+import android.nfc.NdefRecord.createMime
 import android.nfc.NfcAdapter
-import org.ndeftools.Message
-import org.ndeftools.MimeRecord
-import org.ndeftools.externaltype.AndroidApplicationRecord
+import android.nfc.NfcEvent
 
 
-class NfcTransmit {
-    fun main(act:Activity) {
-        val aar = AndroidApplicationRecord();
-        aar.packageName = "com.andromeda.ara";
-        val mimeRecord = MimeRecord()
-        mimeRecord.mimeType = "text/plain"
-        mimeRecord.data = "This is my data".toByteArray(charset("UTF-8"))
-        val message = Message() //  org.ndeftools.Message
-        message.add(aar)
-        message.add(mimeRecord)
-        val nfcAdapter = NfcAdapter.getDefaultAdapter(act)
-        val nfcPendingIntent = PendingIntent.getActivity(act, 0, Intent(act, this.javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0)
+class NfcTransmit : NfcAdapter.CreateNdefMessageCallback{
+
+    override fun createNdefMessage(event: NfcEvent?): NdefMessage {
+        val text = "Beam me up, Android!\n\n" +
+                "Beam Time: " + System.currentTimeMillis()
+        return NdefMessage(
+ createMime("application/vnd.com.example.android.beam", text.toByteArray())
+               ,NdefRecord.createApplicationRecord("com.example.android.beam")
+        )
+
+    }
+    fun main(text:String, ctx:Context, act:Activity){
+        val nfcAdapter: NfcAdapter? = NfcAdapter.getDefaultAdapter(ctx)
+        nfcAdapter?.setNdefPushMessageCallback(this, act)
+
 
 
     }
 
-
 }
+
+
+

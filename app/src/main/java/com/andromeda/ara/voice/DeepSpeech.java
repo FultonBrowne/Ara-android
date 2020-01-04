@@ -18,8 +18,6 @@ package com.andromeda.ara.voice;
 
 
 import android.content.Context;
-import android.os.Build;
-import androidx.annotation.RequiresApi;
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
 
 import java.io.IOException;
@@ -35,7 +33,6 @@ class DeepSpeech {
         return this.doInference(audioFile, ctx);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void newModel(Context ctx) {
         System.out.println("working");
         if (this._m == null) {
@@ -50,9 +47,9 @@ class DeepSpeech {
         final String[] decoded = {"err"};
         System.out.println("new");
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
             this.newModel(ctx);
-        }
+
         System.out.println("done");
 
         try {
@@ -84,16 +81,21 @@ class DeepSpeech {
             short[] shorts = new short[bytes.length / 2];
             System.out.println("num info");
             ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
-            new Thread(() ->
-                    decoded[0] = this._m.stt(shorts, shorts.length));
+
+                    decoded[0] = this._m.stt(shorts, shorts.length);
+                System.out.println(decoded[0]);
+
+
+
+
             System.out.println(decoded[0]);
 
 
         } catch (IOException e) {
             e.printStackTrace();
 
+            return decoded[0];
         }
-
         return decoded[0];
     }
 

@@ -72,10 +72,18 @@ class AraPopUps {
 
             builder.show()
         }
-    fun newDevice(){
-        val i = Math.random() * (30000 + 1)
-        Data.create(i.toString(), DeviceModel("", "", "", ""), DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
-        val url = URL(url + "/newdevice/key=" + id + "id=")
+    fun newDevice(ctx: Context){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
+        builder.setTitle("Title")
+        val input = EditText(ctx)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+        builder.setPositiveButton("OK") { _, _ ->
+            val i = Math.random() * (30000 + 1)
+            Data.create(i.toString(), DeviceModel(input.text.toString(), "", "", ""), DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+            val url = URL("$url/newdevice/key=${id}id=$i")
+        }
+
     }
 
 }

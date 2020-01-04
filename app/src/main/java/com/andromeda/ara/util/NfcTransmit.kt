@@ -32,16 +32,13 @@ class NfcTransmit : NfcAdapter.CreateNdefMessageCallback{
                 "Beam Time: " + System.currentTimeMillis()
         return NdefMessage(
  createMime("application/vnd.com.example.android.beam", text.toByteArray())
-               ,NdefRecord.createApplicationRecord("com.example.android.beam")
+               ,NdefRecord.createApplicationRecord("com.andromeda.ara")
         )
 
     }
     fun main(text:String, ctx:Context, act:Activity){
         val nfcAdapter: NfcAdapter? = NfcAdapter.getDefaultAdapter(ctx)
         nfcAdapter?.setNdefPushMessageCallback(this, act)
-
-
-
     }
 
 }

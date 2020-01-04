@@ -20,5 +20,5 @@
     <color name="colorPrimaryDark">#1a237e</color>
     <color name="colorAccent">#810000</color>
     <color name="colorBack">#00183A</color>
-    <color name="card_color">#1D1D1D</color>
+    <color name="card_color">#000E25</color>
 </resources>

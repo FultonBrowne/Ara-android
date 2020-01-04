@@ -21,11 +21,14 @@ import android.content.Context
 import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import com.andromeda.ara.constants.ServerUrl.url
+import com.andromeda.ara.constants.User.id
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
+import java.net.URL
 import java.util.*
 
 
@@ -69,5 +72,10 @@ class AraPopUps {
 
             builder.show()
         }
+    fun newDevice(){
+        val i = Math.random() * (30000 + 1)
+        Data.create(i.toString(), DeviceModel("", "", "", ""), DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+        val url = URL(url + "/newdevice/key=" + id + "id=")
+    }
 
 }

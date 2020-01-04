@@ -182,8 +182,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                 .addProfiles(
-                        new ProfileDrawerItem().withName(mName).withEmail(mEmail).withIcon(getResources().getDrawable(R.drawable.example_appwidget_preview)
-                        ))
+                        new ProfileDrawerItem().withName(mName).withEmail(mEmail))
+
                 .withOnAccountHeaderListener((view, profile, currentProfile) -> false).withTextColorRes(R.color.md_white_1000)
                 .withHeaderBackground(R.color.semi_transparent)
                 .withThreeSmallProfileImages(true)
@@ -210,8 +210,21 @@ public class MainActivity extends AppCompatActivity {
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
 
                     MainActivity.this.runOnUiThread(() -> {
-                        if (drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS) {
+                        if(drawerItem.getIdentifier() == DrawerModeConstants.DEVICES){
+                            System.out.println("devices");
 
+                            Data.list(DeviceModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(documentWrappers -> {
+                                rssFeedModel1.clear();
+                                if (!(documentWrappers == null)) {
+                                    for (DocumentWrapper<DeviceModel> i : documentWrappers.getCurrentPage().getItems()) {
+                                        rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), i.getDeserializedValue().getGroup(), "", "", false));
+                                    }
+                                    recyclerView.setAdapter(new Adapter(rssFeedModel1));
+                                    mode = drawerItem.getIdentifier();
+                                } else System.out.println("fail");
+                            });}
+                        else if (drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS) {
+                            System.out.println("shortcuts");
                             Data.list(SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(new AppCenterConsumer<PaginatedDocuments<SkillsDBModel>>() {
                                 @Override
                                 public void accept(PaginatedDocuments<SkillsDBModel> documentWrappers) {
@@ -227,20 +240,6 @@ public class MainActivity extends AppCompatActivity {
 
                             });
 
-                        }
-                        else if(drawerItem.getIdentifier() == DrawerModeConstants.DEVICES){
-                            System.out.println("devices");
-
-                            Data.list(DeviceModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(documentWrappers -> {
-                                rssFeedModel1.clear();
-                                if (!(documentWrappers == null)) {
-                                    for (DocumentWrapper<DeviceModel> i : documentWrappers.getCurrentPage().getItems()) {
-                                        rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), i.getDeserializedValue().getGroup(), "", "", false));
-                                    }
-                                    recyclerView.setAdapter(new Adapter(rssFeedModel1));
-                                    mode = drawerItem.getIdentifier();
-                                } else System.out.println("fail");
-                            });
                         }
                         else {
                             try {

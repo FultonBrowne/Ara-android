@@ -217,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
                                 rssFeedModel1.clear();
                                 if (!(documentWrappers == null)) {
                                     for (DocumentWrapper<DeviceModel> i : documentWrappers.getCurrentPage().getItems()) {
+                                        System.out.println(i);
                                         rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), i.getDeserializedValue().getGroup(), "", "", false));
                                     }
                                     recyclerView.setAdapter(new Adapter(rssFeedModel1));

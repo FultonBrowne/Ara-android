@@ -48,6 +48,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.andromeda.ara.R;
 import com.andromeda.ara.constants.DrawerModeConstants;
+import com.andromeda.ara.constants.ServerUrl;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.search.Search;
@@ -75,6 +76,8 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -475,7 +478,8 @@ public class MainActivity extends AppCompatActivity {
        new AraPopUps().newSkill(this);
     }
 
-    public void addDevice(MenuItem item) {
+    public void addDevice(MenuItem item) throws MalformedURLException {
+        URL url = new URL(ServerUrl.INSTANCE.getUrl() + "/newdevice/");
 
     }
 }

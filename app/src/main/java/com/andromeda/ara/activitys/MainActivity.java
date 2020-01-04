@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (!(documentWrappers == null)) {
                                     for (DocumentWrapper<DeviceModel> i : documentWrappers.getCurrentPage().getItems()) {
                                         System.out.println(i);
-                                        rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), i.getDeserializedValue().getGroup(), "", "", false));
+                                        if(!(null == i.getDeserializedValue().getType())) rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), i.getDeserializedValue().getGroup(), "", "", false));
                                     }
                                     recyclerView.setAdapter(new Adapter(rssFeedModel1));
                                     mode = drawerItem.getIdentifier();
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                                     rssFeedModel1.clear();
                                     if (!(documentWrappers == null)) {
                                         for (DocumentWrapper<SkillsDBModel> i : documentWrappers.getCurrentPage().getItems()) {
-                                            rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), "", "", "", false));
+                                            if(!(i.getDeserializedValue().getAction()==null))rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), "", "", "", false));
                                         }
                                         recyclerView.setAdapter(new Adapter(rssFeedModel1));
                                         mode = drawerItem.getIdentifier();

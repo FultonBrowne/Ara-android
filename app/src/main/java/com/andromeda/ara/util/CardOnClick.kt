@@ -32,21 +32,30 @@ import com.microsoft.appcenter.data.DefaultPartitions
 
 class CardOnClick {
     fun mainFun(mode: Long, linkText: String, act: Activity, ctx: Context) {
-        if (mode == DrawerModeConstants.SHORTCUTS.toLong()) {
-            try {
-                Data.read(linkText, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept {
-                    val parsed = Parse().parse(it.deserializedValue.action.action)
-                    RunActions().doIt(parsed, "", ctx, act)
+        when (mode) {
+            DrawerModeConstants.SHORTCUTS-> {
+                try {
+                    Data.read(linkText, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept {
+                        val parsed = Parse().parse(it.deserializedValue.action.action)
+                        RunActions().doIt(parsed, "", ctx, act)
+                    }
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
 
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
+            DrawerModeConstants.DEVICES -> {
+                Data.read(linkText, DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept {
+                    val parsed = Parse().yamlArrayToObjectList(it.deserializedValue.status, Any::class.java)
+                    Toast.makeText(ctx, parsed.toString(), Toast.LENGTH_LONG).show()
+                }
+            }
+            else -> {
 
-        } else {
-
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(linkText))
-            act.startActivity(browserIntent)
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(linkText))
+                act.startActivity(browserIntent)
+            }
         }
 
     }

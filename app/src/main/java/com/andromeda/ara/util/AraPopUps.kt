@@ -81,7 +81,7 @@ class AraPopUps {
         builder.setView(input)
         builder.setPositiveButton("OK") { _, _ ->
             val i = (Math.random() * (30000 + 1)).toInt()
-            Data.create(i .toString(), DeviceModel(input.text.toString(), "LIGHT", "---\\n- \\\"on\\\": true\\n  powerLevel: null\\n  color: null\\n\"", ""), DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+            Data.create(i .toString(), DeviceModel(input.text.toString(), "LIGHT", "---\\- \\\"on\\\": true\\n  powerLevel: null\\n  color: null\\n\"", ""), DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
             val url = URL("${url}newdevice/user=${id}&id=$i")
             val deviceKey = GetUrlAra().getIt(url)
             NfcTransmit().main("", ctx, act)
@@ -90,5 +90,6 @@ class AraPopUps {
         builder.show()
 
     }
+    fun
 
 }

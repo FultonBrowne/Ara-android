@@ -47,6 +47,7 @@ class CardOnClick {
             }
             DrawerModeConstants.DEVICES -> {
                 Data.read(linkText, DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept {
+                    println(it.deserializedValue.status)
                     val parsed = Parse().yamlArrayToObjectList(it.deserializedValue.status, Any::class.java)
                     Toast.makeText(ctx, parsed.toString(), Toast.LENGTH_LONG).show()
                 }

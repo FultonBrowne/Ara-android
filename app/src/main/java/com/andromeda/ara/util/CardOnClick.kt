@@ -19,7 +19,6 @@ package com.andromeda.ara.util
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
 import android.widget.Toast
 import com.andromeda.ara.activitys.SkillsActivity
@@ -49,7 +48,7 @@ class CardOnClick {
                 Data.read(linkText, DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept {
                     println(it.deserializedValue.status)
                     val parsed = Parse().yamlArrayToObjectList(it.deserializedValue.status, Any::class.java)
-                    Toast.makeText(ctx, parsed.toString(), Toast.LENGTH_LONG).show()
+                    AraPopUps().editDevice(parsed[0], ctx)
                 }
             }
             else -> {

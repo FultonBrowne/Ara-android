@@ -21,6 +21,8 @@ import android.app.Activity
 import android.content.Context
 import android.text.InputType
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.andromeda.ara.constants.ServerUrl.url
 import com.andromeda.ara.constants.User.id
@@ -31,6 +33,9 @@ import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
 import java.net.URL
 import java.util.*
+import kotlin.reflect.KClass
+import kotlin.reflect.KMutableProperty
+import kotlin.reflect.full.memberProperties
 
 
 class AraPopUps {
@@ -90,6 +95,12 @@ class AraPopUps {
         builder.show()
 
     }
-    fun
+    fun editDevice(class1:Any, ctx: Context){
+        val lin = LinearLayout(ctx)
+        class1::class.memberProperties.forEach {
+            println(it.name)
+        }
+
+    }
 
 }

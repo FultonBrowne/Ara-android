@@ -28,18 +28,18 @@ class Parse {
     fun parse(yml: String?): ArrayList<SkillsModel>? {
         print(yml)
         val classsss: Class<SkillsModel>? = SkillsModel::class.java
-        return yamlArrayToObjectList(yml, classsss)
+        return yamlArrayToObjectList(yml, classsss!!)
     }
 
 
     @Throws(IOException::class)
-    fun <T> yamlArrayToObjectList(yaml: String?, tClass: Class<T>?): ArrayList<T>? {
+    fun <T> yamlArrayToObjectList(yaml: String?, tClass: Class<T>): ArrayList<T> {
         //val mapper = ObjectMapper()
         val mapper = ObjectMapper(YAMLFactory()) // jackson databind
 
 
         val listType: CollectionType = mapper.typeFactory.constructCollectionType(ArrayList::class.java, tClass)
 
-        return mapper.readValue(yaml, listType)
+        return mapper.readValue(yaml, listType)!!
     }
 }

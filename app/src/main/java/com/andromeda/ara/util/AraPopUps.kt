@@ -97,7 +97,8 @@ class AraPopUps {
     }
     fun editDevice(class1:Any, ctx: Context){
         val lin = LinearLayout(ctx)
-        class1::class.memberProperties.forEach {
+        val class2 = class1::class as KClass<Any>
+        class2.memberProperties.forEach {
             println(it.name)
         }
 

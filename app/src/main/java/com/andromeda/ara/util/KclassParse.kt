@@ -14,21 +14,16 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util;
+package com.andromeda.ara.util
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import kotlin.reflect.KClass;
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.util.*
+import kotlin.reflect.KClass
 
-import java.util.ArrayList;
-
-public class JsonParse {
-    public ArrayList<OutputModel> search(String jsontxt) {
-        Gson gson = new Gson();
-        return gson.fromJson(jsontxt, new TypeToken<ArrayList<OutputModel>>() {
-        }.getType());
-
+class KclassParse {
+    fun kClass(jsonText: String?) {
+        val gson = Gson()
+        return gson.fromJson(jsonText, object : TypeToken<KClass<Any>>() {}.type)
     }
-
-
 }

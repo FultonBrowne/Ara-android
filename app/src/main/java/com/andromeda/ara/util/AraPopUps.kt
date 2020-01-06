@@ -112,7 +112,7 @@ class AraPopUps {
                     try {
                         val mainval = (it as MutableMap.MutableEntry<*, *>)
 
-                            listForMain.add(FinalDevice("", it.value.toString()))
+                            listForMain.add(FinalDevice(it.key.toString(), it.value))
 
                     }
                     catch (e:Exception){

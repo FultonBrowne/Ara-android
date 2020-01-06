@@ -16,5 +16,5 @@
 
 package com.andromeda.ara.devices
 
-data class FinalDevice(val name:String, val value:Any) {
+data class FinalDevice(val name:String, val value:Any?) {
 }

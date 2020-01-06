@@ -23,6 +23,7 @@ import android.text.InputType
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.constants.ServerUrl.url
 import com.andromeda.ara.constants.User.id
 import com.andromeda.ara.devices.DeviceModel
@@ -35,6 +36,7 @@ import java.net.URL
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.isAccessible
 
 
 class AraPopUps {
@@ -95,10 +97,13 @@ class AraPopUps {
 
     }
     fun editDevice(class1:Any, ctx: Context){
-        val lin = LinearLayout(ctx)
-        val class2 = class1::class as KClass<Any>
+        println(class1)
+        val lin = RecyclerView(ctx)
+        val class2 = class1::class
+        println(class2)
         class2.memberProperties.forEach {
-            println(it.name)
+            it.isAccessible = true
+            println(it.call(class1))
         }
 
     }

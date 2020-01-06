@@ -22,10 +22,10 @@ import android.content.Context
 import android.text.InputType
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.andromeda.ara.constants.ServerUrl.url
 import com.andromeda.ara.constants.User.id
+import com.andromeda.ara.devices.DeviceModel
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
@@ -34,7 +34,6 @@ import com.microsoft.appcenter.data.DefaultPartitions
 import java.net.URL
 import java.util.*
 import kotlin.reflect.KClass
-import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.memberProperties
 
 

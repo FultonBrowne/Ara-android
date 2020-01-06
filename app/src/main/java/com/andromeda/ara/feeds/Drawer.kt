@@ -27,7 +27,6 @@ import androidx.core.app.ActivityCompat
 import com.andromeda.ara.R
 import com.andromeda.ara.constants.DrawerModeConstants
 import com.andromeda.ara.phoneData.CalUtility
-import com.andromeda.ara.util.Devices
 import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.util.TagManager
 import java.io.IOException
@@ -107,10 +106,6 @@ class Drawer {
 
 
                 rssFeedModel1 = CalUtility.readCalendarEvent(ctx)
-                return rssFeedModel1
-            }
-            DrawerModeConstants.DEVICES -> {
-                rssFeedModel1 = Devices().getAll(activity)
                 return rssFeedModel1
             }
             104L -> {

@@ -14,13 +14,9 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.Ui
+package com.andromeda.ara.devices
 
-import androidx.compose.Composable
+import java.util.*
 
-class Buttons {
-    @Composable
-    fun buttonRound() {
-
-    }
+data class DeviceModel(val name: String, val type: String, var status: String, var group:String) {
 }

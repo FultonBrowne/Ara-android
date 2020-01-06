@@ -23,6 +23,7 @@ import android.net.Uri
 import android.widget.Toast
 import com.andromeda.ara.activitys.SkillsActivity
 import com.andromeda.ara.constants.DrawerModeConstants
+import com.andromeda.ara.devices.DeviceModel
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
 import com.microsoft.appcenter.data.Data

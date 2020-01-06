@@ -27,13 +27,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.constants.ServerUrl.url
 import com.andromeda.ara.constants.User.id
 import com.andromeda.ara.devices.DeviceModel
+import com.andromeda.ara.devices.FinalDevice
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
+import java.lang.Exception
 import java.net.URL
 import java.util.*
+import kotlin.collections.LinkedHashMap
 import kotlin.reflect.KClass
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
@@ -97,14 +100,29 @@ class AraPopUps {
 
     }
     fun editDevice(class1:Any, ctx: Context){
-        println(class1)
         val lin = RecyclerView(ctx)
-        val class2 = class1::class
-        println(class2)
-        class2.memberProperties.forEach {
+        val listForMain = ArrayList<FinalDevice>()
+        val class2 = class1::class.java as Class<Any>
+        for(it in class2.kotlin.memberProperties) {
+            if(!it.isAccessible && it.name == "entries"){
             it.isAccessible = true
-            println(it.call(class1))
+                println(it.returnType)
+            val data = (it.get(class1) as MutableSet<*>)
+                for(it in data){
+                    try {
+                        val mainval = (it as MutableMap.MutableEntry<*, *>)
+
+                            listForMain.add(FinalDevice("", it.value.toString()))
+
+                    }
+                    catch (e:Exception){
+                        e.printStackTrace()
+                    }
+                }
+                break
+            }
         }
+        println(listForMain)
 
     }
 

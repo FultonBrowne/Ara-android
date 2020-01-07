@@ -187,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
                         new ProfileDrawerItem().withName(mName).withEmail(mEmail))
 
                 .withOnAccountHeaderListener((view, profile, currentProfile) -> false).withTextColorRes(R.color.md_white_1000)
-                .withHeaderBackground(R.color.card_color)
                 .withThreeSmallProfileImages(true)
 
                 .build();
@@ -195,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 .withActivity(ctx)
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
-                .withSliderBackgroundDrawableRes(R.drawable.drawerimage)
+                .withSliderBackgroundColorRes(R.color.card_color)
                 .withFullscreen(true).withTranslucentNavigationBarProgrammatically(true)
                 .withTranslucentStatusBar(true)
                 .addDrawerItems(

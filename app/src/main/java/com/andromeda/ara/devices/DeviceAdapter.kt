@@ -20,6 +20,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.NumberPicker
 import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -49,18 +51,21 @@ class DeviceAdapter(finalDevices:ArrayList<FinalDevice>, ctx: Context, docId:Str
             }
             desc.visibility = View.VISIBLE
             holder.rssFeedView
+            return
 
         }
         catch (e : Exception){
             e.printStackTrace()
         }
-        try {
-            val mainInt = mainVHThing[position].value as Int
 
-        }
-        catch (e:Exception){
-            e.printStackTrace()
-        }
+            var mainInt = mainVHThing[position].value as Int?
+            val num = holder.rssFeedView.findViewById<View>(R.id.num1String) as EditText
+            if(mainInt == null) mainInt = 0
+            num.setText(mainInt.toString())
+            num.visibility = View.VISIBLE
+            num.setTextColor(ctx1.resources.getColor(R.color.md_black_1000))
+            return
+
 
     }
 

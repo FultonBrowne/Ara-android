@@ -1,0 +1,13 @@
+Ara is an open source virtual assistant that values privacy and productivity with innovative technologies and privacy by design. Ara will truly change the world, but not yet Ara is still in a beta and you may encounter bugs.
+
+
+So what's done?
+You can use Ara to search the web, call, text, open apps, get the latest news, stay on top of your calendar, find nearby restaurants, check the weather, control devices, custom routines and more.
+
+What's coming?
+Ara will soon have to ability to control your music, play videos, do complex math, a skills store and much much more.
+
+Who am I?
+I am a young, self taught developer trying to release some products into the world. This is my first app and I am hoping to release more soon.
+
+Thank you for choosing Andromeda Software and Ara.

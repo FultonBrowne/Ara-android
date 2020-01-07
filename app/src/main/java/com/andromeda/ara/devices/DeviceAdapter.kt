@@ -16,20 +16,34 @@
 
 package com.andromeda.ara.devices
 
-import android.view.LayoutInflater
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.andromeda.ara.R
+import com.google.android.material.switchmaterial.SwitchMaterial
 import java.util.ArrayList
 
-class DeviceAdapter(finalDevices:ArrayList<FinalDevice>): RecyclerView.Adapter<DeviceAdapter.MainVH>() {
+class DeviceAdapter(finalDevices:ArrayList<FinalDevice>, ctx: Context): RecyclerView.Adapter<DeviceAdapter.MainVH>() {
     var mainVHThing= finalDevices
-    class MainVH(val rssFeedView: View) : RecyclerView.ViewHolder(rssFeedView)
+    val ctx1 = ctx
+    class MainVH(var rssFeedView: View) : RecyclerView.ViewHolder(rssFeedView)
 
     override fun onBindViewHolder(holder: MainVH, position: Int) {
-        //Inflate the card view
+        try {
+            val mainBool = mainVHThing[position].value as Boolean
+            val switch = SwitchMaterial(ctx1)
+            switch.text = mainVHThing[position].name
+            switch.isChecked = mainBool
+            holder.rssFeedView = switch
+            return
+        }
+        catch (e : Exception){ }
+        try {
+            val mainInt = mainVHThing[position].value as Int
+            return
+        }
+        catch (e:Exception){}
 
     }
 
@@ -38,8 +52,7 @@ class DeviceAdapter(finalDevices:ArrayList<FinalDevice>): RecyclerView.Adapter<D
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainVH {
-        val v = LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_item, parent, false)
+        val v = TextView(ctx1)
         return MainVH(v)
     }
 

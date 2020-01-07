@@ -23,9 +23,11 @@ import android.text.InputType
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.constants.ServerUrl.url
 import com.andromeda.ara.constants.User.id
+import com.andromeda.ara.devices.DeviceAdapter
 import com.andromeda.ara.devices.DeviceModel
 import com.andromeda.ara.devices.FinalDevice
 import com.fasterxml.jackson.core.JsonProcessingException
@@ -36,8 +38,6 @@ import com.microsoft.appcenter.data.DefaultPartitions
 import java.lang.Exception
 import java.net.URL
 import java.util.*
-import kotlin.collections.LinkedHashMap
-import kotlin.reflect.KClass
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
 
@@ -121,7 +121,14 @@ class AraPopUps {
                 }
                 break
             }
+
         }
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
+        lin.layoutManager = LinearLayoutManager(ctx)
+        lin.adapter = (DeviceAdapter(listForMain, ctx))
+        builder.setView(lin)
+        builder.setTitle("Title")
+        builder.show()
         println(listForMain)
 
 

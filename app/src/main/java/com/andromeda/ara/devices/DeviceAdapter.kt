@@ -57,7 +57,6 @@ class DeviceAdapter(finalDevices:ArrayList<FinalDevice>, ctx: Context, docId:Str
         catch (e : Exception){
             e.printStackTrace()
         }
-
             var mainInt = mainVHThing[position].value as Int?
             val num = holder.rssFeedView.findViewById<View>(R.id.num1String) as EditText
             if(mainInt == null) mainInt = 0

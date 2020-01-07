@@ -63,7 +63,9 @@ class DeviceAdapter(finalDevices:ArrayList<FinalDevice>, ctx: Context, docId:Str
             num.setText(mainInt.toString())
             num.visibility = View.VISIBLE
             num.setTextColor(ctx1.resources.getColor(R.color.md_black_1000))
-            return
+        num.visibility = View.VISIBLE
+holder.rssFeedView
+        return
 
 
     }

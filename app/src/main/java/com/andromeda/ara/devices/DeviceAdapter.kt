@@ -16,5 +16,31 @@
 
 package com.andromeda.ara.devices
 
-class DeviceAdapter {
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Adapter
+import androidx.recyclerview.widget.RecyclerView
+import com.andromeda.ara.R
+import java.util.ArrayList
+
+class DeviceAdapter(finalDevices:ArrayList<FinalDevice>): RecyclerView.Adapter<DeviceAdapter.MainVH>() {
+    var mainVHThing= finalDevices
+    class MainVH(val rssFeedView: View) : RecyclerView.ViewHolder(rssFeedView)
+
+    override fun onBindViewHolder(holder: MainVH, position: Int) {
+        //Inflate the card view
+
+    }
+
+    override fun getItemCount(): Int {
+        return mainVHThing.size
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainVH {
+        val v = LayoutInflater.from(parent.context)
+                .inflate(R.layout.fragment_item, parent, false)
+        return MainVH(v)
+    }
+
 }

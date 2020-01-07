@@ -17,11 +17,13 @@
 package com.andromeda.ara.devices
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.switchmaterial.SwitchMaterial
+import com.andromeda.ara.R
 import java.util.ArrayList
 
 class DeviceAdapter(finalDevices:ArrayList<FinalDevice>, ctx: Context): RecyclerView.Adapter<DeviceAdapter.MainVH>() {
@@ -32,18 +34,22 @@ class DeviceAdapter(finalDevices:ArrayList<FinalDevice>, ctx: Context): Recycler
     override fun onBindViewHolder(holder: MainVH, position: Int) {
         try {
             val mainBool = mainVHThing[position].value as Boolean
-            val switch = SwitchMaterial(ctx1)
-            switch.text = mainVHThing[position].name
-            switch.isChecked = mainBool
-            holder.rssFeedView = switch
-            return
+            val desc = (holder.rssFeedView.findViewById<View>(R.id.num1switch) as Switch)
+            desc.text = mainVHThing[position].name
+            desc.isChecked = mainBool
+            holder.rssFeedView
+
         }
-        catch (e : Exception){ }
+        catch (e : Exception){
+            e.printStackTrace()
+        }
         try {
             val mainInt = mainVHThing[position].value as Int
-            return
+
         }
-        catch (e:Exception){}
+        catch (e:Exception){
+            e.printStackTrace()
+        }
 
     }
 
@@ -52,7 +58,8 @@ class DeviceAdapter(finalDevices:ArrayList<FinalDevice>, ctx: Context): Recycler
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainVH {
-        val v = TextView(ctx1)
+        val v = LayoutInflater.from(parent.context)
+                .inflate(R.layout.layout3, parent, false)
         return MainVH(v)
     }
 

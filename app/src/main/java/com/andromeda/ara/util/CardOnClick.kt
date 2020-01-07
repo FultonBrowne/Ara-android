@@ -49,7 +49,7 @@ class CardOnClick {
                 Data.read(linkText, DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept {
                     println(it.deserializedValue.status)
                     val parsed = Parse().yamlArrayToObjectList(it.deserializedValue.status, Any::class.java)
-                    AraPopUps().editDevice(parsed[0], ctx)
+                    AraPopUps().editDevice(parsed[0], ctx, act)
                 }
             }
             else -> {

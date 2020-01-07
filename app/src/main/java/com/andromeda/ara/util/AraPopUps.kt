@@ -18,13 +18,15 @@ package com.andromeda.ara.util
 
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.text.InputType
+import android.view.ContextThemeWrapper
 import android.widget.EditText
-import android.widget.LinearLayout
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.andromeda.ara.R
+import com.andromeda.ara.activitys.MainActivity
 import com.andromeda.ara.constants.ServerUrl.url
 import com.andromeda.ara.constants.User.id
 import com.andromeda.ara.devices.DeviceAdapter
@@ -35,7 +37,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
-import java.lang.Exception
 import java.net.URL
 import java.util.*
 import kotlin.reflect.full.memberProperties
@@ -99,7 +100,7 @@ class AraPopUps {
         builder.show()
 
     }
-    fun editDevice(class1:Any, ctx: Context){
+    fun editDevice(class1:Any, ctx: Context, act:Activity){
         val lin = RecyclerView(ctx)
         val listForMain = ArrayList<FinalDevice>()
         val class2 = class1::class.java as Class<Any>
@@ -112,7 +113,8 @@ class AraPopUps {
                     try {
                         val mainval = (it as MutableMap.MutableEntry<*, *>)
 
-                            listForMain.add(FinalDevice(it.key.toString(), it.value))
+                            listForMain.add(FinalDevice(mainval.key.toString(), mainval.value))
+                        println(listForMain)
 
                     }
                     catch (e:Exception){
@@ -123,12 +125,13 @@ class AraPopUps {
             }
 
         }
-        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(act)
         lin.layoutManager = LinearLayoutManager(ctx)
         lin.adapter = (DeviceAdapter(listForMain, ctx))
         builder.setView(lin)
-        builder.setTitle("Title")
+        act.runOnUiThread{
         builder.show()
+        }
         println(listForMain)
 
 

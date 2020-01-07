@@ -476,8 +476,8 @@ public class MainActivity extends AppCompatActivity {
        new AraPopUps().newSkill(this);
     }
 
-    public void addDevice(MenuItem item) throws MalformedURLException {
-        new AraPopUps().newDevice(this, this);
+    public void addDevice(MenuItem item){
+        new AraPopUps().newDevice(this, act);
 
     }
 }

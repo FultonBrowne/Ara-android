@@ -100,7 +100,7 @@ class AraPopUps {
         builder.show()
 
     }
-    fun editDevice(class1:Any, ctx: Context, act:Activity){
+    fun editDevice(class1:Any, ctx: Context, act:Activity, id: String){
         val lin = RecyclerView(ctx)
         val listForMain = ArrayList<FinalDevice>()
         val class2 = class1::class.java as Class<Any>
@@ -127,7 +127,7 @@ class AraPopUps {
         }
         val builder: AlertDialog.Builder = AlertDialog.Builder(act)
         lin.layoutManager = LinearLayoutManager(ctx)
-        lin.adapter = (DeviceAdapter(listForMain, ctx))
+        lin.adapter = (DeviceAdapter(listForMain, ctx, id))
         builder.setView(lin)
         act.runOnUiThread{
         builder.show()

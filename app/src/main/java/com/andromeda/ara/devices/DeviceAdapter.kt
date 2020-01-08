@@ -37,7 +37,7 @@ import java.util.ArrayList
 
 class DeviceAdapter(finalDevices:ArrayList<FinalDevice>, ctx: Context, docId:String): RecyclerView.Adapter<DeviceAdapter.MainVH>() {
     var mainVHThing= finalDevices
-    val ctx1 = ctx
+    private val ctx1 = ctx
     val id = docId
     class MainVH(var rssFeedView: View) : RecyclerView.ViewHolder(rssFeedView)
 

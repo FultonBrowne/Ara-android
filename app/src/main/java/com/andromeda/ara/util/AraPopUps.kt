@@ -20,15 +20,15 @@ package com.andromeda.ara.util
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.text.InputType
-import android.view.ContextThemeWrapper
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
-import com.andromeda.ara.activitys.MainActivity
+import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.ServerUrl.url
 import com.andromeda.ara.constants.User.id
 import com.andromeda.ara.devices.DeviceAdapter
@@ -85,7 +85,7 @@ class AraPopUps {
 
             builder.show()
         }
-    fun newDevice(ctx: Context, act:Activity){
+    fun newDevice(ctx: Context, act: Activity, url: URL){
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setTitle("Title")
         val input = EditText(ctx)
@@ -93,10 +93,9 @@ class AraPopUps {
         builder.setView(input)
         builder.setPositiveButton("OK") { _, _ ->
             val i = (Math.random() * (30000 + 1)).toInt()
-            Data.create(i .toString(), DeviceModel(input.text.toString(), "LIGHT", "---\\- \\\"on\\\": true\\n  powerLevel: null\\n  color: null\\n\"", ""), DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
-            val url = URL("${url}newdevice/user=${id}&id=$i")
-            val deviceKey = GetUrlAra().getIt(url)
-            NfcTransmit().main("", ctx, act)
+            Data.create(i .toString(), DeviceModel(input.text.toString(), "LIGHT", url.readText(), ""), DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+            val url1 = URL("${ServerUrl.url}newdevice/user=${id}&id=$i")
+            val deviceKey = GetUrlAra().getIt(url1)
 
         }
         builder.show()
@@ -157,6 +156,12 @@ class AraPopUps {
         val adapter = ArrayAdapter.createFromResource(ctx, R.array.aradefaultdevices, R.layout.textskills)
         input.adapter = adapter
         builder.setView(input)
+        builder.setPositiveButton("next"){ dialogInterface: DialogInterface, i: Int ->
+            val map = mapOf(0 to "LIGHT", 1 to "TEMP")
+            val url = URL(url + "/class/" + map[input.selectedItemPosition])
+            newDevice(ctx, ctx, url)
+        }
+        builder.show()
     }
 
 }

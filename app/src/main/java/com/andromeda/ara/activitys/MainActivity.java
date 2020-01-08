@@ -477,7 +477,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addDevice(MenuItem item){
-        new AraPopUps().newDevice(this, act);
+        new AraPopUps().DeviceNewWithType(act);
 
     }
 }

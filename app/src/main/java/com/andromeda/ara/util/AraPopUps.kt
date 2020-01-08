@@ -162,6 +162,7 @@ class AraPopUps {
             newDevice(ctx, ctx, url)
         }
         builder.show()
+
     }
 
 }

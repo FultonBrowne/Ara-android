@@ -17,6 +17,8 @@
 package com.andromeda.ara.devices
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +30,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.User
+import com.andromeda.ara.skills.TempSkillsStore
+import com.andromeda.ara.util.SkillsModel
 import java.net.URL
 import java.util.ArrayList
 
@@ -64,6 +68,21 @@ class DeviceAdapter(finalDevices:ArrayList<FinalDevice>, ctx: Context, docId:Str
             num.visibility = View.VISIBLE
             num.setTextColor(ctx1.resources.getColor(R.color.md_black_1000))
         num.visibility = View.VISIBLE
+        num.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) { // Do something after Text Change
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { // Do something before Text Change
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val url = URL(ServerUrl.url + "/devices/" + "id=" + id + "&user=" + User.id + "&run=" + mainVHThing[position].name + ":" + s.toString() )
+                Thread(){
+                    url.readText()}.run()
+            }
+
+            }
+        )
 holder.rssFeedView
         return
 

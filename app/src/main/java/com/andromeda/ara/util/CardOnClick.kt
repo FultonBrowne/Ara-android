@@ -23,6 +23,7 @@ import android.net.Uri
 import android.widget.Toast
 import com.andromeda.ara.activitys.SkillsActivity
 import com.andromeda.ara.constants.DrawerModeConstants
+import com.andromeda.ara.constants.User
 import com.andromeda.ara.devices.DeviceModel
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
@@ -66,6 +67,14 @@ class CardOnClick {
             print(selected.link)
             i.putExtra("linktext", selected.link)
             act.startActivity(i)
+
+        }
+        else if(mode== DrawerModeConstants.DEVICES){
+            Data.read(selected.link, DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept {
+                println(it.deserializedValue.status)
+                val parsed = Parse().yamlArrayToObjectList(it.deserializedValue.status, Any::class.java)
+                AraPopUps().editDevice(act, it.id, User.id + it.id)
+            }
 
         }
         insert(selected.title, selected.link, cursor)

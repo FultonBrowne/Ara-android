@@ -136,7 +136,7 @@ class AraPopUps {
 
 
     }
-    fun editDevice(ctx: Context,  id: String, DeviceID:String){
+    fun editDevice(ctx: Activity,  id: String, DeviceID:String){
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setTitle("Device id is $DeviceID")
         val input = EditText(ctx)

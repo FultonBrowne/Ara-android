@@ -22,7 +22,9 @@ import android.app.AlertDialog
 import android.content.Context
 import android.text.InputType
 import android.view.ContextThemeWrapper
+import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Spinner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
@@ -147,6 +149,14 @@ class AraPopUps {
         }
         builder.show()
 
+    }
+    fun DeviceNewWithType(ctx: Activity){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
+        builder.setTitle("Title")
+        val input = Spinner(ctx)
+        val adapter = ArrayAdapter.createFromResource(ctx, R.array.aradefaultdevices, R.layout.textskills)
+        input.adapter = adapter
+        builder.setView(input)
     }
 
 }

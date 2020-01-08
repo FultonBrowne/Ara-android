@@ -62,6 +62,10 @@
         <item>6 hours</item>
         <item>Never</item>
     </string-array>
+    <string-array name="aradefaultdevices">
+        <item>light</item>
+        <item>thermostat</item>
+    </string-array>
     <string-array name="action_array">
         <item>call</item>
         <item>text</item>

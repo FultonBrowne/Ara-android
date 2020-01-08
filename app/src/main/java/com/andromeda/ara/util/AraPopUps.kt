@@ -136,5 +136,17 @@ class AraPopUps {
 
 
     }
+    fun editDevice(ctx: Context,  id: String, DeviceID:String){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
+        builder.setTitle("Device id is $DeviceID")
+        val input = EditText(ctx)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+        builder.setPositiveButton("Delete") { _, _ ->
+            Data.delete(id, DefaultPartitions.USER_DOCUMENTS)
+        }
+        builder.show()
+
+    }
 
 }

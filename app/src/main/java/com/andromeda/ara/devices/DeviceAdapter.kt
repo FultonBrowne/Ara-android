@@ -65,6 +65,7 @@ class DeviceAdapter(finalDevices:ArrayList<FinalDevice>, ctx: Context, docId:Str
             val num = holder.rssFeedView.findViewById<View>(R.id.num1String) as EditText
             if(mainInt == null) mainInt = 0
             num.setText(mainInt.toString())
+        num.contentDescription = mainVHThing[position].name
             num.visibility = View.VISIBLE
             num.setTextColor(ctx1.resources.getColor(R.color.md_black_1000))
         num.visibility = View.VISIBLE

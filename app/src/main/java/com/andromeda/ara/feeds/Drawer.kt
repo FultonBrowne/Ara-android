@@ -103,8 +103,6 @@ class Drawer {
                 return rssFeedModel1
             }
             DrawerModeConstants.CAL -> {
-
-
                 rssFeedModel1 = CalUtility.readCalendarEvent(ctx)
                 return rssFeedModel1
             }

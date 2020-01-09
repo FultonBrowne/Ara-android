@@ -72,6 +72,7 @@
         <item>pause or play media</item>
         <item>print text</item>
         <item>open an app</item>
+        <item>Flash light</item>
     </string-array>
     <string-array name="pref_sync_frequency_values">
         <item>15</item>

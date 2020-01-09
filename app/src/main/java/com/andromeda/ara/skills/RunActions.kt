@@ -71,9 +71,8 @@ class RunActions {
                     "FLASH" -> {
                         arg1 = if (i.arg1 == "TERM") searchTerm
                         else i.arg1
-                        if (arg1 == "on") FlashLight().on()
+                        if (arg1.equals("on", true)) FlashLight().on()
                         else FlashLight().off()
-
                     }
                 }
             }

@@ -23,11 +23,16 @@
             android:name="android.permission.WAKE_LOCK"/> <!-- Required for complications to receive complication data and open the provider chooser. -->
     <uses-permission android:name="com.google.android.wearable.permission.RECEIVE_COMPLICATION_DATA"/>
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <permission android:name="android.permission.FLASHLIGHT"
+                android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
+                android:protectionLevel="normal"/>
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -77,9 +82,6 @@
                 android:enabled="true"
                 android:exported="true"/>
 
-        <activity
-                android:name=".activitys.AccountSettings"
-                android:label="@string/title_activity_account_settings"/>
         <activity
                 android:name=".activitys.SignIn"
                 android:theme="@style/AppTheme.NoActionBar"/>

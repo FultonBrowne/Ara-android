@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
                     builder.setMessage("Please enable access to contacts.");
                     builder.setOnDismissListener(dialog -> requestPermissions(
                             new String[]
-                                    {Manifest.permission.READ_CALENDAR, Manifest.permission.READ_CONTACTS, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION}
-                            , 123));
+                                    {Manifest.permission.READ_CALENDAR, Manifest.permission.READ_CONTACTS, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA}
+                            , 555));
                     builder.show();
                 } else {
                     ActivityCompat.requestPermissions(this,

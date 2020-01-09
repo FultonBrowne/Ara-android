@@ -68,6 +68,13 @@ class RunActions {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                         ctx.startActivity(intent)
                     }
+                    "FLASH" -> {
+                        arg1 = if (i.arg1 == "TERM") searchTerm
+                        else i.arg1
+                        if (arg1 == "on") FlashLight().on()
+                        else FlashLight().off()
+
+                    }
                 }
             }
         }

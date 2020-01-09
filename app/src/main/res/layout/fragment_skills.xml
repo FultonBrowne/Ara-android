@@ -30,18 +30,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
+                android:textColor="@color/md_white_1000"
                 android:textAppearance="?attr/textAppearanceListItem"/>
 
         <TextView
                 android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/md_white_1000"
+
                 android:layout_margin="@dimen/text_margin"
                 android:textAppearance="?attr/textAppearanceListItem"/>
         <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/spinner_task"/>
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/userhint"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/userhint"
+                  android:textColor="@color/md_white_1000"
+        />
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/arg1"/>

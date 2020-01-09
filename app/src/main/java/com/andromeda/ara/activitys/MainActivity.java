@@ -227,7 +227,6 @@ public class MainActivity extends AppCompatActivity {
                             });}
                         else if (drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS) {
                             System.out.println("shortcuts");
-                            Toast.makeText(ctx, "test", Toast.LENGTH_SHORT).show();
                             Data.list(SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(new AppCenterConsumer<PaginatedDocuments<SkillsDBModel>>() {
                                 @Override
                                 public void accept(PaginatedDocuments<SkillsDBModel> documentWrappers) {
@@ -365,7 +364,6 @@ public class MainActivity extends AppCompatActivity {
 
                 public boolean onQueryTextSubmit(String query) {
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                         LocationManager locationManager = locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
                         assert locationManager != null;
                         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);

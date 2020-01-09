@@ -44,6 +44,9 @@ class SkillsSearch {
         insert.insert("send a text", "", mapper.writeValueAsString(yml))
         insert.insert("send a text to", "", mapper.writeValueAsString(yml))
         insert.insert("text", "", mapper.writeValueAsString(yml))
+        yml.clear()
+        yml.add(SkillsModel("FLASH", "TERM", ""))
+        insert.insert("flashlight", "", mapper.writeValueAsString(yml))
 
 
         val dB = OnDeviceSkills(ctx).open()

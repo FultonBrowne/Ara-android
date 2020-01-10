@@ -65,7 +65,7 @@ class RunActions {
                         act.startActivity(browserIntent)
                     }
                     "MAPS" -> {
-                        val uri = java.lang.String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude)
+                        val uri = java.lang.String.format(Locale.ENGLISH, "geo:%f,%f", i.arg1.toInt(), i.arg2.toInt())
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                         ctx.startActivity(intent)
                     }
@@ -82,9 +82,10 @@ class RunActions {
                         val i = Intent(ctx, AraActions::class.java)
                         i.putExtra("type", 1)
                         i.putExtra("length", arg1.toInt())
-                        act.startService(Intent())
+                        act.startService(i)
                         }
                         catch (e:Exception){
+                            e.printStackTrace()
                             returnedVal.add(RssFeedModel("Failed to start timer", "", "","", "", true))
                         }
 

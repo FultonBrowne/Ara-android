@@ -18,13 +18,13 @@ package com.andromeda.ara.skills
 
 class SkillsMap {
     fun map(mainVal: Int): String? {
-        val mainMap = mapOf(0 to "CALL", 1 to "TEXT", 2 to "TOG_MEDIA", 3 to "OUTPUT", 4 to "OPEN_APP", 5 to  "FLASH")
+        val mainMap = mapOf(0 to "CALL", 1 to "TEXT", 2 to "TOG_MEDIA", 3 to "OUTPUT", 4 to "OPEN_APP", 5 to  "FLASH", 6 to "TIMER")
         return mainMap[mainVal]
 
     }
 
     fun mapFlip(mainVal: String): Int? {
-        val mainMap = mapOf("CALL" to 0, "TEXT" to 1, "TOG_MEDIA" to 2, "OUTPUT" to 3, "OPEN_APP" to 4, "FLASH" to 5)
+        val mainMap = mapOf("CALL" to 0, "TEXT" to 1, "TOG_MEDIA" to 2, "OUTPUT" to 3, "OPEN_APP" to 4, "FLASH" to 5, "TIMER" to 6)
         return mainMap[mainVal]
 
     }

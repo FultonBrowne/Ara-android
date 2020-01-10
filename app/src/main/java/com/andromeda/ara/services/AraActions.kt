@@ -31,6 +31,7 @@ const val TIMER = 1
 class AraActions : Service() {
 
     override fun onBind(intent: Intent): IBinder? {
+        println("bind")
         val type = intent.getIntExtra("type", 0)
         if (type == TIMER) {
             val length = intent.getIntExtra("length", 1000)
@@ -59,4 +60,29 @@ class AraActions : Service() {
         return null
     }
 
+    override fun onStart(intent: Intent?, startId: Int) {
+        val type = intent!!.getIntExtra("type", 0)
+        if (type == TIMER) {
+            val length = intent.getIntExtra("length", 1000)
+            val timer = Timer()
+            val ctx = this
+            val channelId = "com.andromeda.ara"
+            var builder = NotificationCompat.Builder(this, channelId)
+                    .setSmallIcon(R.drawable.ic_notifications_white_24dp)
+                    .setContentTitle("timer done")
+                    .setContentText("all done")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+            val task: TimerTask = object : TimerTask() {
+                override fun run() {
+                    with(NotificationManagerCompat.from(ctx)) {
+                        // notificationId is a unique int for each notification that you must define
+                        notify(ThreadLocalRandom.current().nextInt(0, 10000000 + 1), builder.build())
+                    }
+
+                }
+            }
+            timer.schedule(task, length.toLong())
+
+        }
+    }
 }

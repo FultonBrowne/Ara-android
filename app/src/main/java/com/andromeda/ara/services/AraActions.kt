@@ -36,8 +36,8 @@ class AraActions : Service() {
             val length = intent.getIntExtra("length", 1000)
             val timer = Timer()
             val ctx = this
-            val CHANNEL_ID = "com.andromeda.ara"
-            var builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            val channelId = "com.andromeda.ara"
+            var builder = NotificationCompat.Builder(this, channelId)
                     .setSmallIcon(R.drawable.ic_notifications_white_24dp)
                     .setContentTitle("timer done")
                     .setContentText("all done")

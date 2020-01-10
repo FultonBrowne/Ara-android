@@ -20,6 +20,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import com.andromeda.ara.services.AraActions
 import com.andromeda.ara.util.Locl.latitude
 import com.andromeda.ara.util.Locl.longitude
 import com.andromeda.ara.util.RssFeedModel
@@ -73,6 +74,20 @@ class RunActions {
                         else i.arg1
                         if (arg1.equals("on", true)) FlashLight().on()
                         else FlashLight().off()
+                    }
+                    "TIMER" -> {
+                        try{
+                        arg1 = if (i.arg1 == "TERM") searchTerm
+                        else i.arg1
+                        val i = Intent(ctx, AraActions::class.java)
+                        i.putExtra("type", 1)
+                        i.putExtra("length", arg1.toInt())
+                        act.startService(Intent())
+                        }
+                        catch (e:Exception){
+                            returnedVal.add(RssFeedModel("Failed to start timer", "", "","", "", true))
+                        }
+
                     }
                 }
             }

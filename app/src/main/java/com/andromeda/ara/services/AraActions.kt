@@ -19,6 +19,12 @@ package com.andromeda.ara.services
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import com.andromeda.ara.R
+import java.util.*
+import java.util.concurrent.ThreadLocalRandom
+
 
 const val TIMER = 1
 
@@ -28,6 +34,25 @@ class AraActions : Service() {
         val type = intent.getIntExtra("type", 0)
         if (type == TIMER) {
             val length = intent.getIntExtra("length", 1000)
+            val timer = Timer()
+            val ctx = this
+            val CHANNEL_ID = "com.andromeda.ara"
+            var builder = NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_notifications_white_24dp)
+                    .setContentTitle("timer done")
+                    .setContentText("all done")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+            val task: TimerTask = object : TimerTask() {
+                override fun run() {
+                    with(NotificationManagerCompat.from(ctx)) {
+                        // notificationId is a unique int for each notification that you must define
+                        notify(ThreadLocalRandom.current().nextInt(0, 10000000 + 1), builder.build())
+                    }
+
+                }
+            }
+            timer.schedule(task, length.toLong())
+
         }
 
 

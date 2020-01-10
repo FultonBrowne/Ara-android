@@ -94,7 +94,6 @@
                 android:theme="@style/AppTheme.Translucent">
             <intent-filter>
                 <category android:name="android.intent.category.VOICE"/>
-                <category android:name="android.intent.category.DEFAULT"/>
 
             </intent-filter>
         </activity>

@@ -55,7 +55,7 @@ public class AssistSess extends VoiceInteractionSession {
             onBackPressed();
         } else {
             //Start the home page
-            intent = new Intent(context, MainActivity.class);
+            intent = new Intent(context, VoiceMain.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("voice", true);
             context.startActivity(intent);
@@ -63,6 +63,7 @@ public class AssistSess extends VoiceInteractionSession {
 
 
     }
+
 
     //gets screen shot if allowed via permissions
     //TODO add a screen shot feature

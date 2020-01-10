@@ -19,6 +19,7 @@ package com.andromeda.ara.voice;
 
 import android.content.Context;
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
+import org.mozilla.deepspeech.libdeepspeech.DeepSpeechStreamingState;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;

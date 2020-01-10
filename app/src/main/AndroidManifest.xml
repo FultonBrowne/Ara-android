@@ -70,13 +70,6 @@
                 android:name=".activitys.PrefsActivity"
                 android:label="@string/title_activity_prefs"
                 android:theme="@style/AppTheme.NoActionBar"/>
-        <!--
-        <provider
-            android:name=".services.AraSkillsDBCP"
-            android:authorities="mainDB"
-            android:enabled="true"
-            android:exported="true"></provider>
-        -->
         <service
                 android:name=".services.AraActions"
                 android:enabled="true"
@@ -167,6 +160,8 @@
 
             <intent-filter>
                 <action android:name="android.service.voice.VoiceInteractionService"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+
             </intent-filter>
         </service>
         <service

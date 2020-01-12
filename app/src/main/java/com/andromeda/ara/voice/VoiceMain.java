@@ -16,6 +16,7 @@
 
 package com.andromeda.ara.voice;
 
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.drawable.AnimationDrawable;
@@ -25,6 +26,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.textservice.SentenceSuggestionsInfo;
+import android.view.textservice.SpellCheckerSession;
+import android.view.textservice.SuggestionsInfo;
+import android.view.textservice.TextServicesManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,7 +52,10 @@ import java.util.TimerTask;
 import static com.andromeda.ara.constants.ConstantUtils.*;
 import static com.andromeda.ara.util.VoiceMainUtils.*;
 
-public class VoiceMain extends AppCompatActivity {
+public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.SpellCheckerSessionListener {
+    SpellCheckerSession mScs;
+    final TextServicesManager tsm = (TextServicesManager) getSystemService(
+            Context.TEXT_SERVICES_MANAGER_SERVICE);
     private FileOutputStream os = null;
     private Thread recordingThread;
     boolean isRecording;
@@ -67,6 +75,7 @@ public class VoiceMain extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mScs = tsm.newSpellCheckerSession(null, null, this, true);
         System.out.println(bufferSizeInBytes);
         setContentView(R.layout.activity_voice_main);
 
@@ -103,11 +112,10 @@ public class VoiceMain extends AppCompatActivity {
 
     public void back(View view) {
         if (isRecording) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 stopRecording();
                 FloatingActionButton fab2 = findViewById(R.id.floatingActionButton2);
                 fab2.setVisibility(View.VISIBLE);
-            }
+
         } else onBackPressed();
     }
 
@@ -149,15 +157,11 @@ public class VoiceMain extends AppCompatActivity {
                         new Timer().schedule(new TimerTask() {
                             @Override
                             public void run() {
-
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if (!blankRunning) {
-                                            stopRecording();
-                                            FloatingActionButton fab2 = findViewById(R.id.floatingActionButton2);
-                                            fab2.setVisibility(View.VISIBLE);
-                                        }
+                                runOnUiThread(() -> {
+                                    if (!blankRunning) {
+                                        stopRecording();
+                                        FloatingActionButton fab2 = findViewById(R.id.floatingActionButton2);
+                                        fab2.setVisibility(View.VISIBLE);
                                     }
                                 });
 
@@ -345,5 +349,27 @@ public class VoiceMain extends AppCompatActivity {
                 bufferSizeInBytes);
         runTransition();
         startRecording();
+    }
+    public void spelling(){
+
+    }
+
+    @Override
+    public void onGetSuggestions(SuggestionsInfo[] arg0) {
+        final StringBuilder sb = new StringBuilder();
+
+        for (SuggestionsInfo suggestionsInfo : arg0) {
+            // Returned suggestions are contained in SuggestionsInfo
+            final int len = suggestionsInfo.getSuggestionsCount();
+            sb.append('\n');
+            suggestionsInfo.getSuggestionAt(0);
+
+        }
+
+    }
+
+    @Override
+    public void onGetSentenceSuggestions(SentenceSuggestionsInfo[] results) {
+
     }
 }

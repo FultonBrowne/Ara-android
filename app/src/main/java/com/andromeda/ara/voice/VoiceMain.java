@@ -26,10 +26,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.textservice.SentenceSuggestionsInfo;
-import android.view.textservice.SpellCheckerSession;
-import android.view.textservice.SuggestionsInfo;
-import android.view.textservice.TextServicesManager;
+import android.view.textservice.*;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,23 +41,20 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 import static com.andromeda.ara.constants.ConstantUtils.*;
 import static com.andromeda.ara.util.VoiceMainUtils.*;
 
 public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.SpellCheckerSessionListener {
-    SpellCheckerSession mScs;
-    final TextServicesManager tsm = (TextServicesManager) getSystemService(
-            Context.TEXT_SERVICES_MANAGER_SERVICE);
     private FileOutputStream os = null;
     private Thread recordingThread;
     boolean isRecording;
     ImageView imageView;
+    SpellCheckerSession mScs;
+    TextServicesManager tsm;
     Boolean blankRunning = false;
+    public Context ctx = this;
 
     private int bufferSizeInBytes = AudioRecord.getMinBufferSize(SAMPLE_RATE_HZ, CHANNEL_CONFIG, AUDIO_FORMAT);
 
@@ -75,7 +69,9 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mScs = tsm.newSpellCheckerSession(null, null, this, true);
+        tsm = (TextServicesManager) getSystemService(
+                Context.TEXT_SERVICES_MANAGER_SERVICE);
+        mScs = Objects.requireNonNull(tsm).newSpellCheckerSession(null, null, this, true);
         System.out.println(bufferSizeInBytes);
         setContentView(R.layout.activity_voice_main);
 
@@ -207,6 +203,8 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
                     copyAssets();
                     rawToWave(new File(getCacheDir() + "/record.pcm"), new File(getCacheDir() + "/record.wav"));
                     phrase[0] = new DeepSpeech().run(getCacheDir() + "/record.wav", this.getApplicationContext());
+                    mScs = tsm.newSpellCheckerSession(null, null, this, true);
+                    //mScs.getSentenceSuggestions(new TextInfo[]{new TextInfo(phrase[0])}, 1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -350,26 +348,49 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
         runTransition();
         startRecording();
     }
-    public void spelling(){
 
-    }
 
-    @Override
-    public void onGetSuggestions(SuggestionsInfo[] arg0) {
+    public void onGetSuggestions(final SuggestionsInfo[] arg0) {
         final StringBuilder sb = new StringBuilder();
 
-        for (SuggestionsInfo suggestionsInfo : arg0) {
+        for (int i = 0; i < arg0.length; ++i) {
             // Returned suggestions are contained in SuggestionsInfo
-            final int len = suggestionsInfo.getSuggestionsCount();
+            final int len = arg0[i].getSuggestionsCount();
             sb.append('\n');
-            suggestionsInfo.getSuggestionAt(0);
 
+            for (int j = 0; j < len; ++j) {
+                sb.append("," + arg0[i].getSuggestionAt(j));
+            }
+
+            sb.append(" (" + len + ")");
         }
 
+        runOnUiThread(new Runnable() {
+            public void run() {
+Toast.makeText(ctx, sb.substring(0), Toast.LENGTH_LONG).show();            }
+        });
     }
 
     @Override
-    public void onGetSentenceSuggestions(SentenceSuggestionsInfo[] results) {
+    public void onGetSentenceSuggestions(SentenceSuggestionsInfo[] arg0) {
+        final StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < arg0.length; ++i) {
+            // Returned suggestions are contained in SuggestionsInfo
+            final int len = arg0[i].getSuggestionsCount();
+            sb.append('\n');
+
+            for (int j = 0; j < len; ++j) {
+                sb.append("," + arg0[i].getSuggestionsInfoAt(j));
+            }
+
+            sb.append(" (" + len + ")");
+        }
+
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(ctx, sb.substring(0), Toast.LENGTH_LONG).show();            }
+        });
 
     }
 }

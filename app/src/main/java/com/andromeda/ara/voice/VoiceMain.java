@@ -16,9 +16,11 @@
 
 package com.andromeda.ara.voice;
 
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioRecord;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -67,7 +69,7 @@ public class VoiceMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println(bufferSizeInBytes);
         setContentView(R.layout.activity_voice_main);
-        Toast.makeText(this, "to stop recording hit the 'X' button", Toast.LENGTH_LONG).show();
+
 
         recyclerView = findViewById(R.id.listVoice);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -116,7 +118,20 @@ public class VoiceMain extends AppCompatActivity {
         }
     }
 
-    private void startRecording() {
+    private synchronized void startRecording() {
+        final MediaPlayer mp = new MediaPlayer();
+        mp.reset();
+        AssetFileDescriptor afd;
+        try{
+            afd = getAssets().openFd("start.mp3");
+            mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+            mp.prepare();
+            mp.start();
+        }
+        catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+        }
+
         audioRecorder.startRecording();
         isRecording = true;
         recordingThread = new Thread(() -> {
@@ -164,6 +179,18 @@ public class VoiceMain extends AppCompatActivity {
     }
 
     private void stopRecording() {
+        final MediaPlayer mp = new MediaPlayer();
+        mp.reset();
+        AssetFileDescriptor afd;
+        try{
+            afd = getAssets().openFd("end.mp3");
+            mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+            mp.prepare();
+            mp.start();
+        }
+        catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+        }
         if (null != audioRecorder) {
             isRecording = false;
             audioRecorder.stop();

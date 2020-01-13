@@ -69,9 +69,6 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        tsm = (TextServicesManager) getSystemService(
-                Context.TEXT_SERVICES_MANAGER_SERVICE);
-        mScs = Objects.requireNonNull(tsm).newSpellCheckerSession(null, null, this, true);
         System.out.println(bufferSizeInBytes);
         setContentView(R.layout.activity_voice_main);
 
@@ -121,7 +118,12 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
                     new String[]{android.Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_AUDIO);
         }
     }
-
+    public void onResume() {
+        super.onResume();
+        final TextServicesManager tsm = (TextServicesManager)
+                getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
+        mScs = tsm.newSpellCheckerSession(null, null, this, true);
+    }
     private synchronized void startRecording() {
         final MediaPlayer mp = new MediaPlayer();
         mp.reset();
@@ -203,7 +205,6 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
                     copyAssets();
                     rawToWave(new File(getCacheDir() + "/record.pcm"), new File(getCacheDir() + "/record.wav"));
                     phrase[0] = new DeepSpeech().run(getCacheDir() + "/record.wav", this.getApplicationContext());
-                    mScs = tsm.newSpellCheckerSession(null, null, this, true);
                     //mScs.getSentenceSuggestions(new TextInfo[]{new TextInfo(phrase[0])}, 1);
                 } catch (IOException e) {
                     e.printStackTrace();

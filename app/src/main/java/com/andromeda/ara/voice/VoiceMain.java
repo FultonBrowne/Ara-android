@@ -16,7 +16,10 @@
 
 package com.andromeda.ara.voice;
 
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.drawable.AnimationDrawable;
@@ -28,7 +31,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.textservice.*;
 import android.widget.ImageView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +44,7 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.andromeda.ara.constants.ConstantUtils.*;
 import static com.andromeda.ara.util.VoiceMainUtils.*;
@@ -52,7 +55,6 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
     boolean isRecording;
     ImageView imageView;
     SpellCheckerSession mScs;
-    TextServicesManager tsm;
     Boolean blankRunning = false;
     public Context ctx = this;
 
@@ -71,7 +73,11 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println(bufferSizeInBytes);
         setContentView(R.layout.activity_voice_main);
-
+        final TextServicesManager tsm = (TextServicesManager) getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
+        if (tsm != null) {
+            mScs = tsm.newSpellCheckerSession(null, null, this, true);
+        }
+        else throw new NullPointerException();
 
         recyclerView = findViewById(R.id.listVoice);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -120,9 +126,11 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
     }
     public void onResume() {
         super.onResume();
-        final TextServicesManager tsm = (TextServicesManager)
-                getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
-        mScs = tsm.newSpellCheckerSession(null, null, this, true);
+        final TextServicesManager tsm = (TextServicesManager) getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
+        if (tsm != null) {
+            mScs = tsm.newSpellCheckerSession(null, null, this, true);
+        }
+        else throw new NullPointerException();
     }
     private synchronized void startRecording() {
         final MediaPlayer mp = new MediaPlayer();
@@ -181,6 +189,7 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
     }
 
     private void stopRecording() {
+        AtomicBoolean failed = new AtomicBoolean(false);
         final MediaPlayer mp = new MediaPlayer();
         mp.reset();
         AssetFileDescriptor afd;
@@ -205,7 +214,15 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
                     copyAssets();
                     rawToWave(new File(getCacheDir() + "/record.pcm"), new File(getCacheDir() + "/record.wav"));
                     phrase[0] = new DeepSpeech().run(getCacheDir() + "/record.wav", this.getApplicationContext());
-                    mScs.getSentenceSuggestions(new TextInfo[]{new TextInfo(phrase[0])}, 1);
+                    if(mScs != null){
+                        mScs.getSentenceSuggestions(new TextInfo[]{new TextInfo(phrase[0])}, 1);
+
+                    }
+                    else {
+                        System.out.println("is null");
+                        failed.set(true);
+
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -218,6 +235,21 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
 
                 }
             });
+
+            // You can even open the settings page for user to turn it ON
+            if(failed.get()) {
+                ComponentName componentToLaunch = new ComponentName("com.android.settings",
+                        "com.android.settings.Settings$SpellCheckersSettingsActivity");
+                Intent intent = new Intent();
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                intent.setComponent(componentToLaunch);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                try {
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    // Error
+                }
+            }
             recognize.setPriority(Thread.MAX_PRIORITY);
             recognize.start();
             System.out.println("result =" + phrase[0]);

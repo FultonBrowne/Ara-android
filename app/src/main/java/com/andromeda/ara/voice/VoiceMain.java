@@ -27,6 +27,7 @@ import android.media.AudioRecord;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.util.Log;
 import android.view.View;
 import android.view.textservice.*;
@@ -214,6 +215,11 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
                     copyAssets();
                     rawToWave(new File(getCacheDir() + "/record.pcm"), new File(getCacheDir() + "/record.wav"));
                     phrase[0] = new DeepSpeech().run(getCacheDir() + "/record.wav", this.getApplicationContext());
+                    String[] wordsList = phrase[0].split(" ");
+                    TextInfo[] text = new TextInfo[]{};
+
+
+
                     if(mScs != null){
                         mScs.getSentenceSuggestions(new TextInfo[]{new TextInfo(phrase[0])}, 1);
 
@@ -391,6 +397,8 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
     public void onGetSentenceSuggestions(SentenceSuggestionsInfo[] arg0) {
         for (int i = 0; i < arg0[0].getSuggestionsCount(); i++) {
             String words = arg0[0].getSuggestionsInfoAt(i).getSuggestionAt(0);
+            System.out.println(words);
+
 
         } {
 

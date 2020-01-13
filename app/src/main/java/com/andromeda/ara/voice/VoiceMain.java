@@ -205,7 +205,7 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
                     copyAssets();
                     rawToWave(new File(getCacheDir() + "/record.pcm"), new File(getCacheDir() + "/record.wav"));
                     phrase[0] = new DeepSpeech().run(getCacheDir() + "/record.wav", this.getApplicationContext());
-                    //mScs.getSentenceSuggestions(new TextInfo[]{new TextInfo(phrase[0])}, 1);
+                    mScs.getSentenceSuggestions(new TextInfo[]{new TextInfo(phrase[0])}, 1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -352,46 +352,17 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
 
 
     public void onGetSuggestions(final SuggestionsInfo[] arg0) {
-        final StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < arg0.length; ++i) {
-            // Returned suggestions are contained in SuggestionsInfo
-            final int len = arg0[i].getSuggestionsCount();
-            sb.append('\n');
-
-            for (int j = 0; j < len; ++j) {
-                sb.append("," + arg0[i].getSuggestionAt(j));
-            }
-
-            sb.append(" (" + len + ")");
-        }
-
-        runOnUiThread(new Runnable() {
-            public void run() {
-Toast.makeText(ctx, sb.substring(0), Toast.LENGTH_LONG).show();            }
-        });
     }
 
     @Override
     public void onGetSentenceSuggestions(SentenceSuggestionsInfo[] arg0) {
-        final StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < arg0[0].getSuggestionsCount(); i++) {
+            String words = arg0[0].getSuggestionsInfoAt(i).getSuggestionAt(0);
 
-        for (int i = 0; i < arg0.length; ++i) {
-            // Returned suggestions are contained in SuggestionsInfo
-            final int len = arg0[i].getSuggestionsCount();
-            sb.append('\n');
+        } {
 
-            for (int j = 0; j < len; ++j) {
-                sb.append("," + arg0[i].getSuggestionsInfoAt(j));
-            }
-
-            sb.append(" (" + len + ")");
         }
-
-        runOnUiThread(new Runnable() {
-            public void run() {
-                Toast.makeText(ctx, sb.substring(0), Toast.LENGTH_LONG).show();            }
-        });
 
     }
 }

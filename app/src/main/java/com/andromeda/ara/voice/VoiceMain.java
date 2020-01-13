@@ -39,6 +39,7 @@ import com.andromeda.ara.R;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.RssFeedModel;
+import com.andromeda.ara.util.SpellChecker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.*;
@@ -76,7 +77,7 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
         setContentView(R.layout.activity_voice_main);
         final TextServicesManager tsm = (TextServicesManager) getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
         if (tsm != null) {
-            mScs = tsm.newSpellCheckerSession(null, null, this, true);
+            mScs = tsm.newSpellCheckerSession(null, Locale.getDefault(), this, true);
         }
         else throw new NullPointerException();
 
@@ -124,14 +125,6 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
             requestPermissions(
                     new String[]{android.Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_AUDIO);
         }
-    }
-    public void onResume() {
-        super.onResume();
-        final TextServicesManager tsm = (TextServicesManager) getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
-        if (tsm != null) {
-            mScs = tsm.newSpellCheckerSession(null, null, this, true);
-        }
-        else throw new NullPointerException();
     }
     private synchronized void startRecording() {
         final MediaPlayer mp = new MediaPlayer();
@@ -215,21 +208,8 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
                     copyAssets();
                     rawToWave(new File(getCacheDir() + "/record.pcm"), new File(getCacheDir() + "/record.wav"));
                     phrase[0] = new DeepSpeech().run(getCacheDir() + "/record.wav", this.getApplicationContext());
-                    String[] wordsList = phrase[0].split(" ");
-                    TextInfo[] text = new TextInfo[]{};
-
-
-
-                    if(mScs != null){
-                        mScs.getSentenceSuggestions(new TextInfo[]{new TextInfo(phrase[0])}, 1);
-
-                    }
-                    else {
-                        System.out.println("is null");
-                        failed.set(true);
-
-                    }
-                } catch (IOException e) {
+                    new SpellChecker().check(phrase[0]);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this));
@@ -241,21 +221,6 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
 
                 }
             });
-
-            // You can even open the settings page for user to turn it ON
-            if(failed.get()) {
-                ComponentName componentToLaunch = new ComponentName("com.android.settings",
-                        "com.android.settings.Settings$SpellCheckersSettingsActivity");
-                Intent intent = new Intent();
-                intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                intent.setComponent(componentToLaunch);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                try {
-                    startActivity(intent);
-                } catch (ActivityNotFoundException e) {
-                    // Error
-                }
-            }
             recognize.setPriority(Thread.MAX_PRIORITY);
             recognize.start();
             System.out.println("result =" + phrase[0]);

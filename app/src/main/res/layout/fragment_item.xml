@@ -40,7 +40,8 @@
         <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/item_image_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
                 android:contentDescription="@string/app_name"
                 app:riv_corner_radius="8dp"/>
 

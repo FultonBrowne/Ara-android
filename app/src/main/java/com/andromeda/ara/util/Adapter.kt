@@ -16,6 +16,7 @@
 
 package com.andromeda.ara.util
 
+import android.graphics.drawable.Drawable
 import android.text.InputFilter
 import android.text.InputFilter.LengthFilter
 import android.view.LayoutInflater
@@ -25,6 +26,9 @@ import android.view.animation.AlphaAnimation
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
+import com.makeramen.roundedimageview.RoundedImageView
+import java.io.InputStream
+import java.net.URL
 
 
 /**
@@ -51,6 +55,18 @@ class Adapter(private val mRssFeedModels: List<RssFeedModel>) : RecyclerView.Ada
 
         if (!rssFeedModel.longText) desc.filters = filterArray
         (holder.rssFeedView.findViewById<View>(R.id.content) as TextView).text = rssFeedModel.title
+        if(rssFeedModel.image != ""){
+            try {
+                val url = URL(rssFeedModel.image)
+                val `is` = URL(url.toString()).content as InputStream
+                val d = Drawable.createFromStream(`is`, "src name")
+                holder.rssFeedView.findViewById<RoundedImageView>(R.id.item_image_view).background = d
+            }
+            catch (e:Exception){
+                e.printStackTrace()
+            }
+
+        }
         //animate
         setFadeAnimation(holder.itemView)
     }

@@ -16,10 +16,7 @@
 
 package com.andromeda.ara.voice;
 
-import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.drawable.AnimationDrawable;
@@ -27,7 +24,6 @@ import android.media.AudioRecord;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.util.Log;
 import android.view.View;
 import android.view.textservice.*;
@@ -51,12 +47,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static com.andromeda.ara.constants.ConstantUtils.*;
 import static com.andromeda.ara.util.VoiceMainUtils.*;
 
-public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.SpellCheckerSessionListener {
+public class VoiceMain extends AppCompatActivity {
     private FileOutputStream os = null;
     private Thread recordingThread;
     boolean isRecording;
     ImageView imageView;
-    SpellCheckerSession mScs;
     Boolean blankRunning = false;
     public Context ctx = this;
 
@@ -76,10 +71,6 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
         System.out.println(bufferSizeInBytes);
         setContentView(R.layout.activity_voice_main);
         final TextServicesManager tsm = (TextServicesManager) getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
-        if (tsm != null) {
-            mScs = tsm.newSpellCheckerSession(null, Locale.getDefault(), this, true);
-        }
-        else throw new NullPointerException();
 
         recyclerView = findViewById(R.id.listVoice);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -183,7 +174,6 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
     }
 
     private void stopRecording() {
-        AtomicBoolean failed = new AtomicBoolean(false);
         final MediaPlayer mp = new MediaPlayer();
         mp.reset();
         AssetFileDescriptor afd;
@@ -351,23 +341,5 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
                 bufferSizeInBytes);
         runTransition();
         startRecording();
-    }
-
-
-    public void onGetSuggestions(final SuggestionsInfo[] arg0) {
-
-    }
-
-    @Override
-    public void onGetSentenceSuggestions(SentenceSuggestionsInfo[] arg0) {
-        for (int i = 0; i < arg0[0].getSuggestionsCount(); i++) {
-            String words = arg0[0].getSuggestionsInfoAt(i).getSuggestionAt(0);
-            System.out.println(words);
-
-
-        } {
-
-        }
-
     }
 }

@@ -74,7 +74,7 @@ public class VoiceMain extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.listVoice);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Adapter adapter = new Adapter(Collections.singletonList(new RssFeedModel("hello", "how can I help", "", "", "", true)));
+        Adapter adapter = new Adapter(Collections.singletonList(new RssFeedModel("hello", "how can I help", "", "", "", true)), this);
         recyclerView.setAdapter(adapter);
         requestMicrophonePermission();
 
@@ -204,7 +204,7 @@ public class VoiceMain extends AppCompatActivity {
                 }
                 ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this));
 
-                runOnUiThread(() -> recyclerView.setAdapter(new Adapter(rssFeedModels)));
+                runOnUiThread(() -> recyclerView.setAdapter(new Adapter(rssFeedModels, this)));
                 try {
                     new TTS().start(getApplicationContext(), rssFeedModels.get(0).out);
                 } catch (Exception ignored) {

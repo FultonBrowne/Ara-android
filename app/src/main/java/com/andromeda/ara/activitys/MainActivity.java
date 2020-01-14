@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                                         System.out.println(i);
                                         if(!(null == i.getDeserializedValue().getType())) rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), i.getDeserializedValue().getGroup(), "", "", false));
                                     }
-                                    recyclerView.setAdapter(new Adapter(rssFeedModel1));
+                                    recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
                                     mode = drawerItem.getIdentifier();
                                 } else System.out.println("fail");
                             });}
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                                         for (DocumentWrapper<SkillsDBModel> i : documentWrappers.getCurrentPage().getItems()) {
                                             if(!(i.getDeserializedValue().getAction()==null))rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), "", "", "", false));
                                         }
-                                        recyclerView.setAdapter(new Adapter(rssFeedModel1));
+                                        recyclerView.setAdapter(new Adapter(rssFeedModel1, act));
                                         mode = drawerItem.getIdentifier();
                                     } else System.out.println("fail");
                                 }
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                         else {
                             try {
                                 rssFeedModel1 = new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this);
-                                recyclerView.setAdapter(new Adapter(rssFeedModel1));
+                                recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
                                 mode = drawerItem.getIdentifier();
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             System.out.println("feed done");
-            mAdapter = new Adapter(rssFeedModel1);
+            mAdapter = new Adapter(rssFeedModel1, this);
 
             recyclerView.setAdapter(mAdapter);
             FloatingActionButton fab = findViewById(R.id.fab);

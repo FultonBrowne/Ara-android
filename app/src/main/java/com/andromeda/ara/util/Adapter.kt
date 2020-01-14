@@ -16,6 +16,8 @@
 
 package com.andromeda.ara.util
 
+import android.app.Activity
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.text.InputFilter
 import android.text.InputFilter.LengthFilter
@@ -23,7 +25,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.makeramen.roundedimageview.RoundedImageView
@@ -34,7 +38,7 @@ import java.net.URL
 /**
  * Adapter class for RSS
  */
-class Adapter(private val mRssFeedModels: List<RssFeedModel>) : RecyclerView.Adapter<Adapter.FeedModelViewHolder>() {
+class Adapter(private val mRssFeedModels: List<RssFeedModel>, val act:Activity) : RecyclerView.Adapter<Adapter.FeedModelViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): FeedModelViewHolder {
         //Inflate the card view
@@ -56,11 +60,13 @@ class Adapter(private val mRssFeedModels: List<RssFeedModel>) : RecyclerView.Ada
         if (!rssFeedModel.longText) desc.filters = filterArray
         (holder.rssFeedView.findViewById<View>(R.id.content) as TextView).text = rssFeedModel.title
         if(rssFeedModel.image != ""){
+            println("image")
             try {
                 val url = URL(rssFeedModel.image)
                 val `is` = URL(url.toString()).content as InputStream
-                val d = Drawable.createFromStream(`is`, "src name")
-                holder.rssFeedView.findViewById<RoundedImageView>(R.id.item_image_view).background = d
+                val d = BitmapFactory.decodeStream(`is`)
+                val round = RoundCornersDrawable(d,  act.getResources().getDimension(R.dimen.material_drawer_vertical_padding), 0)
+                holder.rssFeedView.findViewById<ImageView>(R.id.item_image_view).background= round
             }
             catch (e:Exception){
                 e.printStackTrace()

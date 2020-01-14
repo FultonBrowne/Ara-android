@@ -35,7 +35,7 @@ class SpellChecker {
     var mkt = "en-US"
     var mode = "proof"
     @Throws(Exception::class)
-    fun check(text:String) {
+    fun check(text:String): String? {
         val params = "?mkt=$mkt&mode=$mode"
         // add the rest of the code snippets here (except prettify() and main())...
         val url = URL(host + path + params)
@@ -52,15 +52,20 @@ class SpellChecker {
                 InputStreamReader(connection.inputStream))
         var line: String?
         while (`in`.readLine().also { line = it } != null) {
-            println(prettify(line))
+          return prettify(line, text)
         }
         `in`.close()
+        return null
     }
-    fun prettify(json_text: String?): String? {
+    fun prettify(json_text: String?, oldText:String): String? {
         val parser = JsonParser()
+        var returnval = oldText
         val json: JsonElement = parser.parse(json_text)
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        return gson.toJson(json)
+        val json2 = json.asJsonObject.get("flaggedTokens").asJsonArray
+        for (i in json2){
+            returnval = returnval.replace(i.asJsonObject.get("token").asString, i.asJsonObject.get("suggestions").asJsonArray[0].asJsonObject.get("suggestions").asString )
+        }
+        return returnval
     }
 
 

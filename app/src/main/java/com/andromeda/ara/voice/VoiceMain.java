@@ -208,7 +208,7 @@ public class VoiceMain extends AppCompatActivity implements SpellCheckerSession.
                     copyAssets();
                     rawToWave(new File(getCacheDir() + "/record.pcm"), new File(getCacheDir() + "/record.wav"));
                     phrase[0] = new DeepSpeech().run(getCacheDir() + "/record.wav", this.getApplicationContext());
-                    new SpellChecker().check(phrase[0]);
+                    System.out.println(new SpellChecker().check(phrase[0]));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

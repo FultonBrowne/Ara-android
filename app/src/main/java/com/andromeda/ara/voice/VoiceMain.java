@@ -192,29 +192,33 @@ public class VoiceMain extends AppCompatActivity {
             audioRecorder.release();
             audioRecorder = null;
             recordingThread = null;
-            final String[] phrase = new String[1];
-            Thread recognize = new Thread(() -> {
-                try {
-                    copyAssets();
-                    rawToWave(new File(getCacheDir() + "/record.pcm"), new File(getCacheDir() + "/record.wav"));
-                    phrase[0] = new DeepSpeech().run(getCacheDir() + "/record.wav", this.getApplicationContext());
-                    phrase[0] = new SpellChecker().check(phrase[0]);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this));
-
-                runOnUiThread(() -> recyclerView.setAdapter(new Adapter(rssFeedModels, this)));
-                try {
-                    new TTS().start(getApplicationContext(), rssFeedModels.get(0).out);
-                } catch (Exception ignored) {
-
-                }
-            });
-            recognize.setPriority(Thread.MAX_PRIORITY);
-            recognize.start();
-            System.out.println("result =" + phrase[0]);
+            recognize();
         }
+    }
+
+    private void recognize() {
+        final String[] phrase = new String[1];
+        Thread recognize = new Thread(() -> {
+            try {
+                copyAssets();
+                rawToWave(new File(getCacheDir() + "/record.pcm"), new File(getCacheDir() + "/record.wav"));
+                phrase[0] = new DeepSpeech().run(getCacheDir() + "/record.wav", this.getApplicationContext());
+                phrase[0] = new SpellChecker().check(phrase[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this));
+
+            runOnUiThread(() -> recyclerView.setAdapter(new Adapter(rssFeedModels, this)));
+            try {
+                new TTS().start(getApplicationContext(), rssFeedModels.get(0).out);
+            } catch (Exception ignored) {
+
+            }
+        });
+        recognize.setPriority(Thread.MAX_PRIORITY);
+        recognize.start();
+        System.out.println("result =" + phrase[0]);
     }
 
     private void rawToWave(final File rawFile, final File waveFile) throws IOException {
@@ -234,10 +238,6 @@ public class VoiceMain extends AppCompatActivity {
         }
     }
 
-    /**
-     * // WAVE header
-     * // see http://ccrma.stanford.edu/courses/422/projects/WaveFormat/
-     */
     private void createWaveHeader(byte[] rawData, DataOutputStream output) throws IOException {
         writeString(output, CHUNK_ID);
         writeInt(output, CHUNK_SIZE + getRawDataLength(rawData));

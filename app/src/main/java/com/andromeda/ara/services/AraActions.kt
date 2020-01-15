@@ -82,6 +82,7 @@ class AraActions : Service() {
                 }
             }
             timer.schedule(task, length.toLong())
+            stopSelf()
 
         }
     }

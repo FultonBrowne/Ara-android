@@ -20,6 +20,7 @@ package com.andromeda.ara.voice;
 import android.content.Context;
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
 
+import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -46,6 +47,8 @@ class DeepSpeech {
         ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
         System.out.println("done");
         return this._m.stt(shorts, shorts.length);
+    }
+    public void voiceV3(ByteArrayOutputStream bytes){
 
 
     }

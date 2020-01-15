@@ -15,16 +15,15 @@ public class RoundCornersDrawable extends Drawable {
 
     private final float mCornerRadius;
     private final RectF mRect = new RectF();
-    //private final RectF mRectBottomR = new RectF();
-    //private final RectF mRectBottomL = new RectF();
-    private final BitmapShader mBitmapShader;
     private final Paint mPaint;
     private final int mMargin;
 
     public RoundCornersDrawable(Bitmap bitmap, float cornerRadius, int margin) {
         mCornerRadius = cornerRadius;
 
-        mBitmapShader = new BitmapShader(bitmap,
+        //private final RectF mRectBottomR = new RectF();
+        //private final RectF mRectBottomL = new RectF();
+        BitmapShader mBitmapShader = new BitmapShader(bitmap,
                 Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
 
         mPaint = new Paint();

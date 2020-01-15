@@ -27,10 +27,8 @@ import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
-import com.makeramen.roundedimageview.RoundedImageView
 import java.io.InputStream
 import java.net.URL
 
@@ -64,9 +62,8 @@ class Adapter(private val mRssFeedModels: List<RssFeedModel>, val act:Activity) 
             try {
                 val url = URL(rssFeedModel.image)
                 val `is` = URL(url.toString()).content as InputStream
-                val d = BitmapFactory.decodeStream(`is`)
-                val round = RoundCornersDrawable(d,  act.getResources().getDimension(R.dimen.material_drawer_vertical_padding), 0)
-                holder.rssFeedView.findViewById<ImageView>(R.id.item_image_view).background= round
+                val round = Drawable.createFromStream(`is`, "src")
+                holder.rssFeedView.findViewById<ImageView>(R.id.item_image_view).setImageDrawable(round)
             }
             catch (e:Exception){
                 e.printStackTrace()

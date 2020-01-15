@@ -196,6 +196,12 @@ public class VoiceMain extends AppCompatActivity {
             audioRecorder = null;
             recordingThread = null;
             recognize();
+            //Thread recognize = new Thread(() -> {
+            //   System.out.println(new DeepSpeech().voiceV2(Data, this));
+            //   System.out.println("done 2");
+            //});
+            //recognize.setPriority(Thread.MAX_PRIORITY);
+            //recognize.start();
         }
     }
 

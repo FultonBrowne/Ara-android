@@ -19,7 +19,6 @@ package com.andromeda.ara.voice;
 
 import android.content.Context;
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
-import org.mozilla.deepspeech.libdeepspeech.DeepSpeechStreamingState;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -29,6 +28,7 @@ import java.nio.ByteOrder;
 
 class DeepSpeech {
     private DeepSpeechModel _m = null;
+    public String decode = "";
 
     synchronized String run(String audioFile, Context ctx) {
         return this.doInference(audioFile, ctx);
@@ -47,10 +47,7 @@ class DeepSpeech {
 
         final String[] decoded = {"err"};
         System.out.println("new");
-
-
-            this.newModel(ctx);
-
+        this.newModel(ctx);
         System.out.println("done");
 
         try {
@@ -98,6 +95,17 @@ class DeepSpeech {
             return decoded[0];
         }
         return decoded[0];
+    }
+    public String voiceV2(byte[] bytes, Context ctx){
+        newModel(ctx);
+        short[] shorts = new short[bytes.length / 2];
+        System.out.println("num info");
+        ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
+        System.out.println("done");
+        System.out.println(this._m.stt(shorts, shorts.length));
+        return this._m.stt(shorts, shorts.length);
+
+
     }
 
     private char readLEChar(RandomAccessFile f) throws IOException {

@@ -80,6 +80,7 @@ public class VoiceMain extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
+
         startRecording();
         runTransition();
 
@@ -118,6 +119,7 @@ public class VoiceMain extends AppCompatActivity {
         }
     }
     private synchronized void startRecording() {
+        recordingThread = new Thread(() -> {
         final MediaPlayer mp = new MediaPlayer();
         mp.reset();
         AssetFileDescriptor afd;
@@ -126,6 +128,7 @@ public class VoiceMain extends AppCompatActivity {
             mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
             mp.prepare();
             mp.start();
+            while(mp.isPlaying()) System.out.println("playing");
         }
         catch (IllegalStateException | IOException e) {
             e.printStackTrace();
@@ -133,7 +136,7 @@ public class VoiceMain extends AppCompatActivity {
 
         audioRecorder.startRecording();
         isRecording = true;
-        recordingThread = new Thread(() -> {
+
             try {
                 new File(getCacheDir(), "record.pcm");
                 os = new FileOutputStream(getCacheDir() + "/record.pcm");

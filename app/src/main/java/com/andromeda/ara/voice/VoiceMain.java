@@ -58,6 +58,7 @@ public class VoiceMain extends AppCompatActivity {
     private int bufferSizeInBytes = AudioRecord.getMinBufferSize(SAMPLE_RATE_HZ, CHANNEL_CONFIG, AUDIO_FORMAT);
 
     private byte[] Data = new byte[bufferSizeInBytes];
+    private ByteArrayOutputStream byteIS = new ByteArrayOutputStream();
     RecyclerView recyclerView;
 
     private AudioRecord audioRecorder = new AudioRecord(AUDIO_SOURCE,
@@ -144,7 +145,7 @@ public class VoiceMain extends AppCompatActivity {
                 while (isRecording) {
                     audioRecorder.read(Data, 0, getRawDataLength(Data));
                     System.out.println(Data[0]);
-
+                    byteIS.write(Data);
                     if (Data[0] == 0) {
                         System.out.println("blank");
                         blankRunning = false;
@@ -169,7 +170,7 @@ public class VoiceMain extends AppCompatActivity {
                     }
                 }
                 stopAnimation();
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });

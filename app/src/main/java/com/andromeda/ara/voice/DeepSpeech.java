@@ -102,7 +102,6 @@ class DeepSpeech {
         System.out.println("num info");
         ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
         System.out.println("done");
-        System.out.println(this._m.stt(shorts, shorts.length));
         return this._m.stt(shorts, shorts.length);
 
 

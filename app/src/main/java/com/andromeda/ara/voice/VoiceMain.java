@@ -196,17 +196,7 @@ public class VoiceMain extends AppCompatActivity {
             audioRecorder.release();
             audioRecorder = null;
             recordingThread = null;
-            //recognize();
-            Thread recognize = new Thread(() -> {
-               String string = new DeepSpeech().voiceV2(byteIS.toByteArray(), this);
-               if (string == null){
-                   System.out.println("null");
-               }
-
-               System.out.println("done 2");
-            });
-            recognize.setPriority(Thread.MAX_PRIORITY);
-            recognize.start();
+            recognize();
         }
     }
 
@@ -214,10 +204,9 @@ public class VoiceMain extends AppCompatActivity {
         final String[] phrase = new String[1];
         Thread recognize = new Thread(() -> {
             try {
-                copyAssets();
-                rawToWave(new File(getCacheDir() + "/record.pcm"), new File(getCacheDir() + "/record.wav"));
-                phrase[0] = new DeepSpeech().run(getCacheDir() + "/record.wav", this.getApplicationContext());
+                phrase[0] = new DeepSpeech().voiceV2(byteIS.toByteArray(), this);
                 phrase[0] = new SpellChecker().check(phrase[0]);
+                byteIS.reset();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -235,110 +224,9 @@ public class VoiceMain extends AppCompatActivity {
         System.out.println("result =" + phrase[0]);
     }
 
-    private void rawToWave(final File rawFile, final File waveFile) throws IOException {
-
-        byte[] rawData = new byte[(int) rawFile.length()];
-
-        try (DataOutputStream output = new DataOutputStream(new FileOutputStream(waveFile))) {
-            createWaveHeader(rawData, output);
-            // Audio data (conversion big endian -> little endian)
-            short[] shorts = new short[getRawDataLength(rawData) / 2];
-            ByteBuffer.wrap(rawData).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
-            ByteBuffer bytes = ByteBuffer.allocate(shorts.length * 2);
-            for (short s : shorts) {
-                bytes.putShort(s);
-            }
-            output.write(fullyReadFileToBytes(rawFile));
-        }
-    }
-
-    private void createWaveHeader(byte[] rawData, DataOutputStream output) throws IOException {
-        writeString(output, CHUNK_ID);
-        writeInt(output, CHUNK_SIZE + getRawDataLength(rawData));
-        writeString(output, FORMAT);
-        writeString(output, SUB_CHUNK_ID_1);
-        writeInt(output, SUB_CHUNK__SIZE_1);
-        writeShort(output, AUDIO_FORMAT_PCM);
-        writeShort(output, NUMBER_OF_CHANNELS);
-        writeInt(output, SAMPLE_RATE_HZ);
-        writeInt(output, BYTE_RATE);
-        writeShort(output, BLOCK_ALIGN);
-        writeShort(output, BITS_PER_SAMPLE);
-        writeString(output, SUB_CHUNK_ID_2);
-        writeInt(output, getRawDataLength(rawData)); // subchunk 2 size
-    }
-
     private int getRawDataLength(byte[] rawData) {
         return rawData.length;
     }
-
-    byte[] fullyReadFileToBytes(File f) {
-        int size = (int) f.length();
-        byte[] bytes = new byte[size];
-        byte[] tmpBuff = new byte[size];
-        try (FileInputStream fis = new FileInputStream(f)) {
-
-            int read = fis.read(bytes, 0, size);
-            if (read < size) {
-                int remain = size - read;
-                while (remain > 0) {
-                    read = fis.read(tmpBuff, 0, remain);
-                    System.arraycopy(tmpBuff, 0, bytes, size - remain, read);
-                    remain -= read;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return bytes;
-    }
-
-    private void copyAssets() {
-        AssetManager assetManager = getAssets();
-        String[] files = null;
-        try {
-            files = assetManager.list("");
-        } catch (IOException e) {
-            Log.e("tag", "Failed to get asset file list.", e);
-        }
-        if (files != null) for (String filename : files) {
-            InputStream in = null;
-            OutputStream out = null;
-            try {
-                in = assetManager.open(filename);
-                File outFile = new File(getCacheDir(), filename);
-                out = new FileOutputStream(outFile);
-                copyFile(in, out);
-                System.out.println(filename);
-            } catch (IOException e) {
-                Log.e("tag", "Failed to copy asset file: " + filename, e);
-            } finally {
-                if (in != null) {
-                    try {
-                        in.close();
-                    } catch (IOException e) {
-                        // NOOP
-                    }
-                }
-                if (out != null) {
-                    try {
-                        out.close();
-                    } catch (IOException e) {
-                        // NOOP
-                    }
-                }
-            }
-        }
-    }
-
-    private void copyFile(InputStream in, OutputStream out) throws IOException {
-        byte[] buffer = new byte[1024];
-        int read;
-        while ((read = in.read(buffer)) != -1) {
-            out.write(buffer, 0, read);
-        }
-    }
-
     private void stopAnimation() {
         runOnUiThread(() -> imageView.setVisibility(View.INVISIBLE));
     }

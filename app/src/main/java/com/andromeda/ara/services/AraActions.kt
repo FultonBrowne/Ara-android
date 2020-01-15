@@ -68,7 +68,7 @@ class AraActions : Service() {
             val ctx = this
             val channelId = "com.andromeda.ara"
             var builder = NotificationCompat.Builder(this, channelId)
-                    .setSmallIcon(R.drawable.ic_notifications_white_24dp)
+                    .setSmallIcon(R.mipmap.ic_launcher_foreground)
                     .setContentTitle("timer done")
                     .setContentText("all done")
                     .setPriority(NotificationCompat.PRIORITY_HIGH)

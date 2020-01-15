@@ -20,8 +20,6 @@ package com.andromeda.ara.voice;
 import android.content.Context;
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -30,9 +28,6 @@ class DeepSpeech {
     private DeepSpeechModel _m = null;
     public String decode = "";
 
-    synchronized String run(String audioFile, Context ctx) {
-        return this.doInference(audioFile, ctx);
-    }
 
     private void newModel(Context ctx) {
         System.out.println("working");
@@ -43,59 +38,7 @@ class DeepSpeech {
     }
 
 
-    private String doInference(String audioFile, Context ctx) {
 
-        final String[] decoded = {"err"};
-        System.out.println("new");
-        this.newModel(ctx);
-        System.out.println("done");
-
-        try {
-
-            RandomAccessFile wave = new RandomAccessFile(audioFile, "r");
-
-            System.out.println("open file");
-
-            wave.seek(20);
-            char audioFormat = this.readLEChar(wave);
-            if ((audioFormat != 1)) throw new AssertionError(); // 1 is PCM
-            wave.seek(22);
-            char numChannels = this.readLEChar(wave);
-            if ((numChannels != 1)) throw new AssertionError(); // MONO
-            wave.seek(24);
-            int sampleRate = this.readLEInt(wave);
-            if ((sampleRate != 16000)) throw new AssertionError(); // desired sample rate
-            wave.seek(34);
-            char bitsPerSample = this.readLEChar(wave);
-            if ((bitsPerSample != 16)) throw new AssertionError(); // 16 bits per sample
-
-            wave.seek(40);
-            int bufferSize = this.readLEInt(wave);
-            if ((bufferSize <= 0)) throw new AssertionError();
-
-            wave.seek(44);
-            byte[] bytes = new byte[bufferSize];
-            wave.readFully(bytes);
-            short[] shorts = new short[bytes.length / 2];
-            System.out.println("num info");
-            ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
-
-                    decoded[0] = this._m.stt(shorts, shorts.length);
-                System.out.println(decoded[0]);
-
-
-
-
-            System.out.println(decoded[0]);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-            return decoded[0];
-        }
-        return decoded[0];
-    }
     public String voiceV2(byte[] bytes, Context ctx){
         newModel(ctx);
         short[] shorts = new short[bytes.length / 2];
@@ -107,18 +50,5 @@ class DeepSpeech {
 
     }
 
-    private char readLEChar(RandomAccessFile f) throws IOException {
-        byte b1 = f.readByte();
-        byte b2 = f.readByte();
-        return (char) ((b2 << 8) | b1);
-    }
-
-    private int readLEInt(RandomAccessFile f) throws IOException {
-        byte b1 = f.readByte();
-        byte b2 = f.readByte();
-        byte b3 = f.readByte();
-        byte b4 = f.readByte();
-        return (b1 & 0xFF) | (b2 & 0xFF) << 8 | (b3 & 0xFF) << 16 | (b4 & 0xFF) << 24;
-    }
 }
 

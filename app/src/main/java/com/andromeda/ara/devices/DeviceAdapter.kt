@@ -66,6 +66,7 @@ class DeviceAdapter(finalDevices:ArrayList<FinalDevice>, ctx: Context, docId:Str
             if(mainInt == null) mainInt = 0
             num.setText(mainInt.toString())
         num.contentDescription = mainVHThing[position].name
+        num.isFocusable = true
             num.visibility = View.VISIBLE
             num.setTextColor(ctx1.resources.getColor(R.color.md_black_1000))
         num.visibility = View.VISIBLE

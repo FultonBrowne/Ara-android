@@ -205,4 +205,6 @@
     <string name="use_an_external_ara_server">Use an external ara server</string>
     <string name="other_server">other server</string>
     <string name="add_device">add device</string>
+    <string name="download">Downloading voice system</string>
+    <string name="download">Downloading voice system</string>
 </resources>

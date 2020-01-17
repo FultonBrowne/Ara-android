@@ -201,7 +201,7 @@ public class VoiceMain extends AppCompatActivity {
         if(!file.exists()){
             ProgressDialog mProgressDialog;
             mProgressDialog = new ProgressDialog(ctx);
-            mProgressDialog.setMessage("A message");
+            mProgressDialog.setMessage(ctx.getString(R.string.download));
             mProgressDialog.setIndeterminate(true);
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mProgressDialog.setCancelable(true);
@@ -217,7 +217,7 @@ public class VoiceMain extends AppCompatActivity {
         if(!file1.exists()){
             ProgressDialog mProgressDialog;
             mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage("A message");
+            mProgressDialog.setMessage(ctx.getString(R.string.download));
             mProgressDialog.setIndeterminate(true);
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mProgressDialog.setCancelable(true);

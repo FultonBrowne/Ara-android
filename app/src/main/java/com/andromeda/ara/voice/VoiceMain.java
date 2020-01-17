@@ -27,7 +27,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.textservice.*;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,13 +40,9 @@ import com.andromeda.ara.util.SpellChecker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.andromeda.ara.constants.ConstantUtils.*;
-import static com.andromeda.ara.util.VoiceMainUtils.*;
 
 public class VoiceMain extends AppCompatActivity {
     private FileOutputStream os = null;
@@ -73,8 +68,6 @@ public class VoiceMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println(bufferSizeInBytes);
         setContentView(R.layout.activity_voice_main);
-        final TextServicesManager tsm = (TextServicesManager) getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
-
         recyclerView = findViewById(R.id.listVoice);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Adapter adapter = new Adapter(Collections.singletonList(new RssFeedModel("hello", "how can I help", "", "", "", true)), this);

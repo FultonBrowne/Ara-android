@@ -17,10 +17,14 @@
 package com.andromeda.ara.voice;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import com.andromeda.ara.util.DownloadTask;
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 

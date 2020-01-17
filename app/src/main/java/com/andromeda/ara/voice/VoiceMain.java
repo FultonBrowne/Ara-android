@@ -16,6 +16,7 @@
 
 package com.andromeda.ara.voice;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
@@ -34,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andromeda.ara.R;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.util.Adapter;
+import com.andromeda.ara.util.DownloadTask;
 import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.SpellChecker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -70,7 +72,6 @@ public class VoiceMain extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println(bufferSizeInBytes);
-        copyAssets();
         setContentView(R.layout.activity_voice_main);
         final TextServicesManager tsm = (TextServicesManager) getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
 
@@ -203,26 +204,59 @@ public class VoiceMain extends AppCompatActivity {
 
     private void recognize() {
         final String[] phrase = new String[1];
-        Thread recognize = new Thread(() -> {
-            try {
-                phrase[0] = new DeepSpeech().voiceV2(byteIS.toByteArray(), this);
-                phrase[0] = new SpellChecker().check(phrase[0]);
-                byteIS.reset();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this));
+        File file = new File(ctx.getCacheDir() + "/main.tflite");
+        if(!file.exists()){
+            ProgressDialog mProgressDialog;
+            mProgressDialog = new ProgressDialog(ctx);
+            mProgressDialog.setMessage("A message");
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mProgressDialog.setCancelable(true);
+            final DownloadTask downloadTask = new DownloadTask(this, ctx.getCacheDir() + "/main.tflite", mProgressDialog);
+            downloadTask.execute("https://arafilestore.file.core.windows.net/ara-server-files/main.tflite?sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2024-04-01T22:11:11Z&st=2019-12-19T15:11:11Z&spr=https&sig=lfjMHSahA6fw8enCbx0hFTE1uAVJWvPmC4m6blVSuuo%3D");
 
-            runOnUiThread(() -> recyclerView.setAdapter(new Adapter(rssFeedModels, this)));
-            try {
-                new TTS().start(getApplicationContext(), rssFeedModels.get(0).out);
-            } catch (Exception ignored) {
+            mProgressDialog.setOnCancelListener(dialog -> {
+                downloadTask.cancel(true); //cancel the task
+            });
+            mProgressDialog.show();
+        }
+        File file1 = new File(this.getCacheDir() + "/alphabet.txt");
+        if(!file1.exists()){
+            ProgressDialog mProgressDialog;
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage("A message");
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mProgressDialog.setCancelable(true);
+            final DownloadTask downloadTask = new DownloadTask(this, ctx.getCacheDir() + "/alphabet.txt", mProgressDialog);
+            downloadTask.execute("https://arafilestore.file.core.windows.net/ara-server-files/alphabet.txt?sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2024-04-01T22:11:11Z&st=2019-12-19T15:11:11Z&spr=https&sig=lfjMHSahA6fw8enCbx0hFTE1uAVJWvPmC4m6blVSuuo%3D");
 
-            }
-        });
-        recognize.setPriority(Thread.MAX_PRIORITY);
-        recognize.start();
-        System.out.println("result =" + phrase[0]);
+            mProgressDialog.setOnCancelListener(dialog -> {
+                downloadTask.cancel(true); //cancel the task
+            });
+        }
+        else {
+            Thread recognize = new Thread(() -> {
+                try {
+                    phrase[0] = new DeepSpeech().voiceV2(byteIS.toByteArray(), this);
+                    phrase[0] = new SpellChecker().check(phrase[0]);
+                    byteIS.reset();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this));
+
+                runOnUiThread(() -> recyclerView.setAdapter(new Adapter(rssFeedModels, this)));
+                try {
+                    new TTS().start(getApplicationContext(), rssFeedModels.get(0).out);
+                } catch (Exception ignored) {
+
+                }
+            });
+            recognize.setPriority(Thread.MAX_PRIORITY);
+            recognize.start();
+            System.out.println("result =" + phrase[0]);
+        }
     }
 
     private int getRawDataLength(byte[] rawData) {

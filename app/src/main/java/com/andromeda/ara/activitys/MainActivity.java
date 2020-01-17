@@ -18,6 +18,7 @@ package com.andromeda.ara.activitys;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -211,7 +212,11 @@ public class MainActivity extends AppCompatActivity {
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
 
                     MainActivity.this.runOnUiThread(() -> {
+                        ProgressDialog mProgressDialog;
+                        mProgressDialog = new ProgressDialog(ctx);
+                        mProgressDialog.setMessage("loading");
                         if(drawerItem.getIdentifier() == DrawerModeConstants.DEVICES){
+                            mProgressDialog.show();
                             System.out.println("devices");
 
                             Data.list(DeviceModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(documentWrappers -> {
@@ -223,9 +228,12 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                     recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
                                     mode = drawerItem.getIdentifier();
+                                    mProgressDialog.hide();
                                 } else System.out.println("fail");
                             });}
                         else if (drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS) {
+                            mProgressDialog.show();
+
                             System.out.println("shortcuts");
                             Data.list(SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(new AppCenterConsumer<PaginatedDocuments<SkillsDBModel>>() {
                                 @Override
@@ -237,6 +245,8 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                         recyclerView.setAdapter(new Adapter(rssFeedModel1, act));
                                         mode = drawerItem.getIdentifier();
+                                        mProgressDialog.hide();
+
                                     } else System.out.println("fail");
                                 }
 
@@ -245,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             try {
+                                mProgressDialog.show();
                                 rssFeedModel1 = new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this);
                                 recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
                                 mode = drawerItem.getIdentifier();
@@ -252,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
+                        mProgressDialog.hide();
                     });
 
                     return false;

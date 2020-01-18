@@ -74,6 +74,7 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import org.jetbrains.annotations.NotNull;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -492,8 +493,9 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
     }
 
+
     @Override
-    public void callBack() {
+    public void callBack(@NotNull String m, @NotNull String link) {
 
     }
 }

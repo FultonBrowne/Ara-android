@@ -39,6 +39,7 @@ import com.andromeda.ara.util.DownloadTask;
 import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.SpellChecker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.util.*;
@@ -318,8 +319,9 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
         startRecording();
     }
 
+
     @Override
-    public void callBack() {
+    public void callBack(@NotNull String m, @NotNull String link) {
 
     }
 }

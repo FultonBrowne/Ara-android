@@ -17,5 +17,5 @@
 package com.andromeda.ara.skills
 
 interface SearchFunctions {
-    fun callBack()
+    fun callBack(m:String, link:String)
 }

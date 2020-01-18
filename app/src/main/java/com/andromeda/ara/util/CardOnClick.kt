@@ -27,18 +27,19 @@ import com.andromeda.ara.constants.User
 import com.andromeda.ara.devices.DeviceModel
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
+import com.andromeda.ara.skills.SearchFunctions
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
 
 
 class CardOnClick {
-    fun mainFun(mode: Long, linkText: String, act: Activity, ctx: Context) {
+    fun mainFun(mode: Long, linkText: String, act: Activity, ctx: Context, searchFunctions: SearchFunctions) {
         when (mode) {
             DrawerModeConstants.SHORTCUTS-> {
                 try {
                     Data.read(linkText, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept {
                         val parsed = Parse().parse(it.deserializedValue.action.action)
-                        RunActions().doIt(parsed, "", ctx, act)
+                        RunActions().doIt(parsed, "", ctx, act, searchFunctions)
                     }
 
                 } catch (e: Exception) {

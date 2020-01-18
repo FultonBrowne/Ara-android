@@ -26,6 +26,7 @@ import androidx.core.app.ActivityCompat
 import com.andromeda.ara.R
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
+import com.andromeda.ara.skills.SearchFunctions
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.RssFeedModel
 import java.net.InetAddress
@@ -33,7 +34,7 @@ import java.util.*
 
 
 class Search {
-    fun main(mainval: String, ctx: Context, act: Activity): ArrayList<RssFeedModel> {
+    fun main(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions): ArrayList<RssFeedModel> {
 
         var outputList: ArrayList<RssFeedModel> = ArrayList()
         var local: List<String>? = null
@@ -54,7 +55,7 @@ class Search {
         }
         if (local?.get(0) != "" && mainval != "" && local != null) {
             val parsed = Parse().parse(local?.get(0))
-            val doIt = RunActions().doIt(parsed, mainval.replace((local.get(1)) + " ", ""), ctx, act)
+            val doIt = RunActions().doIt(parsed, mainval.replace((local.get(1)) + " ", ""), ctx, act,searchFunctions)
             outputList.addAll(doIt)
 
         } else {
@@ -68,7 +69,7 @@ class Search {
             println(R.string.done_search)
             try {
                 val parsed = Parse().parse(test1?.get(0)?.exes)
-                val doIt = RunActions().doIt(parsed, mainval, ctx, act)
+                val doIt = RunActions().doIt(parsed, mainval, ctx, act, searchFunctions)
                 outputList.addAll(doIt)
             } catch (e: Exception) {
             }

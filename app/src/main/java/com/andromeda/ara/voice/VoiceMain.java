@@ -239,7 +239,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this));
+                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this, this));
 
                 runOnUiThread(() -> recyclerView.setAdapter(new Adapter(rssFeedModels, this)));
                 try {

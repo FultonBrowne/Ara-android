@@ -29,7 +29,7 @@ import java.util.*
 
 
 class RunActions {
-    fun doIt(yaml: ArrayList<SkillsModel>?, searchTerm: String, ctx: Context, act: Activity): ArrayList<RssFeedModel> {
+    fun doIt(yaml: ArrayList<SkillsModel>?, searchTerm: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions): ArrayList<RssFeedModel> {
         val returnedVal = ArrayList<RssFeedModel>()
 
         var arg1: String
@@ -91,7 +91,7 @@ class RunActions {
 
                     }
                     "RESPOND" ->{
-
+                        searchFunctions.callBack(i.arg1, i.arg2)
                     }
                 }
             }

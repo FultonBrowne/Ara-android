@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.andromeda.ara.R;
 import com.andromeda.ara.search.Search;
+import com.andromeda.ara.skills.SearchFunctions;
 import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.DownloadTask;
 import com.andromeda.ara.util.RssFeedModel;
@@ -44,7 +45,7 @@ import java.util.*;
 
 import static com.andromeda.ara.constants.ConstantUtils.*;
 
-public class VoiceMain extends AppCompatActivity {
+public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     private FileOutputStream os = null;
     private Thread recordingThread;
     boolean isRecording;
@@ -315,5 +316,10 @@ public class VoiceMain extends AppCompatActivity {
                 bufferSizeInBytes);
         runTransition();
         startRecording();
+    }
+
+    @Override
+    public void callBack() {
+
     }
 }

@@ -53,6 +53,7 @@ import com.andromeda.ara.devices.DeviceModel;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.search.Search;
+import com.andromeda.ara.skills.SearchFunctions;
 import com.andromeda.ara.util.AraPopUps;
 import com.andromeda.ara.util.*;
 import com.andromeda.ara.voice.VoiceMain;
@@ -84,7 +85,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchFunctions {
     /**
      * these have to do with permissions
      **/
@@ -488,6 +489,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void addDevice(MenuItem item){
         new AraPopUps().DeviceNewWithType(act);
+
+    }
+
+    @Override
+    public void callBack() {
 
     }
 }

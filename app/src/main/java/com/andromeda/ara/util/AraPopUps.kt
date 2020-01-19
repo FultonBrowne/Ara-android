@@ -85,7 +85,7 @@ class AraPopUps {
 
             builder.show()
         }
-    fun newDevice(ctx: Context, act: Activity, url: URL){
+    private fun newDevice(ctx: Context, act: Activity, url: URL){
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setTitle("Title")
         val input = EditText(ctx)
@@ -97,6 +97,18 @@ class AraPopUps {
             val url1 = URL("${ServerUrl.url}newdevice/user=${id}&id=$i")
             val deviceKey = GetUrlAra().getIt(url1)
 
+        }
+        builder.show()
+
+    }
+    fun textSearchResponse(ctx: Context, title:String, link:String){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
+        builder.setTitle(title)
+        val input = EditText(ctx)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+        builder.setPositiveButton("ok") { _, _ ->
+            URL(link.replace("INPUT", input.text.toString())).readText()
         }
         builder.show()
 

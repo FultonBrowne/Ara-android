@@ -19,13 +19,11 @@ package com.andromeda.ara.voice;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioRecord;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -153,7 +151,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                             public void run() {
                                 runOnUiThread(() -> {
                                     if (!blankRunning) {
-                                        stopRecording(null);
+                                        stopRecording(link);
                                         FloatingActionButton fab2 = findViewById(R.id.floatingActionButton2);
                                         fab2.setVisibility(View.VISIBLE);
                                     }

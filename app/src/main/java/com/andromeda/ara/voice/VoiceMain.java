@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -250,7 +251,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
             });
             recognize.setPriority(Thread.MAX_PRIORITY);
             recognize.start();
-            System.out.println("result =" + phrase[0]);
         }
     }
 
@@ -278,6 +278,8 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
 
     @Override
     public void callBack(@NotNull String m, @NotNull String link) {
+        new TTS().start(this, m);
+        Toast.makeText(this, m, Toast.LENGTH_LONG).show();
         audioRecorder = new AudioRecord(AUDIO_SOURCE,
                 SAMPLE_RATE_HZ,
                 CHANNEL_CONFIG,

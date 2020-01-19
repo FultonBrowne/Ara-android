@@ -49,6 +49,7 @@ class SkillsSearch {
         insert.insert("flashlight", "", mapper.writeValueAsString(yml))
 
 
+
         val dB = OnDeviceSkills(ctx).open()
         val cursor = dB.fetch()
         var pre = ""

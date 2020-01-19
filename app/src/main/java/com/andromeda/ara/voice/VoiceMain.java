@@ -278,6 +278,13 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
 
     @Override
     public void callBack(@NotNull String m, @NotNull String link) {
+        audioRecorder = new AudioRecord(AUDIO_SOURCE,
+                SAMPLE_RATE_HZ,
+                CHANNEL_CONFIG,
+                AUDIO_FORMAT,
+                bufferSizeInBytes);
+        runTransition();
+        startRecording();
 
     }
 }

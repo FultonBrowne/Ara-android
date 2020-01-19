@@ -462,15 +462,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
-    @AfterPermissionGranted(REQUEST_LOCATION_PERMISSION)
-    public void requestLocationPermission() {
-        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
-        if (!EasyPermissions.hasPermissions(this, perms)) {
-            EasyPermissions.requestPermissions(this, "Please grant the location permission", REQUEST_LOCATION_PERMISSION, perms);
-        }
-
-    }
-
     private void requestMicrophonePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(
@@ -496,6 +487,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
     @Override
     public void callBack(@NotNull String m, @NotNull String link) {
-        new AraPopUps().textSearchResponse(this, m, this, this);
+        new AraPopUps().textSearchResponse(this, m, this, this, recyclerView);
     }
 }

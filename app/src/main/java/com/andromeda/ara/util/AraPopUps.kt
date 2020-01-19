@@ -108,7 +108,12 @@ class AraPopUps {
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
         builder.setPositiveButton("ok") { _, _ ->
-            URL(link.replace("INPUT", input.text.toString())).readText()
+            try {
+                URL(link.replace("INPUT", input.text.toString())).readText()
+            }
+            catch (e:Exception){
+                e.printStackTrace()
+            }
         }
         builder.show()
 

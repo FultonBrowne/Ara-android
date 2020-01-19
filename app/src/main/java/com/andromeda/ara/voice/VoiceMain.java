@@ -41,6 +41,7 @@ import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.SpellChecker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.util.*;
@@ -104,7 +105,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
 
     public void back(View view) {
         if (isRecording) {
-                stopRecording();
+                stopRecording(null);
                 FloatingActionButton fab2 = findViewById(R.id.floatingActionButton2);
                 fab2.setVisibility(View.VISIBLE);
 
@@ -152,7 +153,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                             public void run() {
                                 runOnUiThread(() -> {
                                     if (!blankRunning) {
-                                        stopRecording();
+                                        stopRecording(null);
                                         FloatingActionButton fab2 = findViewById(R.id.floatingActionButton2);
                                         fab2.setVisibility(View.VISIBLE);
                                     }
@@ -175,7 +176,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
         recordingThread.start();
     }
 
-    private void stopRecording() {
+    private void stopRecording(@Nullable String link) {
         final MediaPlayer mp = new MediaPlayer();
         mp.reset();
         AssetFileDescriptor afd;

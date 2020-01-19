@@ -81,7 +81,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
 
         super.onCreate(savedInstanceState);
 
-        startRecording();
+        startRecording(null);
         runTransition();
 
     }
@@ -118,7 +118,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                     new String[]{android.Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_AUDIO);
         }
     }
-    private synchronized void startRecording() {
+    private synchronized void startRecording(@Nullable String link) {
         recordingThread = new Thread(() -> {
         final MediaPlayer mp = new MediaPlayer();
         mp.reset();
@@ -195,11 +195,11 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
             audioRecorder.release();
             audioRecorder = null;
             recordingThread = null;
-            recognize();
+            recognize(link);
         }
     }
 
-    private void recognize() {
+    private void recognize(@Nullable String link) {
         final String[] phrase = new String[1];
         File file = new File(ctx.getCacheDir() + "/main.tflite");
         if(!file.exists()){
@@ -241,7 +241,8 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this, this));
+                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>();
+                if(link == null) rssFeedModels.addAll(new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this, this)));
 
                 runOnUiThread(() -> recyclerView.setAdapter(new Adapter(rssFeedModels, this)));
                 try {
@@ -273,7 +274,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 AUDIO_FORMAT,
                 bufferSizeInBytes);
         runTransition();
-        startRecording();
+        startRecording(null);
     }
 
 
@@ -287,7 +288,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 AUDIO_FORMAT,
                 bufferSizeInBytes);
         runTransition();
-        startRecording();
+        startRecording(link);
 
     }
 }

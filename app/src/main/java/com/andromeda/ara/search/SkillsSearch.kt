@@ -47,6 +47,9 @@ class SkillsSearch {
         yml.clear()
         yml.add(SkillsModel("FLASH", "TERM", ""))
         insert.insert("flashlight", "", mapper.writeValueAsString(yml))
+        yml.clear()
+        yml.add(SkillsModel("RESPOND", "test the bro bro", "test"))
+        insert.insert("qwertyuiopasdfghjklzxcvbnm", "", mapper.writeValueAsString(yml))
 
 
 

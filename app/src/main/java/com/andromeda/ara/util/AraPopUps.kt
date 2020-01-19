@@ -34,6 +34,8 @@ import com.andromeda.ara.constants.User.id
 import com.andromeda.ara.devices.DeviceAdapter
 import com.andromeda.ara.devices.DeviceModel
 import com.andromeda.ara.devices.FinalDevice
+import com.andromeda.ara.search.Search
+import com.andromeda.ara.skills.SearchFunctions
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
@@ -101,7 +103,7 @@ class AraPopUps {
         builder.show()
 
     }
-    fun textSearchResponse(ctx: Context, title:String, link:String){
+    fun textSearchResponse(ctx: Context, title:String, act: Activity, searchFunctions: SearchFunctions){
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setTitle(title)
         val input = EditText(ctx)
@@ -109,7 +111,7 @@ class AraPopUps {
         builder.setView(input)
         builder.setPositiveButton("ok") { _, _ ->
             try {
-                URL(link.replace("INPUT", input.text.toString())).readText()
+                Search().outputPing(input.text.toString(), ctx, act, searchFunctions)
             }
             catch (e:Exception){
                 e.printStackTrace()

@@ -86,6 +86,29 @@ class Search {
             false
         }
     }
+    fun outputPing(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions): ArrayList<RssFeedModel> {
+
+        var outputList: ArrayList<RssFeedModel> = ArrayList()
+        var lat = 0.0
+        var log = 0.0
+
+
+            outputList.add(RssFeedModel("", "", "", "", "", false))
+            //search ara server
+            var searchMode1 = mainval.toLowerCase(Locale("en"))
+            searchMode1 = searchMode1.replace(" ", "%20")
+            val test1 = AraSearch().arrayOfOutputModels2(searchMode1)
+            outputList = ApiOutputToRssFeed().main(test1)
+            println(R.string.done_search)
+            try {
+                val parsed = Parse().parse(test1?.get(0)?.exes)
+                val doIt = RunActions().doIt(parsed, mainval, ctx, act, searchFunctions)
+                outputList.addAll(doIt)
+            } catch (e: Exception) {
+            }
+
+        return outputList
+    }
 
 
 }

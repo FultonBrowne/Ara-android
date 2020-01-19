@@ -49,6 +49,26 @@ class AraSearch {
 
 
     }
+    fun arrayOfOutputModels2(search: String): ArrayList<OutputModel>? {
+        //get URL
+
+        val url = URL(search)
+
+        println(url)
+        var text = "[{\"title\":\"Blank Input Received\",\"link\":\"https://github.com/fultonbrowne/ara-android\",\"description\":\"Please Try Again\",\"OutputTxt\":\"Error Was Encountered\",\"exes\":\"\"}]"
+        //parse Json
+        try {
+            text = url.readText()
+
+        } catch (e: Exception) {
+
+        }
+
+
+        return JsonParse().search(text)
+
+
+    }
 
 
 }

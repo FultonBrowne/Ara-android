@@ -83,7 +83,7 @@ class Rss {
                     println("got the cal")
                     items = sortDate(items)
 
-                } catch (e: IndexOutOfBoundsException) {
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }

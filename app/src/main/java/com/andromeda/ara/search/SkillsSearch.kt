@@ -90,6 +90,9 @@ class SkillsSearch {
     fun main(){
         Data.list(SkillsFromDB::class.java, DefaultPartitions.APP_DOCUMENTS).thenAccept {
            println(it.currentPage.items)
+            for (i in it.currentPage.items){
+                //if (i.deserializedValue)
+            }
         }
     }
 

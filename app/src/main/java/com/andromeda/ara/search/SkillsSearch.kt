@@ -18,9 +18,12 @@ package com.andromeda.ara.search
 
 import android.content.Context
 import com.andromeda.ara.util.OnDeviceSkills
+import com.andromeda.ara.util.SkillsFromDB
 import com.andromeda.ara.util.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.microsoft.appcenter.data.Data
+import com.microsoft.appcenter.data.DefaultPartitions
 import java.util.*
 
 
@@ -83,6 +86,11 @@ class SkillsSearch {
 
 
         return listOf(finalAct, pre, end)
+    }
+    fun main(){
+        Data.list(SkillsFromDB::class.java, DefaultPartitions.APP_DOCUMENTS).thenAccept {
+           println(it.currentPage.items)
+        }
     }
 
 }

@@ -35,7 +35,6 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -53,6 +52,7 @@ import com.andromeda.ara.devices.DeviceModel;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.search.Search;
+import com.andromeda.ara.search.SkillsSearch;
 import com.andromeda.ara.skills.SearchFunctions;
 import com.andromeda.ara.util.AraPopUps;
 import com.andromeda.ara.util.*;
@@ -75,11 +75,9 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import org.jetbrains.annotations.NotNull;
-import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
     /**
      * these have to do with permissions
      **/
-    private final int REQUEST_LOCATION_PERMISSION = 1;
     private static final int REQUEST_RECORD_AUDIO = 13;
     //this is the text for the greeting it is hello by default for compatibility reasons
     private String mTime = "hello";
@@ -277,6 +274,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);
         StrictMode.setThreadPolicy(policy);
+        new SkillsSearch().main();
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override

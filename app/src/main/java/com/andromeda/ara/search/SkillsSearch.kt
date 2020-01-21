@@ -87,11 +87,13 @@ class SkillsSearch {
 
         return listOf(finalAct, pre, end)
     }
-    fun main(){
+    fun main(phrase: String, ctx: Context){
         Data.list(SkillsFromDB::class.java, DefaultPartitions.APP_DOCUMENTS).thenAccept {
            println(it.currentPage.items)
             for (i in it.currentPage.items){
-                //if (i.deserializedValue)
+                if (i.deserializedValue.pre.startsWith(prefix = phrase, ignoreCase = true)){
+
+                }
             }
         }
     }

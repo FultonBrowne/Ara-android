@@ -274,7 +274,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);
         StrictMode.setThreadPolicy(policy);
-        new SkillsSearch().main();
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override

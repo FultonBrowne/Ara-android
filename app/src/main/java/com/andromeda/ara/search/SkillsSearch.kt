@@ -105,6 +105,7 @@ class SkillsSearch {
                     break
                 }
             }
+             if(done == null)done = false
         }
 
     }

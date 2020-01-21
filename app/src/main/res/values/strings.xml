@@ -130,7 +130,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">"Welcome!"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
@@ -195,14 +195,14 @@
     <string name="update_notifications">Update notifications</string>
     <string name="account_settings">Account settings</string>
     <string name="reset_password">Reset password</string>
-    <string name="submit_a_feature_request_or_bug">Submit A feature request or bug</string>
+    <string name="submit_a_feature_request_or_bug">Submit a feature request or bug</string>
     <string name="title_activity_skills">SkillsActivity</string>
     <string name="skillmenu">add skill</string>
     <string name="add">add</string>
     <string name="rename">Rename</string>
     <string name="voicephrase">Voice phrase</string>
     <string name="domeNews">Domestic</string>
-    <string name="use_an_external_ara_server">Use an external ara server</string>
+    <string name="use_an_external_ara_server">Use an external Ara server</string>
     <string name="other_server">other server</string>
     <string name="add_device">add device</string>
     <string name="download">Downloading voice system</string>

@@ -52,7 +52,6 @@ import com.andromeda.ara.devices.DeviceModel;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.search.Search;
-import com.andromeda.ara.search.SkillsSearch;
 import com.andromeda.ara.skills.SearchFunctions;
 import com.andromeda.ara.util.AraPopUps;
 import com.andromeda.ara.util.*;

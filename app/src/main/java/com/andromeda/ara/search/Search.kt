@@ -39,35 +39,32 @@ import java.util.*
 
 
 class Search {
-    fun main(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions, rec:RecyclerView): ArrayList<RssFeedModel> {
+    fun main(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions, rec: RecyclerView): ArrayList<RssFeedModel> {
 
         var outputList: ArrayList<RssFeedModel> = ArrayList()
-        var local: List<String>? = null
         var done2 = false
         var lat = 0.0
         var log = 0.0
         val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
             val location: Location? = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             if (location != null) {
                 lat = location.latitude
                 log = location.longitude
             }
         }
-            val data = SkillsSearch()
         val list = Data.list(SkillsFromDB::class.java, DefaultPartitions.APP_DOCUMENTS)
         list.thenAccept {
             println(it.currentPage.items)
 
-            for (i in it.currentPage.items){
-                if (i.deserializedValue.pre != null)if (mainval.startsWith(prefix = i.deserializedValue.pre , ignoreCase = true)){
+            for (i in it.currentPage.items) {
+                if (i.deserializedValue.pre != null) if (mainval.startsWith(prefix = i.deserializedValue.pre, ignoreCase = true)) {
                     done2 = true
                     outputList.addAll(RunActions().doIt(Parse().parse(i.deserializedValue.action), mainval.replace(i.deserializedValue.pre + " ", ""), ctx, act, searchFunctions))
                     break
                 }
             }
-            if(!done2){
+            if (!done2) {
 
                 outputList.add(RssFeedModel("", "", "", "", "", false))
                 //search ara server
@@ -83,7 +80,7 @@ class Search {
                 } catch (e: Exception) {
                 }
             }
-            act.runOnUiThread{
+            act.runOnUiThread {
                 rec.adapter = Adapter(outputList, act)
             }
 
@@ -100,6 +97,7 @@ class Search {
             false
         }
     }
+
     fun outputPing(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions): ArrayList<RssFeedModel> {
 
         var outputList: ArrayList<RssFeedModel> = ArrayList()
@@ -107,19 +105,19 @@ class Search {
         var log = 0.0
 
 
-            outputList.add(RssFeedModel("", "", "", "", "", false))
-            //search ara server
-            var searchMode1 = mainval.toLowerCase(Locale("en"))
-            searchMode1 = searchMode1.replace(" ", "%20")
-            val test1 = AraSearch().arrayOfOutputModels2(searchMode1)
-            outputList = ApiOutputToRssFeed().main(test1)
-            println(R.string.done_search)
-            try {
-                val parsed = Parse().parse(test1?.get(0)?.exes)
-                val doIt = RunActions().doIt(parsed, mainval, ctx, act, searchFunctions)
-                outputList.addAll(doIt)
-            } catch (e: Exception) {
-            }
+        outputList.add(RssFeedModel("", "", "", "", "", false))
+        //search ara server
+        var searchMode1 = mainval.toLowerCase(Locale("en"))
+        searchMode1 = searchMode1.replace(" ", "%20")
+        val test1 = AraSearch().arrayOfOutputModels2(searchMode1)
+        outputList = ApiOutputToRssFeed().main(test1)
+        println(R.string.done_search)
+        try {
+            val parsed = Parse().parse(test1?.get(0)?.exes)
+            val doIt = RunActions().doIt(parsed, mainval, ctx, act, searchFunctions)
+            outputList.addAll(doIt)
+        } catch (e: Exception) {
+        }
 
         return outputList
     }

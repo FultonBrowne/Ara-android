@@ -16,7 +16,11 @@
 
 package com.andromeda.ara.search
 
+import android.app.Activity
 import android.content.Context
+import com.andromeda.ara.skills.Parse
+import com.andromeda.ara.skills.RunActions
+import com.andromeda.ara.skills.SearchFunctions
 import com.andromeda.ara.util.OnDeviceSkills
 import com.andromeda.ara.util.SkillsFromDB
 import com.andromeda.ara.util.SkillsModel
@@ -87,15 +91,17 @@ class SkillsSearch {
 
         return listOf(finalAct, pre, end)
     }
-    fun main(phrase: String, ctx: Context){
-        Data.list(SkillsFromDB::class.java, DefaultPartitions.APP_DOCUMENTS).thenAccept {
+    @Synchronized
+    fun main(phrase: String, ctx: Context, act:Activity,  searchFunctions: SearchFunctions){
+         Data.list(SkillsFromDB::class.java, DefaultPartitions.APP_DOCUMENTS).thenAccept {
            println(it.currentPage.items)
             for (i in it.currentPage.items){
                 if (i.deserializedValue.pre.startsWith(prefix = phrase, ignoreCase = true)){
-
+                    RunActions().doIt(Parse().parse(i.deserializedValue.action), phrase.replace(i.deserializedValue.pre + " ", ""), ctx, act, searchFunctions)
                 }
             }
         }
+
     }
 
 }

@@ -64,7 +64,7 @@
         <item>luce</item>
         <item>termostato</item>
     </string-array>
-    <string-array name="action_array">
+   <!-- <string-array name='action_array'>
         <item>chiama</item>
         <item>messaggia</item>
         <item>metti in pausa o riproduci media</item>
@@ -72,15 +72,7 @@
         <item>apri un'app</item>
         <item>Torcia</item>
         <item>Timer</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
+    </string-array>-->
 
     <string-array name="list_preference_entries">
         <item>Entrata 1</item>
@@ -145,7 +137,7 @@
         <item>Risparmio di batteria</item>
         <item>Predefinito di sistema</item>
     </array>
-    <string name="url">https://it.wikinews.org/w/index.php?title=Speciale:FeedNotizie&feed=atom&categories=Published&notcategories=No+publish%7CArchived%7CAutoArchived%7Cdisputed&namespace=0&count=30&hourcount=124&ordermethod=categoryadd&stablepages=only</string>
+    <string name="url">https://it.wikinews.org/w/index.php?title=Speciale:FeedNotizie&amp;feed=atom&amp;categories=Published&amp;notcategories=No+publish%7CArchived%7CAutoArchived%7Cdisputed&amp;namespace=0&amp;count=30&amp;hourcount=124&amp;ordermethod=categoryadd&amp;stablepages=only</string>
     <string name="test">test</string>
     <string name="hello1">ciao</string>
     <string name="configure">Configura</string>

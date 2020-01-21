@@ -380,8 +380,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     }
                     try {
-                        ArrayList<RssFeedModel> rssFeedModel2 = (new Search().main(query, getApplicationContext(), MainActivity.this, MainActivity.this));
-                        rssFeedModel1.addAll(0, rssFeedModel2);
+                        new Search().main(query, getApplicationContext(), MainActivity.this, MainActivity.this, recyclerView);
                         mAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
                         e.printStackTrace();

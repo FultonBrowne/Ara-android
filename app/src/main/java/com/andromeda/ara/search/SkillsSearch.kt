@@ -35,12 +35,15 @@ import kotlin.collections.ArrayList
 
 class SkillsSearch {
     val out = arrayListOf<RssFeedModel>()
-    var done:Boolean? = null
+    var done:Boolean? = false
+    var done2 = false
+
     fun search(phrase: String, ctx: Context): List<String> {
         val mapper = ObjectMapper(YAMLFactory())
         print(mapper.writeValueAsString(SkillsModel("OPEN_APP", "TERM", "")))
         val insert = OnDeviceSkills(ctx).open()
         val yml = ArrayList<SkillsModel>()
+
 
         yml.add(SkillsModel("OPEN_APP", "TERM", ""))
         insert.insert("open", "app", mapper.writeValueAsString(yml))
@@ -97,18 +100,25 @@ class SkillsSearch {
     }
     @Synchronized
     fun main(phrase: String, ctx: Context, act:Activity,  searchFunctions: SearchFunctions): ArrayList<RssFeedModel> {
-         Data.list(SkillsFromDB::class.java, DefaultPartitions.APP_DOCUMENTS).thenAccept {
+        val list = Data.list(SkillsFromDB::class.java, DefaultPartitions.APP_DOCUMENTS)
+        list.thenAccept {
            println(it.currentPage.items)
+
             for (i in it.currentPage.items){
-                if (i.deserializedValue.pre.startsWith(prefix = phrase, ignoreCase = true)){
+                if (i.deserializedValue.pre != null)if (phrase.startsWith(prefix = i.deserializedValue.pre , ignoreCase = true)){
                     done = true
+                    done2 = true
                      out.addAll(RunActions().doIt(Parse().parse(i.deserializedValue.action), phrase.replace(i.deserializedValue.pre + " ", ""), ctx, act, searchFunctions))
                     return@thenAccept
                 }
             }
              done = true
         }
-        while(done == false);
+        val thread = Thread{
+        while(done == null);}
+        thread.run()
+        thread.join()
+        done = false
         return out
 
     }

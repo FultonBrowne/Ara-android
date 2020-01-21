@@ -240,8 +240,8 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                     e.printStackTrace();
                 }
                 ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>();
-                if(link == null) rssFeedModels.addAll(new ArrayList<>(new Search().main(phrase[0], getApplicationContext(), VoiceMain.this, this)));
-                else rssFeedModels.addAll(new ArrayList<>(new Search().outputPing(link.replace("INPUT", phrase[0]), getApplicationContext(), VoiceMain.this, this)));
+                new Search().main(phrase[0], getApplicationContext(), VoiceMain.this, this, recyclerView);
+                //else rssFeedModels.addAll(new ArrayList<>(new Search().outputPing(link.replace("INPUT", phrase[0]), getApplicationContext(), VoiceMain.this, this)));
 
                 runOnUiThread(() -> recyclerView.setAdapter(new Adapter(rssFeedModels, this)));
                 try {

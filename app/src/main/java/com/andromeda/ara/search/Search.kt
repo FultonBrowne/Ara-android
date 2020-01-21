@@ -23,21 +23,27 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
 import com.andromeda.ara.skills.SearchFunctions
+import com.andromeda.ara.util.Adapter
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.RssFeedModel
+import com.andromeda.ara.util.SkillsFromDB
+import com.microsoft.appcenter.data.Data
+import com.microsoft.appcenter.data.DefaultPartitions
 import java.net.InetAddress
 import java.util.*
 
 
 class Search {
-    fun main(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions): ArrayList<RssFeedModel> {
+    fun main(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions, rec:RecyclerView): ArrayList<RssFeedModel> {
 
         var outputList: ArrayList<RssFeedModel> = ArrayList()
         var local: List<String>? = null
+        var done2 = false
         var lat = 0.0
         var log = 0.0
         val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -48,31 +54,39 @@ class Search {
                 lat = location.latitude
                 log = location.longitude
             }
-
-            local = SkillsSearch().search(mainval, ctx)
-
-
         }
-        if (local?.get(0) != "" && mainval != "" && local != null) {
-            val parsed = Parse().parse(local?.get(0))
-            val doIt = RunActions().doIt(parsed, mainval.replace((local.get(1)) + " ", ""), ctx, act,searchFunctions)
-            outputList.addAll(doIt)
+            val data = SkillsSearch()
+        val list = Data.list(SkillsFromDB::class.java, DefaultPartitions.APP_DOCUMENTS)
+        list.thenAccept {
+            println(it.currentPage.items)
 
-        } else {
-
-            outputList.add(RssFeedModel("", "", "", "", "", false))
-            //search ara server
-            var searchMode1 = mainval.toLowerCase(Locale("en"))
-            searchMode1 = searchMode1.replace(" ", "%20")
-            val test1 = AraSearch().arrayOfOutputModels(searchMode1, log.toString(), lat.toString())
-            outputList = ApiOutputToRssFeed().main(test1)
-            println(R.string.done_search)
-            try {
-                val parsed = Parse().parse(test1?.get(0)?.exes)
-                val doIt = RunActions().doIt(parsed, mainval, ctx, act, searchFunctions)
-                outputList.addAll(doIt)
-            } catch (e: Exception) {
+            for (i in it.currentPage.items){
+                if (i.deserializedValue.pre != null)if (mainval.startsWith(prefix = i.deserializedValue.pre , ignoreCase = true)){
+                    done2 = true
+                    outputList.addAll(RunActions().doIt(Parse().parse(i.deserializedValue.action), mainval.replace(i.deserializedValue.pre + " ", ""), ctx, act, searchFunctions))
+                    break
+                }
             }
+            if(!done2){
+
+                outputList.add(RssFeedModel("", "", "", "", "", false))
+                //search ara server
+                var searchMode1 = mainval.toLowerCase(Locale("en"))
+                searchMode1 = searchMode1.replace(" ", "%20")
+                val test1 = AraSearch().arrayOfOutputModels(searchMode1, log.toString(), lat.toString())
+                outputList = ApiOutputToRssFeed().main(test1)
+                println(R.string.done_search)
+                try {
+                    val parsed = Parse().parse(test1?.get(0)?.exes)
+                    val doIt = RunActions().doIt(parsed, mainval, ctx, act, searchFunctions)
+                    outputList.addAll(doIt)
+                } catch (e: Exception) {
+                }
+            }
+            act.runOnUiThread{
+                rec.adapter = Adapter(outputList, act)
+            }
+
         }
         return outputList
     }

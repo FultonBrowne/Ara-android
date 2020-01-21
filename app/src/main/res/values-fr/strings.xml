@@ -18,84 +18,15 @@
     <string name="app_name">Ara</string>
     <string name="action_settings">Configuration</string>
     <string name="action_about">A propos</string>
-    <string name="greet">Bonjour, comment puis-je vous aider ?</string>
-    <string name="greet1">Bonjour, @string/greet</string>
-    <string name="blank"/>
-    <string name="title_activity_settings">Configuration</string>
 
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="pref_header_general">Générale</string>
-
-    <string name="pref_title_social_recommendations">Activer les recommendations sociales</string>
-    <string name="pref_description_social_recommendations">Recommandations pour les personnes à contacter
-        en fonction de l\'historique de vos messages
-    </string>
-    <string name="botton_menu_title">accueil</string>
-    <string name="new_app_widget2_title">WIDGET A VENIR</string>
-
-    <string name="pref_title_display_name">Nom d\'affichage</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Ajouter des amis aux messages</string>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Données &amp; synchronisation</string>
-
-    <string name="pref_title_sync_frequency">Fréquence de synchronisation</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 heure</item>
-        <item>3 heure</item>
-        <item>6 heure</item>
-        <item>Jamais</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Entrée 1</item>
-        <item>Entrée 2</item>
-        <item>Entrée 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value"/>
-
-    <string name="pref_title_system_sync_settings">Paramètres de synchronisation du système</string>
 
     <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
 
-    <string name="pref_title_new_message_notifications">Notifications de nouveaux messages</string>
-
-    <string name="pref_title_ringtone">Sonnerie</string>
-    <string name="pref_ringtone_silent">Silencieux</string>
-
-    <string name="pref_title_vibrate">Vibration</string>
-    <string name="email">email</string>
-    <string name="text">messages</string>
-    <string name="news">nouveaux</string>
-    <string name="appwidget_text">EXEMPLE</string>
-    <string name="add_widget">Ajouter un widget</string>
     <string name="title_activity_about">A propos</string>
     <string name="large_text">
         "Le matériel est la métaphore.\n\n"
@@ -211,41 +142,9 @@
                 "Par exemple, placez le FAB sur l’un des côtés du flux de cartes pour que le FAB n’interfère pas"
                 "Lorsqu'un utilisateur tente de prendre une des cartes.\n\n"
     </string>
-    <string name="image">Camera</string>
-    <string-array name="front">Bonjour @array/pref_example_list_values</string-array>
 
-    <string name="title_activity_setup">Paramétrer</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Mot de passe</string>
-    <string name="action_sign_in">Se loguer ou s\'incrire</string>
-    <string name="action_sign_in_short">Se loguer</string>
-    <string name="welcome">"Bienvenue !"</string>
-    <string name="invalid_username">Utilisateur invalide</string>
-    <string name="invalid_password">Le mot de passe doit être >5 à charactères</string>
-    <string name="login_failed">"Echec de la connexion"</string>
-    <string name="prompt_firstname">Prénom</string>
-    <string name="welcome1">Binvenue sur Ara! Pour commencer, quel est votre prénom ?</string>
-    <string name="done">terminer et ouvrir Ara</string>
-    <string name="themeMode"/>
-    <string name="theme">Forcer le thème sombre</string>
-    <string name="keytheme">list_preference_1</string>
-    <string name="default1">Par défaut</string>
-    <array name="themeList">
-        <item>Sombre</item>
-        <item>Clair</item>
-        <item>Économie de batterie</item>
-        <item>Par défaut</item>
-    </array>
-    <string name="url">https://feeds.foxnews.com/foxnews/latest</string>
-    <string name="test">test</string>
-    <string name="hello1">bonjour</string>
-    <string name="configure">Configurer</string>
     <string name="title_activity_all_content">tousLesContenus</string>
-    <string name="pref_switch_note">Ara notifications</string>
-    <string name="hey_ara_listener_switch">Ecouter \"hey Ara\"</string>
-    <string name="textOK">Ok</string>
     <string name="moneyText">argent</string>
-    <string name="updateTxt">Mise à jour</string>
     <string name="replace_with_your_own_action">Remplacez par votre propre action</string>
     <string name="action">Action</string>
     <string name="name">NOM</string>
@@ -262,8 +161,6 @@
     <string name="eventLocation">eventLocation</string>
     <string name="gps_enable">GPS Activé</string>
     <string name="network_enable">Réseau Activé</string>
-    <string name="latittude">latitude:</string>
-    <string name="longitude">longitude:</string>
     <string name="exception">Exception</string>
     <string name="tag_AssistantService">AssistantService</string>
     <string name="msg_onReady">onReady</string>
@@ -272,5 +169,4 @@
     <string name="msg_onHandleAssist">onHandleAssist</string>
     <string name="hi">hi</string>
     <string name="msg_onHandleScreenshot">onHandleScreenshot</string>
-    <string name="msg_Reading_labels_from">Lire les labels depuis:</string>
 </resources>

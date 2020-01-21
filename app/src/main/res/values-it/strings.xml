@@ -18,48 +18,13 @@
     <string name="app_name">Ara</string>
     <string name="action_settings">Impostazioni</string>
     <string name="action_about">Informazioni</string>
-    <string name="greet">Ciao, come posso aiutarti?</string>
-    <string name="greet1">Ciao, @string/greet</string>
-    <string name="blank"/>
-    <string name="title_activity_settings">Impostazioni</string>
 
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="pref_header_general">Generale</string>
-
-    <string name="pref_title_social_recommendations">Attiva raccomandazioni sociali</string>
-    <string name="pref_description_social_recommendations">Raccomandazioni per persone da contattare in base alla cronologia dei messaggi</string>
-    <string name="botton_menu_title">home</string>
-    <string name="new_app_widget2_title">WIDGET IN ARRIVO</string>
-
-    <string name="pref_title_display_name">Nome mostrato</string>
-    <string name="pref_default_display_name">Mario Rossi</string>
-
-    <string name="pref_title_add_friends_to_messages">Aggiungi amici ai messaggi</string>
-    <string-array name="pref_example_list_titles">
-        <item>Sempre</item>
-        <item>Quando possibile</item>
-        <item>Mai</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Dati e sincronizzazione</string>
 
-    <string name="pref_title_sync_frequency">Frequenza di sincronizzazione</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minuti</item>
-        <item>30 minuti</item>
-        <item>1 ora</item>
-        <item>3 ore</item>
-        <item>6 ore</item>
-        <item>Mai</item>
-    </string-array>
     <string-array name="aradefaultdevices">
         <item>luce</item>
         <item>termostato</item>
@@ -74,79 +39,16 @@
         <item>Timer</item>
     </string-array>-->
 
-    <string-array name="list_preference_entries">
-        <item>Entrata 1</item>
-        <item>Entrata 2</item>
-        <item>Entrata 3</item>
-    </string-array>
-    <string-array name="arg">
-        <item>Termine primario</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value"/>
-
-    <string name="pref_title_system_sync_settings">Impostazioni di sincronizzazione del sistema</string>
-
     <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifiche</string>
 
-    <string name="pref_title_new_message_notifications">Notifiche di nuovi messaggi</string>
-
-    <string name="pref_title_ringtone">Suoneria</string>
-    <string name="pref_ringtone_silent">Silenzioso</string>
-
-    <string name="pref_title_vibrate">Vibrazione</string>
-    <string name="email">email</string>
-    <string name="text">messaggi</string>
-    <string name="news">notizie</string>
-    <string name="appwidget_text">ESEMPIO</string>
-    <string name="add_widget">Aggiungi widget</string>
     <string name="title_activity_about">informazioni</string>
     <string name="large_text">
         Ara è un assistente vocale open source che rispetta la privacy e la produttività. Ara usa le ultime tecnologie open
         source come OpenNLP, Mozilla DeepSpeech e TensorFlow.
     </string>
-    <string name="image">Camera</string>
-    <string-array name="front">Ciao @array/pref_example_list_values</string-array>
 
-    <string name="title_activity_setup">Setup</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Accedi o registrati</string>
-    <string name="action_sign_in_short">Accedi</string>
-    <string name="welcome">"Benvenuto!"</string>
-    <string name="invalid_username">Username non valido</string>
-    <string name="invalid_password">La password deve avere più di 5 caratteri</string>
-    <string name="login_failed">"Login fallito"</string>
-    <string name="prompt_firstname">Nome</string>
-    <string name="welcome1">Benvenuto in Ara! Per iniziare qual è il tuo nome?</string>
-    <string name="done">termina e apri Ara</string>
-    <string name="themeMode"/>
-    <string name="theme">Forza tema scuro</string>
-    <string name="keytheme">list_preference_1</string>
-    <string name="default1">Predefinito di sistema</string>
-    <array name="themeList">
-        <item>Scuro</item>
-        <item>Chiaro</item>
-        <item>Risparmio di batteria</item>
-        <item>Predefinito di sistema</item>
-    </array>
-    <string name="url">https://it.wikinews.org/w/index.php?title=Speciale:FeedNotizie&amp;feed=atom&amp;categories=Published&amp;notcategories=No+publish%7CArchived%7CAutoArchived%7Cdisputed&amp;namespace=0&amp;count=30&amp;hourcount=124&amp;ordermethod=categoryadd&amp;stablepages=only</string>
-    <string name="test">test</string>
-    <string name="hello1">ciao</string>
-    <string name="configure">Configura</string>
     <string name="title_activity_all_content">allContent</string>
-    <string name="pref_switch_note">Notifiche di Ara</string>
-    <string name="hey_ara_listener_switch">Ascolta per \"hey Ara\"</string>
-    <string name="textOK">Ok</string>
     <string name="moneyText">soldi</string>
-    <string name="updateTxt">Aggiorna</string>
     <string name="replace_with_your_own_action">Sostituisci con la tua propria azione</string>
     <string name="action">Azione</string>
     <string name="name">NOME</string>
@@ -163,8 +65,6 @@
     <string name="eventLocation">eventLocation</string>
     <string name="gps_enable">Attivazione GPS</string>
     <string name="network_enable">Attivazione rete</string>
-    <string name="latittude">latitudine:</string>
-    <string name="longitude">longitudine:</string>
     <string name="exception">Eccezione</string>
     <string name="tag_AssistantService">AssistantService</string>
     <string name="msg_onReady">onReady</string>
@@ -173,10 +73,7 @@
     <string name="msg_onHandleAssist">onHandleAssist</string>
     <string name="hi">ciao</string>
     <string name="msg_onHandleScreenshot">onHandleScreenshot</string>
-    <string name="msg_Reading_labels_from">Lettura delle etichette da:</string>
-    <string name="LogInText">aggiungi account</string>
     <string name="log_out">disconnetti</string>
-    <string name="title_activity_account_settings">Impostazioni</string>
     <string name="title_activity_prefs">PrefsActivity</string>
     <string name="send_crash_reports_to_andromeda">Invia rapporto per il crash ad andromeda</string>
     <string name="enchanced_ara_server_coming_soon">Ara server migliorati (in arrivo)</string>
@@ -193,7 +90,6 @@
     <string name="voicephrase">Frase della voce</string>
     <string name="domeNews">Domestico</string>
     <string name="use_an_external_ara_server">Usa un server Ara esterno</string>
-    <string name="other_server">altro server</string>
     <string name="add_device">aggiungi dispositivo</string>
     <string name="download">Scaricamento del sistema vocale</string>
 </resources>

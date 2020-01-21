@@ -18,87 +18,15 @@
     <string name="app_name">Ara</string>
     <string name="action_settings">Configuracion</string>
     <string name="action_about">Acerca de</string>
-    <string name="greet">ola, como puedo ayudarte?</string>
-    <string name="greet1">Hola, @string/greet</string>
-    <string name="blank"/>
-    <string name="title_activity_settings">Configuracion</string>
 
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
-
-    <string name="pref_title_social_recommendations">Habilitar recomendaciones sociales</string>
-    <string name="pref_description_social_recommendations">Recomendaciones a personas para contactar basado en tu
-        historial de mensajes
-    </string>
-
-    <string name="pref_title_display_name">Nombre a mostrar</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Agregar amigos a mensajes</string>
-    <string-array name="pref_example_list_titles">
-        <item>Siempre</item>
-        <item>Cuando sea posible</item>
-        <item>Nunca</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Datos &amp; sincronizados</string>
-
-    <string name="pref_title_sync_frequency">Frecuencia de sincronizacion</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutos</item>
-        <item>30 minutos</item>
-        <item>1 hora</item>
-        <item>3 hora</item>
-        <item>6 hora</item>
-        <item>Nunca</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Entrada 1</item>
-        <item>Entrada 2</item>
-        <item>Entrada 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value"/>
-
-    <string name="pref_title_system_sync_settings">Configuraciones de sincronización del sistema</string>
 
     <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notificaciones</string>
 
-    <string name="pref_title_new_message_notifications">Notificaciones de mensajes nuevos</string>
-
-    <string name="pref_title_ringtone">Tono de llamada</string>
-    <string name="pref_ringtone_silent">Silencio</string>
-
-    <string name="pref_title_vibrate">Vibrar</string>
-    <string name="email">email</string>
-    <string name="text">mensajes</string>
-    <string name="news">nuevo</string>
-    <string name="appwidget_text">EJEMPLO</string>
-    <string name="add_widget">Agregar widget</string>
     <string name="title_activity_about">acerca de</string>
     <string name="large_text">
         "El material es la metáfora.\n\n"
@@ -203,39 +131,7 @@
         intente recoger una de las tarjetas. \n \n "
 
     </string>
-    <string name="image">Camara</string>
-    <string-array name="front">Hola @array/pref_example_list_values</string-array>
 
-    <string name="title_activity_setup">Configurar</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Contraseña</string>
-    <string name="action_sign_in">Ingresar o registrar</string>
-    <string name="action_sign_in_short">Ingresar</string>
-    <string name="welcome">"Bienvenido !"</string>
-    <string name="invalid_username">Nombre de usuario no valido</string>
-    <string name="invalid_password">La contraseña debe tener >5 caracteres</string>
-    <string name="login_failed">"Login incorrecto"</string>
-    <string name="prompt_firstname">Nombre</string>
-    <string name="welcome1">Bienvenido a Ara! Para comenzar, cual es tu nombre?</string>
-    <string name="done">Terminar y abrir Ara</string>
-    <string name="themeMode"/>
-    <string name="theme">Forzar tema oscuro</string>
-    <string name="keytheme">lista_preferencia_1</string>
-    <string name="default1">Sistema por defecto</string>
-    <array name="themeList">
-        <item>Oscuro</item>
-        <item>Brillo</item>
-        <item>Ahorro de energia</item>
-        <item>Sistema por defecto</item>
-    </array>
-    <string name="url">https://feeds.foxnews.com/foxnews/latest</string>
-    <string name="test">prueba</string>
-    <string name="hello1">hola</string>
-    <string name="configure">Configurar</string>
     <string name="title_activity_all_content">todoContenido</string>
-    <string name="pref_switch_note">Ara notificaciones</string>
-    <string name="hey_ara_listener_switch">Escuchar por \"hey Ara\"</string>
-    <string name="textOK">Ok</string>
     <string name="moneyText">dinero</string>
-    <string name="updateTxt">Actualizar</string>
 </resources>

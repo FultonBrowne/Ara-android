@@ -31,32 +31,12 @@
 
 
     </style>
-    <style name="myDialog" parent="Theme.AppCompat.Dialog">
-        <item name="android:windowNoTitle">true</item>
-    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
     </style>
-
-    <style name="PreferencesTheme" parent="AppTheme.NoActionBar">
-        <item name="android:textColorPrimary">@color/md_white_1000</item>
-        <item name="android:textColorSecondary">@color/md_white_1000</item>
-        <item name="android:statusBarColor">@color/colorBack</item>
-        <item name="android:alertDialogTheme">@style/EditTextPreferences</item>
-    </style>
-
-    <style name="EditTextPreferences" parent="ThemeOverlay.AppCompat.Dialog.Alert">
-        <item name="android:textColorPrimary">@color/md_white_1000</item>
-        <item name="android:windowBackground">@color/colorBack</item>
-        <item name="buttonBarPositiveButtonStyle">@style/ButtonDialogAlert</item>
-        <item name="android:layout_marginLeft">4dp</item>
-        <item name="android:layout_marginRight">4dp</item>
-    </style>
-
-    <style name="ButtonDialogAlert" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog"/>
 
     <style name="AppTheme.Translucent" parent="AppTheme.NoActionBar">
         <item name="android:windowNoTitle">true</item>

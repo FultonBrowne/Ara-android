@@ -18,89 +18,15 @@
     <string name="app_name">Ara</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_about">Über</string>
-    <string name="greet">Hallo, kann ich helfen?</string>
-    <string name="greet1">Hallo, @string/greet</string>
-    <string name="blank"/>
-    <string name="title_activity_settings">Einstellungen</string>
 
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="pref_header_general">Allgemein</string>
-
-    <string name="pref_title_social_recommendations">Soziale Empfehlungen aktivieren</string>
-    <string name="pref_description_social_recommendations">
-        Empfehlungen für Kontaktpersonen basierend auf Ihrem Nachrichtenverlauf
-    </string>
-    <string name="botton_menu_title">home</string>
-    <string name="new_app_widget2_title">WIDGET DEMNÄCHST VERFÜGBAR</string>
-
-    <string name="pref_title_display_name">Angezeigter Name</string>
-    <string name="pref_default_display_name">Max Mustermann</string>
-
-    <string name="pref_title_add_friends_to_messages">Freunde zu Nachrichten hinzufügen</string>
-    <string-array name="pref_example_list_titles">
-        <item>Immer</item>
-        <item>Wenn möglich</item>
-        <item>Nie</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Daten &amp; synchronisation</string>
-
-    <string name="pref_title_sync_frequency">Synchronisationsfrequenz</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 Minuten</item>
-        <item>30 Minuten</item>
-        <item>1 Stunde</item>
-        <item>3 Stunden</item>
-        <item>6 Stunden</item>
-        <item>Nie</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Eintrag 1</item>
-        <item>Eintrag 2</item>
-        <item>Eintrag 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value"/>
-
-    <string name="pref_title_system_sync_settings">Systemeinstellungen synchronisieren</string>
 
     <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Benachrichtigungen</string>
 
-    <string name="pref_title_new_message_notifications">Neue Nachrichten</string>
-
-    <string name="pref_title_ringtone">Klingelton</string>
-    <string name="pref_ringtone_silent">Lautlos</string>
-
-    <string name="pref_title_vibrate">Vibrieren</string>
-    <string name="email">email</string>
-    <string name="text">Nachrichten</string>
-    <string name="news">Meldungen</string>
-    <string name="appwidget_text">BEISPIEL</string>
-    <string name="add_widget">Widget hinzufügen</string>
     <string name="title_activity_about">Über</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -191,41 +117,9 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
-    <string name="image">Kamera</string>
-    <string-array name="front">Hallo @array/pref_example_list_values</string-array>
 
-    <string name="title_activity_setup">Konfiguration</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Passwort</string>
-    <string name="action_sign_in">Einloggen oder Registrieren</string>
-    <string name="action_sign_in_short">Anmelden</string>
-    <string name="welcome">"Herzlich willkommen!"</string>
-    <string name="invalid_username">Ungültiger Benutzername</string>
-    <string name="invalid_password">Das Passwort muss länger als 5 Zeichen sein</string>
-    <string name="login_failed">"Login fehlgeschlagen"</string>
-    <string name="prompt_firstname">Vorname</string>
-    <string name="welcome1">Willkommen bei Ara! Zum Anfang, wie lautet Ihr Vorname?</string>
-    <string name="done">Abschließen und Ara öffnen</string>
-    <string name="themeMode"/>
-    <string name="theme">Dunkelmodus erzwingen</string>
-    <string name="keytheme">list_preference_1</string>
-    <string name="default1">Systemstandard</string>
-    <array name="themeList">
-        <item>Dunkel</item>
-        <item>Hell</item>
-        <item>Batteriesparmodus</item>
-        <item>Systemstandard</item>
-    </array>
-    <string name="url">https://feeds.foxnews.com/foxnews/latest</string>
-    <string name="test">Test</string>
-    <string name="hello1">hallo</string>
-    <string name="configure">Konfigurieren</string>
     <string name="title_activity_all_content">allContent</string>
-    <string name="pref_switch_note">Ara-Benachrichtigungen</string>
-    <string name="hey_ara_listener_switch">Auf \"hey Ara\" hören</string>
-    <string name="textOK">Ok</string>
     <string name="moneyText">Geld</string>
-    <string name="updateTxt">Update</string>
     <string name="replace_with_your_own_action">Durch eigene Aktion ersetzen</string>
     <string name="action">Aktion</string>
     <string name="name">NAME</string>
@@ -242,8 +136,6 @@
     <string name="eventLocation">eventOrt</string>
     <string name="gps_enable">GPS einschalten</string>
     <string name="network_enable">Netzwerk einschalten</string>
-    <string name="latittude">breitengrad:</string>
-    <string name="longitude">längengrad:</string>
     <string name="exception">Ausnahme</string>
     <string name="tag_AssistantService">AssistentService</string>
     <string name="msg_onReady">onReady</string>
@@ -252,5 +144,4 @@
     <string name="msg_onHandleAssist">onHandleAssist</string>
     <string name="hi">hi</string>
     <string name="msg_onHandleScreenshot">onHandleScreenshot</string>
-    <string name="msg_Reading_labels_from">Lese labels von:</string>
 </resources>

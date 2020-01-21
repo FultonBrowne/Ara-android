@@ -30,6 +30,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class SkillsSearch {
@@ -95,18 +96,20 @@ class SkillsSearch {
         return listOf(finalAct, pre, end)
     }
     @Synchronized
-    fun main(phrase: String, ctx: Context, act:Activity,  searchFunctions: SearchFunctions) {
+    fun main(phrase: String, ctx: Context, act:Activity,  searchFunctions: SearchFunctions): ArrayList<RssFeedModel> {
          Data.list(SkillsFromDB::class.java, DefaultPartitions.APP_DOCUMENTS).thenAccept {
            println(it.currentPage.items)
             for (i in it.currentPage.items){
                 if (i.deserializedValue.pre.startsWith(prefix = phrase, ignoreCase = true)){
                     done = true
                      out.addAll(RunActions().doIt(Parse().parse(i.deserializedValue.action), phrase.replace(i.deserializedValue.pre + " ", ""), ctx, act, searchFunctions))
-                    break
+                    return@thenAccept
                 }
             }
-             if(done == null)done = false
+             done = true
         }
+        while(done == false);
+        return out
 
     }
 

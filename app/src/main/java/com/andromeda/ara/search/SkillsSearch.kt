@@ -22,6 +22,7 @@ import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
 import com.andromeda.ara.skills.SearchFunctions
 import com.andromeda.ara.util.OnDeviceSkills
+import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.util.SkillsFromDB
 import com.andromeda.ara.util.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -32,6 +33,8 @@ import java.util.*
 
 
 class SkillsSearch {
+    val out = arrayListOf<RssFeedModel>()
+    var done:Boolean? = null
     fun search(phrase: String, ctx: Context): List<String> {
         val mapper = ObjectMapper(YAMLFactory())
         print(mapper.writeValueAsString(SkillsModel("OPEN_APP", "TERM", "")))
@@ -92,12 +95,14 @@ class SkillsSearch {
         return listOf(finalAct, pre, end)
     }
     @Synchronized
-    fun main(phrase: String, ctx: Context, act:Activity,  searchFunctions: SearchFunctions){
+    fun main(phrase: String, ctx: Context, act:Activity,  searchFunctions: SearchFunctions) {
          Data.list(SkillsFromDB::class.java, DefaultPartitions.APP_DOCUMENTS).thenAccept {
            println(it.currentPage.items)
             for (i in it.currentPage.items){
                 if (i.deserializedValue.pre.startsWith(prefix = phrase, ignoreCase = true)){
-                    RunActions().doIt(Parse().parse(i.deserializedValue.action), phrase.replace(i.deserializedValue.pre + " ", ""), ctx, act, searchFunctions)
+                    done = true
+                     out.addAll(RunActions().doIt(Parse().parse(i.deserializedValue.action), phrase.replace(i.deserializedValue.pre + " ", ""), ctx, act, searchFunctions))
+                    break
                 }
             }
         }

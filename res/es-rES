@@ -16,21 +16,14 @@
 
 package com.andromeda.ara.skills
 
-import android.hardware.Camera
+import android.content.Context
+import android.content.Intent
+import com.andromeda.ara.services.AraActions
 
-class FlashLight {
-    fun on(){
-        val cam: Camera = Camera.open()
-        val p: Camera.Parameters = cam.getParameters()
-        p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH)
-        cam.setParameters(p)
-        cam.startPreview()
-    }
-    fun off(){
-        val cam: Camera = Camera.open()
-        val p: Camera.Parameters = cam.getParameters()
-        p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH)
-        cam.stopPreview();
-        cam.release();
+class Util {
+    fun timer(ctx: Context, time: String) {
+        val i = Intent(ctx, AraActions::class.java)
+        i.putExtra("type", 1)
+        ctx.startService(i)
     }
 }

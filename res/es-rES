@@ -14,53 +14,34 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util;
+package com.andromeda.ara.util
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
+import android.app.Activity
+import android.content.Context
+import android.nfc.NdefMessage
+import android.nfc.NdefRecord
+import android.nfc.NdefRecord.createMime
+import android.nfc.NfcAdapter
+import android.nfc.NfcEvent
 
-public class OnDeviceSkills {
-    private OnDeviceSkillsDB dbHelper;
 
-    private Context context;
+class NfcTransmit : NfcAdapter.CreateNdefMessageCallback{
 
-    private SQLiteDatabase database;
-
-    public OnDeviceSkills(Context c) {
-        context = c;
-    }
-
-    public OnDeviceSkills open() throws SQLException {
-        dbHelper = new OnDeviceSkillsDB(context);
-        database = dbHelper.getWritableDatabase();
-        return this;
-    }
-
-    public void close() {
-        dbHelper.close();
-    }
-
-    public void insert(String pre, String end, String act) {
-        ContentValues contentValue = new ContentValues();
-        contentValue.put(OnDeviceSkillsDB.PRE, pre);
-        contentValue.put(OnDeviceSkillsDB.END, end);
-        contentValue.put(OnDeviceSkillsDB.ACT, act);
-        database.insertWithOnConflict(OnDeviceSkillsDB.TABLE_NAME, null, contentValue, SQLiteDatabase.CONFLICT_REPLACE);
+    override fun createNdefMessage(event: NfcEvent?): NdefMessage {
+        val text = "Beam me up, Android!\n\n" +
+                "Beam Time: " + System.currentTimeMillis()
+        return NdefMessage(
+ createMime("application/vnd.com.example.android.beam", text.toByteArray())
+               ,NdefRecord.createApplicationRecord("com.andromeda.ara")
+        )
 
     }
-
-
-    public Cursor fetch() {
-        String[] columns = new String[]{OnDeviceSkillsDB.ID, OnDeviceSkillsDB.PRE, OnDeviceSkillsDB.END, OnDeviceSkillsDB.ACT};
-        Cursor cursor = database.query(OnDeviceSkillsDB.TABLE_NAME, columns, null, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-        }
-        return cursor;
-
-
+    fun main(text:String, ctx:Context, act:Activity){
+        val nfcAdapter: NfcAdapter? = NfcAdapter.getDefaultAdapter(ctx)
+        nfcAdapter?.setNdefPushMessageCallback(this, act)
     }
+
 }
+
+
+

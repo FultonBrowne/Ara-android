@@ -1,40 +1,68 @@
-/*
- * Copyright (c) 2020. Fulton Browne
- *  This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package com.andromeda.ara.util;
 
-import androidx.annotation.Nullable;
+import android.graphics.*;
+import android.graphics.drawable.Drawable;
 
-public class RssFeedModel {
+/**
+ * Image with rounded corners
+ *
+ * You can find the original source here:
+ * http://www.curious-creature.org/2012/12/11/android-recipe-1-image-with-rounded-corners/
+ *
+ * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
+ */
+public class RoundCornersDrawable extends Drawable {
 
-    public String title;
-    public String link;
-    public String description;
-    public String image;
-    public String out;
-    public Boolean longText;
+    private final float mCornerRadius;
+    private final RectF mRect = new RectF();
+    private final Paint mPaint;
+    private final int mMargin;
 
-    public RssFeedModel(String description, String link, String title, String image, @Nullable String out, Boolean longText) {
-        this.title = title;
-        this.link = link;
-        this.description = description;
-        this.image = image;
-        this.out = out;
-        this.longText = longText;
+    public RoundCornersDrawable(Bitmap bitmap, float cornerRadius, int margin) {
+        mCornerRadius = cornerRadius;
+
+        //private final RectF mRectBottomR = new RectF();
+        //private final RectF mRectBottomL = new RectF();
+        BitmapShader mBitmapShader = new BitmapShader(bitmap,
+                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setShader(mBitmapShader);
+
+        mMargin = margin;
     }
+
+    @Override
+    protected void onBoundsChange(Rect bounds) {
+        super.onBoundsChange(bounds);
+        mRect.set(mMargin, mMargin, bounds.width() - mMargin, bounds.height() - mMargin);
+        //mRectBottomR.set( (bounds.width() -mMargin) / 2, (bounds.height() -mMargin)/ 2,bounds.width() - mMargin, bounds.height() - mMargin);
+       // mRectBottomL.set( 0,  (bounds.height() -mMargin) / 2, (bounds.width() -mMargin)/ 2, bounds.height() - mMargin);
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        canvas.drawRoundRect(mRect, mCornerRadius, mCornerRadius, mPaint);
+        //canvas.drawRect(mRectBottomR, mPaint); //only bottom-right corner not rounded
+        //canvas.drawRect(mRectBottomL, mPaint); //only bottom-left corner not rounded
+
+    }
+
+    @Override
+    public int getOpacity() {
+        return PixelFormat.TRANSLUCENT;
+    }
+
+    @Override
+    public void setAlpha(int alpha) {
+        mPaint.setAlpha(alpha);
+    }
+
+    @Override
+    public void setColorFilter(ColorFilter cf) {
+        mPaint.setColorFilter(cf);
+    }
+
+
 }
-
-

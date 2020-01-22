@@ -16,18 +16,61 @@
 
 package com.andromeda.ara.voice;
 
+import android.app.assist.AssistContent;
+import android.app.assist.AssistStructure;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.service.voice.VoiceInteractionSession;
-import android.service.voice.VoiceInteractionSessionService;
+import android.util.Log;
+import android.widget.Toast;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import com.andromeda.ara.R;
+import com.andromeda.ara.activitys.MainActivity;
 
-//@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-public class AssistSessServ extends VoiceInteractionSessionService {
-    private Context ctx = this;
+@RequiresApi(api = Build.VERSION_CODES.M)
+public class AssistSess extends VoiceInteractionSession {
+    private Context context;
 
+    AssistSess(Context context) {
+        super(context);
+        this.context = context;
+    }
 
     @Override
-    public VoiceInteractionSession onNewSession(Bundle args) {
-        return (new AssistSess(this));
+    //Runs when Ara is summoned
+    public void onHandleAssist(Bundle data, AssistStructure structure, AssistContent content) {
+        super.onHandleAssist(data, structure, content);
+        Log.v(context.getString(R.string.tag_AssistantSession), context.getString(R.string.msg_onHandleAssist));
+        //new intent
+        Toast.makeText(context, context.getString(R.string.hi), Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(context, VoiceMain.class);
+
+        //Run the intent
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startAssistantActivity(intent);
+            onBackPressed();
+        } else {
+            //Start the home page
+            intent = new Intent(context, VoiceMain.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("voice", true);
+            context.startActivity(intent);
+        }
+
+
     }
+
+
+    //gets screen shot if allowed via permissions
+    //TODO add a screen shot feature
+    @Override
+    public void onHandleScreenshot(@Nullable Bitmap screenshot) {
+        Log.v(context.getString(R.string.tag_AssistantSession), context.getString(R.string.msg_onHandleScreenshot));
+        super.onHandleScreenshot(screenshot);
+    }
+
 }

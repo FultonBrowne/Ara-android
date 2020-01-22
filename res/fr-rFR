@@ -14,4 +14,17 @@
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/list" android:name="com.andromeda.ara.MainActivity" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="16dp" android:layout_marginRight="16dp" tools:context=".activitys.MainActivity" tools:listitem="@layout/fragment_item"/>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:card_view="http://schemas.android.com/tools" android:id="@+id/card" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" app:cardBackgroundColor="@color/card_color" app:cardCornerRadius="8dp" app:cardUseCompatPadding="true" app:cardPreventCornerOverlap="true">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:elevation="0dp" android:orientation="vertical">
+
+        <com.makeramen.roundedimageview.RoundedImageView android:id="@+id/item_image_view" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="centerInside" app:riv_corner_radius="8dp" android:contentDescription="@string/app_name"/>
+
+
+        <TextView android:id="@+id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="@dimen/text_margin" android:textAppearance="?attr/textAppearanceListItem" android:textColor="@color/md_white_1000"/>
+
+        <TextView android:id="@+id/item_number" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="@dimen/text_margin" android:textAppearance="?attr/textAppearanceListItem" android:textColor="@color/md_white_1000"/>
+
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

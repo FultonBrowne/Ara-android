@@ -14,6 +14,27 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util
+package com.andromeda.ara.util;
 
-data class SkillsDBModel(val action: SkillsModel, var name: String)
+import androidx.annotation.Nullable;
+
+public class RssFeedModel {
+
+    public String title;
+    public String link;
+    public String description;
+    public String image;
+    public String out;
+    public Boolean longText;
+
+    public RssFeedModel(String description, String link, String title, String image, @Nullable String out, Boolean longText) {
+        this.title = title;
+        this.link = link;
+        this.description = description;
+        this.image = image;
+        this.out = out;
+        this.longText = longText;
+    }
+}
+
+

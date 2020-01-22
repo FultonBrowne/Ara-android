@@ -16,17 +16,6 @@
 
 package com.andromeda.ara.skills
 
-class Settings {
-    fun airPlaneMode() {
-
-    }
-
-    fun wiFi() {
-
-    }
-
-    fun bluTooth() {
-
-    }
-
+interface SearchFunctions {
+    fun callBack(m:String, link:String)
 }

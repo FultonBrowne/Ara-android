@@ -14,59 +14,21 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util
+package com.andromeda.ara.util;
 
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonElement
-import com.google.gson.JsonParser
-import java.io.BufferedReader
-import java.io.DataOutputStream
-import java.io.InputStreamReader
-import java.net.URL
-import javax.net.ssl.HttpsURLConnection
+public class SkillsModel {
+    public String action;
+    public String arg1;
+    public String arg2;
 
 
-class SpellChecker {
-    var host = "https://api.cognitive.microsoft.com"
-    var path = "/bing/v7.0/spellcheck"
-
-    var key = "77216f36144140f7b408d7488478b827"
-
-    var mkt = "en-US"
-    var mode = "proof"
-    @Throws(Exception::class)
-    fun check(text:String): String? {
-        val params = "?mkt=$mkt&mode=$mode"
-        // add the rest of the code snippets here (except prettify() and main())...
-        val url = URL(host + path + params)
-        val connection = url.openConnection() as HttpsURLConnection
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        connection.setRequestProperty("Ocp-Apim-Subscription-Key", key);
-        connection.setDoOutput(true);
-        val wr = DataOutputStream(connection.outputStream)
-        wr.writeBytes("text=$text")
-        wr.flush()
-        wr.close()
-        val `in` = BufferedReader(
-                InputStreamReader(connection.inputStream))
-        var line: String?
-        while (`in`.readLine().also { line = it } != null) {
-          return prettify(line, text)
-        }
-        `in`.close()
-        return null
-    }
-    fun prettify(json_text: String?, oldText:String): String? {
-        val parser = JsonParser()
-        var returnval = oldText
-        val json: JsonElement = parser.parse(json_text)
-        val json2 = json.asJsonObject.get("flaggedTokens").asJsonArray
-        for (i in json2){
-            returnval = returnval.replace(i.asJsonObject.get("token").asString, i.asJsonObject.get("suggestions").asJsonArray[0].asJsonObject.get("suggestions").asString )
-        }
-        return returnval
+    public SkillsModel(String action, String arg1, String arg2) {
+        this.action = action;
+        this.arg1 = arg1;
+        this.arg2 = arg2;
     }
 
+    public SkillsModel() {
+    }
 
 }

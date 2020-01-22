@@ -16,46 +16,18 @@
 
 package com.andromeda.ara.voice;
 
-
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import com.andromeda.ara.util.DownloadTask;
-import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
+import android.os.Bundle;
+import android.service.voice.VoiceInteractionSession;
+import android.service.voice.VoiceInteractionSessionService;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
-
-class DeepSpeech {
-    private DeepSpeechModel _m = null;
-    public String decode = "";
+//@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+public class AssistSessServ extends VoiceInteractionSessionService {
+    private Context ctx = this;
 
 
-    private void newModel(Context ctx) {
-        System.out.println("working");
-        if (this._m == null) {
-            this._m = new DeepSpeechModel(ctx.getCacheDir() + "/main.tflite", ctx.getCacheDir() + "/alphabet.txt", 50);
-        }
-
+    @Override
+    public VoiceInteractionSession onNewSession(Bundle args) {
+        return (new AssistSess(this));
     }
-
-
-
-    public String voiceV2(byte[] bytes, Context ctx){
-        newModel(ctx);
-        short[] shorts = new short[bytes.length / 2];
-        System.out.println("num info");
-        ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
-        System.out.println("done");
-        return this._m.stt(shorts, shorts.length);
-    }
-    public void voiceV3(ByteArrayOutputStream bytes){
-
-
-    }
-
 }
-

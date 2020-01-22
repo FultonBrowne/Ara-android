@@ -14,19 +14,48 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.feeds
+package com.andromeda.ara.util
 
-import com.andromeda.ara.util.JsonParse
-import com.andromeda.ara.util.OutputModel
-import java.net.URL
-import java.util.*
+import android.content.Context
+import android.content.SharedPreferences
+import com.andromeda.ara.constants.User
+import com.microsoft.appcenter.auth.Auth
+import com.microsoft.appcenter.auth.SignInResult
+import com.nimbusds.jwt.JWTParser
+import net.minidev.json.JSONArray
 
-class Skills {
-    fun getThem(): ArrayList<OutputModel>? {
-        val url = URL("https://ara-server.azurewebsites.net/store")
-        println(url)
-        //parse Json
-        return JsonParse().search(url.readText())
+class LogIn {
+    fun logIn(mPrefs: SharedPreferences, ctx: Context) {
+
+        Auth.setEnabled(true)
+        Auth.signIn().thenAccept { signInResult: SignInResult ->
+            if (signInResult.exception == null) { // Sign-in succeeded.
+                try {
+                    val accountId = signInResult.userInformation.accountId
+                    val idToken = signInResult.userInformation.idToken
+                    println(accountId)
+                    val parsedToken = JWTParser.parse(idToken)
+                    val claims = parsedToken.jwtClaimsSet.claims
+                    print("check if null")
+                    val emails = claims["emails"] as JSONArray?
+                    val displayName = claims["given_name"] as String?
+                    mPrefs.edit().putString("name", displayName).apply()
+                    print(displayName)
+                    if (emails != null && !emails.isEmpty()) {
+                        User.name =displayName!!
+                        User.id = accountId
+                        User.email = emails[0].toString()
+                        val firstEmail = emails[0].toString()
+                        mPrefs.edit().putString("email", firstEmail).apply()
+                        print(firstEmail)
+                    } else print("emails null")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            } else {
+                signInResult.exception.printStackTrace()
+
+            }
+        }
     }
-
 }

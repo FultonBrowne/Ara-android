@@ -99,4 +99,7 @@ class RunActions {
 
         return returnedVal
     }
+    fun respond(searchFunctions: SearchFunctions, m:String){
+        searchFunctions.callForString(m)
+    }
 }

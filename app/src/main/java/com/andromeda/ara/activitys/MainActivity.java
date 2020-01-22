@@ -482,4 +482,11 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
     public void callBack(@NotNull String m, @NotNull String link) {
         new AraPopUps().textSearchResponse(this, m, this, this, recyclerView);
     }
+
+    @NotNull
+    @Override
+    public String callForString(@NotNull String m) {
+
+        return null;
+    }
 }

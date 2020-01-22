@@ -290,4 +290,10 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
         startRecording(link);
 
     }
+
+    @NotNull
+    @Override
+    public String callForString(@NotNull String m) {
+        return null;
+    }
 }

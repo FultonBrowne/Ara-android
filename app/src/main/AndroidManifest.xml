@@ -75,9 +75,7 @@
                 android:enabled="true"
                 android:exported="true"/>
 
-        <activity
-                android:name=".activitys.SignIn"
-                android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name="com.microsoft.identity.client.BrowserTabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>

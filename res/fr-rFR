@@ -16,40 +16,57 @@
 
 package com.andromeda.ara.util
 
-import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonElement
+import com.google.gson.JsonParser
+import java.io.BufferedReader
+import java.io.DataOutputStream
+import java.io.InputStreamReader
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
-class OnDeviceSkillsDB(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
-    override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL(CREATE_TABLE)
+class SpellChecker {
+    var host = "https://api.cognitive.microsoft.com"
+    var path = "/bing/v7.0/spellcheck"
+
+    var key = "77216f36144140f7b408d7488478b827"
+
+    var mkt = "en-US"
+    var mode = "proof"
+    @Throws(Exception::class)
+    fun check(text:String): String? {
+        val params = "?mkt=$mkt&mode=$mode"
+        // add the rest of the code snippets here (except prettify() and main())...
+        val url = URL(host + path + params)
+        val connection = url.openConnection() as HttpsURLConnection
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        connection.setRequestProperty("Ocp-Apim-Subscription-Key", key);
+        connection.setDoOutput(true);
+        val wr = DataOutputStream(connection.outputStream)
+        wr.writeBytes("text=$text")
+        wr.flush()
+        wr.close()
+        val `in` = BufferedReader(
+                InputStreamReader(connection.inputStream))
+        var line: String?
+        while (`in`.readLine().also { line = it } != null) {
+          return prettify(line, text)
+        }
+        `in`.close()
+        return null
+    }
+    fun prettify(json_text: String?, oldText:String): String? {
+        val parser = JsonParser()
+        var returnval = oldText
+        val json: JsonElement = parser.parse(json_text)
+        val json2 = json.asJsonObject.get("flaggedTokens").asJsonArray
+        for (i in json2){
+            returnval = returnval.replace(i.asJsonObject.get("token").asString, i.asJsonObject.get("suggestions").asJsonArray[0].asJsonObject.get("suggestions").asString )
+        }
+        return returnval
     }
 
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
-        onCreate(db)
-    }
 
-    companion object {
-
-        // Table Name
-        const val TABLE_NAME = "ODS"
-
-        // Table columns
-        const val ID = "_id"
-        const val PRE = "pre"
-        const val END = "end"
-        const val ACT = "action"
-
-        // Database Information
-        private const val DB_NAME = "ODS.DB"
-
-        // database version
-        internal const val DB_VERSION = 1
-
-        // Creating table query
-        private const val CREATE_TABLE = ("create table " + TABLE_NAME + "(" + ID
-                + " INTEGER PRIMARY KEY AUTOINCREMENT, " + PRE + " TEXT NOT NULL, " + END + " TEXT NOT NULL, " + ACT + " TEXT);")
-    }
 }

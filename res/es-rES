@@ -14,61 +14,49 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.search
+package com.andromeda.ara.phoneData
+
+import android.content.ContentResolver
+import android.content.Context
+import android.database.Cursor
+import android.provider.ContactsContract
 
 
-import com.andromeda.ara.constants.ServerUrl
-import com.andromeda.ara.util.JsonParse
-import com.andromeda.ara.util.OutputModel
-import java.net.URL
-import java.util.*
+class GetContacts {
 
-/**
- * AraSearch class, returns a json parse of url.
- */
+    fun search(search: String, ctx: Context): String {
+        val cr: ContentResolver = ctx.contentResolver
+        val cur: Cursor? = cr.query(ContactsContract.Contacts.CONTENT_URI,
+                null, null, null, null)
+        var no = ""
 
-class AraSearch {
+        if ((cur?.count ?: 0) > 0) {
+            while (cur != null && cur.moveToNext()) {
+                val id: String = cur.getString(
+                        cur.getColumnIndex(ContactsContract.Contacts._ID))
+                val name: String = cur.getString(cur.getColumnIndex(
+                        ContactsContract.Contacts.DISPLAY_NAME))
+                if (cur.getInt(cur.getColumnIndex(
+                                ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
+                    val pCur: Cursor? = cr.query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                            null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", arrayOf(id), null)
+                    while (pCur!!.moveToNext()) {
+                        val phoneNo: String = pCur.getString(pCur.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.NUMBER))
+                        if (name == search) {
+                            no = phoneNo
+                        }
 
-    fun arrayOfOutputModels(search: String, log: String, lat: String): ArrayList<OutputModel>? {
-        //get URL
-
-        val url = URL("${ServerUrl.url}/api/$search&log=$log&lat=$lat")
-
-        println(url)
-        var text = "[{\"title\":\"Blank Input Received\",\"link\":\"https://github.com/fultonbrowne/ara-android\",\"description\":\"Please Try Again\",\"OutputTxt\":\"Error Was Encountered\",\"exes\":\"\"}]"
-        //parse Json
-        try {
-            text = url.readText()
-
-        } catch (e: Exception) {
-
+                    }
+                    pCur.close()
+                }
+            }
         }
-
-
-        return JsonParse().search(text)
-
+        cur?.close()
+        return no
 
     }
-    fun arrayOfOutputModels2(search: String): ArrayList<OutputModel>? {
-        //get URL
-
-        val url = URL(search)
-
-        println(url)
-        var text = "[{\"title\":\"Blank Input Received\",\"link\":\"https://github.com/fultonbrowne/ara-android\",\"description\":\"Please Try Again\",\"OutputTxt\":\"Error Was Encountered\",\"exes\":\"\"}]"
-        //parse Json
-        try {
-            text = url.readText()
-
-        } catch (e: Exception) {
-
-        }
-
-
-        return JsonParse().search(text)
-
-
-    }
-
 
 }

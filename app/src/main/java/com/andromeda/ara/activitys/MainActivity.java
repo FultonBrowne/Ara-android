@@ -376,11 +376,9 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         LocationManager locationManager = locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
                         assert locationManager != null;
-                        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     }
                     try {
                         new Search().main(query, getApplicationContext(), MainActivity.this, MainActivity.this, recyclerView);
-                        mAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

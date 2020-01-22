@@ -14,4 +14,9 @@
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
-<TextView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/mainskillstext"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+    <Switch android:id="@+id/num1switch" android:layout_width="match_parent" android:layout_height="wrap_content" android:visibility="invisible"/>
+    <EditText android:id="@+id/num1String" android:layout_width="match_parent" android:layout_height="wrap_content" android:visibility="invisible" android:inputType="number"/>
+
+
+</LinearLayout>

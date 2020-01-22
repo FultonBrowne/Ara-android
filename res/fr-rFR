@@ -16,22 +16,46 @@
 
 package com.andromeda.ara.voice;
 
+
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.speech.tts.TextToSpeech;
+import android.content.DialogInterface;
+import com.andromeda.ara.util.DownloadTask;
+import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
 
-import java.util.Locale;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
-public class TTS {
-    private TextToSpeech t1;
 
-    void start(Context ctx, String text) {
-        t1 = new TextToSpeech(ctx, status -> {
-            if (status != TextToSpeech.ERROR) {
-                t1.setLanguage(Locale.UK);
-                t1.speak(text, TextToSpeech.QUEUE_FLUSH, null, "123456789");
-                System.out.println("done");
-            } else System.out.println("errrrrrrrrr");
-        });
+class DeepSpeech {
+    private DeepSpeechModel _m = null;
+    public String decode = "";
+
+
+    private void newModel(Context ctx) {
+        System.out.println("working");
+        if (this._m == null) {
+            this._m = new DeepSpeechModel(ctx.getCacheDir() + "/main.tflite", ctx.getCacheDir() + "/alphabet.txt", 50);
+        }
+
+    }
+
+
+
+    public String voiceV2(byte[] bytes, Context ctx){
+        newModel(ctx);
+        short[] shorts = new short[bytes.length / 2];
+        System.out.println("num info");
+        ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
+        System.out.println("done");
+        return this._m.stt(shorts, shorts.length);
+    }
+    public void voiceV3(ByteArrayOutputStream bytes){
+
+
     }
 
 }
+

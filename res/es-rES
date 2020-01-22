@@ -14,60 +14,45 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util;
+package com.andromeda.ara.util
 
-import android.content.Context;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
-import androidx.recyclerview.widget.RecyclerView;
+import android.R
+import android.app.Activity
+import android.app.AlertDialog
+import android.widget.Toast
+import com.microsoft.appcenter.push.PushListener
+import com.microsoft.appcenter.push.PushNotification
 
-public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
-    private GestureDetector gestureDetector;
-    private ClickListener clickListener;
-
-    public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
-        this.clickListener = clickListener;
-        gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onSingleTapUp(MotionEvent e) {
-                return true;
+class PushUtil : PushListener {
+    override fun onPushNotificationReceived(activity: Activity, pushNotification: PushNotification) { /* The following notification properties are available. */
+        val title = pushNotification.title
+        val message = pushNotification.message
+        val customData = pushNotification.customData
+        /*
+         * Message and title cannot be read from a background notification object.
+         * Message being a mandatory field, you can use that to check foreground vs background.
+         */if (message != null) { /* Display an alert for foreground push. */
+            val dialog = AlertDialog.Builder(activity)
+            if (title != null) {
+                dialog.setTitle(title)
             }
-
-            @Override
-            public void onLongPress(MotionEvent e) {
-                View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
-                if (child != null && clickListener != null) {
-                    clickListener.onLongClick(child, recyclerView.getChildPosition(child));
-                }
+            dialog.setMessage(message)
+            if (customData.isNotEmpty()) {
+                dialog.setMessage(message + "\n" + customData)
             }
-        });
-    }
+            dialog.setPositiveButton(R.string.ok, null)
+            dialog.show()
+        } else { /* Display a toast when a background push is clicked. */
+            val pre = pushNotification.customData["db"]?.get(0)
+            val end = pushNotification.customData["db"]?.get(1)
+            val act = pushNotification.customData["db"]?.get(2)
+            OnDeviceSkills(activity.applicationContext).insert(pre.toString(), end.toString(), act.toString())
 
-    @Override
-    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            //push new skills
 
-        View child = rv.findChildViewUnder(e.getX(), e.getY());
-        if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
-            clickListener.onClick(child, rv.getChildPosition(child));
+
+            Toast.makeText(activity, "test", Toast.LENGTH_LONG).show() // For example R.string.push_toast would be "Push clicked with data=%1s"
         }
-        return false;
-    }
-
-    @Override
-    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
-    }
-
-    @Override
-    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-    }
-
-    public interface ClickListener {
-        void onClick(View view, int position);
-
-        void onLongClick(View view, int position);
     }
 }

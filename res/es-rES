@@ -16,89 +16,40 @@
 
 package com.andromeda.ara.util;
 
-
-/**
- * Created by Chromicle(Ajay Prabhakar).
- */
-
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Build;
-import android.os.Bundle;
-import android.widget.Toast;
-import androidx.core.content.ContextCompat;
 import com.andromeda.ara.R;
 
-import static android.content.Context.LOCATION_SERVICE;
+import java.util.ArrayList;
 
-public class Locl implements LocationListener {
+public class ApiOutputToRssFeed {
+    public synchronized ArrayList<RssFeedModel> main(ArrayList<OutputModel> tofeed) {
+        ArrayList<RssFeedModel> feedModels = new ArrayList<>();
+        System.out.println(R.string.starting_step_2);
+        System.out.println(tofeed.size());
+        // System.out.println(tofeed.get(1).link.toString());
 
-    public static double latitude;
-    private Location location;
-    boolean isGPSEnabled = false;
-    boolean isNetworkEnabled = false;
-    public static double longitude;
-
-    public Locl(Context ctx) {
         try {
-            LocationManager locationManager = (LocationManager) ctx.getSystemService(LOCATION_SERVICE);
-            isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            Toast.makeText(ctx, ctx.getString(R.string.gps_enable) + isGPSEnabled, Toast.LENGTH_LONG).show();
-            isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-            Toast.makeText(ctx, ctx.getString(R.string.network_enable) + isNetworkEnabled, Toast.LENGTH_LONG).show();
 
-            if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission
-                    (ctx, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ContextCompat.checkSelfPermission(ctx,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION);
+
+            for (int i = 0; i <= feedModels.size(); i++) {
+                System.out.println(i);
+                String mInfo = tofeed.get(i).description;
+                String mTitle = tofeed.get(i).title;
+                System.out.println(mTitle);
+                String mlink = tofeed.get(i).link;
+                String mOut = tofeed.get(i).OutputTxt;
+                String mPic = tofeed.get(i).image;
+                RssFeedModel mainModel = new RssFeedModel(mInfo, mlink, mTitle, mPic, mOut, true);
+                System.out.println(mOut);
+                feedModels.add(mainModel);
+
+
             }
-            if (isGPSEnabled) {
-                locationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER, 0, 0, this);
-                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            }
-            if (isNetworkEnabled) {
-                locationManager.requestLocationUpdates(
-                        LocationManager.NETWORK_PROVIDER, 0, 0, this);
-                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            }
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-            //Toast.makeText(ctx, ctx.getString(R.string.latittude) + latitude + ctx.getString(R.string.longitude) + longitude, Toast.LENGTH_LONG).show();
-
-
-        } catch (Exception ex) {
-
-            Toast.makeText(ctx, ctx.getString(R.string.exception) + ex, Toast.LENGTH_LONG).show();
-
+        } catch (Exception ignored) {
         }
-    }
 
-    @Override
-    public void onLocationChanged(Location loc) {
-        loc.getLatitude();
-        loc.getLongitude();
-
-        latitude = loc.getLatitude();
-        longitude = loc.getLongitude();
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-        //print "Currently GPS is Disabled";
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-        //print "GPS got Enabled";
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
+        return feedModels;
 
     }
+
 }
+

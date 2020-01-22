@@ -14,6 +14,6 @@
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="32dp" android:height="32dp" android:viewportWidth="32" android:viewportHeight="32">
-    <path android:pathData="m4,14l20,0l0,-2l-20,0l0,2zM15,26l7,0l0,-2l-7,0l0,2zM15,22l9,0l0,-2l-9,0l0,2zM15,18l9,0l0,-2l-9,0l0,2zM4,26l9,0l0,-10l-9,0l0,10zM28,10l0,-4l-28,0l0,22c0,0 0,4 4,4l25,0c0,0 3,-0.062 3,-4l0,-18l-4,0zM4,30c-2,0 -2,-2 -2,-2l0,-20l24,0l0,20c0,0.921 0.284,1.558 0.676,2l-22.676,0z" android:fillColor="#fcfcfc"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:tint="#FFFFFF" android:viewportHeight="24.0" android:viewportWidth="24.0" android:width="24dp">
+    <path android:fillColor="#FF000000" android:pathData="M11.8,10.9c-2.27,-0.59 -3,-1.2 -3,-2.15 0,-1.09 1.01,-1.85 2.7,-1.85 1.78,0 2.44,0.85 2.5,2.1h2.21c-0.07,-1.72 -1.12,-3.3 -3.21,-3.81V3h-3v2.16c-1.94,0.42 -3.5,1.68 -3.5,3.61 0,2.31 1.91,3.46 4.7,4.13 2.5,0.6 3,1.48 3,2.41 0,0.69 -0.49,1.79 -2.7,1.79 -2.06,0 -2.87,-0.92 -2.98,-2.1h-2.2c0.12,2.19 1.76,3.42 3.68,3.83V21h3v-2.15c1.95,-0.37 3.5,-1.5 3.5,-3.55 0,-2.84 -2.43,-3.81 -4.7,-4.4z"/>
 </vector>

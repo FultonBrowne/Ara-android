@@ -14,13 +14,16 @@
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:onClick="exit" tools:context=".voice.VoiceMain">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorBack" tools:context=".activitys.SkillsActivity">
 
-    <ImageView android:id="@+id/imageView" android:layout_width="match_parent" android:layout_height="16dp" android:layout_gravity="bottom" android:background="@drawable/animate"/>
+    <com.google.android.material.appbar.AppBarLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/floatingActionButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="bottom|center" android:layout_margin="32dp" android:clickable="true" android:focusable="true" android:onClick="back" app:srcCompat="@drawable/ic_baseline_stop_24"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/floatingActionButton2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="bottom|center" android:layout_margin="128dp" android:clickable="true" android:focusable="true" android:onClick="record" android:visibility="invisible" app:srcCompat="@drawable/mic"/>
+        <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="?attr/actionBarSize" android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-    <androidx.recyclerview.widget.RecyclerView android:id="@+id/listVoice" android:layout_width="match_parent" android:layout_height="match_parent" android:elevation="0dp"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_skills"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/fab" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin" android:onClick="save" app:srcCompat="@drawable/ic_save_black_24dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

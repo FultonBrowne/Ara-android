@@ -13,22 +13,10 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 package com.andromeda.ara.skills
 
-import android.content.Context
-import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.net.Uri
-import com.andromeda.ara.phoneData.GetContacts
+import com.andromeda.ara.util.SkillsModel
 
-class Text {
-    fun sendText(search: String, ctx: Context) {
-        val num = GetContacts().search(search, ctx)
-        val uri = Uri.parse("smsto:$num")
-        val intent = Intent(Intent.ACTION_SENDTO, uri)
-        intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
-        intent.putExtra("sms_body", "The SMS text")
-        ctx.startActivity(intent)
-    }
-
+data class TempSkillsStore(val mainData: SkillsModel, val order: Int) {
 }

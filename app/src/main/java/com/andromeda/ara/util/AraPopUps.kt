@@ -21,10 +21,14 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.text.InputType
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
@@ -120,6 +124,23 @@ class AraPopUps {
         builder.show()
 
     }
+    fun textSearchString(ctx: Context, title: String, act: Activity, searchFunctions: SearchFunctions, recyclerView: RecyclerView){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
+        builder.setTitle(title)
+        val input = EditText(ctx)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+        builder.setPositiveButton("ok") { _, _ ->
+            try {
+                recyclerView.adapter = Adapter(Search().outputPing(input.text.toString(), ctx, act, searchFunctions), act);
+            }
+            catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+        builder.show()
+
+    }
     fun editDevice(class1:Any, ctx: Context, act:Activity, id: String){
         val lin = RecyclerView(ctx)
         val listForMain = ArrayList<FinalDevice>()
@@ -182,6 +203,30 @@ class AraPopUps {
         }
         builder.show()
 
+    }
+    private var resultValue = "null"
+
+    fun getDialogValueBack(context: Context?): String {
+        val handler: Handler = object : Handler() {
+            override fun handleMessage(mesg: Message?) {
+                throw RuntimeException()
+            }
+        }
+        val alert = AlertDialog.Builder(context)
+        alert.setTitle("Title")
+        alert.setMessage("Message")
+        val textView =EditText(context)
+        alert.setView(textView)
+        alert.setPositiveButton("ok") { dialog, id ->
+            resultValue = textView.text.toString()
+            handler.sendMessage(handler.obtainMessage())
+        }
+        alert.show()
+        try {
+            Looper.loop()
+        } catch (e: RuntimeException) {
+        }
+        return resultValue
     }
 
 }

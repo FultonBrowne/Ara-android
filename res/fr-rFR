@@ -14,17 +14,4 @@
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:card_view="http://schemas.android.com/tools" android:id="@+id/card" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" app:cardBackgroundColor="@color/card_color" app:cardCornerRadius="8dp" app:cardUseCompatPadding="true" app:cardPreventCornerOverlap="true">
-
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:elevation="0dp" android:orientation="vertical">
-
-        <com.makeramen.roundedimageview.RoundedImageView android:id="@+id/item_image_view" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="centerInside" app:riv_corner_radius="8dp" android:contentDescription="@string/app_name"/>
-
-
-        <TextView android:id="@+id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="@dimen/text_margin" android:textAppearance="?attr/textAppearanceListItem" android:textColor="@color/md_white_1000"/>
-
-        <TextView android:id="@+id/item_number" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="@dimen/text_margin" android:textAppearance="?attr/textAppearanceListItem" android:textColor="@color/md_white_1000"/>
-
-
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/fragment" android:name="com.andromeda.ara.activitys.SkillsActivityFragment" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_behavior="@string/appbar_scrolling_view_behavior" tools:layout="@layout/fragment_skills2"/>

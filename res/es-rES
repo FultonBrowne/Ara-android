@@ -16,30 +16,33 @@
 
 package com.andromeda.ara.skills
 
-import com.andromeda.ara.util.SkillsModel
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.type.CollectionType
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper
-import java.io.IOException
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 
 
-class Parse {
-    fun parse(yml: String?): ArrayList<SkillsModel>? {
-        print(yml)
-        val classsss: Class<SkillsModel>? = SkillsModel::class.java
-        return yamlArrayToObjectList(yml, classsss!!)
+class OpenApp {
+    fun openApp(appName: String, ctx: Context) {
+        val apps = ctx.packageManager.getInstalledApplications(0)
+        print(apps)
+        var returnedApp = ""
+
+        val pm: PackageManager = ctx.packageManager
+//get a list of installed apps.
+        //get a list of installed apps.
+        val packages = pm.getInstalledApplications(PackageManager.GET_META_DATA)
+
+        for (packageInfo in packages) {
+
+            if (packageInfo.loadLabel(pm).toString().toLowerCase() == appName) {
+                returnedApp = packageInfo.packageName
+            }
+        }
+        val launchIntent: Intent? = ctx.packageManager.getLaunchIntentForPackage(returnedApp)
+        launchIntent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        launchIntent?.let { ctx.startActivity(it) }
     }
 
-
-    @Throws(IOException::class)
-    fun <T> yamlArrayToObjectList(yaml: String?, tClass: Class<T>): ArrayList<T> {
-        //val mapper = ObjectMapper()
-        val mapper = ObjectMapper(YAMLFactory()) // jackson databind
-
-
-        val listType: CollectionType = mapper.typeFactory.constructCollectionType(ArrayList::class.java, tClass)
-
-        return mapper.readValue(yaml, listType)!!
-    }
 }
+
+

@@ -16,31 +16,7 @@
 
 package com.andromeda.ara.skills
 
-import android.content.Context
-import android.content.Intent
-import android.view.KeyEvent
-import java.util.*
+import com.andromeda.ara.util.SkillsModel
 
-
-class Media {
-    fun playPause(ctx: Context) {
-        val mediaEvent = Intent(Intent.ACTION_MEDIA_BUTTON)
-        val event = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY)
-        mediaEvent.putExtra(Intent.EXTRA_KEY_EVENT, event)
-        ctx.sendBroadcast(mediaEvent)
-
-        Timer().schedule(object : TimerTask() {
-            override fun run() {
-                val mediaEvent = Intent(Intent.ACTION_MEDIA_BUTTON)
-                val event = KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PLAY)
-                mediaEvent.putExtra(Intent.EXTRA_KEY_EVENT, event)
-                ctx.sendBroadcast(mediaEvent)
-            }
-        }, 100)
-
-    }
-
-    fun volumeUp() {
-
-    }
+data class TempSkillsStore(val mainData: SkillsModel, val order: Int) {
 }

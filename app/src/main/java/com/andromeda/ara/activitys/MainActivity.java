@@ -487,7 +487,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
     @Override
     public String callForString(@NotNull String m) {
 
-
         return null;
     }
 

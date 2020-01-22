@@ -14,63 +14,42 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util;
+package com.andromeda.ara.util
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import com.andromeda.ara.feeds.Tagged;
+import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteOpenHelper
 
-public class TagManager {
+class OnDeviceSkillsDB(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
-    private Tagged dbHelper;
-
-    private Context context;
-
-    private SQLiteDatabase database;
-
-    public TagManager(Context c) {
-        context = c;
+    override fun onCreate(db: SQLiteDatabase) {
+        db.execSQL(CREATE_TABLE)
     }
 
-    public TagManager open() throws SQLException {
-        dbHelper = new Tagged(context);
-        database = dbHelper.getWritableDatabase();
-        return this;
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
+        onCreate(db)
     }
 
-    public void close() {
-        dbHelper.close();
-    }
+    companion object {
 
-    public void insert(String name, String desc) {
-        ContentValues contentValue = new ContentValues();
-        contentValue.put(Tagged.Companion.getSUBJECT(), name);
-        contentValue.put(Tagged.Companion.getDESC(), desc);
-        database.insert(Tagged.Companion.getTABLE_NAME(), null, contentValue);
-    }
+        // Table Name
+        const val TABLE_NAME = "ODS"
 
-    public Cursor fetch() {
-        String[] columns = new String[]{Tagged.Companion.get_ID(), Tagged.Companion.getSUBJECT(), Tagged.Companion.getDESC()};
-        Cursor cursor = database.query(Tagged.Companion.getTABLE_NAME(), columns, null, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-        }
-        return cursor;
-    }
+        // Table columns
+        const val ID = "_id"
+        const val PRE = "pre"
+        const val END = "end"
+        const val ACT = "action"
 
-    public int update(long _id, String name, String desc) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Tagged.Companion.getSUBJECT(), name);
-        contentValues.put(Tagged.Companion.getDESC(), desc);
-        int i = database.update(Tagged.Companion.getTABLE_NAME(), contentValues, Tagged.Companion.get_ID() + " = " + _id, null);
-        return i;
-    }
+        // Database Information
+        private const val DB_NAME = "ODS.DB"
 
-    public void delete(long _id) {
-        database.delete(Tagged.Companion.getTABLE_NAME(), Tagged.Companion.get_ID() + "=" + _id, null);
-    }
+        // database version
+        internal const val DB_VERSION = 1
 
+        // Creating table query
+        private const val CREATE_TABLE = ("create table " + TABLE_NAME + "(" + ID
+                + " INTEGER PRIMARY KEY AUTOINCREMENT, " + PRE + " TEXT NOT NULL, " + END + " TEXT NOT NULL, " + ACT + " TEXT);")
+    }
 }

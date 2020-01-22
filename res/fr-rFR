@@ -14,78 +14,16 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util
+package com.andromeda.ara.skills
 
-import android.app.Activity
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
-import android.text.InputFilter
-import android.text.InputFilter.LengthFilter
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.andromeda.ara.R
-import java.io.InputStream
-import java.net.URL
+import android.content.Context
+import android.content.Intent
+import com.andromeda.ara.services.AraActions
 
-
-/**
- * Adapter class for RSS
- */
-class Adapter(private val mRssFeedModels: List<RssFeedModel>, val act:Activity) : RecyclerView.Adapter<Adapter.FeedModelViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, type: Int): FeedModelViewHolder {
-        //Inflate the card view
-        val v = LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_item, parent, false)
-
-        return FeedModelViewHolder(v)
+class Util {
+    fun timer(ctx: Context, time: String) {
+        val i = Intent(ctx, AraActions::class.java)
+        i.putExtra("type", 1)
+        ctx.startService(i)
     }
-
-
-    override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {
-        //set values
-        val rssFeedModel = mRssFeedModels[position]
-        val desc = (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView)
-        desc.text = rssFeedModel.description
-        val filterArray = arrayOfNulls<InputFilter>(1)
-        filterArray[0] = LengthFilter(40)
-
-        if (!rssFeedModel.longText) desc.filters = filterArray
-        (holder.rssFeedView.findViewById<View>(R.id.content) as TextView).text = rssFeedModel.title
-        if(rssFeedModel.image != ""){
-            println("image")
-            try {
-                val url = URL(rssFeedModel.image)
-                val `is` = URL(url.toString()).content as InputStream
-                val round = Drawable.createFromStream(`is`, "src")
-                holder.rssFeedView.findViewById<ImageView>(R.id.item_image_view).setImageDrawable(round)
-            }
-            catch (e:Exception){
-                e.printStackTrace()
-            }
-
-        }
-        //animate
-        setFadeAnimation(holder.itemView)
-    }
-
-    override fun getItemCount(): Int {
-        //get the item count of the list
-        return mRssFeedModels.size
-    }
-
-    //animation code
-    private fun setFadeAnimation(view: View) {
-        val anim = AlphaAnimation(0.0f, 1.0f)
-        anim.duration = 1000
-        view.startAnimation(anim)
-    }
-
-    class FeedModelViewHolder(val rssFeedView: View) : RecyclerView.ViewHolder(rssFeedView)
 }
-

@@ -32,6 +32,7 @@ import com.andromeda.ara.util.Adapter
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.util.SkillsFromDB
+import com.andromeda.ara.voice.TTS
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
 import java.net.InetAddress
@@ -39,7 +40,7 @@ import java.util.*
 
 
 class Search {
-    fun main(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions, rec: RecyclerView): ArrayList<RssFeedModel> {
+    fun main(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions, rec: RecyclerView, tts:TTS?): ArrayList<RssFeedModel> {
 
         var outputList: ArrayList<RssFeedModel> = ArrayList()
         var done2 = false
@@ -85,6 +86,9 @@ class Search {
             }
 
         }
+
+        tts?.start(ctx, outputList[0].out)
+
         return outputList
     }
 
@@ -118,6 +122,7 @@ class Search {
             outputList.addAll(doIt)
         } catch (e: Exception) {
         }
+
 
         return outputList
     }

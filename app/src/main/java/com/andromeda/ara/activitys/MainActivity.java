@@ -378,7 +378,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         assert locationManager != null;
                     }
                     try {
-                        new Search().main(query, getApplicationContext(), MainActivity.this, MainActivity.this, recyclerView);
+                        new Search().main(query, getApplicationContext(), MainActivity.this, MainActivity.this, recyclerView, null);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

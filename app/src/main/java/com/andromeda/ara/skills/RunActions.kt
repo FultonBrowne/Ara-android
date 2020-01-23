@@ -33,6 +33,7 @@ class RunActions {
         val returnedVal = ArrayList<RssFeedModel>()
 
         var arg1: String
+        var arg2:String
         if (yaml != null) {
             for (i in yaml) {
                 when (i.action) {
@@ -50,7 +51,9 @@ class RunActions {
                     "TEXT" -> {
                         arg1 = if (i.arg1 == "TERM") searchTerm
                         else i.arg1
-                        Text().sendText(arg1, ctx)
+                        arg2 = if (i.arg2 == "INFO") respond(searchFunctions, "cxf")
+                        else i.arg2
+                        Text().sendText(arg1, arg2, ctx)
                     }
                     "TOG_MEDIA" -> {
                         Media().playPause(ctx)
@@ -99,7 +102,7 @@ class RunActions {
 
         return returnedVal
     }
-    fun respond(searchFunctions: SearchFunctions, m:String){
-        searchFunctions.callForString(m)
+    fun respond(searchFunctions: SearchFunctions, m:String): String {
+        return searchFunctions.callForString(m)
     }
 }

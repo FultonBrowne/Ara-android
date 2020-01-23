@@ -22,12 +22,12 @@ import android.net.Uri
 import com.andromeda.ara.phoneData.GetContacts
 
 class Text {
-    fun sendText(search: String, ctx: Context) {
+    fun sendText(search: String,msg:String, ctx: Context) {
         val num = GetContacts().search(search, ctx)
         val uri = Uri.parse("smsto:$num")
         val intent = Intent(Intent.ACTION_SENDTO, uri)
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
-        intent.putExtra("sms_body", "The SMS text")
+        intent.putExtra("sms_body", msg)
         ctx.startActivity(intent)
     }
 

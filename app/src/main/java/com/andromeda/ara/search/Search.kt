@@ -83,11 +83,12 @@ class Search {
             }
             act.runOnUiThread {
                 rec.adapter = Adapter(outputList, act)
+                tts?.start(ctx, outputList[0].out)
+
             }
 
         }
 
-        tts?.start(ctx, outputList[0].out)
 
         return outputList
     }

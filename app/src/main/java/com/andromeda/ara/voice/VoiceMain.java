@@ -233,7 +233,8 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
         else {
             Thread recognize = new Thread(() -> {
                 try {
-                    phrase[0] = new DeepSpeech().voiceV2(byteIS.toByteArray(), this);
+                    //phrase[0] = new DeepSpeech().voiceV2(byteIS.toByteArray(), this);
+                    phrase[0] = new DeepSpeech().voiceV3(byteIS, this);
                     phrase[0] = new SpellChecker().check(phrase[0]);
                     byteIS.reset();
                 } catch (Exception e) {

@@ -49,13 +49,14 @@ class DeepSpeech {
         System.out.println("done");
         return this._m.stt(shorts, shorts.length);
     }
-    public void voiceV3(ByteArrayOutputStream bytes2, Context ctx){
+    public String voiceV3(ByteArrayOutputStream bytes2, Context ctx){
         newModel(ctx);
         DeepSpeechStreamingState stream = _m.createStream();
         byte[] bytes = bytes2.toByteArray();
         short[] shorts = new short[bytes.length / 2];
         ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
         _m.feedAudioContent(stream, shorts, shorts.length);
+        return _m.finishStream(stream);
     }
 
 }

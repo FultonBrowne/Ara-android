@@ -17,14 +17,11 @@
 package com.andromeda.ara.voice;
 
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import com.andromeda.ara.util.DownloadTask;
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
+import org.mozilla.deepspeech.libdeepspeech.DeepSpeechStreamingState;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -52,11 +49,13 @@ class DeepSpeech {
         System.out.println("done");
         return this._m.stt(shorts, shorts.length);
     }
-    public void voiceV3(ByteArrayOutputStream bytes){
-        _m.createStream();
-
-
-
+    public void voiceV3(ByteArrayOutputStream bytes2, Context ctx){
+        newModel(ctx);
+        DeepSpeechStreamingState stream = _m.createStream();
+        byte[] bytes = bytes2.toByteArray();
+        short[] shorts = new short[bytes.length / 2];
+        ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
+        _m.feedAudioContent(stream, shorts, shorts.length);
     }
 
 }

@@ -53,6 +53,8 @@ class DeepSpeech {
         return this._m.stt(shorts, shorts.length);
     }
     public void voiceV3(ByteArrayOutputStream bytes){
+        _m.createStream();
+
 
 
     }

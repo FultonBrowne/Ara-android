@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -149,9 +148,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         screenWidth = checkScreenWidth();
 
         final Activity ctx = this;
-        //requestLocationPermission();
-
-
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -487,7 +483,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
     @Override
     public String callForString(@NotNull String m) {
 
-        return new AraPopUps().getDialogValueBack(this);
+        return new AraPopUps().getDialogValueBack(this, m);
     }
 
 }

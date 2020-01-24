@@ -206,15 +206,14 @@ class AraPopUps {
     }
     private var resultValue = "null"
 
-    fun getDialogValueBack(context: Context?): String {
+    fun getDialogValueBack(context: Context?, m: String): String {
         val handler: Handler = object : Handler() {
             override fun handleMessage(mesg: Message?) {
                 throw RuntimeException()
             }
         }
         val alert = AlertDialog.Builder(context)
-        alert.setTitle("Title")
-        alert.setMessage("Message")
+        alert.setTitle(m)
         val textView =EditText(context)
         alert.setView(textView)
         alert.setPositiveButton("ok") { dialog, id ->

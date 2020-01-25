@@ -61,7 +61,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     private int bufferSizeInBytes = AudioRecord.getMinBufferSize(SAMPLE_RATE_HZ, CHANNEL_CONFIG, AUDIO_FORMAT);
 
     private byte[] Data = new byte[bufferSizeInBytes];
-    private ByteArrayOutputStream byteIS = new ByteArrayOutputStream();
+     ByteArrayOutputStream byteIS = new ByteArrayOutputStream();
     RecyclerView recyclerView;
 
     private AudioRecord audioRecorder = new AudioRecord(AUDIO_SOURCE,
@@ -138,16 +138,15 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
         }
 
         audioRecorder.startRecording();
-        isRecording = true;
 
             try {
                 new File(getCacheDir(), "record.pcm");
                 os = new FileOutputStream(getCacheDir() + "/record.pcm");
-
+                isRecording = true;
+                deepSpeech.updateV3(this);
                 while (isRecording) {
                     audioRecorder.read(Data, 0, getRawDataLength(Data));
                     System.out.println(Data[0]);
-                    deepSpeech.updateV3(Data);
 
 
 
@@ -170,6 +169,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                     } else blankRunning = true;
 
                     try {
+                        byteIS.write(Data);
                         os.write(Data, 0, bufferSizeInBytes);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -184,6 +184,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     }
 
     private void stopRecording(@Nullable String link) {
+        isRecording = false;
         final MediaPlayer mp = new MediaPlayer();
         mp.reset();
         AssetFileDescriptor afd;
@@ -245,7 +246,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                     //phrase[0] = new DeepSpeech().voiceV2(byteIS.toByteArray(), this);
                     phrase[0] = deepSpeech.voiceV3();
                     phrase[0] = new SpellChecker().check(phrase[0]);
-                    byteIS.reset();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -30,6 +30,7 @@ import java.nio.ByteOrder;
 class DeepSpeech {
     private DeepSpeechModel _m = null;
     public String decode = "";
+    Thread thread;
     DeepSpeechStreamingState stream;
     public DeepSpeech(Context ctx){
         newModel(ctx);
@@ -56,28 +57,32 @@ class DeepSpeech {
         System.out.println("done");
         return this._m.stt(shorts, shorts.length);
     }
-    void updateV3(byte[] bytes){
-        try {
-            byteArrayOutputStream.write(bytes);
-            count = count + 1;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    void updateV3(VoiceMain voiceMain){
+       thread = new Thread(()->{
+           try {
+               Thread.sleep(200);
+           } catch (InterruptedException e) {
+               e.printStackTrace();
+           }
+           while (voiceMain.isRecording){
 
-        if(count == 16) {
-            count = 0;
-            System.out.println("thread");
-            short[] shorts = new short[byteArrayOutputStream.toByteArray().length / 2];
-            System.out.println("num info");
-            ByteBuffer.wrap(byteArrayOutputStream.toByteArray()).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
-                _m.feedAudioContent(stream, shorts, shorts.length);
+           byte[] bytes = voiceMain.byteIS.toByteArray();
+            System.out.println("nummmmmmm");
+            voiceMain.byteIS.reset();
+            short[] shorts = new short[bytes.length / 2];
+            ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
+            _m.feedAudioContent(stream, shorts, shorts.length);
 
-
-        }
-
+        }});
+       thread.start();
 
     }
     public String voiceV3(){
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return _m.finishStream(stream);
     }
 

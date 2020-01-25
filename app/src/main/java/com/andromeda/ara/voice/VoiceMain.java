@@ -22,6 +22,7 @@ import android.content.res.AssetFileDescriptor;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioRecord;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,8 @@ import com.andromeda.ara.util.DownloadTask;
 import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.SpellChecker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,6 +53,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     private FileOutputStream os = null;
     private Thread recordingThread;
     boolean isRecording;
+    DeepSpeech deepSpeech;
     ImageView imageView;
     Boolean blankRunning = false;
     public Context ctx = this;
@@ -70,6 +74,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println(bufferSizeInBytes);
         setContentView(R.layout.activity_voice_main);
+        deepSpeech = new DeepSpeech(this);
         recyclerView = findViewById(R.id.listVoice);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Adapter adapter = new Adapter(Collections.singletonList(new RssFeedModel("hello", "how can I help", "", "", "", true)), this);
@@ -142,7 +147,10 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 while (isRecording) {
                     audioRecorder.read(Data, 0, getRawDataLength(Data));
                     System.out.println(Data[0]);
-                    byteIS.write(Data);
+                    deepSpeech.updateV3(Data);
+
+
+
                     if (Data[0] == 0) {
                         System.out.println("blank");
                         blankRunning = false;
@@ -160,6 +168,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                             }
                         }, 4000);
                     } else blankRunning = true;
+
                     try {
                         os.write(Data, 0, bufferSizeInBytes);
                     } catch (Exception e) {
@@ -234,13 +243,12 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
             Thread recognize = new Thread(() -> {
                 try {
                     //phrase[0] = new DeepSpeech().voiceV2(byteIS.toByteArray(), this);
-                    phrase[0] = new DeepSpeech().voiceV3(byteIS, this);
+                    phrase[0] = deepSpeech.voiceV3();
                     phrase[0] = new SpellChecker().check(phrase[0]);
                     byteIS.reset();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>();
                 new Search().main(phrase[0], getApplicationContext(), VoiceMain.this, this, recyclerView,new TTS());
 
             });

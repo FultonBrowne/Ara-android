@@ -29,6 +29,12 @@ import java.nio.ByteOrder;
 class DeepSpeech {
     private DeepSpeechModel _m = null;
     public String decode = "";
+    DeepSpeechStreamingState stream;
+    public DeepSpeech(Context ctx){
+        newModel(ctx);
+    }
+
+
 
 
     private void newModel(Context ctx) {
@@ -36,11 +42,9 @@ class DeepSpeech {
         if (this._m == null) {
             this._m = new DeepSpeechModel(ctx.getCacheDir() + "/main.tflite", ctx.getCacheDir() + "/alphabet.txt", 50);
         }
+        stream = _m.createStream();
 
     }
-
-
-
     public String voiceV2(byte[] bytes, Context ctx){
         newModel(ctx);
         short[] shorts = new short[bytes.length / 2];
@@ -49,13 +53,20 @@ class DeepSpeech {
         System.out.println("done");
         return this._m.stt(shorts, shorts.length);
     }
-    public String voiceV3(ByteArrayOutputStream bytes2, Context ctx){
-        newModel(ctx);
-        DeepSpeechStreamingState stream = _m.createStream();
-        byte[] bytes = bytes2.toByteArray();
-        short[] shorts = new short[bytes.length / 2];
-        ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
-        _m.feedAudioContent(stream, shorts, shorts.length);
+    void updateV3(byte[] bytes){
+            System.out.println("thread");
+            short[] shorts = new short[bytes.length / 2];
+            System.out.println("num info");
+            ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
+        Thread thread = new Thread(() -> {
+            _m.feedAudioContent(stream, shorts, shorts.length);
+        });
+        thread.setPriority(Thread.MAX_PRIORITY);
+        thread.start();
+
+
+    }
+    public String voiceV3(){
         return _m.finishStream(stream);
     }
 

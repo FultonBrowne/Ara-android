@@ -22,6 +22,7 @@ import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechStreamingState;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -33,6 +34,8 @@ class DeepSpeech {
     public DeepSpeech(Context ctx){
         newModel(ctx);
     }
+    private int count = 0;
+    public ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
 
 
@@ -54,15 +57,23 @@ class DeepSpeech {
         return this._m.stt(shorts, shorts.length);
     }
     void updateV3(byte[] bytes){
+        try {
+            byteArrayOutputStream.write(bytes);
+            count = count + 1;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(count == 16) {
+            count = 0;
             System.out.println("thread");
-            short[] shorts = new short[bytes.length / 2];
+            short[] shorts = new short[byteArrayOutputStream.toByteArray().length / 2];
             System.out.println("num info");
-            ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
-        Thread thread = new Thread(() -> {
-            _m.feedAudioContent(stream, shorts, shorts.length);
-        });
-        thread.setPriority(Thread.MAX_PRIORITY);
-        thread.start();
+            ByteBuffer.wrap(byteArrayOutputStream.toByteArray()).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
+                _m.feedAudioContent(stream, shorts, shorts.length);
+
+
+        }
 
 
     }

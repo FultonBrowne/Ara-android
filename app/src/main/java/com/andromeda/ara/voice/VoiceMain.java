@@ -246,11 +246,12 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                     //phrase[0] = new DeepSpeech().voiceV2(byteIS.toByteArray(), this);
                     phrase[0] = deepSpeech.voiceV3();
                     phrase[0] = new SpellChecker().check(phrase[0]);
-                    deepSpeech = new DeepSpeech(this);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 new Search().main(phrase[0], getApplicationContext(), VoiceMain.this, this, recyclerView,new TTS());
+                deepSpeech = new DeepSpeech(this);
+
 
             });
             recognize.setPriority(Thread.MAX_PRIORITY);

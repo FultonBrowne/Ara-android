@@ -22,12 +22,12 @@ import android.content.res.AssetFileDescriptor;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioRecord;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,8 +39,6 @@ import com.andromeda.ara.util.DownloadTask;
 import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.SpellChecker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -132,6 +130,13 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
             mp.prepare();
             mp.start();
             while(mp.isPlaying()) System.out.println("playing");
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "go", Toast.LENGTH_LONG).show();
+
+                }
+            });
         }
         catch (IllegalStateException | IOException e) {
             e.printStackTrace();
@@ -181,6 +186,86 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
             }
         });
         recordingThread.start();
+    }
+    private String recordForString() throws InterruptedException {
+        String[] phrase = new String[1];
+        recordingThread = new Thread(() -> {
+            final MediaPlayer mp = new MediaPlayer();
+            mp.reset();
+            AssetFileDescriptor afd;
+            try{
+                afd = getAssets().openFd("start.mp3");
+                mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+                mp.prepare();
+                mp.start();
+                while(mp.isPlaying()) System.out.println("playing");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "go", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+            }
+            catch (IllegalStateException | IOException e) {
+                e.printStackTrace();
+            }
+
+            audioRecorder.startRecording();
+
+            try {
+                new File(getCacheDir(), "record.pcm");
+                os = new FileOutputStream(getCacheDir() + "/record.pcm");
+                isRecording = true;
+                deepSpeech.updateV3(this);
+                while (isRecording) {
+                    audioRecorder.read(Data, 0, getRawDataLength(Data));
+                    System.out.println(Data[0]);
+
+
+
+                    if (Data[0] == 0) {
+                        System.out.println("blank");
+                        blankRunning = false;
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                runOnUiThread(() -> {
+                                    if (!blankRunning) {
+
+                                        FloatingActionButton fab2 = findViewById(R.id.floatingActionButton2);
+                                        fab2.setVisibility(View.VISIBLE);
+                                    }
+                                });
+
+                            }
+                        }, 4000);
+                    } else blankRunning = true;
+
+                    try {
+                        byteIS.write(Data);
+                        os.write(Data, 0, bufferSizeInBytes);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                stopAnimation();
+                try {
+                    //phrase[0] = new DeepSpeech().voiceV2(byteIS.toByteArray(), this);
+                    phrase[0] = deepSpeech.voiceV3();
+                    phrase[0] = new SpellChecker().check(phrase[0]);
+                    deepSpeech = new DeepSpeech(getApplicationContext());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        recordingThread.start();
+        recordingThread.join();
+        return phrase[0];
+
     }
 
     private void stopRecording(@Nullable String link) {
@@ -296,9 +381,14 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
 
     }
 
-    @NotNull
+    @NonNull
     @Override
     public String callForString(@NotNull String m) {
-        return null;
+        try {
+            return recordForString();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return  null;
     }
 }

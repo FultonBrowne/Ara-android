@@ -131,8 +131,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
             mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
             mp.prepare();
             mp.start();
-
-
             while(mp.isPlaying()) System.out.println("playing");
         }
         catch (IllegalStateException | IOException e) {
@@ -251,7 +249,8 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                new Search().main(phrase[0], getApplicationContext(), VoiceMain.this, this, recyclerView,new TTS());
+                if (link == null) new Search().main(phrase[0], getApplicationContext(), VoiceMain.this, this, recyclerView,new TTS());
+                else new Search().outputPing(phrase[0], getApplicationContext(), this, this);
                 deepSpeech = new DeepSpeech(this);
 
 

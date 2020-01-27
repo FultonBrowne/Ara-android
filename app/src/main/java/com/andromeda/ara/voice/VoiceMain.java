@@ -384,6 +384,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     @NonNull
     @Override
     public String callForString(@NotNull String m) {
+        new TTS().start(getApplicationContext(), m);
         try {
             return recordForString();
         } catch (InterruptedException e) {

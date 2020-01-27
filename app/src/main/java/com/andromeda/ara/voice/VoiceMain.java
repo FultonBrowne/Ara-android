@@ -131,9 +131,12 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
             mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
             mp.prepare();
             mp.start();
-            while(mp.isPlaying()) System.out.println("playing");
+            Thread.sleep(1000);
+            System.out.println("go");
+            
+            //while(mp.isPlaying()) System.out.println("playing");
         }
-        catch (IllegalStateException | IOException e) {
+        catch (IllegalStateException | IOException | InterruptedException e) {
             e.printStackTrace();
         }
 

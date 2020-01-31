@@ -20,7 +20,7 @@ import java.util.*
 
 class News {
     fun linkMapGeneral(locale: Locale): String? {
-        var map = mapOf(Locale.US to "news/us")
+        val map = mapOf(Locale.US to "news/us", Locale.UK to "news/")
         return map[locale]
     }
 }

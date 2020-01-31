@@ -29,6 +29,12 @@ public class JsonParse {
         }.getType());
 
     }
+    public ArrayList<NewsData> news(String jsontxt) {
+        Gson gson = new Gson();
+        return gson.fromJson(jsontxt, new TypeToken<ArrayList<NewsData>>() {
+        }.getType());
+
+    }
 
 
 }

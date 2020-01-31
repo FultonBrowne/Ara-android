@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                 .withThreeSmallProfileImages(true)
 
                 .build();
-        drawer = new DrawerBuilder()
+        runOnUiThread(() ->drawer = new DrawerBuilder()
                 .withActivity(ctx)
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                     return false;
                     // do something with the clicked item :D
                 })
-                .build();
+                .build());
 
         System.out.println("drawer");
 

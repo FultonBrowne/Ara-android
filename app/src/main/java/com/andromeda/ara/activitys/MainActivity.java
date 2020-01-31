@@ -49,6 +49,7 @@ import com.andromeda.ara.R;
 import com.andromeda.ara.constants.DrawerModeConstants;
 import com.andromeda.ara.devices.DeviceModel;
 import com.andromeda.ara.feeds.Drawer;
+import com.andromeda.ara.feeds.News;
 import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.skills.SearchFunctions;
@@ -185,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                 .withThreeSmallProfileImages(true)
 
                 .build();
-        runOnUiThread(() -> drawer = new DrawerBuilder()
+        drawer = new DrawerBuilder()
                 .withActivity(ctx)
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
@@ -206,11 +207,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
 
                     MainActivity.this.runOnUiThread(() -> {
-                        ProgressDialog mProgressDialog;
-                        mProgressDialog = new ProgressDialog(ctx);
-                        mProgressDialog.setMessage("loading");
+
                         if(drawerItem.getIdentifier() == DrawerModeConstants.DEVICES){
-                            mProgressDialog.show();
                             System.out.println("devices");
 
                             Data.list(DeviceModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(documentWrappers -> {
@@ -222,11 +220,9 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                                     }
                                     recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
                                     mode = drawerItem.getIdentifier();
-                                    mProgressDialog.hide();
                                 } else System.out.println("fail");
                             });}
                         else if (drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS) {
-                            mProgressDialog.show();
 
                             System.out.println("shortcuts");
                             Data.list(SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(new AppCenterConsumer<PaginatedDocuments<SkillsDBModel>>() {
@@ -239,7 +235,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                                         }
                                         recyclerView.setAdapter(new Adapter(rssFeedModel1, act));
                                         mode = drawerItem.getIdentifier();
-                                        mProgressDialog.hide();
 
                                     } else System.out.println("fail");
                                 }
@@ -249,7 +244,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         }
                         else {
                             try {
-                                mProgressDialog.show();
                                 rssFeedModel1 = new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this);
                                 recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
                                 mode = drawerItem.getIdentifier();
@@ -257,13 +251,12 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                                 e.printStackTrace();
                             }
                         }
-                        mProgressDialog.hide();
                     });
 
                     return false;
                     // do something with the clicked item :D
                 })
-                .build());
+                .build();
 
         System.out.println("drawer");
 
@@ -286,12 +279,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         }));
         System.out.println("pre feed");
 
-            try {
-                rssFeedModel1 = (new Rss().parseRss(0, ctx));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println("feed done");
+        rssFeedModel1 = (new News().newsGeneral());
+        System.out.println("feed done");
             mAdapter = new Adapter(rssFeedModel1, this);
 
             recyclerView.setAdapter(mAdapter);

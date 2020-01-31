@@ -21,14 +21,16 @@ import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.RssFeedModel
 import java.net.URL
 import java.util.*
+import kotlin.collections.ArrayList
 
 class News {
-    fun newsGeneral(){
+    fun newsGeneral(): ArrayList<RssFeedModel> {
         val news = JsonParse().news(URL(ServerUrl.url + linkMapGeneral(Locale.getDefault())).readText())
         val feedData = arrayListOf<RssFeedModel>()
         for (i in news){
             feedData.add(RssFeedModel(i.info, i.link, i.title, i.pic, "", true))
         }
+        return feedData
 
     }
     fun linkMapGeneral(locale: Locale): String? {

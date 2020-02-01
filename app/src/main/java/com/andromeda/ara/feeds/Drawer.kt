@@ -31,14 +31,15 @@ import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.util.TagManager
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class Drawer {
     @Throws(IOException::class)
-    fun main(drawerItem: Long, ctx: Context, Db: TagManager, activity: Activity): MutableList<RssFeedModel>? {
-        var rssFeedModel1: MutableList<RssFeedModel> = ArrayList()
+    fun main(drawerItem: Long, ctx: Context, Db: TagManager, activity: Activity, rssFeedModel1: ArrayList<RssFeedModel>): ArrayList<RssFeedModel>? {
         var lat: Double = 0.0
         var log: Double = 0.0
+        rssFeedModel1.clear()
         val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             println("running location system")
@@ -92,15 +93,15 @@ class Drawer {
 
             }
             DrawerModeConstants.FOOD -> {
-                rssFeedModel1 = Food().getFood(log.toString(), java.lang.Double.toString(lat))
+                rssFeedModel1.addAll(Food().getFood(log.toString(), java.lang.Double.toString(lat)))
                 return rssFeedModel1
             }
             DrawerModeConstants.SHOP -> {
-                rssFeedModel1 = shopping().getShops(java.lang.Double.toString(log), java.lang.Double.toString(lat))
+                rssFeedModel1.addAll(shopping().getShops(java.lang.Double.toString(log), java.lang.Double.toString(lat)))
                 return rssFeedModel1
             }
             DrawerModeConstants.CAL -> {
-                rssFeedModel1 = CalUtility.readCalendarEvent(ctx)
+                rssFeedModel1.addAll( CalUtility.readCalendarEvent(ctx))
                 return rssFeedModel1
             }
             104L -> {

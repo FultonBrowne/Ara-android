@@ -334,7 +334,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                if (link == null) new Search().main(phrase[0], getApplicationContext(), VoiceMain.this, this, recyclerView,new TTS());
+                if (link == null) new Search().main(phrase[0], getApplicationContext(), VoiceMain.this, this, recyclerView,new TTS(), new ArrayList<>());
                 else new Search().outputPing(phrase[0], getApplicationContext(), this, this);
                 deepSpeech = new DeepSpeech(this);
 

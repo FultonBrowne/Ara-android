@@ -37,15 +37,16 @@ import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
 import java.net.InetAddress
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class Search {
-    fun main(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions, rec: RecyclerView, tts:TTS?): ArrayList<RssFeedModel> {
+    fun main(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions, rec: RecyclerView, tts:TTS?, outputList: ArrayList<RssFeedModel>): ArrayList<RssFeedModel> {
 
-        var outputList: ArrayList<RssFeedModel> = ArrayList()
         var done2 = false
         var lat = 0.0
         var log = 0.0
+        outputList.clear()
         val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             val location: Location? = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
@@ -72,7 +73,7 @@ class Search {
                 var searchMode1 = mainval.toLowerCase(Locale("en"))
                 searchMode1 = searchMode1.replace(" ", "%20")
                 val test1 = AraSearch().arrayOfOutputModels(searchMode1, log.toString(), lat.toString())
-                outputList = ApiOutputToRssFeed().main(test1)
+                outputList.addAll(ApiOutputToRssFeed().main(test1))
                 println(R.string.done_search)
                 try {
                     val parsed = Parse().parse(test1?.get(0)?.exes)

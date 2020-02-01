@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
     //Adapter
     private RecyclerView.Adapter mAdapter;
     // Data set for list out put
-    private List<RssFeedModel> rssFeedModel1 = new ArrayList<>();
+    private ArrayList<RssFeedModel> rssFeedModel1 = new ArrayList<>();
     //RecyclerView
     private RecyclerView recyclerView;
     //Device screen width
@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         }
                         else {
                             try {
-                                rssFeedModel1 = new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this);
+                                rssFeedModel1 = new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this, rssFeedModel1);
                                 recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
                                 mode = drawerItem.getIdentifier();
                             } catch (Exception e) {
@@ -363,7 +363,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         assert locationManager != null;
                     }
                     try {
-                        new Search().main(query, getApplicationContext(), MainActivity.this, MainActivity.this, recyclerView, null);
+                        new Search().main(query, getApplicationContext(), MainActivity.this, MainActivity.this, recyclerView, null, rssFeedModel1);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

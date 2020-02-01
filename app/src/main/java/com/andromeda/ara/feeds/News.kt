@@ -37,4 +37,13 @@ class News {
         val map = mapOf(Locale.US to "news/us", Locale.UK to "news/")
         return map.getOrElse(locale, { return "news/us"})
     }
+    fun newsTech(): ArrayList<RssFeedModel> {
+        val news = JsonParse().news(URL(ServerUrl.url + "news/tech").readText())
+        val feedData = arrayListOf<RssFeedModel>()
+        for (i in news){
+            feedData.add(RssFeedModel(i.info, i.link, i.title, i.pic, "", true))
+        }
+        return feedData
+
+    }
 }

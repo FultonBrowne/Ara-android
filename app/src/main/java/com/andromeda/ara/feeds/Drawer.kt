@@ -56,11 +56,8 @@ class Drawer {
 
         when (drawerItem) {
             DrawerModeConstants.HOME -> {
-                Toast.makeText(ctx, ctx.getString(R.string.number_1), Toast.LENGTH_SHORT).show()
-
-                rssFeedModel1.addAll(Rss().parseRss(0, ctx))
+                rssFeedModel1.addAll(News().newsGeneral())
                 return rssFeedModel1
-
             }
             DrawerModeConstants.TAGS -> {
                 var title1: String
@@ -107,11 +104,11 @@ class Drawer {
                 return rssFeedModel1
             }
             104L -> {
-                rssFeedModel1.addAll(Rss().parseRss(3, ctx))
+                rssFeedModel1.addAll(News().newsGeneral())
                 return rssFeedModel1
             }
             102L -> {
-                rssFeedModel1.addAll(Rss().parseRss(2, ctx))
+                rssFeedModel1.addAll(News().newsTech())
                 return rssFeedModel1
             }
             103L -> {

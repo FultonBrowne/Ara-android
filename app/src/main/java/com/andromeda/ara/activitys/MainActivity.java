@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         }
                         else {
                             try {
-                                rssFeedModel1 = new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this, rssFeedModel1);
+                                new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this, rssFeedModel1);
                                 recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
                                 mode = drawerItem.getIdentifier();
                             } catch (Exception e) {

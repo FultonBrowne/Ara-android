@@ -81,7 +81,7 @@ android {
 }
 
 
-ext.compose_version = "0.1.0-dev02"
+ext.compose_version = "0.1.0-dev04"
 
 dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'
@@ -104,9 +104,9 @@ dependencies {
     implementation group: 'org.mozilla.deepspeech', name: 'libdeepspeech', version: '0.6.0-alpha.9'
 
 
-    implementation 'androidx.ui:ui-layout:0.1.0-dev02'
-    implementation 'androidx.ui:ui-material:0.1.0-dev02'
-    implementation 'androidx.ui:ui-tooling:0.1.0-dev02'
+    implementation 'androidx.ui:ui-layout:0.1.0-dev04'
+    implementation 'androidx.ui:ui-material:0.1.0-dev04'
+    implementation 'androidx.ui:ui-tooling:0.1.0-dev04'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha03', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

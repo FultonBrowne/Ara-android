@@ -68,7 +68,6 @@ class Search {
             }
             if (!done2) {
 
-                outputList.add(RssFeedModel("", "", "", "", "", false))
                 //search ara server
                 var searchMode1 = mainval.toLowerCase(Locale("en"))
                 searchMode1 = searchMode1.replace(" ", "%20")

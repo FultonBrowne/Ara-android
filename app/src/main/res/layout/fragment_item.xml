@@ -27,8 +27,7 @@
                                                    android:layout_marginBottom="5dp"
                                                    app:cardBackgroundColor="@color/card_color"
                                                    app:cardCornerRadius="8dp"
-                                                   app:cardUseCompatPadding="true"
-                                                   app:cardPreventCornerOverlap="true">
+                                                   app:cardPreventCornerOverlap="false">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -38,10 +37,11 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/item_image_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerInside"
-                app:riv_corner_radius="8dp"
+            android:adjustViewBounds="true"
+            app:riv_corner_radius="8dp"
                 android:contentDescription="@string/app_name"
         />
 

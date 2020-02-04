@@ -33,9 +33,7 @@ import java.io.InputStream
 import java.net.URL
 
 
-/**
- * Adapter class for RSS
- */
+
 class Adapter(private val mRssFeedModels: List<RssFeedModel>, val act:Activity) : RecyclerView.Adapter<Adapter.FeedModelViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): FeedModelViewHolder {
@@ -57,17 +55,20 @@ class Adapter(private val mRssFeedModels: List<RssFeedModel>, val act:Activity) 
 
         if (!rssFeedModel.longText) desc.filters = filterArray
         (holder.rssFeedView.findViewById<View>(R.id.content) as TextView).text = rssFeedModel.title
-        if(rssFeedModel.image != ""){
-            println("image")
-            try {
-                val url = URL(rssFeedModel.image)
-                val `is` = URL(url.toString()).content as InputStream
-                val round = Drawable.createFromStream(`is`, "src")
-                holder.rssFeedView.findViewById<ImageView>(R.id.item_image_view).setImageDrawable(round)
-            }
-            catch (e:Exception){
-                e.printStackTrace()
-            }
+        if(rssFeedModel.image != "") {
+            Thread {
+                println("image")
+                try {
+                    val url = URL(rssFeedModel.image)
+                    val `is` = URL(url.toString()).content as InputStream
+                    val round = Drawable.createFromStream(`is`, "src")
+                    act.runOnUiThread {
+                    holder.rssFeedView.findViewById<ImageView>(R.id.item_image_view).setImageDrawable(round)}
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }.start()
+
 
         }
         //animate

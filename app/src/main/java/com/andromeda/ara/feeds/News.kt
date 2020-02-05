@@ -25,10 +25,18 @@ import kotlin.collections.ArrayList
 
 class News {
     fun newsGeneral(): ArrayList<RssFeedModel> {
-        val news = JsonParse().news(URL(ServerUrl.url + linkMapGeneral(Locale.getDefault())).readText())
         val feedData = arrayListOf<RssFeedModel>()
-        for (i in news){
-            feedData.add(RssFeedModel(i.info, i.link, i.title, i.pic, "", true))
+        try {
+
+
+            val news = JsonParse().news(URL(ServerUrl.url + linkMapGeneral(Locale.getDefault())).readText())
+            for (i in news) {
+                feedData.add(RssFeedModel(i.info, i.link, i.title, i.pic, "", true))
+            }
+        }
+        catch (e:Exception){
+            e.printStackTrace()
+            feedData.add(RssFeedModel("you may need to connect to the internet", "", "","", "", false))
         }
         return feedData
 

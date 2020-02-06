@@ -28,14 +28,11 @@ import com.andromeda.ara.R
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
 import com.andromeda.ara.skills.SearchFunctions
-import com.andromeda.ara.util.Adapter
-import com.andromeda.ara.util.ApiOutputToRssFeed
-import com.andromeda.ara.util.RssFeedModel
-import com.andromeda.ara.util.SkillsFromDB
+import com.andromeda.ara.util.*
 import com.andromeda.ara.voice.TTS
-import com.microsoft.appcenter.data.Data
-import com.microsoft.appcenter.data.DefaultPartitions
+
 import java.net.InetAddress
+import java.net.URL
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -55,38 +52,44 @@ class Search {
                 log = location.longitude
             }
         }
-        val list = Data.list(SkillsFromDB::class.java, DefaultPartitions.APP_DOCUMENTS)
-        list.thenAccept {
-
-            for (i in it.currentPage.items) {
-                if (i.deserializedValue.pre != null) if (mainval.startsWith(prefix = i.deserializedValue.pre, ignoreCase = true)) {
+        val skills = getSearch(act)
+        if (skills != null) {
+            for (i in skills){
+                if (mainval.startsWith(i.pre)){
                     done2 = true
-                    outputList.addAll(RunActions().doIt(Parse().parse(i.deserializedValue.action), mainval.replace(i.deserializedValue.pre + " ", ""), ctx, act, searchFunctions))
-                    break
+                    try {
+                        val parsed = Parse().parse(i.action)
+                        val doIt = RunActions().doIt(parsed, mainval.replace(i.pre + " ", ""), ctx, act, searchFunctions)
+                        outputList.addAll(doIt)
+                    }
+                    catch (e:Exception){
+                        e.printStackTrace()
+                    }
                 }
             }
-            if (!done2) {
+        }
+                if (!done2) {
+                    //search ara server
+                    var searchMode1 = mainval.toLowerCase(Locale("en"))
+                    searchMode1 = searchMode1.replace(" ", "%20")
+                    val test1 = AraSearch().arrayOfOutputModels(searchMode1, log.toString(), lat.toString())
+                    outputList.addAll(ApiOutputToRssFeed().main(test1))
+                    println(R.string.done_search)
+                    try {
+                        val parsed = Parse().parse(test1?.get(0)?.exes)
+                        val doIt = RunActions().doIt(parsed, mainval, ctx, act, searchFunctions)
+                        outputList.addAll(doIt)
+                    } catch (e: Exception) {
+                    }
+                }
 
-                //search ara server
-                var searchMode1 = mainval.toLowerCase(Locale("en"))
-                searchMode1 = searchMode1.replace(" ", "%20")
-                val test1 = AraSearch().arrayOfOutputModels(searchMode1, log.toString(), lat.toString())
-                outputList.addAll(ApiOutputToRssFeed().main(test1))
-                println(R.string.done_search)
-                try {
-                    val parsed = Parse().parse(test1?.get(0)?.exes)
-                    val doIt = RunActions().doIt(parsed, mainval, ctx, act, searchFunctions)
-                    outputList.addAll(doIt)
-                } catch (e: Exception) {
-                }
-            }
             act.runOnUiThread {
                 rec.adapter = Adapter(outputList, act)
                 tts?.start(ctx, outputList[0].out)
 
             }
 
-        }
+
 
 
         return outputList
@@ -125,6 +128,26 @@ class Search {
 
 
         return outputList
+    }
+    fun getSearch(act: Activity): java.util.ArrayList<SkillsFromDB>? {
+        val sharedPreferences = act.getPreferences(0)
+        val url = URL("http://ara-server.azurewebsites.net/getforcache")
+        val update = Thread{
+            try {
+                sharedPreferences.edit().putString("store", url.readText()).apply()
+            }
+            catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+        if (sharedPreferences.contains("store")){
+            update.start()
+            return JsonParse().skills(sharedPreferences.getString("store", ""))
+        }
+        update.start()
+        update.join()
+        return JsonParse().skills(sharedPreferences.getString("store", ""))
+
     }
 
 

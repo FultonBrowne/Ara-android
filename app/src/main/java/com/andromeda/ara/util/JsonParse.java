@@ -36,5 +36,12 @@ public class JsonParse {
 
     }
 
+    public ArrayList<SkillsFromDB> skills(String jsontxt) {
+        Gson gson = new Gson();
+        return gson.fromJson(jsontxt, new TypeToken<ArrayList<SkillsFromDB>>() {
+        }.getType());
+
+    }
+
 
 }

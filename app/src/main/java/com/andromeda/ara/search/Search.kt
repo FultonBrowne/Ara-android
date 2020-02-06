@@ -57,7 +57,6 @@ class Search {
         }
         val list = Data.list(SkillsFromDB::class.java, DefaultPartitions.APP_DOCUMENTS)
         list.thenAccept {
-            println(it.currentPage.items)
 
             for (i in it.currentPage.items) {
                 if (i.deserializedValue.pre != null) if (mainval.startsWith(prefix = i.deserializedValue.pre, ignoreCase = true)) {
@@ -127,6 +126,7 @@ class Search {
 
         return outputList
     }
+
 
 
 }

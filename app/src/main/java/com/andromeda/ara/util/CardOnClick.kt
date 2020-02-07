@@ -23,6 +23,8 @@ import android.net.Uri
 import android.widget.Toast
 import com.andromeda.ara.activitys.SkillsActivity
 import com.andromeda.ara.constants.DrawerModeConstants
+import com.andromeda.ara.constants.ServerUrl
+import java.net.URL
 import com.andromeda.ara.constants.User
 import com.andromeda.ara.devices.DeviceModel
 import com.andromeda.ara.skills.Parse
@@ -48,11 +50,9 @@ class CardOnClick {
 
             }
             DrawerModeConstants.DEVICES -> {
-                Data.read(linkText, DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept {
-                    println(it.deserializedValue.status)
-                    val parsed = Parse().yamlArrayToObjectList(it.deserializedValue.status, Any::class.java)
-                    AraPopUps().editDevice(parsed[0], ctx, act, it.id)
-                }
+                    val parsed = Parse().yamlArrayToObjectList(URL(ServerUrl.url + "/deviceinfo/user=${User.id}&id=$linkText").readText(), Any::class.java)
+                    AraPopUps().editDevice(parsed[0], ctx, act, linkText)
+
             }
             else -> {
 
@@ -68,14 +68,6 @@ class CardOnClick {
             print(selected.link)
             i.putExtra("linktext", selected.link)
             act.startActivity(i)
-
-        }
-        else if(mode== DrawerModeConstants.DEVICES){
-            Data.read(selected.link, DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept {
-                println(it.deserializedValue.status)
-                val parsed = Parse().yamlArrayToObjectList(it.deserializedValue.status, Any::class.java)
-                AraPopUps().editDevice(act, it.id, User.id + it.id)
-            }
 
         }
         insert(selected.title, selected.link, cursor)

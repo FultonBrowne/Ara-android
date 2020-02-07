@@ -48,6 +48,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andromeda.ara.R;
 import com.andromeda.ara.constants.DrawerModeConstants;
 import com.andromeda.ara.devices.DeviceModel;
+import com.andromeda.ara.devices.GetDevices;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.News;
 import com.andromeda.ara.feeds.Rss;
@@ -209,19 +210,10 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                     MainActivity.this.runOnUiThread(() -> {
 
                         if(drawerItem.getIdentifier() == DrawerModeConstants.DEVICES){
-                            System.out.println("devices");
-
-                            Data.list(DeviceModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(documentWrappers -> {
-                                rssFeedModel1.clear();
-                                if (!(documentWrappers == null)) {
-                                    for (DocumentWrapper<DeviceModel> i : documentWrappers.getCurrentPage().getItems()) {
-                                        System.out.println(i);
-                                        if(!(null == i.getDeserializedValue().getType())) rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), i.getDeserializedValue().getGroup(), "", "", false));
-                                    }
-                                    recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
+                            rssFeedModel1 = new GetDevices().main();
+                            recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
                                     mode = drawerItem.getIdentifier();
-                                } else System.out.println("fail");
-                            });}
+                                }
                         else if (drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS) {
 
                             System.out.println("shortcuts");

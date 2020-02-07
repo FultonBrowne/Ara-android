@@ -42,6 +42,12 @@ public class JsonParse {
         }.getType());
 
     }
+    public ArrayList<DeviceModelIndexed> iotIndexed(String jsontxt) {
+        Gson gson = new Gson();
+        return gson.fromJson(jsontxt, new TypeToken<ArrayList<DeviceModelIndexed>>() {
+        }.getType());
+
+    }
 
 
 }

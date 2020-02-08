@@ -53,6 +53,7 @@ import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.News;
 import com.andromeda.ara.feeds.Rss;
 import com.andromeda.ara.search.Search;
+import com.andromeda.ara.skills.ListSkills;
 import com.andromeda.ara.skills.SearchFunctions;
 import com.andromeda.ara.util.AraPopUps;
 import com.andromeda.ara.util.*;
@@ -217,21 +218,10 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         else if (drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS) {
 
                             System.out.println("shortcuts");
-                            Data.list(SkillsDBModel.class, DefaultPartitions.USER_DOCUMENTS).thenAccept(new AppCenterConsumer<PaginatedDocuments<SkillsDBModel>>() {
-                                @Override
-                                public void accept(PaginatedDocuments<SkillsDBModel> documentWrappers) {
-                                    rssFeedModel1.clear();
-                                    if (!(documentWrappers == null)) {
-                                        for (DocumentWrapper<SkillsDBModel> i : documentWrappers.getCurrentPage().getItems()) {
-                                            if(!(i.getDeserializedValue().getAction()==null))rssFeedModel1.add(new RssFeedModel(i.getDeserializedValue().getName(), i.getId(), "", "", "", false));
-                                        }
+                            rssFeedModel1 = new ListSkills().main();
                                         recyclerView.setAdapter(new Adapter(rssFeedModel1, act));
                                         mode = drawerItem.getIdentifier();
 
-                                    } else System.out.println("fail");
-                                }
-
-                            });
 
                         }
                         else {

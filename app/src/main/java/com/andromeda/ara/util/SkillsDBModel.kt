@@ -16,4 +16,4 @@
 
 package com.andromeda.ara.util
 
-data class SkillsDBModel(val action: SkillsModel, var name: String)
+data class SkillsDBModel(val action: SkillsModel, var name: String, val index:String)

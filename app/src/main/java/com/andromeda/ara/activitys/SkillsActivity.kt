@@ -66,7 +66,7 @@ class SkillsActivity : AppCompatActivity() {
         val mapper = ObjectMapper(YAMLFactory())
         val yml = mapper.writeValueAsString(toYAML)
         println(yml)
-        Data.replace(id, SkillsDBModel(SkillsModel(yml, runOn, ""), name), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+        Data.replace(id, SkillsDBModel(SkillsModel(yml, runOn, ""), name, this!!.id!!), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
         onBackPressed()
     }
 
@@ -99,7 +99,7 @@ class SkillsActivity : AppCompatActivity() {
 
         val yml = mapper.writeValueAsString(toYAML)
         println(yml)
-        Data.replace(id, SkillsDBModel(SkillsModel(yml, runOn, ""), name), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+        Data.replace(id, SkillsDBModel(SkillsModel(yml, runOn, ""), name, this!!.id!!), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
        reload()
     }
 

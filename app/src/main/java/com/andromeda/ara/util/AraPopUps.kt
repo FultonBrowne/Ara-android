@@ -65,7 +65,7 @@ class AraPopUps {
         builder.setPositiveButton("OK") { _, _ -> text = input.text.toString()
             try {
                 val i = (Math.random() * (30000 + 1)).toInt()
-                Data.create(i.toString(), SkillsDBModel(SkillsModel(mapper.writeValueAsString(toYML), "", ""), text), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+                Data.create(i.toString(), SkillsDBModel(SkillsModel(mapper.writeValueAsString(toYML), "", ""), text, id), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
             } catch (e: JsonProcessingException) {
                 e.printStackTrace()
             }

@@ -48,6 +48,12 @@ public class JsonParse {
         }.getType());
 
     }
+    public ArrayList<SkillsDBModel> skillsServer(String jsontxt) {
+        Gson gson = new Gson();
+        return gson.fromJson(jsontxt, new TypeToken<ArrayList<SkillsDBModel>>() {
+        }.getType());
+
+    }
 
 
 }

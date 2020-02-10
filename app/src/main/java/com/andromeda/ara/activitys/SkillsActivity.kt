@@ -122,7 +122,10 @@ class SkillsActivity : AppCompatActivity() {
     }
     private fun reload(){
                 runOnUiThread {
-                    allData = JsonParse().skillsServer(URL("user1/user=${User.id}&id=$id").readText())[0]
+                    val data = JsonParse().skillsServer(URL("${ServerUrl.url}user1/user=${User.id}&id=$id").readText())
+                    println(data)
+                    allData = data[0]
+
                     val actionToRun = allData?.action?.action
                     val toAdapter = Parse().parse(actionToRun);
                     name = allData!!.name

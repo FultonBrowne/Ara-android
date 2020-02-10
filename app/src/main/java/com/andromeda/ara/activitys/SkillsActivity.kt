@@ -24,10 +24,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
+import com.andromeda.ara.constants.User
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.SkillsAdapter
 import com.andromeda.ara.skills.TempSkillsStore
 import com.andromeda.ara.util.AraPopUps
+import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.SkillsDBModel
 import com.andromeda.ara.util.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -35,6 +37,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
 import kotlinx.android.synthetic.main.activity_skills.*
+import java.net.URL
 import java.util.*
 
 
@@ -109,20 +112,18 @@ class SkillsActivity : AppCompatActivity() {
         reload()
     }
     private fun reload(){
-        Data.read(id, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept { userDocumentWrapper ->
-            if (userDocumentWrapper.error == null) {
                 runOnUiThread {
-                    allData = userDocumentWrapper.deserializedValue
-                    val actionToRun = userDocumentWrapper.deserializedValue.action.action
+                    allData = JsonParse().skillsServer(URL("user1/user=${User.id}&id=$id").readText())[0]
+                    val actionToRun = allData?.action?.action
                     val toAdapter = Parse().parse(actionToRun);
-                    name = userDocumentWrapper.deserializedValue.name
-                    runOn = userDocumentWrapper.deserializedValue.action.arg1
+                    name = allData!!.name
+                    runOn = allData!!.action.arg1
                     adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
                     recView?.adapter = adapter
                 }
 
-            }
-        }
+
+
     }
 
 }

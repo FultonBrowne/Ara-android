@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
+import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.User
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.SkillsAdapter
@@ -34,10 +35,16 @@ import com.andromeda.ara.util.SkillsDBModel
 import com.andromeda.ara.util.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.google.gson.Gson
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
 import kotlinx.android.synthetic.main.activity_skills.*
+import java.io.BufferedReader
+import java.io.DataOutputStream
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
 import java.net.URL
+import java.nio.charset.StandardCharsets
 import java.util.*
 
 
@@ -103,6 +110,8 @@ class SkillsActivity : AppCompatActivity() {
         val yml = mapper.writeValueAsString(toYAML)
         println(yml)
         Data.replace(id, SkillsDBModel(SkillsModel(yml, runOn, ""), name, this!!.id!!), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+        updateServer(Gson().toJson(SkillsModel(yml, runOn, "")))
+
        reload()
     }
 
@@ -123,6 +132,29 @@ class SkillsActivity : AppCompatActivity() {
                 }
 
 
+
+
+    }
+    fun updateServer(message: String) {
+
+        val serverURL: String = "${ServerUrl.url}postupdate/user=${User.id}&id=$id"
+        val url = URL(serverURL)
+        val connection = url.openConnection() as HttpURLConnection
+        connection.requestMethod = "POST"
+
+        val postData: ByteArray = message.toByteArray(StandardCharsets.UTF_8)
+
+        connection.setRequestProperty("charset", "utf-8")
+        connection.setRequestProperty("data", message)
+        connection.setRequestProperty("Content-Type", "application/json")
+
+        try {
+            val outputStream =  DataOutputStream(connection.outputStream)
+            outputStream.write(postData)
+            outputStream.flush()
+        } catch (exception: Exception) {
+
+        }
 
     }
 

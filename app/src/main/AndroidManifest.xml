@@ -60,18 +60,7 @@
                 android:enabled="true"
                 android:exported="true">
         </service>
-        <activity
-            android:name="com.microsoft.identity.client.BrowserTabActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:scheme="msauth"
-                    android:host="com.andromeda.ara"
-                    android:path="/<YOUR_BASE64_URL_ENCODED_PACKAGE_SIGNATURE>" />
-            </intent-filter>
-        </activity>
+
 
         <activity
                 android:name=".activitys.SkillsActivity"

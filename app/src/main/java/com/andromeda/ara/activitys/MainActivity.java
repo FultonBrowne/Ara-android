@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
         Push.setListener(new PushUtil());
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
-                Analytics.class, Crashes.class, Auth.class, Push.class);
+                Analytics.class, Crashes.class, Push.class);
         new GetSettings().starUp(this);
 
         final TagManager main53 = new TagManager(this);
@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
-        new LogIn().logIn(mPrefs, getApplication());
+        new LogIn().logIn(this);
 
     }
 

@@ -16,18 +16,16 @@
 
 package com.andromeda.ara.util
 
-import android.R
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import com.andromeda.ara.R
 import com.andromeda.ara.constants.User
 import com.microsoft.appcenter.auth.Auth
 import com.microsoft.appcenter.auth.SignInResult
 import com.microsoft.identity.client.*
 import com.microsoft.identity.client.IPublicClientApplication.IMultipleAccountApplicationCreatedListener
-import com.microsoft.identity.client.exception.MsalClientException
 import com.microsoft.identity.client.exception.MsalException
-import com.microsoft.identity.client.exception.MsalServiceException
 import com.nimbusds.jwt.JWTParser
 import net.minidev.json.JSONArray
 
@@ -69,20 +67,33 @@ class LogIn {
         }
     }
     fun logIn(act:Activity){
+        println("start auth")
         val scopes = arrayOf("User.Read")
         var mMultipleAccountApp: IMultipleAccountPublicClientApplication? = null
 
         PublicClientApplication.createMultipleAccountPublicClientApplication(act,
-                R.raw.msal_config,
+                R.raw.auth,
                 object : IMultipleAccountApplicationCreatedListener {
                     override fun onCreated(application: IMultipleAccountPublicClientApplication) {
                         mMultipleAccountApp = application
+                        mMultipleAccountApp!!.acquireToken(act, scopes, getAuthInteractiveCallback()!!)
+                        println(mMultipleAccountApp)
+                        val account = mFirstAccount?.id?.let { mMultipleAccountApp!!.getAccount(it) }
+
+                        if (account != null) { //Now that we know the account is still present in the local cache or not the device (broker authentication)
+                            val authority = mMultipleAccountApp!!.configuration.defaultAuthority.authorityURL.toString()
+                            val result = mMultipleAccountApp!!.acquireTokenSilent(scopes, account, authority)
+                        }
+                        println("done with multi account listener")
+
                     }
 
                     override fun onError(exception: MsalException) { //Log Exception Here
+                        throw exception
                     }
                 })
-        mMultipleAccountApp?.acquireToken(act, scopes, this!!.getAuthInteractiveCallback()!!);
+
+
     }
     private fun getAuthInteractiveCallback(): AuthenticationCallback? {
         return object : AuthenticationCallback {
@@ -90,12 +101,12 @@ class LogIn {
                 val accessToken = authenticationResult.accessToken
                 // Record account used to acquire token
                 mFirstAccount = authenticationResult.account
+                User.id = mFirstAccount!!.id
+                println("got token")
             }
 
             override fun onError(exception: MsalException?) {
-                if (exception is MsalClientException) { //And exception from the client (MSAL)
-                } else if (exception is MsalServiceException) { //An exception from the server
-                }
+                throw exception!!
             }
 
             override fun onCancel() { /* User canceled the authentication */

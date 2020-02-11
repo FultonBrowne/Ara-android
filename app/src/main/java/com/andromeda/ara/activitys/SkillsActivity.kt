@@ -142,12 +142,23 @@ class SkillsActivity : AppCompatActivity() {
     fun updateServer(message: String) {
 
         val serverURL: String = "${ServerUrl.url}postupdate/user=${User.id}&id=$id&prop=action"
+        println(serverURL)
         println(id)
         println(message)
         val okHttpClient = OkHttpClient()
         val request = Request.Builder()
                 .addHeader("data", message)
                 .url(serverURL)
+
+
+
+
+
+
+
+
+
+
                 .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {

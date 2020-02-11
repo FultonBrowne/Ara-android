@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.ServerUrl.url
+import com.andromeda.ara.constants.User
 import com.andromeda.ara.constants.User.id
 import com.andromeda.ara.devices.DeviceAdapter
 import com.andromeda.ara.devices.DeviceModel
@@ -43,8 +44,11 @@ import com.andromeda.ara.skills.SearchFunctions
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.google.gson.Gson
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
+import okhttp3.*
+import java.io.IOException
 import java.net.URL
 import java.util.*
 import kotlin.reflect.full.memberProperties
@@ -65,7 +69,7 @@ class AraPopUps {
         builder.setPositiveButton("OK") { _, _ -> text = input.text.toString()
             try {
                 val i = (Math.random() * (30000 + 1)).toInt()
-                Data.create(i.toString(), SkillsDBModel(SkillsModel(mapper.writeValueAsString(toYML), "", ""), text, id), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+                newDoc(Gson().toJson(SkillsDBModel(SkillsModel(mapper.writeValueAsString(toYML), "", ""), text, id)), i.toString() + User.id)
             } catch (e: JsonProcessingException) {
                 e.printStackTrace()
             }
@@ -226,6 +230,29 @@ class AraPopUps {
         } catch (e: RuntimeException) {
         }
         return resultValue
+    }
+    fun newDoc(message: String, id:String) {
+
+        val serverURL: String = "${url}newdoc/user=${User.id}&id=$id"
+        println(serverURL)
+        println(id)
+        println(message)
+        val okHttpClient = OkHttpClient()
+        val request = Request.Builder()
+                .addHeader("data", message)
+                .url(serverURL)
+                .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                println("fail")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                println("call back: " + response.message())
+            }
+        })
+
+
     }
 
 }

@@ -63,10 +63,6 @@ import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.auth.Auth;
 import com.microsoft.appcenter.crashes.Crashes;
-import com.microsoft.appcenter.data.Data;
-import com.microsoft.appcenter.data.DefaultPartitions;
-import com.microsoft.appcenter.data.models.DocumentWrapper;
-import com.microsoft.appcenter.data.models.PaginatedDocuments;
 import com.microsoft.appcenter.push.Push;
 import com.microsoft.appcenter.utils.async.AppCenterConsumer;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -138,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
         Push.setListener(new PushUtil());
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
-                Analytics.class, Crashes.class, Auth.class, Data.class, Push.class);
+                Analytics.class, Crashes.class, Auth.class, Push.class);
         new GetSettings().starUp(this);
 
         final TagManager main53 = new TagManager(this);

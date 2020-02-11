@@ -36,8 +36,6 @@ import com.andromeda.ara.util.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.google.gson.Gson
-import com.microsoft.appcenter.data.Data
-import com.microsoft.appcenter.data.DefaultPartitions
 import kotlinx.android.synthetic.main.activity_skills.*
 import okhttp3.*
 import java.io.BufferedReader

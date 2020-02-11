@@ -30,8 +30,7 @@ import com.andromeda.ara.devices.DeviceModel
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
 import com.andromeda.ara.skills.SearchFunctions
-import com.microsoft.appcenter.data.Data
-import com.microsoft.appcenter.data.DefaultPartitions
+
 
 
 class CardOnClick {
@@ -39,10 +38,10 @@ class CardOnClick {
         when (mode) {
             DrawerModeConstants.SHORTCUTS-> {
                 try {
-                    Data.read(linkText, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS).thenAccept {
-                        val parsed = Parse().parse(it.deserializedValue.action.action)
-                        RunActions().doIt(parsed, "", ctx, act, searchFunctions)
-                    }
+
+                    val parsed = Parse().parse(JsonParse().skillsServer(URL("${ServerUrl.url}1user/user=${User.id}&id=$linkText").readText())[0].action.action)
+                    RunActions().doIt(parsed, "", ctx, act, searchFunctions)
+
 
                 } catch (e: Exception) {
                     e.printStackTrace()

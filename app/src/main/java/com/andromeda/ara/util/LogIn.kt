@@ -16,15 +16,25 @@
 
 package com.andromeda.ara.util
 
+import android.R
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import com.andromeda.ara.constants.User
 import com.microsoft.appcenter.auth.Auth
 import com.microsoft.appcenter.auth.SignInResult
+import com.microsoft.identity.client.*
+import com.microsoft.identity.client.IPublicClientApplication.IMultipleAccountApplicationCreatedListener
+import com.microsoft.identity.client.exception.MsalClientException
+import com.microsoft.identity.client.exception.MsalException
+import com.microsoft.identity.client.exception.MsalServiceException
 import com.nimbusds.jwt.JWTParser
 import net.minidev.json.JSONArray
 
+
 class LogIn {
+    var mFirstAccount: IAccount? = null
+
     fun logIn(mPrefs: SharedPreferences, ctx: Context) {
 
         Auth.setEnabled(true)
@@ -55,6 +65,40 @@ class LogIn {
             } else {
                 signInResult.exception.printStackTrace()
 
+            }
+        }
+    }
+    fun logIn(act:Activity){
+        val scopes = arrayOf("User.Read")
+        var mMultipleAccountApp: IMultipleAccountPublicClientApplication? = null
+
+        PublicClientApplication.createMultipleAccountPublicClientApplication(act,
+                R.raw.msal_config,
+                object : IMultipleAccountApplicationCreatedListener {
+                    override fun onCreated(application: IMultipleAccountPublicClientApplication) {
+                        mMultipleAccountApp = application
+                    }
+
+                    override fun onError(exception: MsalException) { //Log Exception Here
+                    }
+                })
+        mMultipleAccountApp?.acquireToken(act, scopes, this!!.getAuthInteractiveCallback()!!);
+    }
+    private fun getAuthInteractiveCallback(): AuthenticationCallback? {
+        return object : AuthenticationCallback {
+            override fun onSuccess(authenticationResult: IAuthenticationResult) { /* Successfully got a token, use it to call a protected resource */
+                val accessToken = authenticationResult.accessToken
+                // Record account used to acquire token
+                mFirstAccount = authenticationResult.account
+            }
+
+            override fun onError(exception: MsalException?) {
+                if (exception is MsalClientException) { //And exception from the client (MSAL)
+                } else if (exception is MsalServiceException) { //An exception from the server
+                }
+            }
+
+            override fun onCancel() { /* User canceled the authentication */
             }
         }
     }

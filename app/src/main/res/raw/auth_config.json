@@ -1,0 +1,5 @@
+{
+  "client_id" : "e4e16983-2565-496c-aa70-8fe0f1bf0907",
+  "redirect_uri" : "msauth://<YOUR_PACKAGE_NAME>/<YOUR_BASE64_URL_ENCODED_PACKAGE_SIGNATURE>",
+  "broker_redirect_uri_registered": true
+}

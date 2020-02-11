@@ -25,10 +25,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.text.InputType
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
@@ -45,7 +42,6 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.google.gson.Gson
-import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
 import okhttp3.*
 import java.io.IOException
@@ -88,7 +84,7 @@ class AraPopUps {
         builder.setPositiveButton("OK") { _, _ ->
             val text = input.text.toString()
             allData.name = text
-            Data.replace(id, allData, SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+            URL("${ServerUrl.url}updateuserdata/user=${User.id}id=20392&prop=name&newval=$text")
         }
 
             builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
@@ -103,7 +99,6 @@ class AraPopUps {
         builder.setView(input)
         builder.setPositiveButton("OK") { _, _ ->
             val i = (Math.random() * (30000 + 1)).toInt()
-            Data.create(i .toString(), DeviceModel(input.text.toString(), "LIGHT", url.readText(), ""), DeviceModel::class.java, DefaultPartitions.USER_DOCUMENTS)
             val url1 = URL("${ServerUrl.url}newdevice/user=${id}&id=$i")
             val deviceKey = GetUrlAra().getIt(url1)
 
@@ -188,7 +183,7 @@ class AraPopUps {
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
         builder.setPositiveButton("Delete") { _, _ ->
-            Data.delete(id, DefaultPartitions.USER_DOCUMENTS)
+            Toast.makeText(ctx, "offline as of now", Toast.LENGTH_LONG)
         }
         builder.show()
 

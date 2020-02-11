@@ -17,6 +17,7 @@
 package com.andromeda.ara.util
 
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -42,7 +43,6 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.google.gson.Gson
-import com.microsoft.appcenter.data.DefaultPartitions
 import okhttp3.*
 import java.io.IOException
 import java.net.URL
@@ -207,6 +207,7 @@ class AraPopUps {
 
     fun getDialogValueBack(context: Context?, m: String): String {
         val handler: Handler = object : Handler() {
+            @SuppressLint("HandlerLeak")
             override fun handleMessage(mesg: Message?) {
                 throw RuntimeException()
             }

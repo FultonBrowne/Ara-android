@@ -39,8 +39,10 @@ import com.google.gson.Gson
 import com.microsoft.appcenter.data.Data
 import com.microsoft.appcenter.data.DefaultPartitions
 import kotlinx.android.synthetic.main.activity_skills.*
+import okhttp3.*
 import java.io.BufferedReader
 import java.io.DataOutputStream
+import java.io.IOException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
@@ -76,7 +78,7 @@ class SkillsActivity : AppCompatActivity() {
         val mapper = ObjectMapper(YAMLFactory())
         val yml = mapper.writeValueAsString(toYAML)
         println(yml)
-        Data.replace(id, SkillsDBModel(SkillsModel(yml, runOn, ""), name, this!!.id!!), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
+        updateServer(Gson().toJson(SkillsModel(yml, runOn, "")))
         onBackPressed()
     }
 
@@ -109,7 +111,6 @@ class SkillsActivity : AppCompatActivity() {
 
         val yml = mapper.writeValueAsString(toYAML)
         println(yml)
-        Data.replace(id, SkillsDBModel(SkillsModel(yml, runOn, ""), name, this!!.id!!), SkillsDBModel::class.java, DefaultPartitions.USER_DOCUMENTS)
         updateServer(Gson().toJson(SkillsModel(yml, runOn, "")))
 
        reload()
@@ -140,24 +141,24 @@ class SkillsActivity : AppCompatActivity() {
     }
     fun updateServer(message: String) {
 
-        val serverURL: String = "${ServerUrl.url}postupdate/user=${User.id}&id=$id"
-        val url = URL(serverURL)
-        val connection = url.openConnection() as HttpURLConnection
-        connection.requestMethod = "POST"
+        val serverURL: String = "${ServerUrl.url}postupdate/user=${User.id}&id=$id&prop=action"
+        println(id)
+        println(message)
+        val okHttpClient = OkHttpClient()
+        val request = Request.Builder()
+                .addHeader("data", message)
+                .url(serverURL)
+                .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                println("fail")
+            }
 
-        val postData: ByteArray = message.toByteArray(StandardCharsets.UTF_8)
+            override fun onResponse(call: Call, response: Response) {
+                println("call back: " + response.message())
+            }
+        })
 
-        connection.setRequestProperty("charset", "utf-8")
-        connection.setRequestProperty("data", message)
-        connection.setRequestProperty("Content-Type", "application/json")
-
-        try {
-            val outputStream =  DataOutputStream(connection.outputStream)
-            outputStream.write(postData)
-            outputStream.flush()
-        } catch (exception: Exception) {
-
-        }
 
     }
 

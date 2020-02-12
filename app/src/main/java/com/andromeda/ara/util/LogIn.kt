@@ -106,8 +106,9 @@ class LogIn {
     private fun startLogIn( serviceConfiguration: AuthorizationServiceConfiguration?, act: Activity) {
         println("go")
         val config1 = serviceConfiguration
-        val req: AuthorizationRequest = AuthorizationRequest.Builder(config1!!, "e4e16983-2565-496c-aa70-8fe0f1bf0907", ResponseTypeValues.CODE, Uri.parse("msalfbc54802-e5ba-4a5d-9e02-e3a5dcf4922b://auth"))
+        val req: AuthorizationRequest = AuthorizationRequest.Builder(config1!!, "e4e16983-2565-496c-aa70-8fe0f1bf0907", ResponseTypeValues.CODE, Uri.parse("msalfbc54802-e5ba-4a5d-9e02-e3a5dcf4922b://auth")).setScope("openid")
                 .build()
+        println(req.toUri())
         val generator = Random()
         val service = AuthorizationService(act)
         val i = PendingIntent.getActivity(act, generator.nextInt(), Intent(act, GetData::class.java), PendingIntent.FLAG_UPDATE_CURRENT)

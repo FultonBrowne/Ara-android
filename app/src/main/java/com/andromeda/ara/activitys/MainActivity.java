@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
-        new LogIn().logIn(this);
+        new LogIn().logIn();
 
     }
 

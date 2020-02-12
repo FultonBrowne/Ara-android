@@ -16,9 +16,11 @@
 
 package com.andromeda.ara.util
 
+import android.R.attr.name
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import com.andromeda.ara.R
 import com.andromeda.ara.constants.User
 import com.microsoft.appcenter.auth.Auth
@@ -28,6 +30,9 @@ import com.microsoft.identity.client.IPublicClientApplication.IMultipleAccountAp
 import com.microsoft.identity.client.exception.MsalException
 import com.nimbusds.jwt.JWTParser
 import net.minidev.json.JSONArray
+import net.openid.appauth.AuthorizationRequest
+import net.openid.appauth.AuthorizationServiceConfiguration
+import net.openid.appauth.ResponseTypeValues
 
 
 class LogIn {
@@ -113,4 +118,28 @@ class LogIn {
             }
         }
     }
+    fun logIn(){
+        val mDiscoveryURI = "https://AraLogIn.b2clogin.com/AraLogIn.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1_AraLogIn"
+        val issuerUri: Uri = Uri.parse(mDiscoveryURI)
+        var config: AuthorizationServiceConfiguration?
+
+        AuthorizationServiceConfiguration.fetchFromIssuer(
+                issuerUri
+        ) { serviceConfiguration, ex ->
+            if (ex != null) {
+                ex.printStackTrace()
+            } else {
+                println("go")
+                config = serviceConfiguration// service configuration retrieved, proceed to authorization...
+                val req: AuthorizationRequest = AuthorizationRequest.Builder(
+                        config!!,
+                        "e4e16983-2565-496c-aa70-8fe0f1bf0907",
+                        ResponseTypeValues.CODE,
+                        Uri.parse("msalfbc54802-e5ba-4a5d-9e02-e3a5dcf4922b://auth"))
+                        .build()
+            }
+        }
+
+    }
+
 }

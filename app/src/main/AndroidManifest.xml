@@ -86,7 +86,17 @@
 
                 <data
                         android:host="auth"
-                        android:scheme="msalfbc54802-e5ba-4a5d-9e02-e3a5dcf4922b"/>
+                        android:scheme="msauth"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="net.openid.appauth.RedirectUriReceiverActivity"
+            tools:node="replace">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="com.andromeda.ara"/>
             </intent-filter>
         </activity>
         <activity

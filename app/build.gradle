@@ -94,6 +94,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.microsoft.identity.client:msal:1.0.+'
+    implementation group: 'net.openid', name: 'appauth', version: '0.7.0'
     implementation 'androidx.preference:preference:1.1.0'
     implementation 'com.google.code.ndef-tools-for-android:ndeftools-util:1.2.4'
     def appCenterSdkVersion = '2.5.1'

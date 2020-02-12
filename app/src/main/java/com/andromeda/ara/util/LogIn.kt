@@ -16,23 +16,25 @@
 
 package com.andromeda.ara.util
 
-import android.R.attr.name
 import android.app.Activity
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
-import com.andromeda.ara.R
+import android.os.Bundle
+import android.widget.Toast
 import com.andromeda.ara.constants.User
 import com.microsoft.appcenter.auth.Auth
 import com.microsoft.appcenter.auth.SignInResult
-import com.microsoft.identity.client.*
-import com.microsoft.identity.client.IPublicClientApplication.IMultipleAccountApplicationCreatedListener
+import com.microsoft.identity.client.AuthenticationCallback
+import com.microsoft.identity.client.IAccount
+import com.microsoft.identity.client.IAuthenticationResult
 import com.microsoft.identity.client.exception.MsalException
 import com.nimbusds.jwt.JWTParser
 import net.minidev.json.JSONArray
-import net.openid.appauth.AuthorizationRequest
-import net.openid.appauth.AuthorizationServiceConfiguration
-import net.openid.appauth.ResponseTypeValues
+import net.openid.appauth.*
+import java.util.*
 
 
 class LogIn {
@@ -71,35 +73,7 @@ class LogIn {
             }
         }
     }
-    fun logIn(act:Activity){
-        println("start auth")
-        val scopes = arrayOf("User.Read")
-        var mMultipleAccountApp: IMultipleAccountPublicClientApplication? = null
 
-        PublicClientApplication.createMultipleAccountPublicClientApplication(act,
-                R.raw.auth,
-                object : IMultipleAccountApplicationCreatedListener {
-                    override fun onCreated(application: IMultipleAccountPublicClientApplication) {
-                        mMultipleAccountApp = application
-                        mMultipleAccountApp!!.acquireToken(act, scopes, getAuthInteractiveCallback()!!)
-                        println(mMultipleAccountApp)
-                        val account = mFirstAccount?.id?.let { mMultipleAccountApp!!.getAccount(it) }
-
-                        if (account != null) { //Now that we know the account is still present in the local cache or not the device (broker authentication)
-                            val authority = mMultipleAccountApp!!.configuration.defaultAuthority.authorityURL.toString()
-                            val result = mMultipleAccountApp!!.acquireTokenSilent(scopes, account, authority)
-                        }
-                        println("done with multi account listener")
-
-                    }
-
-                    override fun onError(exception: MsalException) { //Log Exception Here
-                        throw exception
-                    }
-                })
-
-
-    }
     private fun getAuthInteractiveCallback(): AuthenticationCallback? {
         return object : AuthenticationCallback {
             override fun onSuccess(authenticationResult: IAuthenticationResult) { /* Successfully got a token, use it to call a protected resource */
@@ -118,7 +92,7 @@ class LogIn {
             }
         }
     }
-    fun logIn(){
+    fun logIn(act: Activity){
         val mDiscoveryURI = "https://AraLogIn.b2clogin.com/AraLogIn.onmicrosoft.com?p=B2C_1_AraLogIn"
         val issuerUri: Uri = Uri.parse(mDiscoveryURI)
         var config: AuthorizationServiceConfiguration?
@@ -137,10 +111,26 @@ class LogIn {
                         ResponseTypeValues.CODE,
                         Uri.parse("msalfbc54802-e5ba-4a5d-9e02-e3a5dcf4922b://auth"))
                         .build()
+                val generator = Random()
+                val service = AuthorizationService(act)
+                val i = PendingIntent.getActivity(act, generator.nextInt(), Intent(act, GetData::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
+                service.performAuthorizationRequest(req, i)
 
             }
         }
 
     }
+    public class GetData : Activity() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            val resp = AuthorizationResponse.fromIntent(intent)
+            val ex = AuthorizationException.fromIntent(intent)
+            if (resp != null) { // aut
+                Toast.makeText(this, "logged in", Toast.LENGTH_LONG)// horization succeeded
+            } else { //
+                throw ex!!// authorization failed, check ex for more details
+            }
+
+    }}
 
 }

@@ -116,6 +116,7 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.andromeda.ara.activitys.MainActivity"/>
         </activity>
+        <activity android:name=".util.LogIn$GetData"/>
 
 
         <uses-library

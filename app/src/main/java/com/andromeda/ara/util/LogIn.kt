@@ -119,7 +119,7 @@ class LogIn {
         }
     }
     fun logIn(){
-        val mDiscoveryURI = "https://AraLogIn.b2clogin.com/AraLogIn.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1_AraLogIn"
+        val mDiscoveryURI = "https://AraLogIn.b2clogin.com/AraLogIn.onmicrosoft.com?p=B2C_1_AraLogIn"
         val issuerUri: Uri = Uri.parse(mDiscoveryURI)
         var config: AuthorizationServiceConfiguration?
 
@@ -137,6 +137,7 @@ class LogIn {
                         ResponseTypeValues.CODE,
                         Uri.parse("msalfbc54802-e5ba-4a5d-9e02-e3a5dcf4922b://auth"))
                         .build()
+
             }
         }
 

@@ -27,18 +27,18 @@ import android.widget.Toast
 import com.andromeda.ara.constants.User
 import com.microsoft.appcenter.auth.Auth
 import com.microsoft.appcenter.auth.SignInResult
-import com.microsoft.identity.client.AuthenticationCallback
-import com.microsoft.identity.client.IAccount
-import com.microsoft.identity.client.IAuthenticationResult
-import com.microsoft.identity.client.exception.MsalException
 import com.nimbusds.jwt.JWTParser
 import net.minidev.json.JSONArray
 import net.openid.appauth.*
+import net.openid.appauth.AuthState.AuthStateAction
 import java.util.*
 
 
 class LogIn {
-    var mFirstAccount: IAccount? = null
+    companion object{
+    var authState: AuthState? = null
+        var service: AuthorizationService? = null
+    }
 
     fun logIn(mPrefs: SharedPreferences, ctx: Context) {
 
@@ -74,24 +74,6 @@ class LogIn {
         }
     }
 
-    private fun getAuthInteractiveCallback(): AuthenticationCallback? {
-        return object : AuthenticationCallback {
-            override fun onSuccess(authenticationResult: IAuthenticationResult) { /* Successfully got a token, use it to call a protected resource */
-                val accessToken = authenticationResult.accessToken
-                // Record account used to acquire token
-                mFirstAccount = authenticationResult.account
-                User.id = mFirstAccount!!.id
-                println("got token")
-            }
-
-            override fun onError(exception: MsalException?) {
-                throw exception!!
-            }
-
-            override fun onCancel() { /* User canceled the authentication */
-            }
-        }
-    }
     fun logIn(act: Activity){
         val mDiscoveryURI = "https://AraLogIn.b2clogin.com/AraLogIn.onmicrosoft.com?p=B2C_1_araMain"
         val issuerUri: Uri = Uri.parse(mDiscoveryURI)
@@ -109,14 +91,13 @@ class LogIn {
         val req: AuthorizationRequest = AuthorizationRequest.Builder(config1!!, "e4e16983-2565-496c-aa70-8fe0f1bf0907", ResponseTypeValues.CODE, Uri.parse("msale4e16983-2565-496c-aa70-8fe0f1bf0907://auth"))
                 .setScope("openid")
                 .setPrompt("login")
-                //.setResponseType("id_token")
-
                 .build()
         println(req.toUri())
+        authState = AuthState(config1)
         val generator = Random()
-        val service = AuthorizationService(act)
+        service = AuthorizationService(act)
         val i = PendingIntent.getActivity(act, generator.nextInt(), Intent(act, GetData::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
-        service.performAuthorizationRequest(req, i)
+        service!!.performAuthorizationRequest(req, i)
     }
 
     class GetData : Activity() {
@@ -124,12 +105,25 @@ class LogIn {
             println("run")
             super.onCreate(savedInstanceState)
             val resp = AuthorizationResponse.fromIntent(intent)
+            val ex = AuthorizationException.fromIntent(intent)
+            val redirectUri = intent.data
 
-            if (resp != null) { // aut
+            if (resp != null) { // auth
+                authState!!.update(resp, ex)
+                service!!.performTokenRequest(
+                        resp.createTokenExchangeRequest()
+                ) { resp2, ex2 ->
+                    if (resp2 != null) { // exchange succeeded
+                        println(resp2.additionalParameters)
+                        println("it worked!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                    } else { // authorization failed, check ex for more details
+                        throw ex2!!
+                    }
+                }
                 Toast.makeText(this, "logged in", Toast.LENGTH_LONG).show()
+
             } else { //
                 Toast.makeText(this, "fail", Toast.LENGTH_LONG).show()
-                val ex = AuthorizationException.fromIntent(intent)
                 throw ex!!// authorization failed, check ex for more details
             }
             onBackPressed()

@@ -109,7 +109,7 @@ class LogIn {
         val req: AuthorizationRequest = AuthorizationRequest.Builder(config1!!, "e4e16983-2565-496c-aa70-8fe0f1bf0907", ResponseTypeValues.CODE, Uri.parse("msale4e16983-2565-496c-aa70-8fe0f1bf0907://auth"))
                 .setScope("openid")
                 .setPrompt("login")
-                .setResponseType("id_token")
+                //.setResponseType("id_token")
 
                 .build()
         println(req.toUri())
@@ -124,14 +124,15 @@ class LogIn {
             println("run")
             super.onCreate(savedInstanceState)
             val resp = AuthorizationResponse.fromIntent(intent)
-            val ex = AuthorizationException.fromIntent(intent)
 
             if (resp != null) { // aut
                 Toast.makeText(this, "logged in", Toast.LENGTH_LONG).show()
             } else { //
+                Toast.makeText(this, "fail", Toast.LENGTH_LONG).show()
+                val ex = AuthorizationException.fromIntent(intent)
                 throw ex!!// authorization failed, check ex for more details
             }
-            onDestroy()
+            onBackPressed()
 
     }}
 

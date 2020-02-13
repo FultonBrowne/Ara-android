@@ -97,8 +97,8 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data android:scheme="msale4e16983-2565-496c-aa70-8fe0f1bf0907"
-                    android:host="com.andromeda.ara"
-                    android:path="/api"
+                    android:host="auth"
+                    android:path="/auth"
                     />
             </intent-filter>
         </activity>

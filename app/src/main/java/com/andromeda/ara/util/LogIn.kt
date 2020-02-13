@@ -93,7 +93,7 @@ class LogIn {
         }
     }
     fun logIn(act: Activity){
-        val mDiscoveryURI = "https://AraLogIn.b2clogin.com/AraLogIn.onmicrosoft.com?p=B2C_1_AraLogIn"
+        val mDiscoveryURI = "https://AraLogIn.b2clogin.com/AraLogIn.onmicrosoft.com?p=B2C_1_araMain"
         val issuerUri: Uri = Uri.parse(mDiscoveryURI)
 
         AuthorizationServiceConfiguration.fetchFromIssuer(issuerUri) { serviceConfiguration, ex ->
@@ -106,7 +106,9 @@ class LogIn {
     private fun startLogIn( serviceConfiguration: AuthorizationServiceConfiguration?, act: Activity) {
         println("go")
         val config1 = serviceConfiguration
-        val req: AuthorizationRequest = AuthorizationRequest.Builder(config1!!, "e4e16983-2565-496c-aa70-8fe0f1bf0907", ResponseTypeValues.CODE, Uri.parse("msalfbc54802-e5ba-4a5d-9e02-e3a5dcf4922b://auth")).setScope("openid").setPrompt("login")
+        val req: AuthorizationRequest = AuthorizationRequest.Builder(config1!!, "e4e16983-2565-496c-aa70-8fe0f1bf0907", ResponseTypeValues.CODE, Uri.parse("msalfbc54802-e5ba-4a5d-9e02-e3a5dcf4922b://auth"))
+                .setScope("openid")
+                .setPrompt("login")
                 .build()
         println(req.toUri())
         val generator = Random()
@@ -117,14 +119,17 @@ class LogIn {
 
     class GetData : Activity() {
         override fun onCreate(savedInstanceState: Bundle?) {
+            println("run")
             super.onCreate(savedInstanceState)
             val resp = AuthorizationResponse.fromIntent(intent)
             val ex = AuthorizationException.fromIntent(intent)
+
             if (resp != null) { // aut
                 Toast.makeText(this, "logged in", Toast.LENGTH_LONG).show()
             } else { //
                 throw ex!!// authorization failed, check ex for more details
             }
+            onDestroy()
 
     }}
 

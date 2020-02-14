@@ -23,14 +23,17 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.andromeda.ara.constants.User
+import com.google.gson.JsonParser
 import com.microsoft.appcenter.auth.Auth
 import com.microsoft.appcenter.auth.SignInResult
 import com.nimbusds.jwt.JWTParser
 import net.minidev.json.JSONArray
 import net.openid.appauth.*
-import net.openid.appauth.AuthState.AuthStateAction
+import java.io.UnsupportedEncodingException
+import java.nio.charset.Charset
 import java.util.*
 
 
@@ -114,11 +117,9 @@ class LogIn {
                         resp.createTokenExchangeRequest()
                 ) { resp2, ex2 ->
                     if (resp2 != null) { // exchange succeeded
-                        println(resp2.additionalParameters)
-                        println("it worked!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                    } else { // authorization failed, check ex for more details
-                        throw ex2!!
-                    }
+                        decoded(resp2.accessToken!!)
+                    } else throw ex2!!
+                    // authorization failed, check ex for more details
                 }
                 Toast.makeText(this, "logged in", Toast.LENGTH_LONG).show()
 
@@ -128,6 +129,24 @@ class LogIn {
             }
             onBackPressed()
 
-    }}
+    }
+        @Throws(java.lang.Exception::class)
+        fun decoded(JWTEncoded: String) {
+            try {
+                val split = JWTEncoded.split(".").toTypedArray()
+                Log.d("JWT_DECODED", "Header: " + getJson(split[0]))
+                val body = getJson(split[1])
+                val jsonParser = JsonParser()
+                User.id = jsonParser.parse(body).asJsonObject.get("sub").asString
+                Log.d("JWT_DECODED", "Body: $body")
+            } catch (e: UnsupportedEncodingException) { //Error
+            }
+        }
+
+        private fun getJson(strEncoded: String): String {
+            val decodedBytes: ByteArray = android.util.Base64.decode(strEncoded, android.util.Base64.URL_SAFE)
+            return String(decodedBytes, Charset.defaultCharset())
+        }
+    }
 
 }

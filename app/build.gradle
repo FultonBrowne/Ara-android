@@ -131,6 +131,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0-alpha04'
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
     implementation "com.android.volley:volley:1.1.1"
+    //implementation 'io.jsonwebtoken:jjwt-api:0.11.0'
 
     implementation "com.google.code.gson:gson:2.8.6"
 

@@ -62,7 +62,6 @@ import com.andromeda.ara.voice.VoiceMain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
-import com.microsoft.appcenter.auth.Auth;
 import com.microsoft.appcenter.crashes.Crashes;
 import com.microsoft.appcenter.push.Push;
 import com.microsoft.appcenter.utils.async.AppCenterConsumer;
@@ -100,9 +99,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
     //Device screen width
     private int screenWidth;
     private long mode = 0;
-    SharedPreferences mPrefs;
-    String mEmail;
-    String mName;
     Activity act;
 
 
@@ -141,11 +137,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         new GetSettings().starUp(this);
 
         final TagManager main53 = new TagManager(this);
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        //name of the preference
-
-        mName = mPrefs.getString("name", "please log in");
-        mEmail = mPrefs.getString("email", "please log in");
 
         screenWidth = checkScreenWidth();
 

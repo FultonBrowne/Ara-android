@@ -99,7 +99,6 @@ dependencies {
     implementation 'com.google.code.ndef-tools-for-android:ndeftools-util:1.2.4'
     def appCenterSdkVersion = '2.5.1'
     implementation "com.microsoft.appcenter:appcenter-push:${appCenterSdkVersion}"
-    implementation "com.microsoft.appcenter:appcenter-auth:${appCenterSdkVersion}"
 
 
     implementation group: 'org.mozilla.deepspeech', name: 'libdeepspeech', version: '0.6.0-alpha.9'

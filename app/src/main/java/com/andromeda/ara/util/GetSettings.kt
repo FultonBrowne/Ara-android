@@ -21,7 +21,6 @@ import android.widget.Toast
 import androidx.preference.PreferenceManager
 import com.andromeda.ara.constants.ServerUrl
 import com.microsoft.appcenter.analytics.Analytics
-import com.microsoft.appcenter.auth.Auth
 import com.microsoft.appcenter.crashes.Crashes
 
 class GetSettings {

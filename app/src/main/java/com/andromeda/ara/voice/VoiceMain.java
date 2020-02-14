@@ -70,6 +70,14 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        File file = new File(ctx.getCacheDir() + "/main.tflite");
+        File file1 = new File(this.getCacheDir() + "/alphabet.txt");
+
+
+
+        if(file1.exists() && file.exists()){
         System.out.println(bufferSizeInBytes);
         setContentView(R.layout.activity_voice_main);
         deepSpeech = new DeepSpeech(this);
@@ -80,10 +88,39 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
         requestMicrophonePermission();
 
 
-        super.onCreate(savedInstanceState);
 
         startRecording(null);
         runTransition();
+        }
+        else{
+            ProgressDialog mProgressDialog;
+            mProgressDialog = new ProgressDialog(ctx);
+            mProgressDialog.setMessage(ctx.getString(R.string.download));
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mProgressDialog.setCancelable(true);
+            DownloadTask downloadTask = new DownloadTask(this, ctx.getCacheDir() + "/main.tflite", mProgressDialog);
+            downloadTask.execute("https://arafilestore.file.core.windows.net/ara-server-files/main.tflite?sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2024-04-01T22:11:11Z&st=2019-12-19T15:11:11Z&spr=https&sig=lfjMHSahA6fw8enCbx0hFTE1uAVJWvPmC4m6blVSuuo%3D");
+
+            DownloadTask finalDownloadTask1 = downloadTask;
+            mProgressDialog.setOnCancelListener(dialog -> {
+                finalDownloadTask1.cancel(true); //cancel the task
+            });
+            mProgressDialog.show();
+                mProgressDialog = new ProgressDialog(this);
+                mProgressDialog.setMessage(ctx.getString(R.string.download));
+                mProgressDialog.setIndeterminate(true);
+                mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                mProgressDialog.setCancelable(true);
+                downloadTask = new DownloadTask(this, ctx.getCacheDir() + "/alphabet.txt", mProgressDialog);
+                downloadTask.execute("https://arafilestore.file.core.windows.net/ara-server-files/alphabet.txt?sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2024-04-01T22:11:11Z&st=2019-12-19T15:11:11Z&spr=https&sig=lfjMHSahA6fw8enCbx0hFTE1uAVJWvPmC4m6blVSuuo%3D");
+
+                DownloadTask finalDownloadTask = downloadTask;
+                mProgressDialog.setOnCancelListener(dialog -> {
+                    finalDownloadTask.cancel(true); //cancel the task
+                });
+
+        }
 
     }
 
@@ -294,39 +331,10 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
 
     private void recognize(@Nullable String link) {
         final String[] phrase = new String[1];
-        File file = new File(ctx.getCacheDir() + "/main.tflite");
-        if(!file.exists()){
-            ProgressDialog mProgressDialog;
-            mProgressDialog = new ProgressDialog(ctx);
-            mProgressDialog.setMessage(ctx.getString(R.string.download));
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgressDialog.setCancelable(true);
-            final DownloadTask downloadTask = new DownloadTask(this, ctx.getCacheDir() + "/main.tflite", mProgressDialog);
-            downloadTask.execute("https://arafilestore.file.core.windows.net/ara-server-files/main.tflite?sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2024-04-01T22:11:11Z&st=2019-12-19T15:11:11Z&spr=https&sig=lfjMHSahA6fw8enCbx0hFTE1uAVJWvPmC4m6blVSuuo%3D");
 
-            mProgressDialog.setOnCancelListener(dialog -> {
-                downloadTask.cancel(true); //cancel the task
-            });
-            mProgressDialog.show();
-        }
-        File file1 = new File(this.getCacheDir() + "/alphabet.txt");
-        if(!file1.exists()){
-            ProgressDialog mProgressDialog;
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(ctx.getString(R.string.download));
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgressDialog.setCancelable(true);
-            final DownloadTask downloadTask = new DownloadTask(this, ctx.getCacheDir() + "/alphabet.txt", mProgressDialog);
-            downloadTask.execute("https://arafilestore.file.core.windows.net/ara-server-files/alphabet.txt?sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2024-04-01T22:11:11Z&st=2019-12-19T15:11:11Z&spr=https&sig=lfjMHSahA6fw8enCbx0hFTE1uAVJWvPmC4m6blVSuuo%3D");
 
-            mProgressDialog.setOnCancelListener(dialog -> {
-                downloadTask.cancel(true); //cancel the task
-            });
-        }
-        else {
             Thread recognize = new Thread(() -> {
+                System.out.println("ok");
                 try {
                     //phrase[0] = new DeepSpeech().voiceV2(byteIS.toByteArray(), this);
                     phrase[0] = deepSpeech.voiceV3();
@@ -342,7 +350,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
             });
             recognize.setPriority(Thread.MAX_PRIORITY);
             recognize.start();
-        }
+
     }
 
     private int getRawDataLength(byte[] rawData) {

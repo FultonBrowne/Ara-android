@@ -166,13 +166,9 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
             mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
             mp.prepare();
             mp.start();
-            while(mp.isPlaying()) System.out.println("playing");
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(getApplicationContext(), "go", Toast.LENGTH_LONG).show();
+            mp.setOnCompletionListener(mp1 -> {
+                runOnUiThread(() -> Toast.makeText(getApplicationContext(), "go", Toast.LENGTH_LONG).show());
 
-                }
             });
         }
         catch (IllegalStateException | IOException e) {

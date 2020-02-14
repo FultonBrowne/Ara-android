@@ -27,7 +27,6 @@ import com.microsoft.appcenter.crashes.Crashes
 class GetSettings {
     fun starUp(ctx: Context) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
-        Auth.setEnabled(prefs.getBoolean("araAccount", true))
         Crashes.setEnabled(prefs.getBoolean("getData", false))
         Analytics.setEnabled(prefs.getBoolean("getData", false))
         if (prefs.getBoolean("useOther", false)){

@@ -47,6 +47,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.andromeda.ara.R;
 import com.andromeda.ara.constants.DrawerModeConstants;
+import com.andromeda.ara.constants.User;
 import com.andromeda.ara.devices.DeviceModel;
 import com.andromeda.ara.devices.GetDevices;
 import com.andromeda.ara.feeds.Drawer;
@@ -129,6 +130,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                 }
             }
         }
+        new LogIn().logIn(this);
+
         act = this;
         System.out.println("done part 1");
 
@@ -178,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
 
                 .addProfiles(
-                        new ProfileDrawerItem().withName(mName).withEmail(mEmail))
+                        new ProfileDrawerItem().withName(User.INSTANCE.getName()).withEmail(User.INSTANCE.getEmail()))
 
                 .withOnAccountHeaderListener((view, profile, currentProfile) -> false).withTextColorRes(R.color.md_white_1000)
                 .withThreeSmallProfileImages(true)
@@ -270,7 +273,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
-        new LogIn().logIn(this);
 
     }
 
@@ -429,7 +431,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
     }
 
     public void logOut(MenuItem item) {
-        Auth.signOut();
+        getSharedPreferences("auth", 0).edit().putString("authData", "").apply();
     }
     public void addSkill(MenuItem item) {
        new AraPopUps().newSkill(this);

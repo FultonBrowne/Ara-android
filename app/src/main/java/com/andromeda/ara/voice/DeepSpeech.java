@@ -49,14 +49,7 @@ class DeepSpeech {
         stream = _m.createStream();
 
     }
-    public String voiceV2(byte[] bytes, Context ctx){
-        newModel(ctx);
-        short[] shorts = new short[bytes.length / 2];
-        System.out.println("num info");
-        ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
-        System.out.println("done");
-        return this._m.stt(shorts, shorts.length);
-    }
+
     void updateV3(VoiceMain voiceMain){
        thread = new Thread(()->{
            try {

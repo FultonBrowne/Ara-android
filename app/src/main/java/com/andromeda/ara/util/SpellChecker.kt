@@ -62,6 +62,7 @@ class SpellChecker {
         var returnval = oldText
         val json: JsonElement = parser.parse(json_text)
         val json2 = json.asJsonObject.get("flaggedTokens").asJsonArray
+        println(json_text)
         for (i in json2){
             returnval = returnval.replace(i.asJsonObject.get("token").asString, i.asJsonObject.get("suggestions").asJsonArray[0].asJsonObject.get("suggestions").asString )
         }

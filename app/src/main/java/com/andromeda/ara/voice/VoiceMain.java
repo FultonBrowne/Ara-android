@@ -158,22 +158,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     }
     private synchronized void startRecording(@Nullable String link) {
         recordingThread = new Thread(() -> {
-        final MediaPlayer mp = new MediaPlayer();
-        mp.reset();
-        AssetFileDescriptor afd;
-        try{
-            afd = getAssets().openFd("start.mp3");
-            mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
-            mp.prepare();
-            mp.start();
-            mp.setOnCompletionListener(mp1 -> {
-                runOnUiThread(() -> Toast.makeText(getApplicationContext(), "go", Toast.LENGTH_LONG).show());
-
-            });
-        }
-        catch (IllegalStateException | IOException e) {
-            e.printStackTrace();
-        }
 
         audioRecorder.startRecording();
 
@@ -185,9 +169,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 while (isRecording) {
                     audioRecorder.read(Data, 0, getRawDataLength(Data));
                     System.out.println(Data[0]);
-
-
-
                     if (Data[0] == 0) {
                         System.out.println("blank");
                         blankRunning = false;
@@ -218,7 +199,24 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 e.printStackTrace();
             }
         });
-        recordingThread.start();
+        final MediaPlayer mp = new MediaPlayer();
+        mp.reset();
+        AssetFileDescriptor afd;
+        try{
+            afd = getAssets().openFd("start.mp3");
+            mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+            mp.prepare();
+            mp.start();
+            mp.setOnCompletionListener(mp1 -> {
+                runOnUiThread(() -> Toast.makeText(getApplicationContext(), "go", Toast.LENGTH_LONG).show());
+                recordingThread.start();
+
+            });
+        }
+        catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+        }
+
     }
     private String recordForString() throws InterruptedException {
         String[] phrase = new String[1];

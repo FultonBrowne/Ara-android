@@ -18,22 +18,20 @@ package com.andromeda.ara.activitys;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -45,40 +43,46 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.andromeda.ara.R;
 import com.andromeda.ara.constants.DrawerModeConstants;
 import com.andromeda.ara.constants.User;
-import com.andromeda.ara.devices.DeviceModel;
 import com.andromeda.ara.devices.GetDevices;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.News;
-import com.andromeda.ara.feeds.Rss;
+import com.andromeda.ara.phoneData.CalUtility;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.skills.ListSkills;
 import com.andromeda.ara.skills.SearchFunctions;
+import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.AraPopUps;
-import com.andromeda.ara.util.*;
+import com.andromeda.ara.util.CardOnClick;
+import com.andromeda.ara.util.GetSettings;
+import com.andromeda.ara.util.LogIn;
+import com.andromeda.ara.util.PushUtil;
+import com.andromeda.ara.util.RecyclerTouchListener;
+import com.andromeda.ara.util.RssFeedModel;
+import com.andromeda.ara.util.TagManager;
 import com.andromeda.ara.voice.VoiceMain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
 import com.microsoft.appcenter.push.Push;
-import com.microsoft.appcenter.utils.async.AppCenterConsumer;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import org.jetbrains.annotations.NotNull;
-import pub.devrel.easypermissions.EasyPermissions;
 
-import java.io.IOException;
+import org.jetbrains.annotations.NotNull;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+
+import pub.devrel.easypermissions.EasyPermissions;
 
 
 public class MainActivity extends AppCompatActivity implements SearchFunctions {
@@ -151,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
         recyclerView = findViewById(R.id.list);
+        new CalUtility().getClosestEvents(this);
 
 
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(DrawerModeConstants.HOME).withName("Home").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.home);

@@ -112,5 +112,40 @@ public class CalUtility {
 
         return complexDataMain;
     }
+    public void getClosestEvents(Context context){
+        Date currentDate = new Date(System.currentTimeMillis());
+        System.out.println(currentDate);
+        Cursor cursor = context.getContentResolver()
+                .query(
+                        Uri.parse("content://com.android.calendar/events"),
+                        new String[]{context.getString(R.string.calender_id), context.getString(R.string.title), context.getString(R.string.description),
+                                context.getString(R.string.dtstart), context.getString(R.string.dtend), context.getString(R.string.eventLocation)}, null,
+                        null, null);
+        assert cursor != null;
+        cursor.moveToFirst();
+        long ltime = currentDate.getTime() + 60 * 1000 * 60;
+        Date today4 = new Date(ltime);
+        @SuppressWarnings("MismatchedReadAndWriteOfArray") String[] CNames = new String[cursor.getCount()];
+
+        for (int i = 0; i < CNames.length; i++) {
+
+            String nameOfEvent = cursor.getString(1);
+            String startDates = (getDate(Long.parseLong(cursor.getString(3))));
+            Date startDatesAsTime = (new Date(Long.parseLong(cursor.getString(3))));
+            System.out.println(startDatesAsTime);
+            String descriptions = (cursor.getString(2));
+
+            long toSub;
+            CNames[i] = cursor.getString(1);
+            if(startDatesAsTime.getTime() < ltime && startDatesAsTime.getTime() > currentDate.getTime())
+            cursor.moveToNext();
+
+
+
+        }
+        cursor.close();
+
+        complexDataMain.clear();
+    }
 
 }

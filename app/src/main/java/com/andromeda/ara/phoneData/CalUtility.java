@@ -20,6 +20,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+
 import com.andromeda.ara.R;
 import com.andromeda.ara.util.FeedDateParseModel;
 import com.andromeda.ara.util.RssFeedModel;
@@ -112,7 +113,7 @@ public class CalUtility {
 
         return complexDataMain;
     }
-    public void getClosestEvents(Context context){
+    public ArrayList<RssFeedModel> getClosestEvents(Context context){
         Date currentDate = new Date(System.currentTimeMillis());
         System.out.println(currentDate);
         Cursor cursor = context.getContentResolver()
@@ -121,6 +122,7 @@ public class CalUtility {
                         new String[]{context.getString(R.string.calender_id), context.getString(R.string.title), context.getString(R.string.description),
                                 context.getString(R.string.dtstart), context.getString(R.string.dtend), context.getString(R.string.eventLocation)}, null,
                         null, null);
+        ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>();
         assert cursor != null;
         cursor.moveToFirst();
         long ltime = currentDate.getTime() + 60 * 1000 * 60;
@@ -134,10 +136,13 @@ public class CalUtility {
             Date startDatesAsTime = (new Date(Long.parseLong(cursor.getString(3))));
             System.out.println(startDatesAsTime);
             String descriptions = (cursor.getString(2));
-
             long toSub;
             CNames[i] = cursor.getString(1);
-            if(startDatesAsTime.getTime() < ltime && startDatesAsTime.getTime() > currentDate.getTime())
+            if(startDatesAsTime.getTime() < ltime && startDatesAsTime.getTime() > currentDate.getTime()){
+                rssFeedModels.add(new RssFeedModel("", "", nameOfEvent, "", "", false));
+
+
+            }
             cursor.moveToNext();
 
 
@@ -146,6 +151,7 @@ public class CalUtility {
         cursor.close();
 
         complexDataMain.clear();
+        return rssFeedModels;
     }
 
 }

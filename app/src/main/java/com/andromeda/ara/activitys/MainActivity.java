@@ -50,7 +50,6 @@ import com.andromeda.ara.constants.User;
 import com.andromeda.ara.devices.GetDevices;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.News;
-import com.andromeda.ara.phoneData.CalUtility;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.skills.ListSkills;
 import com.andromeda.ara.skills.SearchFunctions;
@@ -155,7 +154,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
         recyclerView = findViewById(R.id.list);
-        new CalUtility().getClosestEvents(this);
 
 
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(DrawerModeConstants.HOME).withName("Home").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.home);
@@ -263,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         }));
         System.out.println("pre feed");
 
-        rssFeedModel1 = (new News().newsGeneral());
+        rssFeedModel1 = (new News().newsGeneral(this));
         System.out.println("feed done");
             mAdapter = new Adapter(rssFeedModel1, this);
 

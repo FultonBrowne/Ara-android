@@ -16,12 +16,13 @@
 
 package com.andromeda.ara.feeds
 
+import android.content.Context
 import com.andromeda.ara.constants.ServerUrl
+import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.RssFeedModel
 import java.net.URL
 import java.util.*
-import kotlin.collections.ArrayList
 
 class News {
     fun newsGeneral(): ArrayList<RssFeedModel> {
@@ -38,6 +39,26 @@ class News {
             e.printStackTrace()
             feedData.add(RssFeedModel("you may need to connect to the internet", "", "","", "", false))
         }
+        return feedData
+
+    }
+    fun newsGeneral(ctx:Context): ArrayList<RssFeedModel> {
+        val feedData = arrayListOf<RssFeedModel>()
+        try {
+
+
+            val news = JsonParse().news(URL(ServerUrl.url + linkMapGeneral(Locale.getDefault())).readText())
+            for (i in news) {
+                feedData.add(RssFeedModel(i.info, i.link, i.title, i.pic, "", true))
+            }
+        }
+        catch (e:Exception){
+            e.printStackTrace()
+            feedData.add(RssFeedModel("you may need to connect to the internet", "", "","", "", false))
+        }
+        feedData.addAll(0,
+
+                CalUtility().getClosestEvents(ctx))
         return feedData
 
     }

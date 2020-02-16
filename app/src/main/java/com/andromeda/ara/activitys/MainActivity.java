@@ -238,7 +238,14 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                new CardOnClick().mainFun(mode, rssFeedModel1.get(position).link, act, getApplicationContext(), MainActivity.this);
+                try {
+
+
+                    new CardOnClick().mainFun(mode, rssFeedModel1.get(position).link, act, getApplicationContext(), MainActivity.this);
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
 
             }
 

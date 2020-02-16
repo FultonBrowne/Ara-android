@@ -22,16 +22,12 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.andromeda.ara.R
 import com.andromeda.ara.constants.DrawerModeConstants
 import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.util.TagManager
 import java.io.IOException
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class Drawer {
@@ -57,7 +53,7 @@ class Drawer {
 
         when (drawerItem) {
             DrawerModeConstants.HOME -> {
-                rssFeedModel1.addAll(News().newsGeneral())
+                rssFeedModel1.addAll(News().newsGeneral(ctx))
                 return rssFeedModel1
             }
             DrawerModeConstants.TAGS -> {

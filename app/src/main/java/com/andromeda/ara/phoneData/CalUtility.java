@@ -20,6 +20,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 
 import com.andromeda.ara.R;
 import com.andromeda.ara.util.FeedDateParseModel;
@@ -139,8 +140,11 @@ public class CalUtility {
             long toSub;
             CNames[i] = cursor.getString(1);
             if(startDatesAsTime.getTime() < ltime && startDatesAsTime.getTime() > currentDate.getTime()){
-                rssFeedModels.add(new RssFeedModel("", "", nameOfEvent, "", "", false));
-
+                RssFeedModel e = new RssFeedModel("event at: " + startDatesAsTime.toString(), "", nameOfEvent, "", "", false);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    e.color = context.getColor(R.color.accent);
+                }
+                rssFeedModels.add(e);
 
             }
             cursor.moveToNext();

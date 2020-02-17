@@ -17,7 +17,6 @@
 package com.andromeda.ara.util
 
 import android.app.Activity
-import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.text.InputFilter
 import android.text.InputFilter.LengthFilter
@@ -27,6 +26,7 @@ import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import java.io.InputStream
@@ -49,6 +49,10 @@ class Adapter(private val mRssFeedModels: List<RssFeedModel>, val act:Activity) 
         //set values
         val rssFeedModel = mRssFeedModels[position]
         val desc = (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView)
+        val card = (holder.rssFeedView.findViewById<View>(R.id.card) as CardView)
+        if (rssFeedModel.color != null)
+        card.setCardBackgroundColor(rssFeedModel.color)
+
         desc.text = rssFeedModel.description
         val filterArray = arrayOfNulls<InputFilter>(1)
         filterArray[0] = LengthFilter(40)

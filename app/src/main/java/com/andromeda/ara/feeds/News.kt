@@ -57,7 +57,6 @@ class News {
             feedData.add(RssFeedModel("you may need to connect to the internet", "", "","", "", false))
         }
         feedData.addAll(0,
-
                 CalUtility().getClosestEvents(ctx))
         return feedData
 

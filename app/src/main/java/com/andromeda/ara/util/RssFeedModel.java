@@ -24,9 +24,9 @@ public class RssFeedModel {
     public String link;
     public String description;
     public String image;
-    @Nullable
     public String out = null;
-    public int color;
+    @Nullable
+    public Integer color = null;
     public Boolean longText;
 
     public RssFeedModel(String description, String link, String title, String image, @Nullable String out, Boolean longText) {

@@ -97,7 +97,7 @@ dependencies {
     implementation group: 'net.openid', name: 'appauth', version: '0.7.1'
     implementation 'androidx.preference:preference:1.1.0'
     implementation 'com.google.code.ndef-tools-for-android:ndeftools-util:1.2.4'
-    def appCenterSdkVersion = '2.5.1'
+    def appCenterSdkVersion = '3.0.0'
     implementation "com.microsoft.appcenter:appcenter-push:${appCenterSdkVersion}"
 
 

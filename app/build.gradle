@@ -134,7 +134,7 @@ dependencies {
 
     implementation "com.google.code.gson:gson:2.8.6"
 
-    implementation "com.microsoft.appcenter:appcenter-analytics:2.5.1"
+    implementation "com.microsoft.appcenter:appcenter-analytics:3.0.0"
     implementation "com.microsoft.appcenter:appcenter-crashes:3.0.0"
     implementation "androidx.ui:ui-tooling:$compose_version"
     implementation "androidx.ui:ui-layout:$compose_version"

@@ -29,6 +29,12 @@
         <item>light</item>
         <item>thermostat</item>
     </string-array>
+    <string-array name="aratimes">
+        <item>60 minutes</item>
+        <item>30 minutes</item>
+        <item>15 minutes</item>
+
+    </string-array>
     <string-array name="action_array">
         <item>call</item>
         <item>text</item>
@@ -92,4 +98,5 @@
     <string name="use_an_external_ara_server">Use an external Ara server</string>
     <string name="add_device">add device</string>
     <string name="download">Downloading voice system</string>
+    <string name="wsaebs">when should an event be shown</string>
 </resources>

@@ -22,7 +22,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
@@ -37,6 +39,7 @@ class PrefsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_prefs)
         setSupportActionBar(toolbar)
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val spinner = findViewById<Spinner>(R.id.timespinner)
         val switch1 = findViewById<Switch>(R.id.switch1)
         val switch2 = findViewById<Switch>(R.id.switch2)
         val switch3 = findViewById<Switch>(R.id.switch3)
@@ -50,6 +53,11 @@ class PrefsActivity : AppCompatActivity() {
         switch4.isChecked = prefs.getBoolean("heyAra", true)
         switch5.isChecked = prefs.getBoolean("notify", true)
         switch6.isChecked = prefs.getBoolean("useOther", false)
+        val dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item)
+        dataAdapter.add("30 minutes")
+        dataAdapter.add("60 minutes")
+        dataAdapter.add("15 minutes")
+        spinner.adapter = dataAdapter
         switch1.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("getData", isChecked).apply()
         }

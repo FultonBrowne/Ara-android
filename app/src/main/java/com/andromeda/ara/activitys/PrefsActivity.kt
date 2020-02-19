@@ -129,4 +129,13 @@ class PrefsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
         }
     }
+    fun setTime(s:Spinner){
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        when {
+            prefs.getInt("time", 60) == 30 -> {s.setSelection(0)}
+            prefs.getInt("time", 60) == 60 -> {s.setSelection(2)}
+            else -> {s.setSelection(3)}
+        }
+
+    }
 }

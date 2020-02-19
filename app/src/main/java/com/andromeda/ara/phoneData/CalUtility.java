@@ -18,9 +18,12 @@ package com.andromeda.ara.phoneData;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+
+import androidx.preference.PreferenceManager;
 
 import com.andromeda.ara.R;
 import com.andromeda.ara.util.FeedDateParseModel;
@@ -115,6 +118,8 @@ public class CalUtility {
         return complexDataMain;
     }
     public ArrayList<RssFeedModel> getClosestEvents(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
         Date currentDate = new Date(System.currentTimeMillis());
         System.out.println(currentDate);
         Cursor cursor = context.getContentResolver()
@@ -126,7 +131,7 @@ public class CalUtility {
         ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>();
         assert cursor != null;
         cursor.moveToFirst();
-        long ltime = currentDate.getTime() + 60 * 1000 * 60;
+        long ltime = currentDate.getTime() + 60 * 1000 * prefs.getInt("time", 60) ;
         Date today4 = new Date(ltime);
         @SuppressWarnings("MismatchedReadAndWriteOfArray") String[] CNames = new String[cursor.getCount()];
 

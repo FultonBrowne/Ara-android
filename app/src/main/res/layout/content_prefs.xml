@@ -102,6 +102,12 @@
                           android:id="@+id/otherServer"
                           android:textColor="#FFFFFF"
                           />
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="match_parent"
+                    android:id="@+id/timespinner"
+                    android:layout_height="wrap_content"/>
+
+
 
             </LinearLayout>
 

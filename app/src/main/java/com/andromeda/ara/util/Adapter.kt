@@ -51,13 +51,16 @@ class Adapter(private val mRssFeedModels: List<RssFeedModel>, val act:Activity) 
         val desc = (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView)
         val card = (holder.rssFeedView.findViewById<View>(R.id.card) as CardView)
         if (rssFeedModel.color != null)
-        card.setCardBackgroundColor(rssFeedModel?.color!!)
+        card.setCardBackgroundColor(rssFeedModel.color!!)
 
         desc.text = rssFeedModel.description
         val filterArray = arrayOfNulls<InputFilter>(1)
         filterArray[0] = LengthFilter(40)
 
         if (!rssFeedModel.longText) desc.filters = filterArray
+
+
+
         (holder.rssFeedView.findViewById<View>(R.id.content) as TextView).text = rssFeedModel.title
         if(rssFeedModel.image != "") {
             Thread {

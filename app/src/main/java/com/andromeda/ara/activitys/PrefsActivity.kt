@@ -113,7 +113,20 @@ class PrefsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         println(dataAdapter!!.getItem(position))
         println(position)
+        when (position) {
+            0 -> {
+                prefs.edit().putInt("time", 30).apply()
+            }
+            1 -> {
+                prefs.edit().putInt("time", 60).apply()
+            }
+            else -> {
+                prefs.edit().putInt("time", 15).apply()
+
+            }
+        }
     }
 }

@@ -22,21 +22,21 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.Switch
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import com.andromeda.ara.R
 import kotlinx.android.synthetic.main.activity_prefs.*
 
 
-class PrefsActivity : AppCompatActivity() {
+class PrefsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+    var dataAdapter: ArrayAdapter<String>? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prefs)
+        dataAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item)
         setSupportActionBar(toolbar)
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val spinner = findViewById<Spinner>(R.id.timespinner)
@@ -53,10 +53,10 @@ class PrefsActivity : AppCompatActivity() {
         switch4.isChecked = prefs.getBoolean("heyAra", true)
         switch5.isChecked = prefs.getBoolean("notify", true)
         switch6.isChecked = prefs.getBoolean("useOther", false)
-        val dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item)
-        dataAdapter.add("30 minutes")
-        dataAdapter.add("60 minutes")
-        dataAdapter.add("15 minutes")
+        dataAdapter!!.add("30 minutes")
+        dataAdapter!!.add("60 minutes")
+        dataAdapter!!.add("15 minutes")
+        spinner.onItemSelectedListener = this
         spinner.adapter = dataAdapter
         switch1.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("getData", isChecked).apply()
@@ -106,5 +106,14 @@ class PrefsActivity : AppCompatActivity() {
     fun bug(view: View) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FultonBrowne/Ara-android/issues"));
         startActivity(browserIntent)
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        println(dataAdapter!!.getItem(position))
+        println(position)
     }
 }

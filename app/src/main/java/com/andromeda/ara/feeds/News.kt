@@ -20,6 +20,7 @@ import android.content.Context
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.JsonParse
+import com.andromeda.ara.util.NewsData
 import com.andromeda.ara.util.RssFeedModel
 import java.net.URL
 import java.util.*
@@ -31,9 +32,7 @@ class News {
 
 
             val news = JsonParse().news(URL(ServerUrl.url + linkMapGeneral(Locale.getDefault())).readText())
-            for (i in news) {
-                feedData.add(RssFeedModel(i.info, i.link, i.title, i.pic, "", true))
-            }
+            parse(news, feedData)
         }
         catch (e:Exception){
             e.printStackTrace()
@@ -43,35 +42,27 @@ class News {
 
     }
     fun newsGeneral(ctx:Context): ArrayList<RssFeedModel> {
-        val feedData = arrayListOf<RssFeedModel>()
-        try {
-
-
-            val news = JsonParse().news(URL(ServerUrl.url + linkMapGeneral(Locale.getDefault())).readText())
-            for (i in news) {
-                feedData.add(RssFeedModel(i.info, i.link, i.title, i.pic, "", true))
-            }
-        }
-        catch (e:Exception){
-            e.printStackTrace()
-            feedData.add(RssFeedModel("you may need to connect to the internet", "", "","", "", false))
-        }
+        val feedData = newsGeneral()
         feedData.addAll(0,
                 CalUtility().getClosestEvents(ctx))
         return feedData
 
     }
-    fun linkMapGeneral(locale: Locale): String? {
+    private fun linkMapGeneral(locale: Locale): String? {
         val map = mapOf(Locale.US to "news/us", Locale.UK to "news/")
         return map.getOrElse(locale, { return "news/us"})
     }
     fun newsTech(): ArrayList<RssFeedModel> {
         val news = JsonParse().news(URL(ServerUrl.url + "news/tech").readText())
         val feedData = arrayListOf<RssFeedModel>()
-        for (i in news){
-            feedData.add(RssFeedModel(i.info, i.link, i.title, i.pic, "", true))
-        }
+        parse(news, feedData)
         return feedData
 
+    }
+
+    private fun parse(news: ArrayList<NewsData>, feedData: ArrayList<RssFeedModel>) {
+        for (i in news) {
+            feedData.add(RssFeedModel(i.info, i.link, i.title, i.pic, "", true))
+        }
     }
 }

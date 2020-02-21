@@ -166,8 +166,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         SecondaryDrawerItem news1 = new SecondaryDrawerItem().withIdentifier(102).withName("Tech").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.technews);
         SecondaryDrawerItem news3 = new SecondaryDrawerItem().withIdentifier(104).withName(getString(R.string.domeNews)).withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.domnews);
         SecondaryDrawerItem news4 = new SecondaryDrawerItem().withIdentifier(105).withName(getString(R.string.moneyText)).withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.money);
-        SecondaryDrawerItem news2 = new SecondaryDrawerItem().withIdentifier(103).withName("World").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.worldnews);
-        SecondaryDrawerItem newsmain = new SecondaryDrawerItem().withIdentifier(101).withName("News").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSubItems(news1, news2, news3, news4).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.news);
+        SecondaryDrawerItem newsmain = new SecondaryDrawerItem().withIdentifier(101).withName("News").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSubItems(news1, news3, news4).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.news);
         System.out.println("items");
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -219,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         }
                         else {
                             try {
-                                new Drawer().main(drawerItem.getIdentifier(), ctx, main53, MainActivity.this, rssFeedModel1);
+                                new Drawer().main(drawerItem.getIdentifier(), ctx, main53, rssFeedModel1);
                                 recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
                                 mode = drawerItem.getIdentifier();
                             } catch (Exception e) {

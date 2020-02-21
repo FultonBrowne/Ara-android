@@ -17,7 +17,6 @@
 package com.andromeda.ara.feeds
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
@@ -32,7 +31,7 @@ import java.io.IOException
 
 class Drawer {
     @Throws(IOException::class)
-    fun main(drawerItem: Long, ctx: Context, Db: TagManager, activity: Activity, rssFeedModel1: ArrayList<RssFeedModel>): ArrayList<RssFeedModel>? {
+    fun main(drawerItem: Long, ctx: Context, Db: TagManager, rssFeedModel1: ArrayList<RssFeedModel>): ArrayList<RssFeedModel>? {
         var lat: Double = 0.0
         var log: Double = 0.0
         rssFeedModel1.clear()
@@ -106,10 +105,6 @@ class Drawer {
             }
             102L -> {
                 rssFeedModel1.addAll(News().newsTech())
-                return rssFeedModel1
-            }
-            103L -> {
-                rssFeedModel1.addAll(Rss().parseRss(1, ctx))
                 return rssFeedModel1
             }
             105L -> {

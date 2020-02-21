@@ -17,6 +17,7 @@
 package com.andromeda.ara
 
 import com.andromeda.ara.feeds.News
+import com.andromeda.ara.feeds.Rss
 import org.junit.Test
 
 class NewsTest {
@@ -25,5 +26,7 @@ class NewsTest {
         val news = News()
         news.newsGeneral()
         news.newsTech()
+        val rss = Rss()
+        rss.parseRss( 1, )
     }
 }

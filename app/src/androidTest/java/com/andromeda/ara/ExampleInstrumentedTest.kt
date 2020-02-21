@@ -36,6 +36,5 @@ class ExampleInstrumentedTest {
         Assert.assertEquals("com.andromeda.ara", appContext.packageName)
         val ctx = InstrumentationRegistry.getContext()
         val news = News()
-        news.newsGeneral(ctx)
     }
 }

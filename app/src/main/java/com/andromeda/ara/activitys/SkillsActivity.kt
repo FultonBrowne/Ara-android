@@ -38,13 +38,8 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_skills.*
 import okhttp3.*
-import java.io.BufferedReader
-import java.io.DataOutputStream
 import java.io.IOException
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
 import java.net.URL
-import java.nio.charset.StandardCharsets
 import java.util.*
 
 
@@ -154,7 +149,7 @@ class SkillsActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                println("call back: " + response.message())
+                println("call back: " + response.message)
             }
         })
 

@@ -26,7 +26,10 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.text.InputType
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
@@ -35,7 +38,6 @@ import com.andromeda.ara.constants.ServerUrl.url
 import com.andromeda.ara.constants.User
 import com.andromeda.ara.constants.User.id
 import com.andromeda.ara.devices.DeviceAdapter
-import com.andromeda.ara.devices.DeviceModel
 import com.andromeda.ara.devices.FinalDevice
 import com.andromeda.ara.search.Search
 import com.andromeda.ara.skills.SearchFunctions
@@ -244,7 +246,7 @@ class AraPopUps {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                println("call back: " + response.message())
+                println("call back: " + response.message)
             }
         })
 

@@ -117,11 +117,11 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'io.github.ranga543:yelp-fusion-client:0.1.4'
+    implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.2'
 
 
     testImplementation 'junit:junit:4.13'
-
     implementation 'androidx.cardview:cardview:1.0.0'
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0'

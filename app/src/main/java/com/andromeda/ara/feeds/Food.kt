@@ -17,67 +17,20 @@
 package com.andromeda.ara.feeds
 
 
+import com.andromeda.ara.constants.ServerUrl
+import com.andromeda.ara.util.ApiOutputToRssFeed
+import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.RssFeedModel
-import com.yelp.fusion.client.connection.YelpFusionApiFactory
-import java.io.IOException
+import java.net.URL
 import java.util.*
 
 
 class Food {
     fun getFood(log: String, lat: String): ArrayList<RssFeedModel> {
-        val rssFeedModel1: ArrayList<RssFeedModel> = ArrayList()
-
-        val main = RssFeedModel("", "", "", "", "", false)
-        val apiFactory = YelpFusionApiFactory()
-        try {
-            val params = HashMap<String, String>()
-            val yelpFusionApi = apiFactory.createAPI("TysaYZNEZB4aK1JhLAMT0BCeG0sdxDffcoFmnFnsEcVN5U9d4YA3UeRnrrw0FovvCsmWIalZQwexcPAqecflXv51tAXEtctkOgrdD3CIUculH7ieskJc6fKTguo4XXYx")
-            params["latitude"] = lat
-            params["longitude"] = log
-            params["categories"] = "food"
-
-            val call = yelpFusionApi.getBusinessSearch(params)
-            val response = call.execute()
-            val count = response.body().total
-            val count2 = 1
-            var title = "err"
-            var info: String = "err"
-            var web: String = "err"
-            var image: String = "err"
-            var imageList: List<String>
-            if (count2 <= count) {
-                // rssFeedModel1.add(ArrayList)
-                for (i in 0 until response.body().businesses.size) {
-                    title = response.body().businesses[i].name
-                    web = response.body().businesses[i].url
-                    image = response.body().businesses[i].imageUrl
-                    val stars = response.body().businesses[i].rating
-                    val imageList = response.body().businesses[i].photos
-                    val open = response.body().businesses[i].isClosed
-                    val stars1 = "$stars stars"
-                    if (open) {
-                        info = stars1 + System.lineSeparator() + " closed now"
-                    } else {
-                        info = stars1 + System.lineSeparator() + " open now"
-                    }
-
-                    rssFeedModel1.add(RssFeedModel(info, web, title, image, "", true))
-                }
-            } else {
-                rssFeedModel1.add(RssFeedModel("err1", "err", "err", "err", "", false))
-            }
 
 
-        } catch (e: IOException) {
-            e.printStackTrace()
-            rssFeedModel1.add(RssFeedModel("err", "err", "err", "err", "", true))
-        }
 
-
-        // general params
-
-
-        return rssFeedModel1
+        return ApiOutputToRssFeed().main(JsonParse().search(URL("${ServerUrl.url}yelpclient/&log=$log&lat=$lat").readText()))
     }
 
 }

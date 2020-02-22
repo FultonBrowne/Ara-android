@@ -27,18 +27,7 @@ import java.util.*
 
 class News {
     fun newsGeneral(): ArrayList<RssFeedModel> {
-        val feedData = arrayListOf<RssFeedModel>()
-        try {
-
-
-            val news = JsonParse().news(URL(ServerUrl.url + linkMapGeneral(Locale.getDefault())).readText())
-            parse(news, feedData)
-        }
-        catch (e:Exception){
-            e.printStackTrace()
-            feedData.add(RssFeedModel("you may need to connect to the internet", "", "","", "", false))
-        }
-        return feedData
+        return getFromLink(ServerUrl.url + linkMapGeneral(Locale.getDefault()))
 
     }
     fun newsGeneral(ctx:Context): ArrayList<RssFeedModel> {
@@ -53,11 +42,19 @@ class News {
         return map.getOrElse(locale, { return "news/us"})
     }
     fun newsTech(): ArrayList<RssFeedModel> {
-        val news = JsonParse().news(URL(ServerUrl.url + "news/tech").readText())
+        return getFromLink(ServerUrl.url + "news/tech")
+
+    }
+    fun newsMoney(): ArrayList<RssFeedModel> {
+        return getFromLink(ServerUrl.url + "news/money")
+
+    }
+
+    private fun getFromLink(link:String): ArrayList<RssFeedModel> {
+        val news = JsonParse().news(URL(link).readText())
         val feedData = arrayListOf<RssFeedModel>()
         parse(news, feedData)
         return feedData
-
     }
 
     private fun parse(news: ArrayList<NewsData>, feedData: ArrayList<RssFeedModel>) {

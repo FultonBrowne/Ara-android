@@ -17,7 +17,6 @@ package com.andromeda.ara
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
-import com.andromeda.ara.feeds.News
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -35,6 +34,5 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getTargetContext()
         Assert.assertEquals("com.andromeda.ara", appContext.packageName)
         val ctx = InstrumentationRegistry.getContext()
-        val news = News()
     }
 }

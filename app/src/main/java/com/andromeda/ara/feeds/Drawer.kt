@@ -108,7 +108,7 @@ class Drawer {
                 return rssFeedModel1
             }
             105L -> {
-                rssFeedModel1.addAll(Rss().parseRss(4, ctx))
+                rssFeedModel1.addAll(News().newsMoney())
                 return rssFeedModel1
             }
             else -> {

@@ -91,10 +91,6 @@ class Drawer {
                 rssFeedModel1.addAll(Food().getFood(log.toString(), java.lang.Double.toString(lat)))
                 return rssFeedModel1
             }
-            DrawerModeConstants.SHOP -> {
-                rssFeedModel1.addAll(shopping().getShops(java.lang.Double.toString(log), java.lang.Double.toString(lat)))
-                return rssFeedModel1
-            }
             DrawerModeConstants.CAL -> {
                 rssFeedModel1.addAll( CalUtility.readCalendarEvent(ctx))
                 return rssFeedModel1

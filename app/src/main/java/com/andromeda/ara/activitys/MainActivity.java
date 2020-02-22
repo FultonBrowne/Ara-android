@@ -159,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(DrawerModeConstants.HOME).withName("Home").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.home);
         SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.TAGS).withName("Tags").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.tag);
         SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.FOOD).withName("Food").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.food);
-        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.SHOP).withName("Shopping").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.shop);
         SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.CAL).withName("Agenda").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.ic_today_black_24dp);
         SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.SHORTCUTS).withName("Shortcuts").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.shortcut);
         SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.DEVICES).withName("Devices").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.devices);
@@ -192,7 +191,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         item2,
                         item3,
                         newsmain,
-                        item4,
                         item5,
                         item6,
                         item7

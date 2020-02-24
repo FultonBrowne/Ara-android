@@ -38,9 +38,7 @@ If you want to become an active contributor go [here](https://findcollabs.com/pr
 
 Give a ⭐️ if this project helped you!
 
-## TODO
--   Ara account 
--   IOT support
+
 
 ## 📝 License
 

@@ -17,7 +17,7 @@
 package com.andromeda.ara.feeds
 
 import com.andromeda.ara.util.JsonParse
-import com.andromeda.ara.util.OutputModel
+import com.andromeda.ara.models.OutputModel
 import java.net.URL
 import java.util.*
 

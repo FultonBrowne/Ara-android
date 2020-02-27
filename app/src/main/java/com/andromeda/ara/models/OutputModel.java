@@ -14,8 +14,24 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util
+package com.andromeda.ara.models;
 
-import java.util.*
 
-data class CalModel(val name: String, val info: String, val date: Date)
+public class OutputModel {
+    public String title;
+    public String link;
+    public String description;
+    public String OutputTxt;
+    public String exes;
+    public String image;
+
+    OutputModel(String title, String description, String link, String image, String OutputTxt, String exes) {
+        this.title = title;
+        this.link = link;
+        this.description = description;
+        this.OutputTxt = OutputTxt;
+        this.exes = exes;
+        this.image = image;
+
+    }
+}

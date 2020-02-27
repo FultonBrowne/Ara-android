@@ -16,9 +16,11 @@
 
 package com.andromeda.ara.util;
 
+import com.andromeda.ara.models.DeviceModelIndexed;
+import com.andromeda.ara.models.OutputModel;
+import com.andromeda.ara.models.SkillsFromDB;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import kotlin.reflect.KClass;
 
 import java.util.ArrayList;
 

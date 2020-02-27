@@ -44,11 +44,6 @@ class PushUtil : PushListener {
             dialog.setPositiveButton(R.string.ok, null)
             dialog.show()
         } else { /* Display a toast when a background push is clicked. */
-            val pre = pushNotification.customData["db"]?.get(0)
-            val end = pushNotification.customData["db"]?.get(1)
-            val act = pushNotification.customData["db"]?.get(2)
-            OnDeviceSkills(activity.applicationContext).insert(pre.toString(), end.toString(), act.toString())
-
             //push new skills
 
 

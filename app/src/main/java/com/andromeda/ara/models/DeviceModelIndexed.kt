@@ -14,7 +14,6 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util
+package com.andromeda.ara.models
 
-data class SkillsFromDB(val pre:String, val end:String, val action:String) {
-}
+data class DeviceModelIndexed(val name: String, val type: String, var status: String, var group:String, val index:String)

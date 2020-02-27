@@ -30,7 +30,7 @@ import com.andromeda.ara.skills.SearchFunctions
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.RssFeedModel
-import com.andromeda.ara.util.SkillsFromDB
+import com.andromeda.ara.models.SkillsFromDB
 import com.andromeda.ara.voice.TTS
 import java.net.InetAddress
 import java.net.URL

@@ -14,7 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util
+package com.andromeda.ara.models
 
-data class LightStatusModel(val on:Boolean, val powerLevel: Int?, val color:Int?)
-
+data class SkillsFromDB(val pre:String, val end:String, val action:String) {
+}

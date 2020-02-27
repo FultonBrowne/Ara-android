@@ -30,7 +30,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-public class DownloadTask extends AsyncTask<String, Integer, String> {
+public class
+DownloadTask extends AsyncTask<String, Integer, String> {
 
 
     private PowerManager.WakeLock mWakeLock;

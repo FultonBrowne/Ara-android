@@ -17,6 +17,7 @@
 package com.andromeda.ara.util;
 
 import com.andromeda.ara.R;
+import com.andromeda.ara.models.OutputModel;
 
 import java.util.ArrayList;
 

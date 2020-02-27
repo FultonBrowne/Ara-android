@@ -14,6 +14,8 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.util
+package com.andromeda.ara.models
 
-data class DeviceModelIndexed(val name: String, val type: String, var status: String, var group:String, val index:String)
+import java.util.*
+
+data class CalModel(val name: String, val info: String, val date: Date)

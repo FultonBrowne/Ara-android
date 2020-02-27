@@ -27,9 +27,6 @@ import java.util.*
 
 class Food {
     fun getFood(log: String, lat: String): ArrayList<RssFeedModel> {
-
-
-
         return ApiOutputToRssFeed().main(JsonParse().search(URL("${ServerUrl.url}yelpclient/&log=$log&lat=$lat").readText()))
     }
 

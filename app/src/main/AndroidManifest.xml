@@ -1,159 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2020. Fulton Browne
-  ~  This program is free software: you can redistribute it and/or modify
-  ~     it under the terms of the GNU General Public License as published by
-  ~     the Free Software Foundation, either version 3 of the License, or
-  ~     (at your option) any later version.
-  ~
-  ~     This program is distributed in the hope that it will be useful,
-  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~     GNU General Public License for more details.
-  ~
-  ~     You should have received a copy of the GNU General Public License
-  ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.andromeda.ara">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.andromeda.ara">
 
-    <uses-permission
-            android:name="android.permission.WAKE_LOCK"/> <!-- Required for complications to receive complication data and open the provider chooser. -->
-    <uses-permission android:name="com.google.android.wearable.permission.RECEIVE_COMPLICATION_DATA"/>
-    <uses-permission android:name="android.permission.READ_CALENDAR"/>
-    <permission android:name="android.permission.FLASHLIGHT"
-                android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
-                android:protectionLevel="normal"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required for complications to receive complication data and open the provider chooser. -->
+    <uses-permission android:name="com.google.android.wearable.permission.RECEIVE_COMPLICATION_DATA" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+
+    <permission
+        android:name="android.permission.FLASHLIGHT"
+        android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
+        android:protectionLevel="normal" />
+
     <uses-permission android:name="android.permission.NFC" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission
-            android:name="android.permission.BIND_VOICE_INTERACTION"
-            android:protectionLevel="signature|system"
-            tools:ignore="ProtectedPermissions"/>
+        android:name="android.permission.BIND_VOICE_INTERACTION"
+        android:protectionLevel="signature|system"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission
-            android:name="android.permission.MANAGE_VOICE_KEYPHRASES"
-            tools:ignore="ProtectedPermissions"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+        android:name="android.permission.MANAGE_VOICE_KEYPHRASES"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:largeHeap="true"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            android:usesCleartextTraffic="true"
-            tools:ignore="GoogleAppIndexingWarning">
-        <service
-                android:name=".services.AraUserSync"
-                android:enabled="true"
-                android:exported="true">
-        </service>
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+        <receiver android:name=".widgets.TodayWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
 
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/today_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".services.AraUserSync"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <activity
-                android:name=".activitys.SkillsActivity"
-                android:label="@string/title_activity_skills"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:name=".activitys.SkillsActivity"
+            android:label="@string/title_activity_skills"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-                android:name=".activitys.PrefsActivity"
-                android:label="@string/title_activity_prefs"
-                android:theme="@style/AppTheme.NoActionBar"/>
+            android:name=".activitys.PrefsActivity"
+            android:label="@string/title_activity_prefs"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <service
-                android:name=".services.AraActions"
-                android:enabled="true"
-                android:exported="true"/>
-
-
+            android:name=".services.AraActions"
+            android:enabled="true"
+            android:exported="true" />
 
         <activity
             android:name="net.openid.appauth.RedirectUriReceiverActivity"
             tools:node="replace">
             <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
-                    android:scheme="msale4e16983-2565-496c-aa70-8fe0f1bf0907"
                     android:host="auth"
-                    />
+                    android:scheme="msale4e16983-2565-496c-aa70-8fe0f1bf0907" />
             </intent-filter>
         </activity>
         <activity
-                android:name=".voice.VoiceMain"
-                android:theme="@style/AppTheme.Translucent">
+            android:name=".voice.VoiceMain"
+            android:theme="@style/AppTheme.Translucent">
             <intent-filter>
-                <category android:name="android.intent.category.VOICE"/>
-
+                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
         </activity>
         <activity
-                android:name=".activitys.AllContent"
-                android:label="@string/title_activity_all_content"
-                android:parentActivityName=".activitys.MainActivity"
-                android:theme="@style/AppTheme.NoActionBar">
+            android:name=".activitys.AllContent"
+            android:label="@string/title_activity_all_content"
+            android:parentActivityName=".activitys.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.andromeda.ara.activitys.MainActivity"/>
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.andromeda.ara.activitys.MainActivity" />
         </activity>
-        <activity android:name=".util.LogIn$GetData"/>
-
+        <activity android:name=".util.LogIn$GetData" />
 
         <uses-library
-                android:name="org.apache.http.legacy"
-                android:required="true"/>
+            android:name="org.apache.http.legacy"
+            android:required="true" />
 
         <activity
-                android:name=".activitys.About"
-                android:label="@string/title_activity_about"
-                android:parentActivityName=".activitys.MainActivity"
-                android:theme="@style/AppTheme.NoActionBar">
+            android:name=".activitys.About"
+            android:label="@string/title_activity_about"
+            android:parentActivityName=".activitys.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.andromeda.ara.activitys.MainActivity"/>
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.andromeda.ara.activitys.MainActivity" />
         </activity>
         <activity
-                android:name=".activitys.MainActivity"
-                android:hardwareAccelerated="false"
-                android:label="@string/app_name"
-                android:supportsRtl="true"
-                android:theme="@style/AppTheme.NoActionBar">
+            android:name=".activitys.MainActivity"
+            android:hardwareAccelerated="false"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <service
-                android:name=".voice.AssistServ"
-                android:permission="android.permission.BIND_VOICE_INTERACTION"
-                android:process=":interactor">
+            android:name=".voice.AssistServ"
+            android:permission="android.permission.BIND_VOICE_INTERACTION"
+            android:process=":interactor">
             <meta-data
-                    android:name="android.voice_interaction"
-                    android:resource="@xml/recognition_service"/>
+                android:name="android.voice_interaction"
+                android:resource="@xml/recognition_service" />
 
             <intent-filter>
-                <action android:name="android.service.voice.VoiceInteractionService"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.service.voice.VoiceInteractionService" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </service>
         <service
-                android:name=".voice.AssistSessServ"
-                android:permission="android.permission.BIND_VOICE_INTERACTION"/>
+            android:name=".voice.AssistSessServ"
+            android:permission="android.permission.BIND_VOICE_INTERACTION" />
     </application>
 
 </manifest>

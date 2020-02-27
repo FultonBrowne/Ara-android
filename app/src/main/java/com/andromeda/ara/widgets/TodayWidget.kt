@@ -21,6 +21,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.widget.RemoteViews
 import com.andromeda.ara.R
+import java.util.*
 
 /**
  * Implementation of App Widget functionality.
@@ -43,11 +44,14 @@ class TodayWidget : AppWidgetProvider() {
 }
 
 internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
+    val instance = Calendar.getInstance()
+    val dayOfWeek = instance.get(Calendar.DAY_OF_WEEK)
+    val month = instance.get(Calendar.MONTH)
+    val day = instance.get(Calendar.DAY_OF_MONTH)
     val widgetText = context.getString(R.string.appwidget_text)
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.today_widget)
     views.setTextViewText(R.id.appwidget_text, widgetText)
-
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }

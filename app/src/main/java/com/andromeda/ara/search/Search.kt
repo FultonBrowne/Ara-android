@@ -38,14 +38,14 @@ import kotlin.collections.ArrayList
 
 
 class Search {
-    fun main(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions, rec: RecyclerView, tts:TTS?, outputList: ArrayList<RssFeedModel>): ArrayList<RssFeedModel> {
+    fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, rec: RecyclerView, tts: TTS?, outputList: ArrayList<RssFeedModel>): ArrayList<RssFeedModel> {
 
         var done2 = false
         var lat = 0.0
         var log = 0.0
         outputList.clear()
-        val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        val locationManager = act.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (ActivityCompat.checkSelfPermission(act, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(act, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             val location: Location? = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             if (location != null) {
                 lat = location.latitude
@@ -59,7 +59,7 @@ class Search {
                     done2 = true
                     try {
                         val parsed = Parse().parse(i.action)
-                        val doIt = RunActions().doIt(parsed, mainval.replace(i.pre + " ", ""), ctx, act, searchFunctions)
+                        val doIt = RunActions().doIt(parsed, mainval.replace(i.pre + " ", ""), act, act, searchFunctions)
                         outputList.addAll(doIt)
                     }
                     catch (e:Exception){
@@ -77,7 +77,7 @@ class Search {
                     println(R.string.done_search)
                     try {
                         val parsed = Parse().parse(test1?.get(0)?.exes)
-                        val doIt = RunActions().doIt(parsed, mainval, ctx, act, searchFunctions)
+                        val doIt = RunActions().doIt(parsed, mainval, act, act, searchFunctions)
                         outputList.addAll(doIt)
                     } catch (e: Exception) {
                     }
@@ -85,13 +85,9 @@ class Search {
 
             act.runOnUiThread {
                 rec.adapter = Adapter(outputList, act)
-                tts?.start(ctx, outputList[0].out)
+                tts?.start(act, outputList[0].out)
 
             }
-
-
-
-
         return outputList
     }
 

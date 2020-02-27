@@ -50,6 +50,9 @@ android {
 
         //vectorDrawables.useSupportLibrary = true
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
     aaptOptions {
         noCompress "tflite"
     }
@@ -97,6 +100,7 @@ dependencies {
     implementation group: 'net.openid', name: 'appauth', version: '0.7.1'
     implementation 'androidx.preference:preference:1.1.0'
     implementation 'com.google.code.ndef-tools-for-android:ndeftools-util:1.2.4'
+    testImplementation "io.mockk:mockk:1.9.3"
     def appCenterSdkVersion = '3.0.0'
     implementation "com.microsoft.appcenter:appcenter-push:${appCenterSdkVersion}"
 
@@ -107,9 +111,7 @@ dependencies {
     implementation 'androidx.ui:ui-layout:0.1.0-dev02'
     implementation 'androidx.ui:ui-material:0.1.0-dev02'
     implementation 'androidx.ui:ui-tooling:0.1.0-dev02'
-    androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha04', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha04')
     implementation "com.mikepenz:materialdrawer:8.0.0-b03"
 // https://mvnrepository.com/artifact/khttp/khttp
     implementation group: 'khttp', name: 'khttp', version: '0.1.0'

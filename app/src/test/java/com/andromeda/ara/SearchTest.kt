@@ -18,7 +18,9 @@ package com.andromeda.ara
 
 import android.app.Activity
 import com.andromeda.ara.activitys.MainActivity
+import com.andromeda.ara.search.Search
 import com.andromeda.ara.skills.SearchFunctions
+import com.andromeda.ara.voice.TTS
 import org.junit.Test
 
 
@@ -26,7 +28,7 @@ class SearchTest :SearchFunctions{
     @Test
     fun test(){
         var act:Activity = MainActivity()
-        //Search().main("test", act, this, RecyclerView(act), TTS(), arrayListOf())
+        Search().main("test", act, this, null, arrayListOf())
     }
 
     override fun callBack(m: String, link: String) {

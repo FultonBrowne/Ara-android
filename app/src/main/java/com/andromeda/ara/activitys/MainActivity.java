@@ -341,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         assert locationManager != null;
                     }
                     try {
-                        recyclerView.setAdapter(new Adapter(new Search().main(query, MainActivity.this, MainActivity.this, recyclerView, null, rssFeedModel1), act));
+                        recyclerView.setAdapter(new Adapter(new Search().main(query, MainActivity.this, MainActivity.this, null, rssFeedModel1), act));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

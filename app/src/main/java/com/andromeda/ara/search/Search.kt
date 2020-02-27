@@ -23,7 +23,6 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
@@ -40,15 +39,15 @@ import kotlin.collections.ArrayList
 
 
 class Search {
-    fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, rec: RecyclerView, tts: TTS?, outputList: ArrayList<RssFeedModel>): ArrayList<RssFeedModel> {
+    fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: TTS?, outputList: ArrayList<RssFeedModel>): ArrayList<RssFeedModel> {
 
         var done2 = false
         var lat = 0.0
         var log = 0.0
         outputList.clear()
-        val locationManager = act.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager = act.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
         if (ActivityCompat.checkSelfPermission(act, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(act, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            val location: Location? = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            val location: Location? = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             if (location != null) {
                 lat = location.latitude
                 log = location.longitude

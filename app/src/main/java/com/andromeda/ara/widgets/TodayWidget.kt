@@ -48,10 +48,10 @@ internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManage
     val dayOfWeek = instance.get(Calendar.DAY_OF_WEEK)
     val month = instance.get(Calendar.MONTH)
     val day = instance.get(Calendar.DAY_OF_MONTH)
-    val widgetText = context.getString(R.string.appwidget_text)
+    val dayTxt = "${WidgetConstants.week[dayOfWeek]}, ${WidgetConstants.month[month]} $day"
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.today_widget)
-    views.setTextViewText(R.id.appwidget_text, widgetText)
+    views.setTextViewText(R.id.appwidget_text, dayTxt)
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }

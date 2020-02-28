@@ -25,7 +25,7 @@ import java.util.*
 
 class RefreshAlarm(context: Context?) {
     private val ALARM_ID = 0
-    private val INTERVAL_MILLIS = 10000
+    private val INTERVAL_MILLIS = 60000
 
     private var mContext: Context? = context
 
@@ -34,11 +34,13 @@ class RefreshAlarm(context: Context?) {
         println("start")
         val calendar: Calendar = Calendar.getInstance()
         calendar.add(Calendar.MILLISECOND, INTERVAL_MILLIS)
-        val alarmIntent = Intent(WidgetConstants.ACTION_AUTO_UPDATE)
+        val alarmIntent = Intent(mContext, TodayWidget::class.java)
+        alarmIntent.action = WidgetConstants.ACTION_AUTO_UPDATE
         val pendingIntent = PendingIntent.getBroadcast(mContext, ALARM_ID, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT)
-        val alarmManager = mContext?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = mContext!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         // RTC does not wake the device up
-        alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), INTERVAL_MILLIS.toLong(), pendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC, calendar.timeInMillis, INTERVAL_MILLIS.toLong(), pendingIntent)
+        println("gooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     }
 
 

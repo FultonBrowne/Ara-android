@@ -38,23 +38,20 @@ class TodayWidget : AppWidgetProvider() {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
     }
-    override fun onReceive(context:Context, intent:Intent)
-    {
-        super.onReceive(context, intent);
 
-        if(intent.getAction().equals(ACTION_AUTO_UPDATE))
-        {
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+        println("got it")
+
+        if (intent.action.equals(ACTION_AUTO_UPDATE)) {
             // DO SOMETHING
             println("update")
-            update(context, null, null )
+            update(context, null, null)
         }
 
     }
 
     override fun onEnabled(context: Context) {
-        // Enter relevant functionality for when the first widget is created
-        // start alarm
-        // start alarm
         val appWidgetAlarm = RefreshAlarm(context.applicationContext)
         appWidgetAlarm.startAlarm()
     }
@@ -64,7 +61,7 @@ class TodayWidget : AppWidgetProvider() {
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val thisAppWidgetComponentName = ComponentName(context.packageName, javaClass.name)
         val appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidgetComponentName)
-        if (appWidgetIds.size == 0) { // stop alarm
+        if (appWidgetIds.isEmpty()) { // stop alarm
             val appWidgetAlarm = RefreshAlarm(context.applicationContext)
             appWidgetAlarm.stopAlarm()
         }

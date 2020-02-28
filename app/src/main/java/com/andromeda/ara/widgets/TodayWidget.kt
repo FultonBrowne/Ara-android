@@ -18,10 +18,15 @@ package com.andromeda.ara.widgets
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.widget.RemoteViews
 import com.andromeda.ara.R
+import com.andromeda.ara.phoneData.CalUtility
+import com.andromeda.ara.widgets.WidgetConstants.ACTION_AUTO_UPDATE
 import java.util.*
+
 
 /**
  * Implementation of App Widget functionality.
@@ -33,25 +38,60 @@ class TodayWidget : AppWidgetProvider() {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
     }
+    override fun onReceive(context:Context, intent:Intent)
+    {
+        super.onReceive(context, intent);
+
+        if(intent.getAction().equals(ACTION_AUTO_UPDATE))
+        {
+            // DO SOMETHING
+            println("update")
+            update(context, null, null )
+        }
+
+    }
 
     override fun onEnabled(context: Context) {
         // Enter relevant functionality for when the first widget is created
+        // start alarm
+        // start alarm
+        val appWidgetAlarm = RefreshAlarm(context.applicationContext)
+        appWidgetAlarm.startAlarm()
     }
 
     override fun onDisabled(context: Context) {
         // Enter relevant functionality for when the last widget is disabled
+        val appWidgetManager = AppWidgetManager.getInstance(context)
+        val thisAppWidgetComponentName = ComponentName(context.packageName, javaClass.name)
+        val appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidgetComponentName)
+        if (appWidgetIds.size == 0) { // stop alarm
+            val appWidgetAlarm = RefreshAlarm(context.applicationContext)
+            appWidgetAlarm.stopAlarm()
+        }
     }
 }
 
 internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
+    val appWidgetAlarm = RefreshAlarm(context.applicationContext)
+    appWidgetAlarm.startAlarm()
+    update(context, appWidgetManager, appWidgetId)
+}
+
+private fun update(context: Context, appWidgetManager: AppWidgetManager?, appWidgetId: Int?) {
+    println("update")
     val instance = Calendar.getInstance()
     val dayOfWeek = instance.get(Calendar.DAY_OF_WEEK)
     val month = instance.get(Calendar.MONTH)
     val day = instance.get(Calendar.DAY_OF_MONTH)
-    val dayTxt = "${WidgetConstants.week[dayOfWeek]}, ${WidgetConstants.month[month]} $day"
+    var dayTxt = ""
+    val currentEvents = CalUtility().getClosestEvents(context)
+    dayTxt = if (currentEvents.size == 0) "${WidgetConstants.week[dayOfWeek]}, ${WidgetConstants.month[month]} $day"
+    else currentEvents[0].title + " " + currentEvents[0].description
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.today_widget)
     views.setTextViewText(R.id.appwidget_text, dayTxt)
     // Instruct the widget manager to update the widget
-    appWidgetManager.updateAppWidget(appWidgetId, views)
+    if (appWidgetId != null) {
+        appWidgetManager?.updateAppWidget(appWidgetId, views)
+    }
 }

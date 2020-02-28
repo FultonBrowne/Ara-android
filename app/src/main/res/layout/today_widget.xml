@@ -30,6 +30,6 @@
         android:text="@string/appwidget_text"
         android:textColor="#ffffff"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        />
 
 </RelativeLayout>

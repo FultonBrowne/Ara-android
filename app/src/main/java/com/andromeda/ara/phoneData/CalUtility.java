@@ -29,6 +29,7 @@ import com.andromeda.ara.R;
 import com.andromeda.ara.util.FeedDateParseModel;
 import com.andromeda.ara.util.RssFeedModel;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -141,11 +142,13 @@ public class CalUtility {
             String startDates = (getDate(Long.parseLong(cursor.getString(3))));
             Date startDatesAsTime = (new Date(Long.parseLong(cursor.getString(3))));
             System.out.println(startDatesAsTime);
+            DateFormat df = DateFormat.getTimeInstance();
             String descriptions = (cursor.getString(2));
             long toSub;
             CNames[i] = cursor.getString(1);
             if(startDatesAsTime.getTime() < ltime && startDatesAsTime.getTime() > currentDate.getTime()){
-                RssFeedModel e = new RssFeedModel("event at: " + startDatesAsTime.toString(), "", nameOfEvent, "", "", false);
+                String format = df.format(startDatesAsTime);
+                RssFeedModel e = new RssFeedModel("at: " + format.substring(0, format.length() - 3), "", nameOfEvent, "", "", false);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     e.color = context.getColor(R.color.accent);
                 }

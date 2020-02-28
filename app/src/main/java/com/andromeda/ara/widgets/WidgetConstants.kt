@@ -19,6 +19,7 @@ package com.andromeda.ara.widgets
 import java.util.*
 
 object WidgetConstants {
+    const val ACTION_AUTO_UPDATE = "AUTO_UPDATE"
     val month = mapOf(
             Calendar.JANUARY to "Jan.",
             Calendar.FEBRUARY to "Feb.",

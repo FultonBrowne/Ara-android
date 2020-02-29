@@ -22,5 +22,5 @@
     android:minHeight="40dp"
     android:previewImage="@drawable/example_appwidget_preview"
     android:resizeMode="horizontal"
-    android:updatePeriodMillis="86400000"
-    android:widgetCategory="home_screen|keyguard"></appwidget-provider>
+    android:updatePeriodMillis="20000"
+    android:widgetCategory="home_screen|keyguard" />

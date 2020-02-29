@@ -32,8 +32,12 @@ import java.util.*
  * Implementation of App Widget functionality.
  */
 class TodayWidget : AppWidgetProvider() {
+    var ids: IntArray? = null
+    var manager:AppWidgetManager? = null
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         // There may be multiple widgets active, so update all of them
+        manager = appWidgetManager
+        ids = appWidgetIds
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
@@ -41,15 +45,17 @@ class TodayWidget : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
-        println("got it")
+        ids?.forEach {
+            println("got it")
 
-        if (intent.action.equals(ACTION_AUTO_UPDATE)) {
-            // DO SOMETHING
-            println("update")
-            update(context, null, null)
+            if (intent.action.equals(ACTION_AUTO_UPDATE)) {
+                // DO SOMETHING
+                println("update")
+                update(context, manager, it)
+            }
+            }
+
         }
-
-    }
 
     override fun onEnabled(context: Context) {
         val appWidgetAlarm = RefreshAlarm(context.applicationContext)
@@ -91,4 +97,5 @@ private fun update(context: Context, appWidgetManager: AppWidgetManager?, appWid
     if (appWidgetId != null) {
         appWidgetManager?.updateAppWidget(appWidgetId, views)
     }
+
 }

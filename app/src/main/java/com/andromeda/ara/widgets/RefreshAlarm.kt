@@ -35,6 +35,7 @@ class RefreshAlarm(context: Context?) {
         val calendar: Calendar = Calendar.getInstance()
         calendar.add(Calendar.MILLISECOND, INTERVAL_MILLIS)
         val alarmIntent = Intent(mContext, TodayWidget::class.java)
+        alarmIntent.putExtra("Random", Math.random() * 1000); // Add a random integer to stop the Intent being ignored.
         alarmIntent.action = WidgetConstants.ACTION_AUTO_UPDATE
         val pendingIntent = PendingIntent.getBroadcast(mContext, ALARM_ID, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT)
         val alarmManager = mContext!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager

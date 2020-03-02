@@ -54,11 +54,10 @@
         </receiver>
 
 
-
         <activity
             android:name=".activitys.SkillsActivity"
             android:label="@string/title_activity_skills"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activitys.PrefsActivity"
             android:label="@string/title_activity_prefs"

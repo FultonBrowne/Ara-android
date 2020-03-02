@@ -53,10 +53,7 @@
                 android:resource="@xml/today_widget_info" />
         </receiver>
 
-        <service
-            android:name=".services.AraUserSync"
-            android:enabled="true"
-            android:exported="true"></service>
+
 
         <activity
             android:name=".activitys.SkillsActivity"

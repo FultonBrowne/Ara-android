@@ -29,6 +29,11 @@ class AraActions : Service() {
     companion object{
         const val TIMER = 1
         val timerForTimer = Timer()
+        fun cancel(){
+            timerForTimer.cancel()
+
+
+        }
 
     }
 
@@ -66,9 +71,5 @@ class AraActions : Service() {
         timerForTimer.schedule(task, length.toLong())
         stopSelf()
     }
-    private fun cancel(){
-        timerForTimer.cancel()
 
-        
-    }
 }

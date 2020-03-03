@@ -21,8 +21,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.andromeda.ara.services.AraActions
-import com.andromeda.ara.util.Locl.latitude
-import com.andromeda.ara.util.Locl.longitude
 import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.util.SkillsModel
 import java.util.*
@@ -57,6 +55,9 @@ class RunActions {
                     }
                     "TOG_MEDIA" -> {
                         Media().playPause(ctx)
+                    }
+                    "STOPTIMERS" -> {
+                        AraActions.cancel()
                     }
                     "OUTPUT" -> {
                         returnedVal.add(RssFeedModel(i.arg2, "", i.arg1, "", "", true))

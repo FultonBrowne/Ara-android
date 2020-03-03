@@ -18,11 +18,11 @@ package com.andromeda.ara.voice;
 
 
 import android.content.Context;
+
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechModel;
 import org.mozilla.deepspeech.libdeepspeech.DeepSpeechStreamingState;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 

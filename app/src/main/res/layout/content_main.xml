@@ -30,16 +30,11 @@
                 tools:context="com.andromeda.ara.activitys.MainActivity"
                 tools:showIn="@layout/activity_main">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
         <include
                 layout="@layout/fragment_item_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 </RelativeLayout>

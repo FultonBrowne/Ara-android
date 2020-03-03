@@ -27,8 +27,8 @@ import java.util.concurrent.ThreadLocalRandom
 
 class AraActions : Service() {
     companion object{
-        var timerRunning = false
         const val TIMER = 1
+        val timerForTimer = Timer()
 
     }
 
@@ -47,7 +47,6 @@ class AraActions : Service() {
 
     private fun timer(intent: Intent) {
         val length = intent.getIntExtra("length", 1000)
-        val timer = Timer()
         val ctx = this
         val channelId = "com.andromeda.ara"
         var builder = NotificationCompat.Builder(this, channelId)
@@ -59,14 +58,17 @@ class AraActions : Service() {
             override fun run() {
                 with(NotificationManagerCompat.from(ctx)) {
                     // notificationId is a unique int for each notification that you must define
-                    timerRunning = false
                     notify(ThreadLocalRandom.current().nextInt(0, 10000000 + 1), builder.build())
                 }
 
             }
         }
-        timer.schedule(task, length.toLong())
-        timerRunning = true
+        timerForTimer.schedule(task, length.toLong())
         stopSelf()
+    }
+    private fun cancel(){
+        timerForTimer.cancel()
+
+        
     }
 }

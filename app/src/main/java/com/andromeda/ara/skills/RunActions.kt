@@ -83,10 +83,10 @@ class RunActions {
                         try{
                         arg1 = if (i.arg1 == "TERM") searchTerm
                         else i.arg1
-                        val i = Intent(ctx, AraActions::class.java)
-                        i.putExtra("type", 1)
-                        i.putExtra("length", arg1.toInt())
-                        act.startService(i)
+                        val intent = Intent(ctx, AraActions::class.java)
+                        intent.putExtra("type", 1)
+                        intent.putExtra("length", arg1.toInt())
+                        act.startService(intent)
                         }
                         catch (e:Exception){
                             e.printStackTrace()
@@ -103,7 +103,7 @@ class RunActions {
 
         return returnedVal
     }
-    fun respond(searchFunctions: SearchFunctions, m:String): String {
+    private fun respond(searchFunctions: SearchFunctions, m:String): String {
         return searchFunctions.callForString(m)
     }
 }

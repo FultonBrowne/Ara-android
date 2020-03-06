@@ -32,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.andromeda.ara.R;
+import com.andromeda.ara.models.TabModel;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.skills.SearchFunctions;
 import com.andromeda.ara.util.Adapter;
@@ -398,5 +399,10 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
             e.printStackTrace();
         }
         return  null;
+    }
+
+    @Override
+    public void onTabTrigger(@NotNull TabModel data) {
+
     }
 }

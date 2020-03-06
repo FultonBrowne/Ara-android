@@ -16,7 +16,10 @@
 
 package com.andromeda.ara.skills
 
+import com.andromeda.ara.models.TabModel
+
 interface SearchFunctions {
     fun callBack(m:String, link:String)
     fun callForString(m:String):String
+    fun onTabTrigger(data:TabModel)
 }

@@ -50,6 +50,7 @@ import com.andromeda.ara.constants.User;
 import com.andromeda.ara.devices.GetDevices;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.News;
+import com.andromeda.ara.models.TabModel;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.skills.ListSkills;
 import com.andromeda.ara.skills.SearchFunctions;
@@ -453,4 +454,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         return new AraPopUps().getDialogValueBack(this, m);
     }
 
+    @Override
+    public void onTabTrigger(@NotNull TabModel data) {
+
+    }
 }

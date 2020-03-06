@@ -405,4 +405,9 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     public void onTabTrigger(@NotNull TabModel data) {
 
     }
+
+    @Override
+    public void addTabData(@NotNull List<TabModel> data) {
+
+    }
 }

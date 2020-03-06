@@ -22,4 +22,5 @@ interface SearchFunctions {
     fun callBack(m:String, link:String)
     fun callForString(m:String):String
     fun onTabTrigger(data:TabModel)
+    fun addTabData(data: List<TabModel>)
 }

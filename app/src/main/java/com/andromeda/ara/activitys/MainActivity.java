@@ -80,6 +80,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import pub.devrel.easypermissions.EasyPermissions;
@@ -456,6 +457,11 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
     @Override
     public void onTabTrigger(@NotNull TabModel data) {
+
+    }
+
+    @Override
+    public void addTabData(@NotNull List<TabModel> data) {
 
     }
 }

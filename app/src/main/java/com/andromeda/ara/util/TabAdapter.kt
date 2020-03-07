@@ -16,13 +16,12 @@
 
 package com.andromeda.ara.util
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 
 class TabAdapter :RecyclerView.Adapter<TabAdapter.FeedModelViewHolder>() {
-    class FeedModelViewHolder(private val button: View) : RecyclerView.ViewHolder(button)
+    class FeedModelViewHolder(private val button: MaterialButton) : RecyclerView.ViewHolder(button)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedModelViewHolder {
         return  FeedModelViewHolder(MaterialButton(parent.context))
@@ -33,7 +32,8 @@ class TabAdapter :RecyclerView.Adapter<TabAdapter.FeedModelViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val materialButton = holder.itemView as MaterialButton
+        materialButton.text = "test"
     }
 
 }

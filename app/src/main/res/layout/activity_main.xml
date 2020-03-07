@@ -30,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_height"
             android:fitsSystemWindows="true"
+        android:id="@+id/bar"
             android:background="@color/primary"
             android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -52,6 +53,14 @@
 
 
     </com.google.android.material.appbar.AppBarLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        app:layout_anchor="@id/bar"
+        android:id="@+id/tabsmode"
+        app:layout_anchorGravity="bottom"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"/>
 
 
     <include layout="@layout/content_main"/>

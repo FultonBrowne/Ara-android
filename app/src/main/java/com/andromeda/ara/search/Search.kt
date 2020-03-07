@@ -24,13 +24,14 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
 import com.andromeda.ara.R
+import com.andromeda.ara.models.SkillsFromDB
+import com.andromeda.ara.models.TabModel
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
 import com.andromeda.ara.skills.SearchFunctions
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.RssFeedModel
-import com.andromeda.ara.models.SkillsFromDB
 import com.andromeda.ara.voice.TTS
 import java.net.InetAddress
 import java.net.URL
@@ -86,6 +87,7 @@ class Search {
 
             act.runOnUiThread {
                 tts?.start(act, outputList[0].out)
+                searchFunctions.addTabData(arrayListOf(TabModel("test", "test")))
 
             }
         return outputList

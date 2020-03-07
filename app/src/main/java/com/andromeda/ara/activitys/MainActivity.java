@@ -62,6 +62,7 @@ import com.andromeda.ara.util.LogIn;
 import com.andromeda.ara.util.PushUtil;
 import com.andromeda.ara.util.RecyclerTouchListener;
 import com.andromeda.ara.util.RssFeedModel;
+import com.andromeda.ara.util.TabAdapter;
 import com.andromeda.ara.util.TagManager;
 import com.andromeda.ara.voice.VoiceMain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -462,6 +463,9 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
     @Override
     public void addTabData(@NotNull List<TabModel> data) {
+        RecyclerView tabs = findViewById(R.id.tabsmode);
+        tabs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        tabs.setAdapter(new TabAdapter(data));
 
     }
 }

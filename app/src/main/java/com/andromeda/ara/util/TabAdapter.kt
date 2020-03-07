@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.models.TabModel
 import com.google.android.material.button.MaterialButton
 
-class TabAdapter(data:ArrayList<TabModel>) :RecyclerView.Adapter<TabAdapter.FeedModelViewHolder>() {
+class TabAdapter(data:List<TabModel>) :RecyclerView.Adapter<TabAdapter.FeedModelViewHolder>() {
     val array = data
     class FeedModelViewHolder(private val button: MaterialButton) : RecyclerView.ViewHolder(button)
 

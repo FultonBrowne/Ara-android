@@ -19,12 +19,13 @@ package com.andromeda.ara.util
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 
 class TabAdapter :RecyclerView.Adapter<TabAdapter.FeedModelViewHolder>() {
     class FeedModelViewHolder(private val button: View) : RecyclerView.ViewHolder(button)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedModelViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return  FeedModelViewHolder(MaterialButton(parent.context))
     }
 
     override fun getItemCount(): Int {

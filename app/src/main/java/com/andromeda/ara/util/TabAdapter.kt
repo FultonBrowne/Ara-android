@@ -18,9 +18,11 @@ package com.andromeda.ara.util
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.andromeda.ara.models.TabModel
 import com.google.android.material.button.MaterialButton
 
-class TabAdapter :RecyclerView.Adapter<TabAdapter.FeedModelViewHolder>() {
+class TabAdapter(data:ArrayList<TabModel>) :RecyclerView.Adapter<TabAdapter.FeedModelViewHolder>() {
+    val array = data
     class FeedModelViewHolder(private val button: MaterialButton) : RecyclerView.ViewHolder(button)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedModelViewHolder {
@@ -28,7 +30,7 @@ class TabAdapter :RecyclerView.Adapter<TabAdapter.FeedModelViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return array.size
     }
 
     override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {

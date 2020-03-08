@@ -53,15 +53,6 @@
 
 
     </com.google.android.material.appbar.AppBarLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
-        app:layout_anchor="@id/bar"
-        android:id="@+id/tabsmode"
-        app:layout_anchorGravity="bottom"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"/>
-
 
     <include layout="@layout/content_main"
          />

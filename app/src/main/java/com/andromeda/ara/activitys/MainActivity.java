@@ -463,9 +463,10 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
     @Override
     public void addTabData(@NotNull List<TabModel> data) {
-        RecyclerView tabs = findViewById(R.id.tabsmode);
+       RecyclerView tabs = new RecyclerView(this);
         tabs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
         tabs.setAdapter(new TabAdapter(data));
+        Objects.requireNonNull(getSupportActionBar()).setCustomView(tabs);
 
     }
 }

@@ -24,6 +24,7 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
 import com.andromeda.ara.R
+import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.models.SkillsFromDB
 import com.andromeda.ara.models.TabModel
 import com.andromeda.ara.skills.Parse
@@ -86,7 +87,12 @@ class Search {
 
             act.runOnUiThread {
                 tts?.start(act, outputList[0].out)
-                searchFunctions.addTabData(arrayListOf(TabModel("test", "test")))
+                val elements = TabModel("ara", ServerUrl.getStandardSearch(mainval, log.toString(), lat.toString()))
+                val web = TabModel("web", ServerUrl.getWebSearch(mainval, log.toString(), lat.toString()))
+                val image = TabModel("images", ServerUrl.getImageSearch(mainval, log.toString(), lat.toString()))
+
+                val data = arrayListOf(elements, web, image)
+                searchFunctions.addTabData(data)
 
             }
         return outputList
@@ -95,8 +101,6 @@ class Search {
     fun outputPing(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions): ArrayList<RssFeedModel> {
 
         var outputList: ArrayList<RssFeedModel> = ArrayList()
-        var lat = 0.0
-        var log = 0.0
 
 
         outputList.add(RssFeedModel("", "", "", "", "", false))
@@ -116,7 +120,7 @@ class Search {
 
         return outputList
     }
-    fun getSearch(act: Activity): java.util.ArrayList<SkillsFromDB>? {
+    private fun getSearch(act: Activity): java.util.ArrayList<SkillsFromDB>? {
         val sharedPreferences = act.getPreferences(0)
         val url = URL("http://ara-server.azurewebsites.net/getforcache")
         val update = Thread{

@@ -31,6 +31,7 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -50,14 +51,18 @@ import com.andromeda.ara.constants.User;
 import com.andromeda.ara.devices.GetDevices;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.News;
+import com.andromeda.ara.models.OutputModel;
 import com.andromeda.ara.models.TabModel;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.skills.ListSkills;
 import com.andromeda.ara.skills.SearchFunctions;
 import com.andromeda.ara.util.Adapter;
+import com.andromeda.ara.util.ApiOutputToRssFeed;
 import com.andromeda.ara.util.AraPopUps;
 import com.andromeda.ara.util.CardOnClick;
 import com.andromeda.ara.util.GetSettings;
+import com.andromeda.ara.util.GetUrlAra;
+import com.andromeda.ara.util.JsonParse;
 import com.andromeda.ara.util.LogIn;
 import com.andromeda.ara.util.PushUtil;
 import com.andromeda.ara.util.RecyclerTouchListener;
@@ -79,6 +84,8 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,8 +103,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
     private String mTime = "hello";
     //this is the navigation Drawer
     private com.mikepenz.materialdrawer.Drawer drawer = null;
-    //Adapter
-    private RecyclerView.Adapter mAdapter;
     // Data set for list out put
     private ArrayList<RssFeedModel> rssFeedModel1 = new ArrayList<>();
     //RecyclerView
@@ -265,7 +270,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
         rssFeedModel1 = (new News().newsGeneral(this));
         System.out.println("feed done");
-            mAdapter = new Adapter(rssFeedModel1, this);
+        //Adapter
+        Adapter mAdapter = new Adapter(rssFeedModel1, this);
 
             recyclerView.setAdapter(mAdapter);
             FloatingActionButton fab = findViewById(R.id.fab);
@@ -342,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
                 public boolean onQueryTextSubmit(String query) {
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        LocationManager locationManager = locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+                        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
                         assert locationManager != null;
                     }
                     try {
@@ -397,7 +403,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         int mHour = LocalTime.now().getHour();
         if (mHour < 12) {
             mTime = "Good morning";
-        } else if (mHour >= 12 && mHour < 16) {
+        } else if (mHour < 18) {
             mTime = "good afternoon";
         } else {
             mTime = "Good evening";
@@ -460,7 +466,14 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
     @Override
     public void onTabTrigger(@NotNull TabModel data) {
-
+        Toast.makeText(this, data.getUrl(), Toast.LENGTH_LONG).show();
+        try {
+            ArrayList<OutputModel> outputModels = new JsonParse().search(new GetUrlAra().getIt(new URL(data.getUrl())));
+            ArrayList<RssFeedModel> rssFeedModels = new ApiOutputToRssFeed().main(outputModels);
+            recyclerView.setAdapter(new Adapter(rssFeedModels, this));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -468,7 +481,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
        RecyclerView tabs = findViewById(R.id.tabs);
        tabs.setVisibility(View.VISIBLE);
         tabs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-        tabs.setAdapter(new TabAdapter(data));
+        tabs.setAdapter(new TabAdapter(data, this));
 
 
     }

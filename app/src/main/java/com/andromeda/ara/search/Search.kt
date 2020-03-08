@@ -33,7 +33,6 @@ import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.voice.TTS
-import java.net.InetAddress
 import java.net.URL
 import java.util.*
 import kotlin.collections.ArrayList
@@ -91,16 +90,6 @@ class Search {
 
             }
         return outputList
-    }
-
-    private fun isInternetAvailable(): Boolean {
-        return try {
-            val ipAddr = InetAddress.getByName("https://ara-server.azurewebsites.net/api").toString()
-            //You can replace it with your name
-            ipAddr != ""
-        } catch (e: Exception) {
-            false
-        }
     }
 
     fun outputPing(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions): ArrayList<RssFeedModel> {

@@ -19,10 +19,12 @@ package com.andromeda.ara.util
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.models.TabModel
+import com.andromeda.ara.skills.SearchFunctions
 import com.google.android.material.button.MaterialButton
 
-class TabAdapter(data:List<TabModel>) :RecyclerView.Adapter<TabAdapter.FeedModelViewHolder>() {
+class TabAdapter(data:List<TabModel>, searchFunctions: SearchFunctions) :RecyclerView.Adapter<TabAdapter.FeedModelViewHolder>() {
     val array = data
+    val funcs = searchFunctions
     class FeedModelViewHolder(private val button: MaterialButton) : RecyclerView.ViewHolder(button)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedModelViewHolder {
@@ -35,7 +37,10 @@ class TabAdapter(data:List<TabModel>) :RecyclerView.Adapter<TabAdapter.FeedModel
 
     override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {
         val materialButton = holder.itemView as MaterialButton
-        materialButton.text = "test"
+        materialButton.text = array[position].text
+        materialButton.setOnClickListener {
+            funcs.onTabTrigger(array[position])
+        }
     }
 
 }

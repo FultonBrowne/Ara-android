@@ -33,9 +33,7 @@
 
         <include
                 layout="@layout/fragment_item_list"
-            app:layout_anchor="@id/tabsmode"
-            app:layout_anchorGravity="bottom"
-            android:layout_gravity="bottom"
+
             
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

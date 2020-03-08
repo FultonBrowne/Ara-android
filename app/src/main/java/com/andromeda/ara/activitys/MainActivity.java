@@ -202,6 +202,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
 
                     MainActivity.this.runOnUiThread(() -> {
+                        RecyclerView tabs = findViewById(R.id.tabs);
+                        tabs.setVisibility(View.INVISIBLE);
 
                         if(drawerItem.getIdentifier() == DrawerModeConstants.DEVICES){
                             rssFeedModel1 = new GetDevices().main();
@@ -463,10 +465,11 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
     @Override
     public void addTabData(@NotNull List<TabModel> data) {
-       RecyclerView tabs = new RecyclerView(this);
+       RecyclerView tabs = findViewById(R.id.tabs);
+       tabs.setVisibility(View.VISIBLE);
         tabs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
         tabs.setAdapter(new TabAdapter(data));
-        Objects.requireNonNull(getSupportActionBar()).setCustomView(tabs);
+
 
     }
 }

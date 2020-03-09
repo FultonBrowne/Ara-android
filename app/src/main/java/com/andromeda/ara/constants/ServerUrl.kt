@@ -21,12 +21,12 @@ import java.util.*
 object ServerUrl {
     var url = "https://ara-server.azurewebsites.net/"
     fun getStandardSearch(term:String, log:String, lat:String): String {
-        return "$url/api/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}"
+        return "$url/api/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
     }
     fun getWebSearch(term:String, log:String, lat:String): String {
-        return "$url/searcht/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}"
+        return "$url/searcht/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
     }
     fun getImageSearch(term:String, log:String, lat:String): String {
-        return "$url/searchi/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}"
+        return "$url/searchi/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
     }
 }

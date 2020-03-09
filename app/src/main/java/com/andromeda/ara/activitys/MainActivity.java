@@ -31,7 +31,6 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -466,7 +465,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
     @Override
     public void onTabTrigger(@NotNull TabModel data) {
-        Toast.makeText(this, data.getUrl(), Toast.LENGTH_LONG).show();
         try {
             ArrayList<OutputModel> outputModels = new JsonParse().search(new GetUrlAra().getIt(new URL(data.getUrl())));
             ArrayList<RssFeedModel> rssFeedModels = new ApiOutputToRssFeed().main(outputModels);

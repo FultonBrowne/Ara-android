@@ -24,7 +24,7 @@ object ServerUrl {
         return "$url/api/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
     }
     fun getWebSearch(term:String, log:String, lat:String): String {
-        return "$url/searcht/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
+        return "$url/searchb/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
     }
     fun getImageSearch(term:String, log:String, lat:String): String {
         return "$url/searchi/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")

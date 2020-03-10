@@ -29,4 +29,7 @@ object ServerUrl {
     fun getImageSearch(term:String, log:String, lat:String): String {
         return "$url/searchi/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
     }
+    fun getNewsSearch(term:String, log:String, lat:String): String {
+        return "$url/searchn/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
+    }
 }

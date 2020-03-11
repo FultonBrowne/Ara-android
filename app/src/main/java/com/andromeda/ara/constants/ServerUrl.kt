@@ -32,4 +32,7 @@ object ServerUrl {
     fun getNewsSearch(term:String, log:String, lat:String): String {
         return "$url/searchn/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
     }
+    fun getVideoSearch(term:String, log:String, lat:String): String {
+        return "$url/searchv/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
+    }
 }

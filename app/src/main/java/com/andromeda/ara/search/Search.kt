@@ -91,8 +91,8 @@ class Search {
                 val web = TabModel("web", ServerUrl.getWebSearch(mainval, log.toString(), lat.toString()))
                 val image = TabModel("images", ServerUrl.getImageSearch(mainval, log.toString(), lat.toString()))
                 val news = TabModel("news", ServerUrl.getNewsSearch(mainval, log.toString(), lat.toString()))
-
-                val data = arrayListOf(elements, web, image, news)
+                val video = TabModel("video", ServerUrl.getVideoSearch(mainval, log.toString(), lat.toString()))
+                val data = arrayListOf(elements, web, image, news,video)
                 searchFunctions.addTabData(data)
 
             }

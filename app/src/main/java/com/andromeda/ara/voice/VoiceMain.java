@@ -75,9 +75,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
 
         File file = new File(ctx.getCacheDir() + "/main.tflite");
         File file1 = new File(this.getCacheDir() + "/alphabet.txt");
-
-
-
         if(file1.exists() && file.exists()){
         System.out.println(bufferSizeInBytes);
         setContentView(R.layout.activity_voice_main);

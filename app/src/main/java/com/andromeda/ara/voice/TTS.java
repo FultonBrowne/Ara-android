@@ -27,7 +27,7 @@ public class TTS {
     public void start(Context ctx, String text) {
         t1 = new TextToSpeech(ctx, status -> {
             if (status != TextToSpeech.ERROR) {
-                t1.setLanguage(Locale.UK);
+                t1.setLanguage(Locale.getDefault());
                 t1.speak(text, TextToSpeech.QUEUE_FLUSH, null, "123456789");
                 System.out.println("done");
             } else System.out.println("errrrrrrrrr");

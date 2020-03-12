@@ -419,7 +419,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
 
     @Override
     public void addTabData(@NotNull List<TabModel> data) {
-        RecyclerView tabs = findViewById(R.id.tabs);
+        RecyclerView tabs = findViewById(R.id.tabs2);
         tabs.setVisibility(View.VISIBLE);
         tabs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
         tabs.setAdapter(new TabAdapter(data, this));

@@ -481,6 +481,5 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         tabs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
         tabs.setAdapter(new TabAdapter(data, this));
 
-
     }
 }

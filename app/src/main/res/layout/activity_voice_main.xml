@@ -29,6 +29,11 @@
             android:layout_height="16dp"
             android:layout_gravity="bottom"
             android:background="@drawable/animate"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_gravity="top"
+        android:id="@+id/tabs2"
+        android:layout_height="?attr/actionBarSize"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"

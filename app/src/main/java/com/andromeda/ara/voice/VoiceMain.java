@@ -32,18 +32,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.andromeda.ara.R;
+import com.andromeda.ara.models.OutputModel;
 import com.andromeda.ara.models.TabModel;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.skills.SearchFunctions;
 import com.andromeda.ara.util.Adapter;
+import com.andromeda.ara.util.ApiOutputToRssFeed;
 import com.andromeda.ara.util.DownloadTask;
+import com.andromeda.ara.util.GetUrlAra;
+import com.andromeda.ara.util.JsonParse;
 import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.SpellChecker;
+import com.andromeda.ara.util.TabAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 import static com.andromeda.ara.constants.ConstantUtils.*;
@@ -400,11 +407,22 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
 
     @Override
     public void onTabTrigger(@NotNull TabModel data) {
+        try {
+            ArrayList<OutputModel> outputModels = new JsonParse().search(new GetUrlAra().getIt(new URL(data.getUrl())));
+            ArrayList<RssFeedModel> rssFeedModels = new ApiOutputToRssFeed().main(outputModels);
+            recyclerView.setAdapter(new Adapter(rssFeedModels, this));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public void addTabData(@NotNull List<TabModel> data) {
+        RecyclerView tabs = findViewById(R.id.tabs);
+        tabs.setVisibility(View.VISIBLE);
+        tabs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        tabs.setAdapter(new TabAdapter(data, this));
 
     }
 }

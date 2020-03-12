@@ -29,11 +29,22 @@
             android:layout_height="16dp"
             android:layout_gravity="bottom"
             android:background="@drawable/animate"/>
-    <androidx.recyclerview.widget.RecyclerView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_gravity="top"
-        android:id="@+id/tabs2"
-        android:layout_height="?attr/actionBarSize"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_gravity="top"
+            android:id="@+id/tabs2"
+            android:layout_height="?attr/actionBarSize"/>
+        <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listVoice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="0dp"/>
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
@@ -59,10 +70,5 @@
             android:visibility="invisible"
             app:srcCompat="@drawable/mic"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listVoice"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="0dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

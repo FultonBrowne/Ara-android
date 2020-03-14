@@ -53,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_gravity="bottom"
                 android:id="@+id/tabs"
+                app:layout_collapseMode="parallax"
                 android:layout_height="?attr/actionBarSize"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

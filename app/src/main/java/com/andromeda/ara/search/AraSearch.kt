@@ -18,6 +18,7 @@ package com.andromeda.ara.search
 
 
 import com.andromeda.ara.constants.ServerUrl
+import com.andromeda.ara.constants.User
 import com.andromeda.ara.models.OutputModel
 import com.andromeda.ara.util.JsonParse
 import java.net.URL
@@ -32,7 +33,7 @@ class AraSearch {
     fun arrayOfOutputModels(search: String, log: String, lat: String): ArrayList<OutputModel>? {
         //get URL
 
-        val url = URL("${ServerUrl.url}/api/$search&log=$log&lat=$lat&cc=${Locale.getDefault().country}")
+        val url = URL("${ServerUrl.url}/api/$search&log=$log&lat=$lat&cc=${Locale.getDefault().country}&key=${User.id}")
 
         println(url)
         var text = "[{\"title\":\"Blank Input Received\",\"link\":\"https://github.com/fultonbrowne/ara-android\",\"description\":\"Please Try Again\",\"OutputTxt\":\"Error Was Encountered\",\"exes\":\"\"}]"

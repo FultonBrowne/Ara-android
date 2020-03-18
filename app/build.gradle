@@ -86,7 +86,7 @@ android {
 }
 
 
-ext.compose_version = "0.1.0-dev02"
+ext.compose_version = "0.1.0-dev06"
 
 dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'
@@ -114,9 +114,9 @@ dependencies {
     implementation group: 'org.mozilla.deepspeech', name: 'libdeepspeech', version: '0.6.0-alpha.9'
 
 
-    implementation 'androidx.ui:ui-layout:0.1.0-dev02'
-    implementation 'androidx.ui:ui-material:0.1.0-dev02'
-    implementation 'androidx.ui:ui-tooling:0.1.0-dev02'
+    implementation 'androidx.ui:ui-layout:0.1.0-dev06'
+    implementation 'androidx.ui:ui-material:0.1.0-dev06'
+    implementation 'androidx.ui:ui-tooling:0.1.0-dev06'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha04')
     implementation "com.mikepenz:materialdrawer:8.0.0-rc01"
 // https://mvnrepository.com/artifact/khttp/khttp

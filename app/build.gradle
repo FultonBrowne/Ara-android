@@ -107,7 +107,7 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.0'
     implementation 'com.google.code.ndef-tools-for-android:ndeftools-util:1.2.4'
     testImplementation "io.mockk:mockk:1.9.3"
-    def appCenterSdkVersion = '3.0.0'
+    def appCenterSdkVersion = '3.1.0'
     implementation "com.microsoft.appcenter:appcenter-push:${appCenterSdkVersion}"
 
 

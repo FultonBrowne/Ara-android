@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.CAL).withName("Agenda").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.ic_today_black_24dp);
         SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.SHORTCUTS).withName("Shortcuts").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.shortcut);
         SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.DEVICES).withName("Devices").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.devices);
+        SecondaryDrawerItem item8 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.REMINDERS).withName("Reminders").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.done);
         SecondaryDrawerItem news1 = new SecondaryDrawerItem().withIdentifier(102).withName("Tech").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.technews);
         SecondaryDrawerItem news3 = new SecondaryDrawerItem().withIdentifier(104).withName(getString(R.string.domeNews)).withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.domnews);
         SecondaryDrawerItem news4 = new SecondaryDrawerItem().withIdentifier(105).withName(getString(R.string.moneyText)).withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.money);
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                 .withThreeSmallProfileImages(true)
 
                 .build();
-        runOnUiThread(() ->drawer = new DrawerBuilder()
+        runOnUiThread(() -> drawer = new DrawerBuilder()
                 .withActivity(ctx)
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
@@ -209,21 +210,19 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         RecyclerView tabs = findViewById(R.id.tabs);
                         tabs.setVisibility(View.INVISIBLE);
 
-                        if(drawerItem.getIdentifier() == DrawerModeConstants.DEVICES){
+                        if (drawerItem.getIdentifier() == DrawerModeConstants.DEVICES) {
                             rssFeedModel1 = new GetDevices().main();
                             recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
-                                    mode = drawerItem.getIdentifier();
-                                }
-                        else if (drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS) {
+                            mode = drawerItem.getIdentifier();
+                        } else if (drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS) {
 
                             System.out.println("shortcuts");
                             rssFeedModel1 = new ListSkills().main();
-                                        recyclerView.setAdapter(new Adapter(rssFeedModel1, act));
-                                        mode = drawerItem.getIdentifier();
+                            recyclerView.setAdapter(new Adapter(rssFeedModel1, act));
+                            mode = drawerItem.getIdentifier();
 
 
-                        }
-                        else {
+                        } else {
                             try {
                                 new Drawer().main(drawerItem.getIdentifier(), ctx, main53, rssFeedModel1);
                                 recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
@@ -248,11 +247,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
             @Override
             public void onClick(View view, int position) {
                 try {
-
-
                     new CardOnClick().mainFun(mode, rssFeedModel1.get(position).link, act, getApplicationContext(), MainActivity.this);
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -262,7 +258,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
             @Override
             public void onLongClick(View view, int position) {
                 new CardOnClick().longClick(rssFeedModel1.get(position), getApplicationContext(), main53, mode, act);
-
             }
         }));
         System.out.println("pre feed");
@@ -272,8 +267,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         //Adapter
         Adapter mAdapter = new Adapter(rssFeedModel1, this);
 
-            recyclerView.setAdapter(mAdapter);
-            FloatingActionButton fab = findViewById(R.id.fab);
+        recyclerView.setAdapter(mAdapter);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             // Start the recording and recognition thread
             requestMicrophonePermission();
@@ -307,12 +302,9 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
 
     }
-
-
     public void about(MenuItem menuItem) {
         startActivity(new Intent(this, About.class));
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -322,8 +314,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -333,10 +323,10 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
             SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
             SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search)
                     .getActionView();
-                assert searchManager != null;
-                searchView.setSearchableInfo(searchManager
-                        .getSearchableInfo(getComponentName()));
-                searchView.setIconifiedByDefault(true);
+            assert searchManager != null;
+            searchView.setSearchableInfo(searchManager
+                    .getSearchableInfo(getComponentName()));
+            searchView.setIconifiedByDefault(true);
 
 
             SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
@@ -344,7 +334,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                     // this is your adapter that will be filtered
                     return true;
                 }
-
                 public boolean onQueryTextSubmit(String query) {
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
@@ -355,8 +344,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-
                     return true;
                 }
             };
@@ -364,15 +351,12 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         });
         return true;
     }
-
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         if (id == R.id.action_settings) {
             return true;
         }
@@ -381,7 +365,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
 
     }
 
@@ -396,6 +379,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
             super.onBackPressed();
         }
     }
+
     @RequiresApi(26)
     public void time() {
 
@@ -408,13 +392,15 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
             mTime = "Good evening";
         }
     }
+
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
 
     }
+
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
 
     }
@@ -441,11 +427,12 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
     public void logOut(MenuItem item) {
         getSharedPreferences("auth", 0).edit().putString("authData", "").apply();
     }
+
     public void addSkill(MenuItem item) {
-       new AraPopUps().newSkill(this);
+        new AraPopUps().newSkill(this);
     }
 
-    public void addDevice(MenuItem item){
+    public void addDevice(MenuItem item) {
         new AraPopUps().DeviceNewWithType(act);
 
     }
@@ -476,8 +463,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
     @Override
     public void addTabData(@NotNull List<TabModel> data) {
-       RecyclerView tabs = findViewById(R.id.tabs);
-       tabs.setVisibility(View.VISIBLE);
+        RecyclerView tabs = findViewById(R.id.tabs);
+        tabs.setVisibility(View.VISIBLE);
         tabs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
         tabs.setAdapter(new TabAdapter(data, this));
 

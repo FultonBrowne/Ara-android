@@ -20,7 +20,7 @@ object DrawerModeConstants {
     const val HOME = 1L
     const val TAGS = 2L
     const val FOOD = 3L
-    const val SHOP = 4L
+    const val REMINDERS = 4L
     const val CAL = 5L
     const val SHORTCUTS = 6L
     const val DEVICES = 400L

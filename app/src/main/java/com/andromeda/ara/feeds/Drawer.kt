@@ -23,10 +23,14 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
 import com.andromeda.ara.constants.DrawerModeConstants
+import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.phoneData.CalUtility
+import com.andromeda.ara.util.ApiOutputToRssFeed
+import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.util.TagManager
 import java.io.IOException
+import java.net.URL
 
 
 class Drawer {
@@ -96,7 +100,7 @@ class Drawer {
                 return rssFeedModel1
             }
             DrawerModeConstants.REMINDERS ->{
-
+                rssFeedModel1.addAll(ApiOutputToRssFeed().main(JsonParse().search(URL(ServerUrl.getRemindersList("", log.toString(), lat.toString())).readText())))
                 return rssFeedModel1
             }
             104L -> {

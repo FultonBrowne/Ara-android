@@ -14,6 +14,8 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+@file:Suppress("SpellCheckingInspection")
+
 package com.andromeda.ara.constants
 
 import java.util.*
@@ -35,7 +37,10 @@ object ServerUrl {
     fun getVideoSearch(term:String, log:String, lat:String): String {
         return "$url/searchv/${searchDataParser(term, log, lat)}"
     }
+    fun getRemindersList(term:String, log:String, lat:String): String {
+        return "$url/remindergaapi/${searchDataParser(term, log, lat)}"
+    }
     private fun searchDataParser(term:String, log:String, lat:String): String {
-        return "$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
+        return "$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}&key=${User.id}".replace(" ", "%20")
     }
 }

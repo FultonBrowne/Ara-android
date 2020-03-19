@@ -21,18 +21,21 @@ import java.util.*
 object ServerUrl {
     var url = "https://ara-server.azurewebsites.net/"
     fun getStandardSearch(term:String, log:String, lat:String): String {
-        return "$url/api/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
+        return "$url/api/${searchDataParser(term, log, lat)}"
     }
     fun getWebSearch(term:String, log:String, lat:String): String {
-        return "$url/searchb/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
+        return "$url/searchb/${searchDataParser(term, log, lat)}"
     }
     fun getImageSearch(term:String, log:String, lat:String): String {
-        return "$url/searchi/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
+        return "$url/searchi/${searchDataParser(term, log, lat)}"
     }
     fun getNewsSearch(term:String, log:String, lat:String): String {
-        return "$url/searchn/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
+        return "$url/searchn/${searchDataParser(term, log, lat)}"
     }
     fun getVideoSearch(term:String, log:String, lat:String): String {
-        return "$url/searchv/$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
+        return "$url/searchv/${searchDataParser(term, log, lat)}"
+    }
+    private fun searchDataParser(term:String, log:String, lat:String): String {
+        return "$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}".replace(" ", "%20")
     }
 }

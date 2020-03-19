@@ -201,7 +201,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         newsmain,
                         item5,
                         item6,
-                        item7
+                        item7,
+                        item8
                 )
 
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {

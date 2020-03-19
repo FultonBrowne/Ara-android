@@ -32,8 +32,8 @@ import java.io.IOException
 class Drawer {
     @Throws(IOException::class)
     fun main(drawerItem: Long, ctx: Context, Db: TagManager, rssFeedModel1: ArrayList<RssFeedModel>): ArrayList<RssFeedModel>? {
-        var lat: Double = 0.0
-        var log: Double = 0.0
+        var lat = 0.0
+        var log = 0.0
         rssFeedModel1.clear()
         val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -88,11 +88,15 @@ class Drawer {
 
             }
             DrawerModeConstants.FOOD -> {
-                rssFeedModel1.addAll(Food().getFood(log.toString(), java.lang.Double.toString(lat)))
+                rssFeedModel1.addAll(Food().getFood(log.toString(), lat.toString()))
                 return rssFeedModel1
             }
             DrawerModeConstants.CAL -> {
                 rssFeedModel1.addAll( CalUtility.readCalendarEvent(ctx))
+                return rssFeedModel1
+            }
+            DrawerModeConstants.REMINDERS ->{
+
                 return rssFeedModel1
             }
             104L -> {

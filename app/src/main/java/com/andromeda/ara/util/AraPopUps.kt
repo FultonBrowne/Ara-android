@@ -252,5 +252,9 @@ class AraPopUps {
 
 
     }
+    fun newReminder(ctx:Context){
+
+
+    }
 
 }

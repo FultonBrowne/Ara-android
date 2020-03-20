@@ -472,5 +472,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
     }
 
     public void newReminder(MenuItem item) {
+
     }
 }

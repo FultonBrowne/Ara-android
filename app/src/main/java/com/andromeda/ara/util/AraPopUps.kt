@@ -26,10 +26,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.text.InputType
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
@@ -252,8 +249,14 @@ class AraPopUps {
 
 
     }
-    fun newReminder(ctx:Context){
-
+    fun newReminder(ctx:Activity){
+        val alert = AlertDialog.Builder(ctx)
+        alert.setView(R.layout.layout)
+        alert.setPositiveButton("ok") { dialog, id ->
+           val title = ctx.findViewById<TextView>(R.id.reminderTitle).text.toString()
+            println(title)
+        }
+        alert.show()
 
     }
 

@@ -200,9 +200,9 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         item3,
                         newsmain,
                         item5,
+                        item8,
                         item6,
-                        item7,
-                        item8
+                        item7
                 )
 
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
@@ -472,6 +472,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
     }
 
     public void newReminder(MenuItem item) {
-
+        new AraPopUps().newReminder(this);
     }
 }

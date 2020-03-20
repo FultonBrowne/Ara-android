@@ -37,6 +37,12 @@
             android:orderInCategory="100"
             android:title="@string/action_about"
             app:showAsAction="never"/>
+    <item
+        android:id="@+id/new_reminder"
+        android:onClick="newReminder"
+        android:orderInCategory="100"
+        android:title="@string/new_reminder"
+        app:showAsAction="never"/>
     <item android:title="@string/log_out"
           android:onClick="logOut"/>
     <item android:title="@string/skillmenu"

@@ -470,4 +470,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         tabs.setAdapter(new TabAdapter(data, this));
 
     }
+
+    public void newReminder(MenuItem item) {
+    }
 }

@@ -257,7 +257,7 @@ class AraPopUps {
         alert.setPositiveButton("ok") { dialog, id ->
            val title = create?.findViewById<TextView>(R.id.reminderName)?.text.toString()
             println(title)
-            println(URL("$url/remindernn/title=$title&user=${User.id}").readText())
+            println(URL("$url/remindernn/name=$title&user=${User.id}").readText())
         }
         create = alert.create()
         create.show()

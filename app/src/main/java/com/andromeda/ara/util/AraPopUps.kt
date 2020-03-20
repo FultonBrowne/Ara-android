@@ -83,7 +83,7 @@ class AraPopUps {
         builder.setPositiveButton("OK") { _, _ ->
             val text = input.text.toString()
             allData.name = text
-            URL("${ServerUrl.url}updateuserdata/user=${User.id}id=20392&prop=name&newval=$text")
+            URL("${url}updateuserdata/user=${User.id}id=20392&prop=name&newval=$text")
         }
 
             builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
@@ -253,8 +253,9 @@ class AraPopUps {
         val alert = AlertDialog.Builder(ctx)
         alert.setView(R.layout.layout)
         alert.setPositiveButton("ok") { dialog, id ->
-           val title = ctx.findViewById<TextView>(R.id.reminderTitle).text.toString()
+           val title = ctx.findViewById<TextView>(R.id.reminderName).text.toString()
             println(title)
+            println(URL("$url/remindernn/title=$title&user=${User.id}").readText())
         }
         alert.show()
 

@@ -56,9 +56,9 @@ import kotlin.reflect.jvm.isAccessible
 
 class AraPopUps {
     val c = Calendar.getInstance()
-    val year = c[Calendar.YEAR]
-    val month = c[Calendar.MONTH]
-    val day = c[Calendar.DAY_OF_MONTH]
+    var year = c[Calendar.YEAR]
+    var month = c[Calendar.MONTH]
+    var day = c[Calendar.DAY_OF_MONTH]
     val hour = c[Calendar.HOUR_OF_DAY]
     val minute = c[Calendar.MINUTE]
     fun newSkill(ctx: Context): String {
@@ -261,6 +261,7 @@ class AraPopUps {
 
     }
     fun newReminder(ctx:Activity){
+        var time:Long? = 0
         var alert = AlertDialog.Builder(ctx)
         val inflate = ctx.layoutInflater.inflate(R.layout.layout, null)
         alert.setView(inflate)
@@ -279,7 +280,12 @@ class AraPopUps {
             DatePickerDialog(
                     ctx, OnDateSetListener { view, year, month, dayOfMonth ->
                 mDateTime = "$year-$month-$dayOfMonth"
-                Handler().postDelayed({ TimePickerDialog(ctx, OnTimeSetListener { view, hourOfDay, minute -> mDateTime += " $hourOfDay:$minute" }, hour, minute, false).show() }, 500)
+                this.year = year
+                this.month = month
+                this.day = dayOfMonth
+                Handler().postDelayed({ TimePickerDialog(ctx, OnTimeSetListener { view, hourOfDay, minute -> mDateTime += " $hourOfDay:$minute"
+                }, hour, minute, true).show()
+                time =Date.UTC(this.year, this.month, this.day, this.hour, this.minute, 0)}, 500)
             }, year, month, day).show()
 
         }

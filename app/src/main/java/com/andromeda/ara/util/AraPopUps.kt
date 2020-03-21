@@ -271,7 +271,7 @@ class AraPopUps {
                    R.id.reminderName)?.text.toString()
             println(title)
             val info = create?.findViewById<TextView>(R.id.reminderTitle)?.text.toString()
-            println(URL("$url/remindernn/name=$title&user=${User.id}&time=$time&info=$info").readText())
+            println(URL("$url/remindernn/name=$title&user=${User.id}&time=$time&info=$info".replace(" ", "%20")).readText())
         }
         create = alert.create()
         create.show()

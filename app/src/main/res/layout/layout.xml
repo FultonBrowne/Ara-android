@@ -40,10 +40,10 @@
         android:hint="@string/description"
         android:inputType="textMultiLine" />
 
-    <EditText
-        android:id="@+id/reminderTime"
+    <Button
+        android:id="@+id/popupDialogButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time" />
+        android:text="Button" />
+
 </LinearLayout>

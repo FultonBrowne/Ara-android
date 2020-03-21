@@ -260,8 +260,23 @@ class AraPopUps {
             println(URL("$url/remindernn/name=$title&user=${User.id}").readText())
         }
         create = alert.create()
+
+
         create.show()
 
+    }
+    fun editReminder(ctx:Activity, id:String){
+        var alert = AlertDialog.Builder(ctx)
+        val inflate = ctx.layoutInflater.inflate(R.layout.layout, null)
+        alert.setView(inflate)
+        var create: AlertDialog? = null
+        alert.setPositiveButton("ok") { dialog, id ->
+            val title = create?.findViewById<TextView>(R.id.reminderName)?.text.toString()
+            println(title)
+            println(URL("$url/remindernn/name=$title&user=${User.id}").readText())
+        }
+        create = alert.create()
+        create.show()
     }
 
 }

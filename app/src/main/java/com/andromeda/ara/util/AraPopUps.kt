@@ -260,8 +260,7 @@ class AraPopUps {
             println(URL("$url/remindernn/name=$title&user=${User.id}").readText())
         }
         create = alert.create()
-
-
+        val button = create.findViewById<Button>(R.id.popupDialogButton)
         create.show()
 
     }

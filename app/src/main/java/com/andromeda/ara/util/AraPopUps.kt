@@ -94,7 +94,7 @@ class AraPopUps {
         builder.setPositiveButton("OK") { _, _ ->
             val text = input.text.toString()
             allData.name = text
-            URL("${url}updateuserdata/user=${User.id}id=20392&prop=name&newval=$text")
+            URL("${url}updateuserdata/user=${User.id}id=$id&prop=name&newval=$text")
         }
 
             builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }

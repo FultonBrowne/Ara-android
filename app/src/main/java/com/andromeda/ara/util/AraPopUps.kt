@@ -20,6 +20,10 @@ package com.andromeda.ara.util
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
+import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Handler
@@ -51,7 +55,14 @@ import kotlin.reflect.jvm.isAccessible
 
 
 class AraPopUps {
+    val c = Calendar.getInstance()
+    val year = c[Calendar.YEAR]
+    val month = c[Calendar.MONTH]
+    val day = c[Calendar.DAY_OF_MONTH]
+    val hour = c[Calendar.HOUR_OF_DAY]
+    val minute = c[Calendar.MINUTE]
     fun newSkill(ctx: Context): String {
+
         val mapper = ObjectMapper(YAMLFactory())
         val toYML = ArrayList<SkillsModel>()
         toYML.add(SkillsModel("CALL", "", ""))
@@ -255,13 +266,23 @@ class AraPopUps {
         alert.setView(inflate)
         var create: AlertDialog? = null
         alert.setPositiveButton("ok") { dialog, id ->
-           val title = create?.findViewById<TextView>(R.id.reminderName)?.text.toString()
+           val title = create?.findViewById<TextView>(
+                   R.id.reminderName)?.text.toString()
             println(title)
             println(URL("$url/remindernn/name=$title&user=${User.id}").readText())
         }
         create = alert.create()
-        val button = create.findViewById<Button>(R.id.popupDialogButton)
         create.show()
+        var mDateTime = "";
+        var button = create.findViewById<Button>(R.id.popupDialogButton)
+        button.setOnClickListener {
+            DatePickerDialog(
+                    ctx, OnDateSetListener { view, year, month, dayOfMonth ->
+                mDateTime = "$year-$month-$dayOfMonth"
+                Handler().postDelayed({ TimePickerDialog(ctx, OnTimeSetListener { view, hourOfDay, minute -> mDateTime += " $hourOfDay:$minute" }, hour, minute, false).show() }, 500)
+            }, year, month, day).show()
+
+        }
 
     }
     fun editReminder(ctx:Activity, id:String){
@@ -278,4 +299,8 @@ class AraPopUps {
         create.show()
     }
 
+
+
+
 }
+

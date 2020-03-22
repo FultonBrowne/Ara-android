@@ -43,4 +43,7 @@ object ServerUrl {
     private fun searchDataParser(term:String, log:String, lat:String): String {
         return "$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}&key=${User.id}".replace(" ", "%20")
     }
+    fun getReminder(id:String): String {
+        return "$url/reminderg/user=${User.id}&id=$id"
+    }
 }

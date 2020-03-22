@@ -275,36 +275,58 @@ class AraPopUps {
         }
         create = alert.create()
         create.show()
-        var mDateTime = "";
         var button = create.findViewById<Button>(R.id.popupDialogButton)
         button.setOnClickListener {
-            DatePickerDialog(
-                    ctx, OnDateSetListener { view, year, month, dayOfMonth ->
-                mDateTime = "$year-$month-$dayOfMonth"
-                this.year = year
-                this.month = month
-                this.day = dayOfMonth
-                Handler().postDelayed({ TimePickerDialog(ctx, OnTimeSetListener { view, hourOfDay, minute -> mDateTime += " $hourOfDay:$minute"
-                }, hour, minute, true).show()
-                time =Date.UTC(this.year, this.month, this.day, this.hour, this.minute, 0)}, 500)
-            }, year, month, day).show()
+            time = getTime(ctx)
 
         }
 
     }
+
+    private fun getTime(ctx: Activity): Long {
+        var mDateTime1 = ""
+        var time1 = 0L
+        DatePickerDialog(
+                ctx, OnDateSetListener { view, year, month, dayOfMonth ->
+            mDateTime1 = "$year-$month-$dayOfMonth"
+            this.year = year
+            this.month = month
+            this.day = dayOfMonth
+            Handler().postDelayed({
+                TimePickerDialog(ctx, OnTimeSetListener { view, hourOfDay, minute ->
+                    mDateTime1 += " $hourOfDay:$minute"
+                }, hour, minute, true).show()
+                time1 = Date.UTC(this.year, this.month, this.day, this.hour, this.minute, 0)
+            }, 500)
+        }, year, month, day).show()
+        return time1
+    }
+
     fun editReminder(ctx:Activity, id:String){
+        val readText = URL(ServerUrl.getReminder(id)).readText()
+        val reminder = JsonParse().reminder(readText)[0]
+
+        var time:Long? = 0
         var alert = AlertDialog.Builder(ctx)
         val inflate = ctx.layoutInflater.inflate(R.layout.layout, null)
         alert.setView(inflate)
         var create: AlertDialog? = null
         alert.setPositiveButton("ok") { dialog, id ->
-            val title = create?.findViewById<TextView>(R.id.reminderName)?.text.toString()
+            val title = create?.findViewById<TextView>(
+                    R.id.reminderName)?.text.toString()
             println(title)
-            println(URL("$url/remindernn/name=$title&user=${User.id}").readText())
+            val info = create?.findViewById<TextView>(R.id.reminderTitle)?.text.toString()
+            println(URL("$url/remindernn/name=$title&user=${User.id}&time=$time&info=$info".replace(" ", "%20")).readText())
         }
         create = alert.create()
         create.show()
+        var button = create.findViewById<Button>(R.id.popupDialogButton)
+        button.setOnClickListener {
+            time = getTime(ctx)
+
+        }
     }
+
 
 
 

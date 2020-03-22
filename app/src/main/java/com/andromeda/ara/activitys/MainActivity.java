@@ -240,10 +240,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                 .build());
 
         System.out.println("drawer");
-
         Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);
         StrictMode.setThreadPolicy(policy);
-
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {

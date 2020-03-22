@@ -24,12 +24,11 @@ import android.widget.Toast
 import com.andromeda.ara.activitys.SkillsActivity
 import com.andromeda.ara.constants.DrawerModeConstants
 import com.andromeda.ara.constants.ServerUrl
-import java.net.URL
 import com.andromeda.ara.constants.User
-import com.andromeda.ara.devices.DeviceModel
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
 import com.andromeda.ara.skills.SearchFunctions
+import java.net.URL
 
 
 
@@ -38,11 +37,8 @@ class CardOnClick {
         when (mode) {
             DrawerModeConstants.SHORTCUTS-> {
                 try {
-
                     val parsed = Parse().parse(JsonParse().skillsServer(URL("${ServerUrl.url}1user/user=${User.id}&id=$linkText").readText())[0].action.action)
                     RunActions().doIt(parsed, "", ctx, act, searchFunctions)
-
-
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -53,8 +49,10 @@ class CardOnClick {
                     AraPopUps().editDevice(parsed[0], ctx, act, linkText)
 
             }
+            DrawerModeConstants.REMINDERS ->{
+                AraPopUps().editReminder(act, linkText)
+            }
             else -> {
-
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(linkText))
                 act.startActivity(browserIntent)
             }

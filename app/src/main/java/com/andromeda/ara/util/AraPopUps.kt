@@ -304,6 +304,7 @@ class AraPopUps {
 
     fun editReminder(ctx:Activity, id:String){
         val readText = URL(ServerUrl.getReminder(id)).readText()
+        println(readText)
         val reminder = JsonParse().reminder(readText)[0]
         var time:Long? = reminder.time
         var alert = AlertDialog.Builder(ctx)
@@ -317,7 +318,6 @@ class AraPopUps {
             val info = create?.findViewById<TextView>(R.id.reminderTitle)?.text.toString()
             println(URL("$url/reminderu/name=$title&user=${User.id}&time=$time&info=$info&id=$id".replace(" ", "%20")).readText())
         }
-
         create = alert.create()
         create.show()
         create?.findViewById<TextView>(
@@ -328,6 +328,18 @@ class AraPopUps {
             time = getTime(ctx)
 
         }
+    }
+    fun delete(ctx: Activity,  id: String){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
+        builder.setTitle("Are you sure you want to delete this reminder")
+        val input = EditText(ctx)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+        builder.setPositiveButton("Yes") { _, _ ->
+            println(URL("$url/reminderd/&user=${User.id}&id=$id".replace(" ", "%20")).readText())
+        }
+        builder.show()
+
     }
 
 

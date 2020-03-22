@@ -60,15 +60,22 @@ class CardOnClick {
 
     }
     fun longClick(selected:RssFeedModel, ctx: Context, cursor: TagManager, mode: Long,act: Activity){
-        if (mode == DrawerModeConstants.SHORTCUTS.toLong()) {
-            val i = Intent(ctx, SkillsActivity::class.java)
-            print(selected.link)
-            i.putExtra("linktext", selected.link)
-            act.startActivity(i)
+        when (mode) {
+            DrawerModeConstants.SHORTCUTS -> {
+                val i = Intent(ctx, SkillsActivity::class.java)
+                print(selected.link)
+                i.putExtra("linktext", selected.link)
+                act.startActivity(i)
 
+            }
+            DrawerModeConstants.REMINDERS -> {
+                AraPopUps().delete(act, selected.link)
+            }
+            else -> {
+                insert(selected.title, selected.link, cursor)
+                Toast.makeText(ctx, "Tagged", Toast.LENGTH_SHORT).show()
+            }
         }
-        insert(selected.title, selected.link, cursor)
-        Toast.makeText(ctx, "Tagged", Toast.LENGTH_SHORT).show()
     }
     private fun insert(main: String?, link: String?, main53: TagManager) {
         main53.open()

@@ -305,8 +305,7 @@ class AraPopUps {
     fun editReminder(ctx:Activity, id:String){
         val readText = URL(ServerUrl.getReminder(id)).readText()
         val reminder = JsonParse().reminder(readText)[0]
-
-        var time:Long? = 0
+        var time:Long? = reminder.time
         var alert = AlertDialog.Builder(ctx)
         val inflate = ctx.layoutInflater.inflate(R.layout.layout, null)
         alert.setView(inflate)
@@ -316,10 +315,14 @@ class AraPopUps {
                     R.id.reminderName)?.text.toString()
             println(title)
             val info = create?.findViewById<TextView>(R.id.reminderTitle)?.text.toString()
-            println(URL("$url/remindernn/name=$title&user=${User.id}&time=$time&info=$info".replace(" ", "%20")).readText())
+            println(URL("$url/reminderu/name=$title&user=${User.id}&time=$time&info=$info&id=$id".replace(" ", "%20")).readText())
         }
+
         create = alert.create()
         create.show()
+        create?.findViewById<TextView>(
+                R.id.reminderName)?.text = reminder.header
+        create?.findViewById<TextView>(R.id.reminderTitle)?.text = reminder.body
         var button = create.findViewById<Button>(R.id.popupDialogButton)
         button.setOnClickListener {
             time = getTime(ctx)

@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                     builder.setMessage("Please enable access to contacts.");
                     builder.setOnDismissListener(dialog -> requestPermissions(
                             new String[]
-                                    {Manifest.permission.READ_CALENDAR, Manifest.permission.READ_CONTACTS, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA}
+                                    {Manifest.permission.READ_CALENDAR, Manifest.permission.READ_CONTACTS, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.WRITE_CALENDAR}
                             , 555));
                     builder.show();
                 } else {

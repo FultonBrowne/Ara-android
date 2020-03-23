@@ -20,6 +20,8 @@ import android.app.Activity
 
 class CacheData {
     fun main(act:Activity){
-
+        val sharedPreferences = act.getSharedPreferences("iot", 0)
+        IotCache.id = sharedPreferences.getString("key", "")!!
+        IotCache.url = sharedPreferences.getString("url", "")!!
     }
 }

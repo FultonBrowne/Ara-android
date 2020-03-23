@@ -26,7 +26,13 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:id="@+id/iot_edit"/>
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/iot_switch"
+        android:visibility="gone"/>
     
 
 </LinearLayout>

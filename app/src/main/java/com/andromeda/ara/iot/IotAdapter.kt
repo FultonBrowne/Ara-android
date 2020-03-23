@@ -38,7 +38,7 @@ class IotAdapter(data:RequestModel):RecyclerView.Adapter<IotAdapter.FeedModelVie
 
     class FeedModelViewHolder(rssFeedView: View) : RecyclerView.ViewHolder(rssFeedView)
     override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
 }

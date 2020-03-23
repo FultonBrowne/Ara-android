@@ -16,16 +16,4 @@
 
 package com.andromeda.ara.iot
 
-import com.google.gson.Gson
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
-
-object IotRequest {
-    fun baseRequestGet(path:String): Request {
-        return Request.Builder().addHeader("Authorization", "Bearer ${IotCache.id}").method("GET", null).url(IotCache.url + path).build()
-    }
-    fun baseRequestPost(path:String, body:ArrayList<Any>): Request {
-        return Request.Builder().addHeader("Authorization", "Bearer ${IotCache.id}").method("POST",Gson().toJson(body).toRequestBody()).url(IotCache.url + path).build()
-    }
-
-}
+data class RequestModel(val state:Any, val attributes:ArrayList<Any>)

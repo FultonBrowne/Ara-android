@@ -16,14 +16,18 @@
 
 package com.andromeda.ara.iot
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.andromeda.ara.R
 
 class IotAdapter(data:RequestModel):RecyclerView.Adapter<IotAdapter.FeedModelViewHolder>() {
     val mainData = data
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):FeedModelViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val v = LayoutInflater.from(parent.context)
+                .inflate(R.layout.iot_layout, parent, false)
+        return FeedModelViewHolder(v)
     }
 
 

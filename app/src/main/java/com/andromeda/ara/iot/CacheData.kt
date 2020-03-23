@@ -18,14 +18,8 @@ package com.andromeda.ara.iot
 
 import android.app.Activity
 
-class GetIotData {
-    fun getAllData(){
-
-    }
-    fun edit(){
-
-    }
-    fun setUp(key:String, Url:String, act:Activity){
+class CacheData {
+    fun main(act:Activity){
 
     }
 }

@@ -40,6 +40,7 @@ import com.andromeda.ara.constants.User
 import com.andromeda.ara.constants.User.id
 import com.andromeda.ara.devices.DeviceAdapter
 import com.andromeda.ara.devices.FinalDevice
+import com.andromeda.ara.iot.GetIotData
 import com.andromeda.ara.search.Search
 import com.andromeda.ara.skills.SearchFunctions
 import com.fasterxml.jackson.core.JsonProcessingException
@@ -116,11 +117,15 @@ class AraPopUps {
         builder.show()
 
     }
-    fun newHaDevice(ctx: Context){
+    fun newHaDevice(ctx: Activity){
         var create: AlertDialog? = null
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setView(R.layout.new_iot_service)
         builder.setPositiveButton("go"){ dialogInterface: DialogInterface, i: Int ->
+            var url = create!!.findViewById<EditText>(R.id.new_iot_url).text.toString()
+            var key = create!!.findViewById<EditText>(R.id.new_iot_key).text.toString()
+            GetIotData().setUp(key, url, ctx)
+
 
         }
         create = builder.create()

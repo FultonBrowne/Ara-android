@@ -26,6 +26,6 @@ class GetIotData {
 
     }
     fun setUp(key:String, Url:String, act:Activity){
-
+        act.getSharedPreferences("iot", 0)
     }
 }

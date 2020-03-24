@@ -19,6 +19,8 @@ package com.andromeda.ara.iot
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Switch
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 
@@ -38,7 +40,15 @@ class IotAdapter(data:RequestModel):RecyclerView.Adapter<IotAdapter.FeedModelVie
 
     class FeedModelViewHolder(rssFeedView: View) : RecyclerView.ViewHolder(rssFeedView)
     override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {
-
+        val itemView = holder.itemView
+        if(mainData.attributes[position] is Boolean){
+            val iotSwitch = itemView.findViewById<Switch>(R.id.iot_switch)
+            iotSwitch.visibility = View.VISIBLE
+        }
+        else {
+            val iotText = itemView.findViewById<EditText>(R.id.iot_edit)
+            iotText.visibility = View.VISIBLE
+        }
     }
 
 }

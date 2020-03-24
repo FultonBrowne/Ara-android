@@ -28,6 +28,9 @@ object IotRequest {
     fun baseRequestPost(path:String, body:Any): Request {
         return Request.Builder().addHeader("Authorization", "Bearer ${IotCache.id}").method("POST",Gson().toJson(body).toRequestBody()).url(IotCache.url + path).build()
     }
+    fun testPing(){
+
+    }
     val client = OkHttpClient().newBuilder()
             .build()
 

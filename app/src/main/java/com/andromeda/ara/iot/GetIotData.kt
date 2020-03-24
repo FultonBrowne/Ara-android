@@ -31,5 +31,6 @@ class GetIotData {
         edit.putString("url", Url)
         edit.putString("key", key)
         edit.apply()
+        CacheData().main(act)
     }
 }

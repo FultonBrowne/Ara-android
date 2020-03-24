@@ -50,6 +50,7 @@ import com.andromeda.ara.constants.User;
 import com.andromeda.ara.devices.GetDevices;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.News;
+import com.andromeda.ara.iot.CacheData;
 import com.andromeda.ara.models.OutputModel;
 import com.andromeda.ara.models.TabModel;
 import com.andromeda.ara.search.Search;
@@ -140,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
         act = this;
         System.out.println("done part 1");
+        new CacheData().main(this);
 
         Push.setListener(new PushUtil());
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",

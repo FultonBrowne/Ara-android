@@ -32,5 +32,6 @@ class GetIotData {
         edit.putString("key", key)
         edit.apply()
         CacheData().main(act)
+        IotRequest.testPing()
     }
 }

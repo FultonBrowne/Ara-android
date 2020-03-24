@@ -122,10 +122,9 @@ class AraPopUps {
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setView(R.layout.new_iot_service)
         builder.setPositiveButton("go"){ dialogInterface: DialogInterface, i: Int ->
-            var url = create!!.findViewById<EditText>(R.id.new_iot_url).text.toString()
-            var key = create!!.findViewById<EditText>(R.id.new_iot_key).text.toString()
+            val url = create!!.findViewById<EditText>(R.id.new_iot_url).text.toString()
+            val key = create!!.findViewById<EditText>(R.id.new_iot_key).text.toString()
             GetIotData().setUp(key, url, ctx)
-
 
         }
         create = builder.create()

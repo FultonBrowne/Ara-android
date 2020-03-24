@@ -147,6 +147,12 @@
                         android:layout_height="wrap_content" android:id="@+id/button4"
                         android:onClick="bug"
                 />
+                <Button
+                    android:text="@string/add_or_reset_the_home_assistant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button5"
+                    android:onClick="newHa"
+                    />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

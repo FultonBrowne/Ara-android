@@ -26,6 +26,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import com.andromeda.ara.R
+import com.andromeda.ara.util.AraPopUps
 import kotlinx.android.synthetic.main.activity_prefs.*
 
 
@@ -106,6 +107,10 @@ class PrefsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     fun bug(view: View) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FultonBrowne/Ara-android/issues"));
         startActivity(browserIntent)
+    }
+
+    fun newHa(view: View){
+        AraPopUps().newHaDevice(this)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

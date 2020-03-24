@@ -26,6 +26,10 @@ class GetIotData {
 
     }
     fun setUp(key:String, Url:String, act:Activity){
-        act.getSharedPreferences("iot", 0)
+        val sharedPreferences = act.getSharedPreferences("iot", 0)
+        val edit = sharedPreferences.edit()
+        edit.putString("url", Url)
+        edit.putString("key", key)
+        edit.apply()
     }
 }

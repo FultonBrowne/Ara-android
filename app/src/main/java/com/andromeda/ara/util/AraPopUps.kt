@@ -116,6 +116,17 @@ class AraPopUps {
         builder.show()
 
     }
+    fun newHaDevice(ctx: Context){
+        var create: AlertDialog? = null
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
+        builder.setView(R.layout.new_iot_service)
+        builder.setPositiveButton("go"){ dialogInterface: DialogInterface, i: Int ->
+
+        }
+        create = builder.create()
+        create.show()
+
+    }
     fun textSearchResponse(ctx: Context, title: String, act: Activity, searchFunctions: SearchFunctions, recyclerView: RecyclerView){
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setTitle(title)

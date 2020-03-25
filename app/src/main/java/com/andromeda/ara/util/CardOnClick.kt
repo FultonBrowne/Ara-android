@@ -25,6 +25,7 @@ import com.andromeda.ara.activitys.SkillsActivity
 import com.andromeda.ara.constants.DrawerModeConstants
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.User
+import com.andromeda.ara.iot.Edit
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
 import com.andromeda.ara.skills.SearchFunctions
@@ -45,9 +46,7 @@ class CardOnClick {
 
             }
             DrawerModeConstants.DEVICES -> {
-                    val parsed = Parse().yamlArrayToObjectList(URL(ServerUrl.url + "/deviceinfo/user=${User.id}&id=$linkText").readText(), Any::class.java)
-                    AraPopUps().editDevice(parsed[0], ctx, act, linkText)
-
+                    Edit().main(linkText)
             }
             DrawerModeConstants.REMINDERS ->{
                 AraPopUps().editReminder(act, linkText)

@@ -47,10 +47,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andromeda.ara.R;
 import com.andromeda.ara.constants.DrawerModeConstants;
 import com.andromeda.ara.constants.User;
-import com.andromeda.ara.devices.GetDevices;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.News;
 import com.andromeda.ara.iot.CacheData;
+import com.andromeda.ara.iot.IotRequest;
 import com.andromeda.ara.models.OutputModel;
 import com.andromeda.ara.models.TabModel;
 import com.andromeda.ara.search.Search;
@@ -208,17 +208,14 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                 )
 
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
-
                     MainActivity.this.runOnUiThread(() -> {
                         RecyclerView tabs = findViewById(R.id.tabs);
                         tabs.setVisibility(View.INVISIBLE);
-
                         if (drawerItem.getIdentifier() == DrawerModeConstants.DEVICES) {
-                            rssFeedModel1 = new GetDevices().main();
+                            rssFeedModel1 = IotRequest.INSTANCE.parseAllAsFeed();
                             recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
                             mode = drawerItem.getIdentifier();
                         } else if (drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS) {
-
                             System.out.println("shortcuts");
                             rssFeedModel1 = new ListSkills().main();
                             recyclerView.setAdapter(new Adapter(rssFeedModel1, act));

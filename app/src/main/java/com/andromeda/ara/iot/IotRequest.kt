@@ -16,7 +16,9 @@
 
 package com.andromeda.ara.iot
 
+import com.andromeda.ara.util.RssFeedModel
 import com.google.gson.Gson
+import com.google.gson.JsonParser
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -40,8 +42,29 @@ object IotRequest {
             }
         }
     }
-    fun parseAllAsFeed(){
-        val text = client.newCall(baseRequestGet("/states")).execute().body.string()
+    fun parseAllAsFeed(): ArrayList<RssFeedModel> {
+        val toReturn = arrayListOf<RssFeedModel>()
+        try {
+            val text = client.newCall(baseRequestGet("/states")).execute().body!!.string()
+             JsonParser().parse(text).asJsonArray.forEach {
+                try {
+                    val jsonObject = it.asJsonObject
+                    val attributes = jsonObject.get("attributes").asJsonObject
+                    val name = attributes.get("friendly_name").asString
+                    val id = jsonObject.get("entity_id").asString
+                    val description = jsonObject.get("state").asString
+                    toReturn.add(RssFeedModel(description, id, name, "", "", false))
+
+                }
+                catch (e:Exception){
+                    e.printStackTrace()
+                }
+            }
+        }
+        catch (e:Exception){
+            e.printStackTrace()
+        }
+        return toReturn
     }
     val client = OkHttpClient().newBuilder()
             .build()

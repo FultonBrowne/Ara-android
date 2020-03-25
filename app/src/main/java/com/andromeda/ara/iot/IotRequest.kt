@@ -36,6 +36,7 @@ object IotRequest {
             }
             catch (e:Exception){
                 e.printStackTrace()
+                
             }
         }
     }

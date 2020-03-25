@@ -16,13 +16,16 @@
 
 package com.andromeda.ara.iot
 
+import android.app.Activity
+import android.widget.Toast
+import com.andromeda.ara.util.AraPopUps
 import com.google.gson.JsonParser
 
 
 
 
 class Edit {
-    fun main(id:String){
+    fun main(id: String, act: Activity){
         try {
             var newState = ""
             val string = IotRequest.client.newCall(IotRequest.baseRequestGet("/states/$id")).execute().body!!.string()
@@ -31,14 +34,15 @@ class Edit {
             newState = when (stringData) {
                 "off" -> "on"
                 "on" -> "off"
-                else -> ""
+                else -> AraPopUps().getDialogValueBack(act, id)
             }
-            //val mediaType: MediaType = "text/plain".toMediaTypeOrNull()!!
-            //val body: RequestBody = RequestBody.create(mediaType, "{\"state\":\"$newState\"}")
-            println(IotRequest.client.newCall(IotRequest.baseRequestPost("/states/$id", "{\"state\":\"$newState\"}")).execute().body!!.string())
+            parse.addProperty("state", newState)
+            println(IotRequest.client.newCall(IotRequest.baseRequestPost("/states/$id", parse.toString())).execute().body!!.string())
+            Toast.makeText(act, "state changed to $newState", Toast.LENGTH_LONG).show()
         }
         catch (e:Exception){
             e.printStackTrace()
+            Toast.makeText(act, "fail", Toast.LENGTH_LONG).show()
         }
     }
 }

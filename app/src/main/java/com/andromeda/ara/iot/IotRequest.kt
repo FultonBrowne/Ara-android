@@ -49,7 +49,7 @@ object IotRequest {
                 try {
                     val jsonObject = it.asJsonObject
                     val attributes = jsonObject.get("attributes").asJsonObject
-                    if(!attributes.get("editable").asBoolean) throw IllegalStateException()
+                    //if(!attributes.get("editable").asBoolean) throw IllegalStateException()
                     val name = attributes.get("friendly_name").asString
                     val id = jsonObject.get("entity_id").asString
                     val description = jsonObject.get("state").asString

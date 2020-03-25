@@ -46,7 +46,7 @@ class CardOnClick {
 
             }
             DrawerModeConstants.DEVICES -> {
-                    Edit().main(linkText)
+                    Edit().main(linkText, act)
             }
             DrawerModeConstants.REMINDERS ->{
                 AraPopUps().editReminder(act, linkText)

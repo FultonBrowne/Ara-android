@@ -17,7 +17,6 @@
 package com.andromeda.ara.iot
 
 import com.andromeda.ara.util.RssFeedModel
-import com.google.gson.Gson
 import com.google.gson.JsonParser
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -28,8 +27,8 @@ object IotRequest {
     fun baseRequestGet(path:String): Request {
         return Request.Builder().addHeader("Authorization", "Bearer ${IotCache.id}").method("GET", null).url(IotCache.url + path).build()
     }
-    fun baseRequestPost(path:String, body:Any): Request {
-        return Request.Builder().addHeader("Authorization", "Bearer ${IotCache.id}").method("POST",Gson().toJson(body).toRequestBody()).url(IotCache.url + path).build()
+    fun baseRequestPost(path:String, body:String): Request {
+        return Request.Builder().addHeader("Authorization", "Bearer ${IotCache.id}").method("POST",body.toRequestBody()).url(IotCache.url + path).build()
     }
     fun testPing(){
         thread {
@@ -50,6 +49,7 @@ object IotRequest {
                 try {
                     val jsonObject = it.asJsonObject
                     val attributes = jsonObject.get("attributes").asJsonObject
+                    if(!attributes.get("editable").asBoolean) throw IllegalStateException()
                     val name = attributes.get("friendly_name").asString
                     val id = jsonObject.get("entity_id").asString
                     val description = jsonObject.get("state").asString

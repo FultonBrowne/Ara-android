@@ -17,9 +17,6 @@
 package com.andromeda.ara.iot
 
 import com.google.gson.JsonParser
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
 
 
 
@@ -28,7 +25,7 @@ class Edit {
     fun main(id:String){
         try {
             var newState = ""
-            val string = IotRequest.client.newCall(IotRequest.baseRequestGet("states/$id")).execute().body!!.string()
+            val string = IotRequest.client.newCall(IotRequest.baseRequestGet("/states/$id")).execute().body!!.string()
             val parse = JsonParser().parse(string).asJsonObject
             val stringData = parse.get("state").asString
             newState = when (stringData) {
@@ -36,8 +33,9 @@ class Edit {
                 "on" -> "off"
                 else -> ""
             }
-            val mediaType: MediaType = "text/plain".toMediaTypeOrNull()!!
-            val body: RequestBody = RequestBody.create(mediaType, "{\"state\":\"$newState\"}")
+            //val mediaType: MediaType = "text/plain".toMediaTypeOrNull()!!
+            //val body: RequestBody = RequestBody.create(mediaType, "{\"state\":\"$newState\"}")
+            println(IotRequest.client.newCall(IotRequest.baseRequestPost("/states/$id", "{\"state\":\"$newState\"}")).execute().body!!.string())
         }
         catch (e:Exception){
             e.printStackTrace()

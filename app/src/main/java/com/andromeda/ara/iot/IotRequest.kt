@@ -36,9 +36,12 @@ object IotRequest {
             }
             catch (e:Exception){
                 e.printStackTrace()
-                
+
             }
         }
+    }
+    fun parseAllAsFeed(){
+        val text = client.newCall(baseRequestGet("/states")).execute().body.string()
     }
     val client = OkHttpClient().newBuilder()
             .build()

@@ -26,6 +26,8 @@ import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
@@ -105,7 +107,7 @@ class AraPopUps {
         builder.setPositiveButton("OK") { _, _ ->
             val i = (Math.random() * (30000 + 1)).toInt()
             val url1 = URL("${ServerUrl.url}newdevice/user=${id}&id=$i")
-            val deviceKey = GetUrlAra().getIt(url1)
+            GetUrlAra().getIt(url1)
 
         }
         builder.show()
@@ -281,6 +283,10 @@ class AraPopUps {
         builder.setView(input)
         builder.setPositiveButton("Yes") { _, _ ->
             println(URL("$url/reminderd/&user=${User.id}&id=$id".replace(" ", "%20")).readText())
+        }
+        builder.setNeutralButton("help"){ dialogInterface: DialogInterface, i: Int ->
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FultonBrowne/Ara-android/wiki/How-to-set-up-Home-assistant-with-Ara"))
+            ctx.startActivity(browserIntent)
         }
         builder.show()
 

@@ -32,7 +32,9 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.text.InputType
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.constants.ServerUrl
@@ -53,7 +55,7 @@ import java.util.*
 
 
 class AraPopUps {
-    val c = Calendar.getInstance()
+    private val c = Calendar.getInstance()
     private var year = c[Calendar.YEAR]
     private var month = c[Calendar.MONTH]
     private var day = c[Calendar.DAY_OF_MONTH]
@@ -72,7 +74,7 @@ class AraPopUps {
         builder.setPositiveButton("OK") { _, _ -> text = input.text.toString()
             try {
                 val i = (Math.random() * (30000 + 1)).toInt()
-                newDoc(Gson().toJson(SkillsDBModel(SkillsModel(mapper.writeValueAsString(toYML), "", ""), text, id)), i.toString() + User.id)
+                newDoc(Gson().toJson(SkillsDBModel(SkillsModel(mapper.writeValueAsString(toYML), "", ""), text, id)), i.toString() + id)
             } catch (e: JsonProcessingException) {
                 e.printStackTrace()
             }
@@ -98,26 +100,12 @@ class AraPopUps {
 
             builder.show()
         }
-    private fun newDevice(ctx: Context){
-        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
-        builder.setTitle("Title")
-        val input = EditText(ctx)
-        input.inputType = InputType.TYPE_CLASS_TEXT
-        builder.setView(input)
-        builder.setPositiveButton("OK") { _, _ ->
-            val i = (Math.random() * (30000 + 1)).toInt()
-            val url1 = URL("${ServerUrl.url}newdevice/user=${id}&id=$i")
-            GetUrlAra().getIt(url1)
 
-        }
-        builder.show()
-
-    }
     fun newHaDevice(ctx: Activity){
         var create: AlertDialog? = null
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setView(R.layout.new_iot_service)
-        builder.setPositiveButton("go"){ dialogInterface: DialogInterface, i: Int ->
+        builder.setPositiveButton("go"){ _: DialogInterface, _: Int ->
             val url = create!!.findViewById<EditText>(R.id.new_iot_url).text.toString()
             val key = create!!.findViewById<EditText>(R.id.new_iot_key).text.toString()
             SetUp().setUp(key, url, ctx)
@@ -135,7 +123,7 @@ class AraPopUps {
         builder.setView(input)
         builder.setPositiveButton("ok") { _, _ ->
             try {
-                recyclerView.adapter = Adapter(Search().outputPing(input.text.toString(), ctx, act, searchFunctions), act);
+                recyclerView.adapter = Adapter(Search().outputPing(input.text.toString(), ctx, act, searchFunctions), act)
             }
             catch (e:Exception){
                 e.printStackTrace()
@@ -145,21 +133,6 @@ class AraPopUps {
 
     }
 
-    fun DeviceNewWithType(ctx: Activity){
-        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
-        builder.setTitle("Title")
-        val input = Spinner(ctx)
-        val adapter = ArrayAdapter.createFromResource(ctx, R.array.aradefaultdevices, R.layout.textskills)
-        input.adapter = adapter
-        builder.setView(input)
-        builder.setPositiveButton("next"){ dialogInterface: DialogInterface, i: Int ->
-            val map = mapOf(0 to "LIGHT", 1 to "TEMP")
-            val url = URL(url + "/class/" + map[input.selectedItemPosition])
-            newDevice(ctx)
-        }
-        builder.show()
-
-    }
     private var resultValue = "null"
     @SuppressLint("HandlerLeak")
     fun getDialogValueBack(context: Context?, m: String): String {
@@ -172,7 +145,7 @@ class AraPopUps {
         alert.setTitle(m)
         val textView =EditText(context)
         alert.setView(textView)
-        alert.setPositiveButton("ok") { dialog, id ->
+        alert.setPositiveButton("ok") { _, _ ->
             resultValue = textView.text.toString()
             handler.sendMessage(handler.obtainMessage())
         }
@@ -183,9 +156,9 @@ class AraPopUps {
         }
         return resultValue
     }
-    fun newDoc(message: String, id:String) {
+    private fun newDoc(message: String, id:String) {
 
-        val serverURL: String = "${url}newdoc/user=${User.id}&id=$id"
+        val serverURL = "${url}newdoc/user=${User.id}&id=$id"
         println(serverURL)
         println(id)
         println(message)
@@ -208,20 +181,20 @@ class AraPopUps {
     }
     fun newReminder(ctx:Activity){
         var time:Long? = 0
-        var alert = AlertDialog.Builder(ctx)
+        val alert = AlertDialog.Builder(ctx)
         val inflate = ctx.layoutInflater.inflate(R.layout.layout, null)
         alert.setView(inflate)
         var create: AlertDialog? = null
-        alert.setPositiveButton("ok") { dialog, id ->
+        alert.setPositiveButton("ok") { _, _ ->
            val title = create?.findViewById<TextView>(
                    R.id.reminderName)?.text.toString()
             println(title)
             val info = create?.findViewById<TextView>(R.id.reminderTitle)?.text.toString()
-            println(URL("$url/remindernn/name=$title&user=${User.id}&time=$time&info=$info".replace(" ", "%20")).readText())
+            println(URL("$url/remindernn/name=$title&user=$id&time=$time&info=$info".replace(" ", "%20")).readText())
         }
         create = alert.create()
         create.show()
-        var button = create.findViewById<Button>(R.id.popupDialogButton)
+        val button = create.findViewById<Button>(R.id.popupDialogButton)
         button.setOnClickListener {
             time = getTime(ctx)
 
@@ -230,16 +203,16 @@ class AraPopUps {
     }
 
     private fun getTime(ctx: Activity): Long {
-        var mDateTime1 = ""
+        var mDateTime1: String
         var time1 = 0L
         DatePickerDialog(
-                ctx, OnDateSetListener { view, year, month, dayOfMonth ->
+                ctx, OnDateSetListener { _, year, month, dayOfMonth ->
             mDateTime1 = "$year-$month-$dayOfMonth"
             this.year = year
             this.month = month
             this.day = dayOfMonth
             Handler().postDelayed({
-                TimePickerDialog(ctx, OnTimeSetListener { view, hourOfDay, minute ->
+                TimePickerDialog(ctx, OnTimeSetListener { _, hourOfDay, minute ->
                     mDateTime1 += " $hourOfDay:$minute"
                 }, hour, minute, true).show()
                 time1 = Date.UTC(this.year, this.month, this.day, this.hour, this.minute, 0)
@@ -253,23 +226,23 @@ class AraPopUps {
         println(readText)
         val reminder = JsonParse().reminder(readText)[0]
         var time:Long? = reminder.time
-        var alert = AlertDialog.Builder(ctx)
+        val alert = AlertDialog.Builder(ctx)
         val inflate = ctx.layoutInflater.inflate(R.layout.layout, null)
         alert.setView(inflate)
         var create: AlertDialog? = null
-        alert.setPositiveButton("ok") { dialog, id ->
+        alert.setPositiveButton("ok") { _, id1 ->
             val title = create?.findViewById<TextView>(
                     R.id.reminderName)?.text.toString()
             println(title)
             val info = create?.findViewById<TextView>(R.id.reminderTitle)?.text.toString()
-            println(URL("$url/reminderu/name=$title&user=${User.id}&time=$time&info=$info&id=$id".replace(" ", "%20")).readText())
+            println(URL("$url/reminderu/name=$title&user=${User.id}&time=$time&info=$info&id=$id1".replace(" ", "%20")).readText())
         }
         create = alert.create()
         create.show()
         create?.findViewById<TextView>(
                 R.id.reminderName)?.text = reminder.header
         create?.findViewById<TextView>(R.id.reminderTitle)?.text = reminder.body
-        var button = create.findViewById<Button>(R.id.popupDialogButton)
+        val button = create.findViewById<Button>(R.id.popupDialogButton)
         button.setOnClickListener {
             time = getTime(ctx)
 
@@ -284,7 +257,7 @@ class AraPopUps {
         builder.setPositiveButton("Yes") { _, _ ->
             println(URL("$url/reminderd/&user=${User.id}&id=$id".replace(" ", "%20")).readText())
         }
-        builder.setNeutralButton("help"){ dialogInterface: DialogInterface, i: Int ->
+        builder.setNeutralButton("help"){ _: DialogInterface, i: Int ->
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FultonBrowne/Ara-android/wiki/How-to-set-up-Home-assistant-with-Ara"))
             ctx.startActivity(browserIntent)
         }

@@ -430,10 +430,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         new AraPopUps().newSkill(this);
     }
 
-    public void addDevice(MenuItem item) {
-        new AraPopUps().DeviceNewWithType(act);
 
-    }
 
 
     @Override

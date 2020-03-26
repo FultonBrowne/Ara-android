@@ -19,12 +19,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <EditText
+        android:id="@+id/new_iot_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/new_iot_url"/>
+        android:hint="url" />
+
     <EditText
+        android:id="@+id/new_iot_key"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/new_iot_key"/>
+        android:hint="key" />
 </LinearLayout>

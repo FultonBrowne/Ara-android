@@ -20,9 +20,12 @@ import android.app.Activity
 
 class SetUp {
     fun setUp(key:String, Url:String, act:Activity){
+        var url = Url
+        if(url.endsWith("/")) url = url.removeSuffix("/")
+        if (!url.endsWith("/api")) url = "$url/api"
         val sharedPreferences = act.getSharedPreferences("iot", 0)
         val edit = sharedPreferences.edit()
-        edit.putString("url", Url)
+        edit.putString("url", url)
         edit.putString("key", key)
         edit.apply()
         CacheData().main(act)

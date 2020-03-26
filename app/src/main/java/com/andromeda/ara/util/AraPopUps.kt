@@ -31,15 +31,12 @@ import android.os.Looper
 import android.os.Message
 import android.text.InputType
 import android.widget.*
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.ServerUrl.url
 import com.andromeda.ara.constants.User
 import com.andromeda.ara.constants.User.id
-import com.andromeda.ara.devices.DeviceAdapter
-import com.andromeda.ara.devices.FinalDevice
 import com.andromeda.ara.iot.SetUp
 import com.andromeda.ara.search.Search
 import com.andromeda.ara.skills.SearchFunctions
@@ -51,19 +48,16 @@ import okhttp3.*
 import java.io.IOException
 import java.net.URL
 import java.util.*
-import kotlin.reflect.full.memberProperties
-import kotlin.reflect.jvm.isAccessible
 
 
 class AraPopUps {
     val c = Calendar.getInstance()
-    var year = c[Calendar.YEAR]
-    var month = c[Calendar.MONTH]
-    var day = c[Calendar.DAY_OF_MONTH]
-    val hour = c[Calendar.HOUR_OF_DAY]
-    val minute = c[Calendar.MINUTE]
+    private var year = c[Calendar.YEAR]
+    private var month = c[Calendar.MONTH]
+    private var day = c[Calendar.DAY_OF_MONTH]
+    private val hour = c[Calendar.HOUR_OF_DAY]
+    private val minute = c[Calendar.MINUTE]
     fun newSkill(ctx: Context): String {
-
         val mapper = ObjectMapper(YAMLFactory())
         val toYML = ArrayList<SkillsModel>()
         toYML.add(SkillsModel("CALL", "", ""))
@@ -102,7 +96,7 @@ class AraPopUps {
 
             builder.show()
         }
-    private fun newDevice(ctx: Context, act: Activity, url: URL){
+    private fun newDevice(ctx: Context){
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setTitle("Title")
         val input = EditText(ctx)
@@ -148,71 +142,7 @@ class AraPopUps {
         builder.show()
 
     }
-    fun textSearchString(ctx: Context, title: String, act: Activity, searchFunctions: SearchFunctions, recyclerView: RecyclerView){
-        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
-        builder.setTitle(title)
-        val input = EditText(ctx)
-        input.inputType = InputType.TYPE_CLASS_TEXT
-        builder.setView(input)
-        builder.setPositiveButton("ok") { _, _ ->
-            try {
-                recyclerView.adapter = Adapter(Search().outputPing(input.text.toString(), ctx, act, searchFunctions), act);
-            }
-            catch (e:Exception){
-                e.printStackTrace()
-            }
-        }
-        builder.show()
 
-    }
-    fun editDevice(class1:Any, ctx: Context, act:Activity, id: String){
-        val lin = RecyclerView(ctx)
-        val listForMain = ArrayList<FinalDevice>()
-        val class2 = class1::class.java as Class<Any>
-        for(it in class2.kotlin.memberProperties) {
-            if(!it.isAccessible && it.name == "entries"){
-            it.isAccessible = true
-                println(it.returnType)
-            val data = (it.get(class1) as MutableSet<*>)
-                for(it in data){
-                    try {
-                        val mainval = (it as MutableMap.MutableEntry<*, *>)
-
-                            listForMain.add(FinalDevice(mainval.key.toString(), mainval.value))
-                        println(listForMain)
-
-                    }
-                    catch (e:Exception){
-                        e.printStackTrace()
-                    }
-                }
-                break
-            }
-
-        }
-        val builder: AlertDialog.Builder = AlertDialog.Builder(act)
-        lin.layoutManager = LinearLayoutManager(ctx)
-        lin.adapter = (DeviceAdapter(listForMain, ctx, id))
-        builder.setView(lin)
-        act.runOnUiThread{
-        builder.show()
-        }
-        println(listForMain)
-
-
-    }
-    fun editDevice(ctx: Activity,  id: String, DeviceID:String){
-        val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
-        builder.setTitle("Device id is $DeviceID")
-        val input = EditText(ctx)
-        input.inputType = InputType.TYPE_CLASS_TEXT
-        builder.setView(input)
-        builder.setPositiveButton("Delete") { _, _ ->
-            Toast.makeText(ctx, "offline as of now", Toast.LENGTH_LONG)
-        }
-        builder.show()
-
-    }
     fun DeviceNewWithType(ctx: Activity){
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setTitle("Title")
@@ -223,16 +153,15 @@ class AraPopUps {
         builder.setPositiveButton("next"){ dialogInterface: DialogInterface, i: Int ->
             val map = mapOf(0 to "LIGHT", 1 to "TEMP")
             val url = URL(url + "/class/" + map[input.selectedItemPosition])
-            newDevice(ctx, ctx, url)
+            newDevice(ctx)
         }
         builder.show()
 
     }
     private var resultValue = "null"
-
+    @SuppressLint("HandlerLeak")
     fun getDialogValueBack(context: Context?, m: String): String {
         val handler: Handler = object : Handler() {
-            @SuppressLint("HandlerLeak")
             override fun handleMessage(mesg: Message?) {
                 throw RuntimeException()
             }

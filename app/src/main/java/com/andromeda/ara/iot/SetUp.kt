@@ -18,13 +18,7 @@ package com.andromeda.ara.iot
 
 import android.app.Activity
 
-class GetIotData {
-    fun getAllData(){
-
-    }
-    fun edit(){
-
-    }
+class SetUp {
     fun setUp(key:String, Url:String, act:Activity){
         val sharedPreferences = act.getSharedPreferences("iot", 0)
         val edit = sharedPreferences.edit()

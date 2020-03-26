@@ -40,7 +40,7 @@ import com.andromeda.ara.constants.User
 import com.andromeda.ara.constants.User.id
 import com.andromeda.ara.devices.DeviceAdapter
 import com.andromeda.ara.devices.FinalDevice
-import com.andromeda.ara.iot.GetIotData
+import com.andromeda.ara.iot.SetUp
 import com.andromeda.ara.search.Search
 import com.andromeda.ara.skills.SearchFunctions
 import com.fasterxml.jackson.core.JsonProcessingException
@@ -124,7 +124,7 @@ class AraPopUps {
         builder.setPositiveButton("go"){ dialogInterface: DialogInterface, i: Int ->
             val url = create!!.findViewById<EditText>(R.id.new_iot_url).text.toString()
             val key = create!!.findViewById<EditText>(R.id.new_iot_key).text.toString()
-            GetIotData().setUp(key, url, ctx)
+            SetUp().setUp(key, url, ctx)
 
         }
         create = builder.create()

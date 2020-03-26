@@ -25,4 +25,7 @@ class CacheData {
         IotCache.url = sharedPreferences.getString("url", "")!!
         IotRequest.testPing()
     }
+    fun getFromCloud(){
+
+    }
 }

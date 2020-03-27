@@ -33,15 +33,15 @@ public class JsonParse {
         }.getType());
 
     }
-    public ArrayList<HaModel> news(String jsontxt) {
+    public ArrayList<NewsData> news(String jsontxt) {
         Gson gson = new Gson();
-        return gson.fromJson(jsontxt, new TypeToken<ArrayList<HaModel>>() {
+        return gson.fromJson(jsontxt, new TypeToken<ArrayList<NewsData>>() {
         }.getType());
 
     }
-    public ArrayList<NewsData> iot(String jsontxt) {
+    public ArrayList<HaModel> iot(String jsontxt) {
         Gson gson = new Gson();
-        return gson.fromJson(jsontxt, new TypeToken<ArrayList<NewsData>>() {
+        return gson.fromJson(jsontxt, new TypeToken<ArrayList<HaModel>>() {
         }.getType());
 
     }

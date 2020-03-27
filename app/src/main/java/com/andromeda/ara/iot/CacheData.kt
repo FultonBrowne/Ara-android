@@ -18,6 +18,8 @@ package com.andromeda.ara.iot
 
 import android.app.Activity
 import com.andromeda.ara.constants.ServerUrl
+import com.andromeda.ara.util.JsonParse
+import okio.IOException
 import java.net.URL
 
 class CacheData {
@@ -26,11 +28,18 @@ class CacheData {
         IotCache.id = sharedPreferences.getString("key", "")!!
         IotCache.url = sharedPreferences.getString("url", "")!!
         IotRequest.testPing()
+        try {
+            getFromCloud(act)
+        }
+        catch (e:IOException){
+            e.printStackTrace()
+        }
     }
     fun getFromCloud(act:Activity){
-        val data = URL("${ServerUrl.url}getha/")
-        val url = ""
-        val key = ""
+        val data = URL("${ServerUrl.url}getha/").readText()
+        val parse = JsonParse().iot(data)
+        val url = parse[0].link
+        val key = parse[0].key
         val sharedPreferences = act.getSharedPreferences("iot", 0)
         val edit = sharedPreferences.edit()
         println(url)

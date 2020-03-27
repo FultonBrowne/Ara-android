@@ -37,6 +37,7 @@ class SetUp {
         var url = Url
         if(url.endsWith("/")) url = url.removeSuffix("/")
         if (!url.endsWith("/api")) url = "$url/api"
+        if (!url.startsWith("http:") && !url.startsWith("https:")) url = "http://$url"
         val sharedPreferences = act.getSharedPreferences("iot", 0)
         val edit = sharedPreferences.edit()
         println(url)

@@ -53,10 +53,10 @@ class SetUp {
         CacheData().main(act)
         IotRequest.testPing()
     }
-    fun writeToCloud(link:String, key: String){
+    private fun writeToCloud(link:String, key: String){
         AraPopUps().newDoc(Gson().toJson(HaModel(link, key)), "ha-${User.id}")
     }
-    fun deleteFromCloud(){
+    private fun deleteFromCloud(){
         "${ServerUrl.url}/del/user=${User.id}&id=ha-${User.id}"
 
     }

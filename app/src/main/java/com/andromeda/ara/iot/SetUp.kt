@@ -17,6 +17,10 @@
 package com.andromeda.ara.iot
 
 import android.app.Activity
+import com.andromeda.ara.constants.User
+import com.andromeda.ara.models.HaModel
+import com.andromeda.ara.util.AraPopUps
+import com.google.gson.Gson
 
 class SetUp {
     fun setUp(key:String, Url:String, act:Activity){
@@ -31,5 +35,9 @@ class SetUp {
         edit.apply()
         CacheData().main(act)
         IotRequest.testPing()
+        writeToCloud(url, key)
+    }
+    fun writeToCloud(link:String, key: String){
+        AraPopUps().newDoc(Gson().toJson(HaModel(link, key)), "ha-${User.id}")
     }
 }

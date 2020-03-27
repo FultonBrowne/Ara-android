@@ -17,6 +17,8 @@
 package com.andromeda.ara.iot
 
 import android.app.Activity
+import com.andromeda.ara.constants.ServerUrl
+import java.net.URL
 
 class CacheData {
     fun main(act:Activity){
@@ -25,7 +27,15 @@ class CacheData {
         IotCache.url = sharedPreferences.getString("url", "")!!
         IotRequest.testPing()
     }
-    fun getFromCloud(){
-
+    fun getFromCloud(act:Activity){
+        val data = URL("${ServerUrl.url}getha/")
+        val url = ""
+        val key = ""
+        val sharedPreferences = act.getSharedPreferences("iot", 0)
+        val edit = sharedPreferences.edit()
+        println(url)
+        edit.putString("url", url)
+        edit.putString("key", key)
+        edit.apply()
     }
 }

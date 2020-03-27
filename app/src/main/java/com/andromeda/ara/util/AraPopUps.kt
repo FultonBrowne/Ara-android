@@ -156,7 +156,7 @@ class AraPopUps {
         }
         return resultValue
     }
-    private fun newDoc(message: String, id:String) {
+    fun newDoc(message: String, id:String) {
 
         val serverURL = "${url}newdoc/user=${User.id}&id=$id"
         println(serverURL)

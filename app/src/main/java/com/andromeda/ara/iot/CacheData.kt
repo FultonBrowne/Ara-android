@@ -19,7 +19,6 @@ package com.andromeda.ara.iot
 import android.app.Activity
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.util.JsonParse
-import okio.IOException
 import java.net.URL
 
 class CacheData {
@@ -31,7 +30,7 @@ class CacheData {
         try {
             getFromCloud(act)
         }
-        catch (e:IOException){
+        catch (e:Exception){
             e.printStackTrace()
         }
     }

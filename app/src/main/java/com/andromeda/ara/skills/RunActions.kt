@@ -20,6 +20,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.services.AraActions
 import com.andromeda.ara.util.RssFeedModel
 import com.andromeda.ara.util.SkillsModel
@@ -95,7 +96,7 @@ class RunActions {
 
                     }
                     "RESPOND" ->{
-                        searchFunctions.callBack(i.arg1, i.arg2)
+                        searchFunctions.callBack(i.arg1, i.arg2.replace("ARASERVER", ServerUrl.url))
                     }
                 }
             }

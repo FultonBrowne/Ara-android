@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2020. Fulton Browne
  *  This program is free software: you can redistribute it and/or modify
@@ -347,7 +348,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                         recyclerView.setAdapter(new Adapter(new Search().main(phrase[0], VoiceMain.this, VoiceMain.this, new TTS(), new ArrayList<>()), VoiceMain.this));
                     }
                 });
-                else new Search().outputPing(phrase[0], getApplicationContext(), this, this);
+                else new Search().outputPing(link.replace("TERM", phrase[0]), getApplicationContext(), this, this);
                 deepSpeech = new DeepSpeech(this);
 
 

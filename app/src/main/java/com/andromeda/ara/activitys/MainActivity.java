@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
      **/
     private static final int REQUEST_RECORD_AUDIO = 13;
     //this is the text for the greeting it is hello by default for compatibility reasons
-    private String mTime = "hello";
+    private String mTime = "Hello";
     //this is the navigation Drawer
     private com.mikepenz.materialdrawer.Drawer drawer = null;
     // Data set for list out put
@@ -435,13 +435,12 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
     @Override
     public void callBack(@NotNull String m, @NotNull String link) {
-        new AraPopUps().textSearchResponse(this, m, this, this, recyclerView);
+        new AraPopUps().textSearchResponse(this, m,link, this, this, recyclerView);
     }
 
     @NotNull
     @Override
     public String callForString(@NotNull String m) {
-
         return new AraPopUps().getDialogValueBack(this, m);
     }
 

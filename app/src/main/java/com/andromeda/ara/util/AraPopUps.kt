@@ -115,7 +115,7 @@ class AraPopUps {
         create.show()
 
     }
-    fun textSearchResponse(ctx: Context, title: String, act: Activity, searchFunctions: SearchFunctions, recyclerView: RecyclerView){
+    fun textSearchResponse(ctx: Context, title: String, link: String, act: Activity, searchFunctions: SearchFunctions, recyclerView: RecyclerView){
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setTitle(title)
         val input = EditText(ctx)
@@ -123,7 +123,7 @@ class AraPopUps {
         builder.setView(input)
         builder.setPositiveButton("ok") { _, _ ->
             try {
-                recyclerView.adapter = Adapter(Search().outputPing(input.text.toString(), ctx, act, searchFunctions), act)
+                recyclerView.adapter = Adapter(Search().outputPing(link.replace("TERM", input.text.toString()), ctx, act, searchFunctions), act)
             }
             catch (e:Exception){
                 e.printStackTrace()

@@ -20,7 +20,6 @@ import com.andromeda.ara.util.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.type.CollectionType
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper
 import java.io.IOException
 
 
@@ -36,8 +35,6 @@ class Parse {
     fun <T> yamlArrayToObjectList(yaml: String?, tClass: Class<T>): ArrayList<T> {
         //val mapper = ObjectMapper()
         val mapper = ObjectMapper(YAMLFactory()) // jackson databind
-
-
         val listType: CollectionType = mapper.typeFactory.constructCollectionType(ArrayList::class.java, tClass)
 
         return mapper.readValue(yaml, listType)!!

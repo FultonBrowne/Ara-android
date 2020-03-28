@@ -27,7 +27,7 @@ import com.google.gson.JsonParser
 class Edit {
     fun main(id: String, act: Activity){
         try {
-            var newState = ""
+            val newState: String
             val string = IotRequest.client.newCall(IotRequest.baseRequestGet("/states/$id")).execute().body!!.string()
             val parse = JsonParser().parse(string).asJsonObject
             val stringData = parse.get("state").asString

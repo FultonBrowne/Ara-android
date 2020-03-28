@@ -16,10 +16,9 @@
 
 package com.andromeda.ara.util;
 
-import com.andromeda.ara.models.DeviceModelIndexed;
+import com.andromeda.ara.models.HaModel;
 import com.andromeda.ara.models.OutputModel;
 import com.andromeda.ara.models.SkillsFromDB;
-import com.andromeda.ara.models.HaModel;
 import com.andromeda.araserver.util.RemindersModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -49,12 +48,6 @@ public class JsonParse {
     public ArrayList<SkillsFromDB> skills(String jsontxt) {
         Gson gson = new Gson();
         return gson.fromJson(jsontxt, new TypeToken<ArrayList<SkillsFromDB>>() {
-        }.getType());
-
-    }
-    public ArrayList<DeviceModelIndexed> iotIndexed(String jsontxt) {
-        Gson gson = new Gson();
-        return gson.fromJson(jsontxt, new TypeToken<ArrayList<DeviceModelIndexed>>() {
         }.getType());
 
     }

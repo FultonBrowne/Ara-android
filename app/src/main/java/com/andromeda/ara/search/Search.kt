@@ -85,6 +85,7 @@ class Search {
                         val doIt = RunActions().doIt(parsed, mainval, act, act, searchFunctions)
                         outputList.addAll(doIt)
                     } catch (e: Exception) {
+                        e.printStackTrace()
                     }
                 }
 

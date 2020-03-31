@@ -32,8 +32,14 @@ class News {
     }
     fun newsGeneral(ctx:Context): ArrayList<RssFeedModel> {
         val feedData = newsGeneral()
-        feedData.addAll(0,
-                CalUtility().getClosestEvents(ctx))
+        try {
+            feedData.addAll(0,
+                    CalUtility().getClosestEvents(ctx))
+        }
+        catch (e:Exception){
+            e.printStackTrace()
+        }
+
         return feedData
 
     }

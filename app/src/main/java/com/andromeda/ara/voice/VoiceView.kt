@@ -53,9 +53,9 @@ class VoiceView : View {
     }
 
     private fun init() {
-        mNormalBitmap = BitmapFactory.decodeResource(resources, R.drawable.mic)
-        mPressedBitmap = BitmapFactory.decodeResource(resources, R.drawable.mic)
-        mRecordingBitmap = BitmapFactory.decodeResource(resources, R.drawable.mic)
+        mNormalBitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_foreground)
+        mPressedBitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_foreground)
+        mRecordingBitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_foreground)
         mPaint = Paint()
         mPaint!!.isAntiAlias = true
         mPaint!!.color = Color.argb(255, 219, 219, 219)

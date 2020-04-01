@@ -171,10 +171,12 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 new File(getCacheDir(), "record.pcm");
                 os = new FileOutputStream(getCacheDir() + "/record.pcm");
                 isRecording = true;
+                VoiceView voiceView = findViewById(R.id.floatingActionButton2);
                 deepSpeech.updateV3(this);
                 while (isRecording) {
                     audioRecorder.read(Data, 0, getRawDataLength(Data));
                     float radius = (float) Math.log10(Math.max(1, Data[0] / 10f)) * VoiceView.dp2px(this, 20);
+                    voiceView.animateRadius(radius);
                     System.out.println(Data[0]);
                     if (Data[0] == 0) {
                         System.out.println("blank");

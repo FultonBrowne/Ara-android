@@ -69,7 +69,7 @@ class VoiceView : FloatingActionButton {
             return
         }
         mAnimatorSet.playSequentially(
-                ObjectAnimator.ofFloat(this, "CurrentRadius", mCurrentRadius, radius).setDuration(50))
+                ObjectAnimator.ofFloat(this, "CurrentRadius", mCurrentRadius, radius).setDuration(500))
         mAnimatorSet.start()
     }
 
@@ -93,8 +93,9 @@ class VoiceView : FloatingActionButton {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        val width: Int = canvas.getWidth()
-        val height: Int = canvas.getHeight()
+        val width: Int = width
+        val height: Int = height
+
         if (mCurrentRadius > mMinRadius) {
             mPaint?.let { canvas.drawCircle(width / 2f, height / 2f, mCurrentRadius, it) };
             canvas.drawBitmap((background.toBitmap()), width / 2 - mMinRadius, height / 2 - mMinRadius, mPaint)

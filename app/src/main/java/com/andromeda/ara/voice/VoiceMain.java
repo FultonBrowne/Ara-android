@@ -259,9 +259,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 while (isRecording) {
                     audioRecorder.read(Data, 0, getRawDataLength(Data));
                     System.out.println(Data[0]);
-
-
-
+                    float radius = (float) Math.log10(Math.max(1, Data[0] /100)) * VoiceView.dp2px(this, 20);
                     if (Data[0] == 0) {
                         System.out.println("blank");
                         blankRunning = false;

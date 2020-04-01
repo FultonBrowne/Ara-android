@@ -156,6 +156,7 @@ class VoiceView : View {
         private const val STATE_NORMAL = 0
         private const val STATE_PRESSED = 1
         private const val STATE_RECORDING = 2
+        @JvmStatic
         fun dp2px(context: Context, dp: Int): Int {
             return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics).toInt()
         }

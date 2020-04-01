@@ -174,6 +174,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 deepSpeech.updateV3(this);
                 while (isRecording) {
                     audioRecorder.read(Data, 0, getRawDataLength(Data));
+                    float radius = (float) Math.log10(Math.max(1, Data[0] / 10f)) * VoiceView.dp2px(this, 20);
                     System.out.println(Data[0]);
                     if (Data[0] == 0) {
                         System.out.println("blank");

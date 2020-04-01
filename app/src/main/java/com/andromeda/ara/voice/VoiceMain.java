@@ -174,10 +174,17 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 VoiceView voiceView = findViewById(R.id.floatingActionButton);
                 deepSpeech.updateV3(this);
                 while (isRecording) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            float radius = (float) Math.log10(Math.max(1, Data[0] / 10f)) * VoiceView.dp2px(getApplicationContext(), 20);
+                            System.out.println(radius);
+                            voiceView.animateRadius(Data[0]);
+                        }
+                    });
+
                     audioRecorder.read(Data, 0, getRawDataLength(Data));
-                    float radius = (float) Math.log10(Math.max(1, Data[0] / 10f)) * VoiceView.dp2px(this, 20);
-                    voiceView.animateRadius(radius);
-                    System.out.println(Data[0]);
+                    //voiceView.animateRadius(radius);
                     if (Data[0] == 0) {
                         System.out.println("blank");
                         blankRunning = false;

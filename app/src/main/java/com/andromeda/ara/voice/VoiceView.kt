@@ -19,27 +19,25 @@ package com.andromeda.ara.voice
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
-import android.view.MotionEvent
-import android.view.View
 import com.andromeda.ara.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 /**
  * Created by yugy on 2014/3/23.
  */
-class VoiceView : View {
+class VoiceView : FloatingActionButton {
     private var mNormalBitmap: Bitmap? = null
     private var mPressedBitmap: Bitmap? = null
     private var mRecordingBitmap: Bitmap? = null
     private var mPaint: Paint? = null
     private val mAnimatorSet = AnimatorSet()
-    private var mOnRecordListener: OnRecordListener? = null
-    private var mState = STATE_NORMAL
-    private var mIsRecording = false
     private var mMinRadius = 0f
     private var mMaxRadius = 0f
     private var mCurrentRadius = 0f
@@ -63,41 +61,16 @@ class VoiceView : View {
         mCurrentRadius = mMinRadius
     }
 
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        mMaxRadius = Math.min(w, h) / 2.toFloat()
-        Log.d(TAG, "MaxRadius: $mMaxRadius")
-    }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        val width = canvas.width
-        val height = canvas.height
-        if (mCurrentRadius > mMinRadius) {
-            canvas.drawCircle(width / 2.toFloat(), height / 2.toFloat(), mCurrentRadius, mPaint!!)
-        }
-        when (mState) {
-            STATE_NORMAL -> canvas.drawBitmap(mNormalBitmap!!, width / 2 - mMinRadius, height / 2 - mMinRadius, mPaint)
-            STATE_PRESSED -> canvas.drawBitmap(mPressedBitmap!!, width / 2 - mMinRadius, height / 2 - mMinRadius, mPaint)
-            STATE_RECORDING -> canvas.drawBitmap(mRecordingBitmap!!, width / 2 - mMinRadius, height / 2 - mMinRadius, mPaint)
-        }
-    }
 
     fun animateRadius(radius: Float) {
         var radius = radius
-        if (radius <= mCurrentRadius) {
-            return
-        }
-        if (radius > mMaxRadius) {
-            radius = mMaxRadius
-        } else if (radius < mMinRadius) {
-            radius = mMinRadius
-        }
         if (radius == mCurrentRadius) {
+            println("equal")
             return
         }
         if (mAnimatorSet.isRunning) {
-            mAnimatorSet.cancel()
+            return
         }
         mAnimatorSet.playSequentially(
                 ObjectAnimator.ofFloat(this, "CurrentRadius", currentRadius, radius).setDuration(50),
@@ -112,44 +85,6 @@ class VoiceView : View {
             mCurrentRadius = currentRadius
             invalidate()
         }
-
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        return when (event.actionMasked) {
-            MotionEvent.ACTION_DOWN -> {
-                Log.d(TAG, "ACTION_DOWN")
-                mState = STATE_PRESSED
-                invalidate()
-                true
-            }
-            MotionEvent.ACTION_UP -> {
-                Log.d(TAG, "ACTION_UP")
-                if (mIsRecording) {
-                    mState = STATE_NORMAL
-                    if (mOnRecordListener != null) {
-                        mOnRecordListener!!.onRecordFinish()
-                    }
-                } else {
-                    mState = STATE_RECORDING
-                    if (mOnRecordListener != null) {
-                        mOnRecordListener!!.onRecordStart()
-                    }
-                }
-                mIsRecording = !mIsRecording
-                invalidate()
-                true
-            }
-            else -> super.onTouchEvent(event)
-        }
-    }
-
-    fun setOnRecordListener(onRecordListener: OnRecordListener?) {
-        mOnRecordListener = onRecordListener
-    }
-
-    interface OnRecordListener {
-        fun onRecordStart()
-        fun onRecordFinish()
-    }
 
     companion object {
         private val TAG = VoiceView::class.java.name

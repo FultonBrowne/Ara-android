@@ -177,9 +177,9 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            float radius = (float) Math.log10(Math.max(1, Data[0] / 10f)) * VoiceView.dp2px(getApplicationContext(), 20);
+                            Float radius = (Float) (float) Math.log10(Math.max(1, Data[0] / 10f)) * VoiceView.dp2px(getApplicationContext(), 20);
                             System.out.println(radius);
-                            voiceView.animateRadius(Data[0]);
+                            voiceView.animateRadius(Math.abs(((Byte)Data[0])));
                         }
                     });
 

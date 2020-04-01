@@ -19,12 +19,10 @@ package com.andromeda.ara.voice
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
+import androidx.core.graphics.drawable.toBitmap
 import com.andromeda.ara.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -43,21 +41,18 @@ class VoiceView : FloatingActionButton {
     private var mCurrentRadius = 0f
 
     constructor(context: Context?) : super(context) {
-        init()
     }
 
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init()
     }
-
-    private fun init() {
+    init {
         mNormalBitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_foreground)
-        mPressedBitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_foreground)
-        mRecordingBitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_foreground)
+
 
         mPaint = Paint()
         mPaint!!.isAntiAlias = true
         mPaint!!.color = Color.argb(255, 219, 219, 219)
+
         mMinRadius = dp2px(context, 68) / 2f
         mCurrentRadius = mMinRadius
     }
@@ -83,8 +78,6 @@ class VoiceView : FloatingActionButton {
         set(currentRadius) {
             mCurrentRadius = currentRadius
             invalidate()
-            println("set")
-            println(currentRadius)
         }
 
     companion object {
@@ -95,6 +88,17 @@ class VoiceView : FloatingActionButton {
         @JvmStatic
         fun dp2px(context: Context, dp: Int): Int {
             return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics).toInt()
+        }
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        val width: Int = canvas.getWidth()
+        val height: Int = canvas.getHeight()
+        if (mCurrentRadius > mMinRadius) {
+            mPaint?.let { canvas.drawCircle(width / 2f, height / 2f, mCurrentRadius, it) };
+            canvas.drawBitmap((background.toBitmap()), width / 2 - mMinRadius, height / 2 - mMinRadius, mPaint)
+
         }
     }
 }

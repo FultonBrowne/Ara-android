@@ -54,6 +54,7 @@ class VoiceView : FloatingActionButton {
         mNormalBitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_foreground)
         mPressedBitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_foreground)
         mRecordingBitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_foreground)
+
         mPaint = Paint()
         mPaint!!.isAntiAlias = true
         mPaint!!.color = Color.argb(255, 219, 219, 219)
@@ -73,9 +74,7 @@ class VoiceView : FloatingActionButton {
             return
         }
         mAnimatorSet.playSequentially(
-                ObjectAnimator.ofFloat(this, "CurrentRadius", currentRadius, radius).setDuration(50),
-                ObjectAnimator.ofFloat(this, "CurrentRadius", radius, mMinRadius).setDuration(600)
-        )
+                ObjectAnimator.ofFloat(this, "CurrentRadius", mCurrentRadius, radius).setDuration(50))
         mAnimatorSet.start()
     }
 
@@ -84,6 +83,8 @@ class VoiceView : FloatingActionButton {
         set(currentRadius) {
             mCurrentRadius = currentRadius
             invalidate()
+            println("set")
+            println(currentRadius)
         }
 
     companion object {

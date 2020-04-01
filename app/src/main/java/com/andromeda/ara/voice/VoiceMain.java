@@ -171,7 +171,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 new File(getCacheDir(), "record.pcm");
                 os = new FileOutputStream(getCacheDir() + "/record.pcm");
                 isRecording = true;
-                VoiceView voiceView = findViewById(R.id.floatingActionButton2);
+                VoiceView voiceView = findViewById(R.id.floatingActionButton);
                 deepSpeech.updateV3(this);
                 while (isRecording) {
                     audioRecorder.read(Data, 0, getRawDataLength(Data));

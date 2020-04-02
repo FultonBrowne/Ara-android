@@ -73,7 +73,8 @@ class VoiceView : View {
             return
         }
         mAnimatorSet.playSequentially(
-                ObjectAnimator.ofFloat(this, "CurrentRadius", mCurrentRadius, radius).setDuration(1000))
+                ObjectAnimator.ofFloat(this, "CurrentRadius", mCurrentRadius, radius).setDuration(50),
+                        ObjectAnimator.ofFloat(this, "CurrentRadius", radius, mMinRadius).setDuration(600))
         mAnimatorSet.start()
     }
 

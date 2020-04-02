@@ -74,6 +74,7 @@ class VoiceView : FloatingActionButton {
         }
         mAnimatorSet.playSequentially(
                 ObjectAnimator.ofFloat(this, "CurrentRadius", mCurrentRadius, radius).setDuration(500))
+        ObjectAnimator.ofFloat(this, "CurrentRadius", radius, mMinRadius).setDuration(600)
         mAnimatorSet.start()
     }
 
@@ -87,9 +88,7 @@ class VoiceView : FloatingActionButton {
 
     companion object {
         private val TAG = VoiceView::class.java.name
-        private const val STATE_NORMAL = 0
-        private const val STATE_PRESSED = 1
-        private const val STATE_RECORDING = 2
+
         @JvmStatic
         fun dp2px(context: Context, dp: Int): Int {
             return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics).toInt()
@@ -104,6 +103,7 @@ class VoiceView : FloatingActionButton {
         if (mCurrentRadius > mMinRadius) {
             mPaint?.let { canvas.drawCircle(width / 2f, height / 2f, mCurrentRadius, it) };
             canvas.drawBitmap((background.toBitmap()), width / 2 - mMinRadius, height / 2 - mMinRadius, mPaint)
+            canvas.drawBitmap(mNormalBitmap!!, width / 2 - mMinRadius,  height / 2 - mMinRadius, mPaint);
 
         }
     }

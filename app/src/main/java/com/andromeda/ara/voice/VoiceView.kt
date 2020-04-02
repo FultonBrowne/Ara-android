@@ -47,14 +47,18 @@ class VoiceView : FloatingActionButton {
     }
     init {
         mNormalBitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_foreground)
-
-
         mPaint = Paint()
         mPaint!!.isAntiAlias = true
         mPaint!!.color = Color.argb(255, 219, 219, 219)
 
         mMinRadius = dp2px(context, 68) / 2f
         mCurrentRadius = mMinRadius
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        mMaxRadius = Math.min(w, h) / 2.toFloat()
+
     }
 
 
@@ -77,6 +81,7 @@ class VoiceView : FloatingActionButton {
         get() = mCurrentRadius
         set(currentRadius) {
             mCurrentRadius = currentRadius
+
             invalidate()
         }
 

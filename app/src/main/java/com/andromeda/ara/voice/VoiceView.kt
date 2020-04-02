@@ -22,15 +22,15 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.View
 import androidx.core.graphics.drawable.toBitmap
 import com.andromeda.ara.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 /**
  * Created by yugy on 2014/3/23.
  */
-class VoiceView : FloatingActionButton {
+class VoiceView : View {
     private var mNormalBitmap: Bitmap? = null
     private var mPressedBitmap: Bitmap? = null
     private var mRecordingBitmap: Bitmap? = null
@@ -50,7 +50,7 @@ class VoiceView : FloatingActionButton {
         mPaint = Paint()
         mPaint!!.isAntiAlias = true
         mPaint!!.color = Color.argb(255, 219, 219, 219)
-
+        setBackgroundColor(Color.RED)
         mMinRadius = dp2px(context, 68) / 2f
         mCurrentRadius = mMinRadius
     }
@@ -73,8 +73,7 @@ class VoiceView : FloatingActionButton {
             return
         }
         mAnimatorSet.playSequentially(
-                ObjectAnimator.ofFloat(this, "CurrentRadius", mCurrentRadius, radius).setDuration(500))
-        ObjectAnimator.ofFloat(this, "CurrentRadius", radius, mMinRadius).setDuration(600)
+                ObjectAnimator.ofFloat(this, "CurrentRadius", mCurrentRadius, radius).setDuration(1000))
         mAnimatorSet.start()
     }
 
@@ -101,9 +100,14 @@ class VoiceView : FloatingActionButton {
         val height: Int = height
 
         if (mCurrentRadius > mMinRadius) {
-            mPaint?.let { canvas.drawCircle(width / 2f, height / 2f, mCurrentRadius, it) };
-            canvas.drawBitmap((background.toBitmap()), width / 2 - mMinRadius, height / 2 - mMinRadius, mPaint)
-            canvas.drawBitmap(mNormalBitmap!!, width / 2 - mMinRadius,  height / 2 - mMinRadius, mPaint);
+            try {
+                mPaint?.let { canvas.drawCircle(width / 2f, height / 2f, mCurrentRadius, it) };
+                canvas.drawBitmap((background.toBitmap()), width / 2 - mMinRadius, height / 2 - mMinRadius, mPaint)
+                canvas.drawBitmap(mNormalBitmap!!, width / 2 - mMinRadius, height / 2 - mMinRadius, mPaint);
+            }
+            catch (e:Exception){
+
+            }
 
         }
     }

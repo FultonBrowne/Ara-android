@@ -25,12 +25,13 @@ import android.util.TypedValue
 import android.view.View
 import androidx.core.graphics.drawable.toBitmap
 import com.andromeda.ara.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 /**
  * Created by yugy on 2014/3/23.
  */
-class VoiceView : View {
+class VoiceView : FloatingActionButton {
     private var mNormalBitmap: Bitmap? = null
     private var mPressedBitmap: Bitmap? = null
     private var mRecordingBitmap: Bitmap? = null
@@ -50,8 +51,8 @@ class VoiceView : View {
         mPaint = Paint()
         mPaint!!.isAntiAlias = true
         mPaint!!.color = Color.argb(255, 219, 219, 219)
-        setBackgroundColor(Color.RED)
-        mMinRadius = dp2px(context, 68) / 2f
+        //setBackgroundColor(Color.RED)
+        mMinRadius = dp2px(context, 30) / 2f
         mCurrentRadius = mMinRadius
     }
 

@@ -59,9 +59,9 @@
             app:srcCompat="@drawable/ic_baseline_stop_24"/>-->
     <com.andromeda.ara.voice.VoiceView
         android:id="@+id/floatingActionButton"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
 
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="32dp"
         android:clickable="true"

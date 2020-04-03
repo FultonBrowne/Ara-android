@@ -20,6 +20,7 @@
         <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/ara-client" />
         <option name="modules">
@@ -27,7 +28,7 @@
             <option value="$PROJECT_DIR$/ara-client" />
           </set>
         </option>
-        <option name="useQualifiedModuleNames" value="true" />
+        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

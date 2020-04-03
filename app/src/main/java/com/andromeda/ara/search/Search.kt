@@ -74,7 +74,7 @@ class Search {
             }
         }
                 if (!done2) {
-                    //search ara server
+                    //com.andromeda.ara.client.search ara server
                     var searchMode1 = mainval.toLowerCase(Locale("en"))
                     searchMode1 = searchMode1.replace(" ", "%20")
                     val test1 = AraSearch().arrayOfOutputModels(searchMode1, log.toString(), lat.toString())
@@ -109,7 +109,7 @@ class Search {
 
 
         outputList.add(RssFeedModel("", "", "", "", "", false))
-        //search ara server
+        //com.andromeda.ara.client.search ara server
         var searchMode1 = mainval.toLowerCase(Locale.getDefault())
         searchMode1 = searchMode1.replace(" ", "%20")
         val test1 = AraSearch().arrayOfOutputModels2(searchMode1)

@@ -33,12 +33,12 @@ public class ApiOutputToRssFeed {
 
             for (int i = 0; i <= feedModels.size(); i++) {
                 System.out.println(i);
-                String mInfo = tofeed.get(i).description;
-                String mTitle = tofeed.get(i).title;
+                String mInfo = tofeed.get(i).getDescription();
+                String mTitle = tofeed.get(i).getTitle();
                 System.out.println(mTitle);
-                String mlink = tofeed.get(i).link;
-                String mOut = tofeed.get(i).OutputTxt;
-                String mPic = tofeed.get(i).image;
+                String mlink = tofeed.get(i).getLink();
+                String mOut = tofeed.get(i).getOutputTxt();
+                String mPic = tofeed.get(i).getImage();
                 RssFeedModel mainModel = new RssFeedModel(mInfo, mlink, mTitle, mPic, mOut, true);
                 System.out.println(mOut);
                 feedModels.add(mainModel);

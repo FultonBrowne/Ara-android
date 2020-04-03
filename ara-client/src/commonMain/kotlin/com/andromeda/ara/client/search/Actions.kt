@@ -18,5 +18,9 @@ package com.andromeda.ara.client.search
 
 interface Actions
 {
-    fun runActions(action){}
+    fun runActions(action:String, arg1:String, arg2:String)
+    companion object{
+        //TODO work on the yml links
+        const val CALL = "CALL"
+    }
 }

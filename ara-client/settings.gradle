@@ -1,0 +1,4 @@
+rootProject.name = 'ara-client'
+
+
+enableFeaturePreview('GRADLE_METADATA')

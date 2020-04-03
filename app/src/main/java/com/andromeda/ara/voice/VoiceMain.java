@@ -20,7 +20,6 @@ package com.andromeda.ara.voice;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
-import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioRecord;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -28,10 +27,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.andromeda.ara.R;
 import com.andromeda.ara.models.OutputModel;
 import com.andromeda.ara.models.TabModel;
@@ -46,15 +47,27 @@ import com.andromeda.ara.util.RssFeedModel;
 import com.andromeda.ara.util.SpellChecker;
 import com.andromeda.ara.util.TabAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import static com.andromeda.ara.constants.ConstantUtils.*;
+import static com.andromeda.ara.constants.ConstantUtils.AUDIO_FORMAT;
+import static com.andromeda.ara.constants.ConstantUtils.AUDIO_SOURCE;
+import static com.andromeda.ara.constants.ConstantUtils.CHANNEL_CONFIG;
+import static com.andromeda.ara.constants.ConstantUtils.REQUEST_RECORD_AUDIO;
+import static com.andromeda.ara.constants.ConstantUtils.SAMPLE_RATE_HZ;
 
 public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     private FileOutputStream os = null;
@@ -96,7 +109,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
 
 
         startRecording(null);
-        runTransition();
         }
         else{
             ProgressDialog mProgressDialog;
@@ -130,21 +142,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
 
     }
 
-    void runTransition() {
 
-        runOnUiThread(() -> {
-            imageView = findViewById(R.id.imageView);
-            imageView.setVisibility(View.VISIBLE);
-
-            AnimationDrawable transition = (AnimationDrawable) imageView.getBackground();
-            transition.setEnterFadeDuration(5000);
-
-            // setting exit fade animation duration to 2 seconds
-            transition.setExitFadeDuration(2000);
-            transition.run();
-
-        });
-    }
 
 
     public void back(View view) {
@@ -210,7 +208,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                         e.printStackTrace();
                     }
                 }
-                stopAnimation();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -294,7 +291,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                         e.printStackTrace();
                     }
                 }
-                stopAnimation();
                 try {
                     //phrase[0] = new DeepSpeech().voiceV2(byteIS.toByteArray(), this);
                     phrase[0] = deepSpeech.voiceV3();
@@ -369,9 +365,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     private int getRawDataLength(byte[] rawData) {
         return rawData.length;
     }
-    private void stopAnimation() {
-        runOnUiThread(() -> imageView.setVisibility(View.INVISIBLE));
-    }
+
 
     public void exit(View view) {
         onBackPressed();
@@ -383,7 +377,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 CHANNEL_CONFIG,
                 AUDIO_FORMAT,
                 bufferSizeInBytes);
-        runTransition();
         startRecording(null);
     }
 
@@ -397,7 +390,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 CHANNEL_CONFIG,
                 AUDIO_FORMAT,
                 bufferSizeInBytes);
-        runTransition();
         startRecording(link);
 
     }

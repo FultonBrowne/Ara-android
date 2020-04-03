@@ -23,12 +23,6 @@
                                                      android:onClick="exit"
                                                      tools:context=".voice.VoiceMain">
 
-    <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="16dp"
-            android:layout_gravity="bottom"
-            android:background="@drawable/animate"/>
 
     <LinearLayout
         android:layout_width="match_parent"

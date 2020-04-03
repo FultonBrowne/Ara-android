@@ -22,7 +22,6 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.view.View
 import androidx.core.graphics.drawable.toBitmap
 import com.andromeda.ara.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -88,8 +87,6 @@ class VoiceView : FloatingActionButton {
         }
 
     companion object {
-        private val TAG = VoiceView::class.java.name
-
         @JvmStatic
         fun dp2px(context: Context, dp: Int): Int {
             return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics).toInt()

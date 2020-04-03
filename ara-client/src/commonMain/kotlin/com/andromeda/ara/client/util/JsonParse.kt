@@ -18,5 +18,6 @@ package com.andromeda.ara.client.util
 
 class JsonParse {
     fun outputModel(text:String){
+
     }
 }

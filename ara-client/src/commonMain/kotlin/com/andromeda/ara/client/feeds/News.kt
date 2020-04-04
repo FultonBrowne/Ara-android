@@ -14,10 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.client.search
+package com.andromeda.ara.client.feeds
 
-class SearchAra {
-    fun search(lat:String, log:String, term:String, locale:String, actions: Actions){
-
-    }
+class News {
 }

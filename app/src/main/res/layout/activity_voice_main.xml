@@ -61,7 +61,8 @@
         android:clickable="true"
         android:focusable="true"
         android:background="@color/accent"
-        android:onClick="back"
+        android:onClick="record"
+
         app:srcCompat="@drawable/mic"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton2"
@@ -72,7 +73,7 @@
             android:layout_margin="128dp"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="record"
+        android:onClick="back"
         app:srcCompat="@drawable/close"/>
 
 

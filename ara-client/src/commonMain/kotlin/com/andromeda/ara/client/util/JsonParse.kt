@@ -16,8 +16,12 @@
 
 package com.andromeda.ara.client.util
 
-class JsonParse {
-    fun outputModel(text:String){
+import com.andromeda.ara.client.models.OutputModel
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.parse
 
+class JsonParse {
+    fun outputModel(text:String): ArrayList<OutputModel> {
+        return Json.parse(text)
     }
 }

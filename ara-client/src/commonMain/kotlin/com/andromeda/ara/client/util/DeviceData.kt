@@ -14,25 +14,9 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.client.search
+package com.andromeda.ara.client.util
 
-import com.andromeda.ara.client.models.OutputModel
-import com.andromeda.ara.client.util.JsonParse
-import com.andromeda.ara.client.util.ServerUrl
-import io.ktor.client.HttpClient
-import io.ktor.client.request.get
-
-class SearchAra {
-    suspend fun search(lat: String, log: String, term: String, locale: String): ArrayList<OutputModel> {
-        val client = HttpClient()
-        val data = client.get<String>(ServerUrl.getStandardSearch(
-                term = term,
-                log = log,
-                lat = lat,
-                locale = locale
-        ))
-        client.close()
-        return JsonParse().outputModel(data)
-
-    }
+interface DeviceData {
+    fun getContacts()
+    fun getCalendar()
 }

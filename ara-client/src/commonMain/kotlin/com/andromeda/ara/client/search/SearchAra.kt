@@ -16,8 +16,22 @@
 
 package com.andromeda.ara.client.search
 
+import com.andromeda.ara.client.util.JsonParse
+import com.andromeda.ara.client.util.ServerUrl
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+
 class SearchAra {
-    fun search(lat:String, log:String, term:String, locale:String, actions: Actions){
+    suspend fun search(lat:String, log:String, term:String, locale:String, actions: Actions){
+        val client = HttpClient()
+        val data = client.get<String>(ServerUrl.getStandardSearch(
+                term = term,
+                log = log,
+                lat = lat,
+                locale = locale
+        ))
+        client.close()
+        val outputModel = JsonParse().outputModel(data)
 
     }
 }

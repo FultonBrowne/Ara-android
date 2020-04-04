@@ -14,10 +14,14 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.client.feeds
+package com.andromeda.ara.client.util
 
-class News {
-    fun general(){
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
 
+class ReadURL {
+    suspend fun get(url:String){
+        val client = HttpClient()
+        client.get<String>(url)
     }
 }

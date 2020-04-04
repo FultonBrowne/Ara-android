@@ -20,8 +20,8 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 
 class ReadURL {
-    suspend fun get(url:String){
+    suspend fun get(url:String): String {
         val client = HttpClient()
-        client.get<String>(url)
+        return client.get(url)
     }
 }

@@ -160,7 +160,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     }
     private synchronized void startRecording(@Nullable String link) {
         recordingThread = new Thread(() -> {
-
         audioRecorder.startRecording();
 
             try {
@@ -265,9 +264,14 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 while (isRecording) {
                     audioRecorder.read(Data, 0, getRawDataLength(Data));
                     System.out.println(Data[0]);
-                    Float radius = (Float) (float) Math.log10(Math.max(1, Data[0] / 10f)) * VoiceView.dp2px(getApplicationContext(), 20);
-                    System.out.println(radius);
-                    voiceView.animateRadius(Math.abs(((Byte)Data[0])));                    if (Data[0] == 0) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Float radius = (Float) (float) Math.log10(Math.max(1, Data[0] / 10f)) * VoiceView.dp2px(getApplicationContext(), 20);
+                            System.out.println(radius);
+                            voiceView.animateRadius(Math.abs(((Byte)Data[0])));
+                        }
+                    });                   if (Data[0] == 0) {
                         System.out.println("blank");
                         blankRunning = false;
                         new Timer().schedule(new TimerTask() {

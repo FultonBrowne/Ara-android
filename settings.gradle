@@ -32,4 +32,4 @@ pluginManagement {
         }
     }
 }
-include ':app', ':rome-1.0', ':WolframAlpha-1.1'
+include ':app', ':rome-1.0', ':WolframAlpha-1.1', ':ara-client'

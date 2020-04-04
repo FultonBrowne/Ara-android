@@ -191,7 +191,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/home/fulton/.local/share/JetBrains/Toolbox/apps/AndroidStudio/ch-0/193.6254973/plugins/android/lib/android.jar!/images/material/icons/materialicons/done/baseline_done_24.xml" />
+                                      <entry key="url" value="jar:file:/home/fulton/.local/share/JetBrains/Toolbox/apps/AndroidStudio/ch-0/193.6296804/plugins/android/lib/android.jar!/images/material/icons/materialicons/close/baseline_close_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -202,7 +202,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="done" />
+                            <entry key="outputName" value="close" />
                             <entry key="sourceFile" value="$USER_HOME$" />
                           </map>
                         </option>

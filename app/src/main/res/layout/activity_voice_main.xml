@@ -62,7 +62,7 @@
         android:focusable="true"
         android:background="@color/accent"
         android:onClick="back"
-        app:srcCompat="@drawable/ic_baseline_stop_24"/>
+        app:srcCompat="@drawable/mic"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton2"
             android:layout_width="wrap_content"
@@ -73,8 +73,7 @@
             android:clickable="true"
             android:focusable="true"
             android:onClick="record"
-            android:visibility="invisible"
-            app:srcCompat="@drawable/mic"/>
+        app:srcCompat="@drawable/close"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

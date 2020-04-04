@@ -148,10 +148,8 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     public void back(View view) {
         if (isRecording) {
                 stopRecording(null);
-                FloatingActionButton fab2 = findViewById(R.id.floatingActionButton2);
-                fab2.setVisibility(View.VISIBLE);
-
-        } else onBackPressed();
+        }
+        onBackPressed();
     }
 
     private void requestMicrophonePermission() {
@@ -371,12 +369,18 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     }
 
     public void record(View view) {
-        audioRecorder = new AudioRecord(AUDIO_SOURCE,
-                SAMPLE_RATE_HZ,
-                CHANNEL_CONFIG,
-                AUDIO_FORMAT,
-                bufferSizeInBytes);
-        startRecording(null);
+        if (isRecording) {
+            stopRecording(null);
+
+        }
+        else {
+            audioRecorder = new AudioRecord(AUDIO_SOURCE,
+                    SAMPLE_RATE_HZ,
+                    CHANNEL_CONFIG,
+                    AUDIO_FORMAT,
+                    bufferSizeInBytes);
+            startRecording(null);
+        }
     }
 
 

@@ -19,6 +19,7 @@ package com.andromeda.ara.client.util
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.client.models.OutputModel
 
+
 class ApiOutToFeed {
     fun main(tofeed: ArrayList<OutputModel>): ArrayList<FeedModel> {
         val feedModels: ArrayList<FeedModel> = arrayListOf()

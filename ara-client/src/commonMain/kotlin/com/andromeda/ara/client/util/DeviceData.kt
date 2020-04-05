@@ -16,6 +16,7 @@
 
 package com.andromeda.ara.client.util
 
+
 interface DeviceData {
     fun getContacts()
     fun getCalendar()

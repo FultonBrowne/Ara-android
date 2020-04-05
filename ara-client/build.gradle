@@ -33,6 +33,8 @@ kotlin {
             dependencies {
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
+                implementation("io.ktor:ktor-client-core:$ktor_version")
+
             }
         }
         jvmMain {
@@ -62,5 +64,8 @@ kotlin {
         }
         linuxTest {
         }
+
     }
+    //jvm()
+
 }

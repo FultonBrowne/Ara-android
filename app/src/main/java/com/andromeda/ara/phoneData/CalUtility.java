@@ -27,7 +27,7 @@ import androidx.preference.PreferenceManager;
 
 import com.andromeda.ara.R;
 import com.andromeda.ara.util.FeedDateParseModel;
-import com.andromeda.ara.util.RssFeedModel;
+import com.andromeda.ara.util.FeedModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -36,10 +36,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CalUtility {
-    public static ArrayList<RssFeedModel> main = new ArrayList<>();
+    public static ArrayList<FeedModel> main = new ArrayList<>();
     public static ArrayList<FeedDateParseModel> complexDataMain = new ArrayList<>();
 
-    public static ArrayList<RssFeedModel> readCalendarEvent(Context context) {
+    public static ArrayList<FeedModel> readCalendarEvent(Context context) {
         Cursor cursor = context.getContentResolver()
                 .query(
                         Uri.parse("content://com.android.calendar/events"),
@@ -60,7 +60,7 @@ public class CalUtility {
             String startDates = (getDate(Long.parseLong(cursor.getString(3))));
             String endDates = (getDate(Long.parseLong(cursor.getString(4))));
             String descriptions = (cursor.getString(2));
-            main.add(new RssFeedModel(nameOfEvent, "", startDates + endDates + System.lineSeparator() + descriptions, "", "", true));
+            main.add(new FeedModel(nameOfEvent, "", startDates + endDates + System.lineSeparator() + descriptions, "", "", true));
             CNames[i] = cursor.getString(1);
             cursor.moveToNext();
 
@@ -118,7 +118,7 @@ public class CalUtility {
 
         return complexDataMain;
     }
-    public ArrayList<RssFeedModel> getClosestEvents(Context context){
+    public ArrayList<FeedModel> getClosestEvents(Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         Date currentDate = new Date(System.currentTimeMillis());
@@ -129,7 +129,7 @@ public class CalUtility {
                         new String[]{context.getString(R.string.calender_id), context.getString(R.string.title), context.getString(R.string.description),
                                 context.getString(R.string.dtstart), context.getString(R.string.dtend), context.getString(R.string.eventLocation)}, null,
                         null, null);
-        ArrayList<RssFeedModel> rssFeedModels = new ArrayList<>();
+        ArrayList<FeedModel> feedModels = new ArrayList<>();
         assert cursor != null;
         cursor.moveToFirst();
         long ltime = currentDate.getTime() + 60 * 1000 * prefs.getInt("time", 60) ;
@@ -148,11 +148,11 @@ public class CalUtility {
             CNames[i] = cursor.getString(1);
             if(startDatesAsTime.getTime() < ltime && startDatesAsTime.getTime() > currentDate.getTime()){
                 String format = df.format(startDatesAsTime);
-                RssFeedModel e = new RssFeedModel("at: " + format.substring(0, format.length() - 3), "", nameOfEvent, "", "", false);
+                FeedModel e = new FeedModel("at: " + format.substring(0, format.length() - 3), "", nameOfEvent, "", "", false);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    e.color = context.getColor(R.color.accent);
+                    e.setColor(context.getColor(R.color.accent));
                 }
-                rssFeedModels.add(e);
+                feedModels.add(e);
 
             }
             cursor.moveToNext();
@@ -163,7 +163,7 @@ public class CalUtility {
         cursor.close();
 
         complexDataMain.clear();
-        return rssFeedModels;
+        return feedModels;
     }
 
 }

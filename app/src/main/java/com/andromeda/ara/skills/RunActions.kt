@@ -22,14 +22,14 @@ import android.content.Intent
 import android.net.Uri
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.services.AraActions
-import com.andromeda.ara.util.RssFeedModel
+import com.andromeda.ara.util.FeedModel
 import com.andromeda.ara.util.SkillsModel
 import java.util.*
 
 
 class RunActions {
-    fun doIt(yaml: ArrayList<SkillsModel>?, searchTerm: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions): ArrayList<RssFeedModel> {
-        val returnedVal = ArrayList<RssFeedModel>()
+    fun doIt(yaml: ArrayList<SkillsModel>?, searchTerm: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions): ArrayList<FeedModel> {
+        val returnedVal = ArrayList<FeedModel>()
 
         var arg1: String
         var arg2:String
@@ -61,7 +61,7 @@ class RunActions {
                         AraActions.cancel()
                     }
                     "OUTPUT" -> {
-                        returnedVal.add(RssFeedModel(i.arg2, "", i.arg1, "", "", true))
+                        returnedVal.add(FeedModel(i.arg2, "", i.arg1, "", "", true))
                     }
                     "SITE" -> {
                         arg1 = if (i.arg1 == "TERM") searchTerm
@@ -91,7 +91,7 @@ class RunActions {
                         }
                         catch (e:Exception){
                             e.printStackTrace()
-                            returnedVal.add(RssFeedModel("Failed to start timer", "", "","", "", true))
+                            returnedVal.add(FeedModel("Failed to start timer", "", "","", "", true))
                         }
 
                     }

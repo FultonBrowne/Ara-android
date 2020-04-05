@@ -58,7 +58,7 @@ class CardOnClick {
         }
 
     }
-    fun longClick(selected:RssFeedModel, ctx: Context, cursor: TagManager, mode: Long,act: Activity){
+    fun longClick(selected:FeedModel, ctx: Context, cursor: TagManager, mode: Long, act: Activity){
         when (mode) {
             DrawerModeConstants.SHORTCUTS -> {
                 val i = Intent(ctx, SkillsActivity::class.java)

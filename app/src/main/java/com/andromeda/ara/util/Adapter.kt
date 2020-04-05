@@ -34,7 +34,7 @@ import java.net.URL
 
 
 
-class Adapter(private val mRssFeedModels: List<RssFeedModel>, val act:Activity) : RecyclerView.Adapter<Adapter.FeedModelViewHolder>() {
+class Adapter(private val mFeedModels: List<FeedModel>, val act:Activity) : RecyclerView.Adapter<Adapter.FeedModelViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): FeedModelViewHolder {
         //Inflate the card view
@@ -47,7 +47,7 @@ class Adapter(private val mRssFeedModels: List<RssFeedModel>, val act:Activity) 
 
     override fun onBindViewHolder(holder: FeedModelViewHolder, position: Int) {
         //set values
-        val rssFeedModel = mRssFeedModels[position]
+        val rssFeedModel = mFeedModels[position]
         val desc = (holder.rssFeedView.findViewById<View>(R.id.item_number) as TextView)
         val card = (holder.rssFeedView.findViewById<View>(R.id.card) as CardView)
         if (rssFeedModel.color != null)
@@ -84,7 +84,7 @@ class Adapter(private val mRssFeedModels: List<RssFeedModel>, val act:Activity) 
 
     override fun getItemCount(): Int {
         //get the item count of the list
-        return mRssFeedModels.size
+        return mFeedModels.size
     }
 
     //animation code

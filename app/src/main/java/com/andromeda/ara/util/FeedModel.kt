@@ -13,30 +13,9 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.andromeda.ara.util
 
-package com.andromeda.ara.util;
+data class FeedModel(var description: String, var link: String, var title: String, var image: String, var out: String?, var longText: Boolean) {
+    var color: Int? = null
 
-import androidx.annotation.Nullable;
-
-public class RssFeedModel {
-
-    public String title;
-    public String link;
-    public String description;
-    public String image;
-    public String out = null;
-    @Nullable
-    public Integer color = null;
-    public Boolean longText;
-
-    public RssFeedModel(String description, String link, String title, String image, @Nullable String out, Boolean longText) {
-        this.title = title;
-        this.link = link;
-        this.description = description;
-        this.image = image;
-        this.out = out;
-        this.longText = longText;
-    }
 }
-
-

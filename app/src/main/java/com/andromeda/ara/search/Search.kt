@@ -35,7 +35,7 @@ import com.andromeda.ara.skills.RunActions
 import com.andromeda.ara.skills.SearchFunctions
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.JsonParse
-import com.andromeda.ara.util.RssFeedModel
+import com.andromeda.ara.util.FeedModel
 import com.andromeda.ara.voice.TTS
 import java.net.URL
 import java.util.*
@@ -43,7 +43,7 @@ import kotlin.collections.ArrayList
 
 
 class Search {
-    fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: TTS?, outputList: ArrayList<RssFeedModel>): ArrayList<RssFeedModel> {
+    fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: TTS?, outputList: ArrayList<FeedModel>): ArrayList<FeedModel> {
 
         var done2 = false
         var lat = 0.0
@@ -103,12 +103,12 @@ class Search {
         return outputList
     }
 
-    fun outputPing(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions): ArrayList<RssFeedModel> {
+    fun outputPing(mainval: String, ctx: Context, act: Activity, searchFunctions: SearchFunctions): ArrayList<FeedModel> {
 
-        var outputList: ArrayList<RssFeedModel> = ArrayList()
+        var outputList: ArrayList<FeedModel> = ArrayList()
 
 
-        outputList.add(RssFeedModel("", "", "", "", "", false))
+        outputList.add(FeedModel("", "", "", "", "", false))
         //com.andromeda.ara.client.search ara server
         var searchMode1 = mainval.toLowerCase(Locale.getDefault())
         searchMode1 = searchMode1.replace(" ", "%20")

@@ -27,7 +27,7 @@ import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.JsonParse
-import com.andromeda.ara.util.RssFeedModel
+import com.andromeda.ara.util.FeedModel
 import com.andromeda.ara.util.TagManager
 import java.io.IOException
 import java.net.URL
@@ -35,10 +35,10 @@ import java.net.URL
 
 class Drawer {
     @Throws(IOException::class)
-    fun main(drawerItem: Long, ctx: Context, Db: TagManager, rssFeedModel1: ArrayList<RssFeedModel>): ArrayList<RssFeedModel>? {
+    fun main(drawerItem: Long, ctx: Context, Db: TagManager, feedModel1: ArrayList<FeedModel>): ArrayList<FeedModel>? {
         var lat = 0.0
         var log = 0.0
-        rssFeedModel1.clear()
+        feedModel1.clear()
         val locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             println("running location system")
@@ -56,15 +56,15 @@ class Drawer {
 
         when (drawerItem) {
             DrawerModeConstants.HOME -> {
-                rssFeedModel1.addAll(News().newsGeneral(ctx))
-                return rssFeedModel1
+                feedModel1.addAll(News().newsGeneral(ctx))
+                return feedModel1
             }
             DrawerModeConstants.TAGS -> {
                 var title1: String
                 var web1: String
                 Db.open()
                 val cursor = Db.fetch()
-                var test: RssFeedModel
+                var test: FeedModel
 
 
                 if (cursor != null && cursor.moveToFirst()) {
@@ -75,45 +75,45 @@ class Drawer {
 
                         title1 = cursor.getString(1)
                         web1 = cursor.getString(2)
-                        test = RssFeedModel(title1, web1, "", "", "", false)
+                        test = FeedModel(title1, web1, "", "", "", false)
 
-                        rssFeedModel1.add(test)
+                        feedModel1.add(test)
                         cursor.moveToNext()
                     }
                 } else {
                     title1 = "nothing"
                     web1 = "reload app"
-                    test = RssFeedModel(title1, web1, "", "", "", false)
-                    rssFeedModel1.add(test)
+                    test = FeedModel(title1, web1, "", "", "", false)
+                    feedModel1.add(test)
 
 
                 }
-                return rssFeedModel1
+                return feedModel1
 
             }
             DrawerModeConstants.FOOD -> {
-                rssFeedModel1.addAll(Food().getFood(log.toString(), lat.toString()))
-                return rssFeedModel1
+                feedModel1.addAll(Food().getFood(log.toString(), lat.toString()))
+                return feedModel1
             }
             DrawerModeConstants.CAL -> {
-                rssFeedModel1.addAll( CalUtility.readCalendarEvent(ctx))
-                return rssFeedModel1
+                feedModel1.addAll( CalUtility.readCalendarEvent(ctx))
+                return feedModel1
             }
             DrawerModeConstants.REMINDERS ->{
-                rssFeedModel1.addAll(ApiOutputToRssFeed().main(JsonParse().search(URL(ServerUrl.getRemindersList("", log.toString(), lat.toString())).readText())))
-                return rssFeedModel1
+                feedModel1.addAll(ApiOutputToRssFeed().main(JsonParse().search(URL(ServerUrl.getRemindersList("", log.toString(), lat.toString())).readText())))
+                return feedModel1
             }
             104L -> {
-                rssFeedModel1.addAll(News().newsGeneral())
-                return rssFeedModel1
+                feedModel1.addAll(News().newsGeneral())
+                return feedModel1
             }
             102L -> {
-                rssFeedModel1.addAll(News().newsTech())
-                return rssFeedModel1
+                feedModel1.addAll(News().newsTech())
+                return feedModel1
             }
             105L -> {
-                rssFeedModel1.addAll(News().newsMoney())
-                return rssFeedModel1
+                feedModel1.addAll(News().newsMoney())
+                return feedModel1
             }
             else -> {
                 println("returning")

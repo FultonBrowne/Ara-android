@@ -43,7 +43,7 @@ import com.andromeda.ara.util.ApiOutputToRssFeed;
 import com.andromeda.ara.util.DownloadTask;
 import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.JsonParse;
-import com.andromeda.ara.util.RssFeedModel;
+import com.andromeda.ara.util.FeedModel;
 import com.andromeda.ara.util.SpellChecker;
 import com.andromeda.ara.util.TabAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -102,7 +102,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
         deepSpeech = new DeepSpeech(this);
         recyclerView = findViewById(R.id.listVoice);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Adapter adapter = new Adapter(Collections.singletonList(new RssFeedModel("hello", "how can I help", "", "", "", true)), this);
+        Adapter adapter = new Adapter(Collections.singletonList(new FeedModel("hello", "how can I help", "", "", "", true)), this);
         recyclerView.setAdapter(adapter);
         requestMicrophonePermission();
 
@@ -420,8 +420,8 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
     public void onTabTrigger(@NotNull TabModel data) {
         try {
             ArrayList<OutputModel> outputModels = new JsonParse().search(new GetUrlAra().getIt(new URL(data.getUrl())));
-            ArrayList<RssFeedModel> rssFeedModels = new ApiOutputToRssFeed().main(outputModels);
-            recyclerView.setAdapter(new Adapter(rssFeedModels, this));
+            ArrayList<FeedModel> feedModels = new ApiOutputToRssFeed().main(outputModels);
+            recyclerView.setAdapter(new Adapter(feedModels, this));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

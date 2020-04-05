@@ -19,15 +19,15 @@ package com.andromeda.ara.skills
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.User
 import com.andromeda.ara.util.JsonParse
-import com.andromeda.ara.util.RssFeedModel
+import com.andromeda.ara.util.FeedModel
 import java.net.URL
 
 class ListSkills {
-    fun main(): ArrayList<RssFeedModel> {
-        val toReturn = arrayListOf<RssFeedModel>()
+    fun main(): ArrayList<FeedModel> {
+        val toReturn = arrayListOf<FeedModel>()
         val skillsServerData = JsonParse().skillsServer(URL(ServerUrl.url + "user/" + User.id).readText())
         skillsServerData.forEach{
-            toReturn.add(RssFeedModel("", it.index, it.name, "", "", false))
+            toReturn.add(FeedModel("", it.index, it.name, "", "", false))
         }
         return toReturn
     }

@@ -22,8 +22,8 @@ import com.andromeda.ara.models.OutputModel;
 import java.util.ArrayList;
 
 public class ApiOutputToRssFeed {
-    public synchronized ArrayList<RssFeedModel> main(ArrayList<OutputModel> tofeed) {
-        ArrayList<RssFeedModel> feedModels = new ArrayList<>();
+    public synchronized ArrayList<FeedModel> main(ArrayList<OutputModel> tofeed) {
+        ArrayList<FeedModel> feedModels = new ArrayList<>();
         System.out.println(R.string.starting_step_2);
         System.out.println(tofeed.size());
         // System.out.println(tofeed.get(1).link.toString());
@@ -39,7 +39,7 @@ public class ApiOutputToRssFeed {
                 String mlink = tofeed.get(i).getLink();
                 String mOut = tofeed.get(i).getOutputTxt();
                 String mPic = tofeed.get(i).getImage();
-                RssFeedModel mainModel = new RssFeedModel(mInfo, mlink, mTitle, mPic, mOut, true);
+                FeedModel mainModel = new FeedModel(mInfo, mlink, mTitle, mPic, mOut, true);
                 System.out.println(mOut);
                 feedModels.add(mainModel);
 

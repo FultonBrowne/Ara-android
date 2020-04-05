@@ -21,16 +21,16 @@ import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.NewsData
-import com.andromeda.ara.util.RssFeedModel
+import com.andromeda.ara.util.FeedModel
 import java.net.URL
 import java.util.*
 
 class News {
-    fun newsGeneral(): ArrayList<RssFeedModel> {
+    fun newsGeneral(): ArrayList<FeedModel> {
         return getFromLink(ServerUrl.url + linkMapGeneral(Locale.getDefault()))
 
     }
-    fun newsGeneral(ctx:Context): ArrayList<RssFeedModel> {
+    fun newsGeneral(ctx:Context): ArrayList<FeedModel> {
         val feedData = newsGeneral()
         try {
             feedData.addAll(0,
@@ -47,25 +47,25 @@ class News {
         val map = mapOf(Locale.US to "news/us", Locale.UK to "news/")
         return map.getOrElse(locale, { return "news/us"})
     }
-    fun newsTech(): ArrayList<RssFeedModel> {
+    fun newsTech(): ArrayList<FeedModel> {
         return getFromLink(ServerUrl.url + "news/tech")
 
     }
-    fun newsMoney(): ArrayList<RssFeedModel> {
+    fun newsMoney(): ArrayList<FeedModel> {
         return getFromLink(ServerUrl.url + "news/money")
 
     }
 
-    private fun getFromLink(link:String): ArrayList<RssFeedModel> {
+    private fun getFromLink(link:String): ArrayList<FeedModel> {
         val news = JsonParse().news(URL(link).readText())
-        val feedData = arrayListOf<RssFeedModel>()
+        val feedData = arrayListOf<FeedModel>()
         parse(news, feedData)
         return feedData
     }
 
-    private fun parse(news: ArrayList<NewsData>, feedData: ArrayList<RssFeedModel>) {
+    private fun parse(news: ArrayList<NewsData>, feedData: ArrayList<FeedModel>) {
         for (i in news) {
-            feedData.add(RssFeedModel(i.info, i.link, i.title, i.pic, "", true))
+            feedData.add(FeedModel(i.info, i.link, i.title, i.pic, "", true))
         }
     }
 }

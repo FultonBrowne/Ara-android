@@ -66,7 +66,7 @@ import com.andromeda.ara.util.JsonParse;
 import com.andromeda.ara.util.LogIn;
 import com.andromeda.ara.util.PushUtil;
 import com.andromeda.ara.util.RecyclerTouchListener;
-import com.andromeda.ara.util.RssFeedModel;
+import com.andromeda.ara.util.FeedModel;
 import com.andromeda.ara.util.TabAdapter;
 import com.andromeda.ara.util.TagManager;
 import com.andromeda.ara.voice.VoiceMain;
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
     //this is the navigation Drawer
     private com.mikepenz.materialdrawer.Drawer drawer = null;
     // Data set for list out put
-    private ArrayList<RssFeedModel> rssFeedModel1 = new ArrayList<>();
+    private ArrayList<FeedModel> feedModel1 = new ArrayList<>();
     //RecyclerView
     private RecyclerView recyclerView;
     //Device screen width
@@ -212,20 +212,20 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         RecyclerView tabs = findViewById(R.id.tabs);
                         tabs.setVisibility(View.INVISIBLE);
                         if (drawerItem.getIdentifier() == DrawerModeConstants.DEVICES) {
-                            rssFeedModel1 = IotRequest.INSTANCE.parseAllAsFeed();
-                            recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
+                            feedModel1 = IotRequest.INSTANCE.parseAllAsFeed();
+                            recyclerView.setAdapter(new Adapter(feedModel1, this));
                             mode = drawerItem.getIdentifier();
                         } else if (drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS) {
                             System.out.println("shortcuts");
-                            rssFeedModel1 = new ListSkills().main();
-                            recyclerView.setAdapter(new Adapter(rssFeedModel1, act));
+                            feedModel1 = new ListSkills().main();
+                            recyclerView.setAdapter(new Adapter(feedModel1, act));
                             mode = drawerItem.getIdentifier();
 
 
                         } else {
                             try {
-                                new Drawer().main(drawerItem.getIdentifier(), ctx, main53, rssFeedModel1);
-                                recyclerView.setAdapter(new Adapter(rssFeedModel1, this));
+                                new Drawer().main(drawerItem.getIdentifier(), ctx, main53, feedModel1);
+                                recyclerView.setAdapter(new Adapter(feedModel1, this));
                                 mode = drawerItem.getIdentifier();
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
             @Override
             public void onClick(View view, int position) {
                 try {
-                    new CardOnClick().mainFun(mode, rssFeedModel1.get(position).link, act, getApplicationContext(), MainActivity.this);
+                    new CardOnClick().mainFun(mode, feedModel1.get(position).getLink(), act, getApplicationContext(), MainActivity.this);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -255,15 +255,15 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
             @Override
             public void onLongClick(View view, int position) {
-                new CardOnClick().longClick(rssFeedModel1.get(position), getApplicationContext(), main53, mode, act);
+                new CardOnClick().longClick(feedModel1.get(position), getApplicationContext(), main53, mode, act);
             }
         }));
         System.out.println("pre feed");
 
-        rssFeedModel1 = (new News().newsGeneral(this));
+        feedModel1 = (new News().newsGeneral(this));
         System.out.println("feed done");
         //Adapter
-        Adapter mAdapter = new Adapter(rssFeedModel1, this);
+        Adapter mAdapter = new Adapter(feedModel1, this);
 
         recyclerView.setAdapter(mAdapter);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -338,7 +338,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         assert locationManager != null;
                     }
                     try {
-                        recyclerView.setAdapter(new Adapter(new Search().main(query, MainActivity.this, MainActivity.this, null, rssFeedModel1), act));
+                        recyclerView.setAdapter(new Adapter(new Search().main(query, MainActivity.this, MainActivity.this, null, feedModel1), act));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -448,8 +448,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
     public void onTabTrigger(@NotNull TabModel data) {
         try {
             ArrayList<OutputModel> outputModels = new JsonParse().search(new GetUrlAra().getIt(new URL(data.getUrl())));
-            ArrayList<RssFeedModel> rssFeedModels = new ApiOutputToRssFeed().main(outputModels);
-            recyclerView.setAdapter(new Adapter(rssFeedModels, this));
+            ArrayList<FeedModel> feedModels = new ApiOutputToRssFeed().main(outputModels);
+            recyclerView.setAdapter(new Adapter(feedModels, this));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

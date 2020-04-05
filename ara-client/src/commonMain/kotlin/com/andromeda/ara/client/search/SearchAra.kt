@@ -21,8 +21,10 @@ import com.andromeda.ara.client.util.JsonParse
 import com.andromeda.ara.client.util.ServerUrl
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
+import kotlinx.serialization.ImplicitReflectionSerializer
 
 class SearchAra {
+    @ImplicitReflectionSerializer
     suspend fun search(lat: String, log: String, term: String, locale: String): ArrayList<OutputModel> {
         val client = HttpClient()
         val data = client.get<String>(ServerUrl.getStandardSearch(

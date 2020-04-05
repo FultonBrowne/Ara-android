@@ -20,8 +20,10 @@ import com.andromeda.ara.client.models.NewsData
 import com.andromeda.ara.client.util.JsonParse
 import com.andromeda.ara.client.util.ReadURL
 import com.andromeda.ara.client.util.ServerUrl
+import kotlinx.serialization.ImplicitReflectionSerializer
 
 class News {
+    @ImplicitReflectionSerializer
     suspend fun general(locale: String): ArrayList<NewsData> {
         val get = ReadURL().get("${ServerUrl.url}/${linkMapGeneral(locale)}")
         return JsonParse().newsData(get)

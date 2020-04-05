@@ -33,15 +33,14 @@ kotlin {
             dependencies {
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
-                implementation("io.ktor:ktor-client-core:$ktor_version")
 
             }
         }
         jvmMain {
             dependencies {
                 implementation kotlin('stdlib-jdk8')
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.20.0") // JVM dependency
-                implementation("io.ktor:ktor-client-core:$ktor_version")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0") // JVM dependency
+                implementation("io.ktor:ktor-client-core-jvm:$ktor_version")
             }
         }
         jvmTest {
@@ -66,6 +65,6 @@ kotlin {
         }
 
     }
-    //jvm()
+    jvm()
 
 }

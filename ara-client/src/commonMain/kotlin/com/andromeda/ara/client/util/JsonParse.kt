@@ -18,13 +18,16 @@ package com.andromeda.ara.client.util
 
 import com.andromeda.ara.client.models.NewsData
 import com.andromeda.ara.client.models.OutputModel
+import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.parse
 
 class JsonParse {
+    @ImplicitReflectionSerializer
     fun outputModel(text:String): ArrayList<OutputModel> {
         return Json.parse(text)
     }
+    @ImplicitReflectionSerializer
     fun newsData(text:String): ArrayList<NewsData> {
         return Json.parse(text)
     }

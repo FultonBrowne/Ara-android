@@ -14,27 +14,6 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.client.search
+package com.andromeda.ara.client.models
 
-import com.andromeda.ara.client.models.TabModel
-
-
-interface Actions {
-    fun runActions(action:String, arg1:String, arg2:String)
-    fun callBack(m:String, link:String)
-    fun callForString(m:String):String
-    fun onTabTrigger(data:TabModel)
-    fun addTabData(data: List<TabModel>)
-    companion object{
-        const val CALL = "CALL"
-        const val APP = "OPEN_APP"
-        const val TEXT = "TEXT"
-        const val MEDIA = "TOG_MEDIA"
-        const val STOP_TIMERS = "STOPTIMERS"
-        const val OUTPUT = "OUTPUT"
-        const val MAPS = "MAPS"
-        const val FLASH = "FLASH"
-        const val TIMER = "TIMER"
-        const val RESPOND = "RESPOND"
-    }
-}
+data class TabModel(val text:String, val url:String)

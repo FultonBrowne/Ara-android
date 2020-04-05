@@ -16,11 +16,22 @@
 
 package com.andromeda.ara.client.search
 
+
 interface Actions
 {
     fun runActions(action:String, arg1:String, arg2:String)
     companion object{
-        //TODO work on the yml links
         const val CALL = "CALL"
+        const val APP = "OPEN_APP"
+        const val TEXT = "TEXT"
+        const val MEDIA = "TOG_MEDIA"
+        const val STOP_TIMERS = "STOPTIMERS"
+        const val OUTPUT = "OUTPUT"
+        const val MAPS = "MAPS"
+        const val FLASH = "FLASH"
+        const val TIMER = "TIMER"
+        const val RESPOND = "RESPOND"
+
+
     }
 }

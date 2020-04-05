@@ -23,7 +23,6 @@ class ApiOutToFeed {
     fun main(tofeed: ArrayList<OutputModel>): ArrayList<FeedModel> {
         val feedModels: ArrayList<FeedModel> = arrayListOf()
         println(tofeed.size)
-        // System.out.println(tofeed.get(1).link.toString());
         try {
             for (i in 0..feedModels.size) {
                 println(i)
@@ -38,7 +37,7 @@ class ApiOutToFeed {
                 feedModels.add(mainModel)
             }
         } catch (ignored: Exception) {
-            
+
         }
         return feedModels
     }

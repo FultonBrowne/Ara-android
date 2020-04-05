@@ -60,13 +60,12 @@ import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.ApiOutputToRssFeed;
 import com.andromeda.ara.util.AraPopUps;
 import com.andromeda.ara.util.CardOnClick;
+import com.andromeda.ara.util.FeedModel;
 import com.andromeda.ara.util.GetSettings;
 import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.JsonParse;
 import com.andromeda.ara.util.LogIn;
-import com.andromeda.ara.util.PushUtil;
 import com.andromeda.ara.util.RecyclerTouchListener;
-import com.andromeda.ara.util.FeedModel;
 import com.andromeda.ara.util.TabAdapter;
 import com.andromeda.ara.util.TagManager;
 import com.andromeda.ara.voice.VoiceMain;
@@ -74,7 +73,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
-import com.microsoft.appcenter.push.Push;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -143,9 +141,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
         System.out.println("done part 1");
         new CacheData().main(this);
 
-        Push.setListener(new PushUtil());
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
-                Analytics.class, Crashes.class, Push.class);
+                Analytics.class, Crashes.class);
         new GetSettings().starUp(this);
 
         final TagManager main53 = new TagManager(this);

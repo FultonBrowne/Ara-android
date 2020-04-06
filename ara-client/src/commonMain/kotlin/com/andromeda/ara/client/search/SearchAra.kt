@@ -16,8 +16,10 @@
 
 package com.andromeda.ara.client.search
 
+import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.client.models.OutputModel
 import com.andromeda.ara.client.models.SkillsModel
+import com.andromeda.ara.client.util.ApiOutToFeed
 import com.andromeda.ara.client.util.JsonParse
 import com.andromeda.ara.client.util.ServerUrl
 import io.ktor.client.HttpClient
@@ -26,7 +28,7 @@ import kotlinx.serialization.ImplicitReflectionSerializer
 
 class SearchAra {
     @ImplicitReflectionSerializer
-    suspend fun search(lat: String, log: String, term: String, locale: String, actions: Actions): ArrayList<OutputModel> {
+    suspend fun search(lat: String, log: String, term: String, locale: String, actions: Actions): ArrayList<FeedModel> {
         val client = HttpClient()
         val data = client.get<String>(ServerUrl.getStandardSearch(
                 term = term,
@@ -41,12 +43,12 @@ class SearchAra {
             yaml.forEach {
                 actions.runActions(it.action, it.arg1, it.arg2)
             }
-            //actions.runActions()
         }
         catch (e:Exception){
             println(e.message)
         }
-        return outputModel
+        return ApiOutToFeed().main(outputModel)
+
 
     }
 }

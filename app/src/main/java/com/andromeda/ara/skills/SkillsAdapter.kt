@@ -20,7 +20,6 @@ package com.andromeda.ara.skills
 import android.app.Activity
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +31,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
-import com.andromeda.ara.util.SkillsModel
+import com.andromeda.ara.client.models.SkillsModel
 import java.net.URL
 import java.util.*
 

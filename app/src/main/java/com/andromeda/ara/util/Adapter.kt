@@ -29,6 +29,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
+import com.andromeda.ara.client.models.FeedModel
 import java.io.InputStream
 import java.net.URL
 

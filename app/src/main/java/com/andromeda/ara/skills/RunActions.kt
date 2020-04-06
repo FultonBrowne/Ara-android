@@ -20,10 +20,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import com.andromeda.ara.client.models.FeedModel
+import com.andromeda.ara.client.models.SkillsModel
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.services.AraActions
-import com.andromeda.ara.util.FeedModel
-import com.andromeda.ara.util.SkillsModel
 import java.util.*
 
 

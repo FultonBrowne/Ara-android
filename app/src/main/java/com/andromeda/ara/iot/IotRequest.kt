@@ -16,7 +16,7 @@
 
 package com.andromeda.ara.iot
 
-import com.andromeda.ara.util.FeedModel
+import com.andromeda.ara.client.models.FeedModel
 import com.google.gson.JsonParser
 import okhttp3.OkHttpClient
 import okhttp3.Request

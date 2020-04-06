@@ -16,6 +16,7 @@
 
 package com.andromeda.ara.util
 
+import com.andromeda.ara.client.models.FeedModel
 import java.util.*
 
 data class FeedDateParseModel(val title: String, val description: String, val link: String, val image: String, val out: String?, val date: Date) {

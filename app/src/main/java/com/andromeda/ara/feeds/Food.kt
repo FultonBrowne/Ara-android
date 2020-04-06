@@ -17,10 +17,10 @@
 package com.andromeda.ara.feeds
 
 
+import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.JsonParse
-import com.andromeda.ara.util.FeedModel
 import java.net.URL
 import java.util.*
 

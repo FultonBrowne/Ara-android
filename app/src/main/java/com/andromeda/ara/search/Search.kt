@@ -27,6 +27,8 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
 import com.andromeda.ara.R
+import com.andromeda.ara.client.models.FeedModel
+import com.andromeda.ara.client.search.Actions
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.models.SkillsFromDB
 import com.andromeda.ara.models.TabModel
@@ -35,7 +37,6 @@ import com.andromeda.ara.skills.RunActions
 import com.andromeda.ara.skills.SearchFunctions
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.JsonParse
-import com.andromeda.ara.util.FeedModel
 import com.andromeda.ara.voice.TTS
 import java.net.URL
 import java.util.*
@@ -43,7 +44,7 @@ import kotlin.collections.ArrayList
 
 
 class Search {
-    fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: TTS?, outputList: ArrayList<FeedModel>): ArrayList<FeedModel> {
+   fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: TTS?, outputList: ArrayList<FeedModel>, actions: Actions): ArrayList<FeedModel> {
 
         var done2 = false
         var lat = 0.0
@@ -74,19 +75,8 @@ class Search {
             }
         }
                 if (!done2) {
-                    //com.andromeda.ara.client.search ara server
-                    var searchMode1 = mainval.toLowerCase(Locale("en"))
-                    searchMode1 = searchMode1.replace(" ", "%20")
-                    val test1 = AraSearch().arrayOfOutputModels(searchMode1, log.toString(), lat.toString())
-                    outputList.addAll(ApiOutputToRssFeed().main(test1))
+                    //outputList.addAll(SearchAra().search(lat.toString(), log.toString(), mainval,Locale.getDefault().country, actions ))
                     println(R.string.done_search)
-                    try {
-                        val parsed = Parse().parse(test1?.get(0)?.exes)
-                        val doIt = RunActions().doIt(parsed, mainval, act, act, searchFunctions)
-                        outputList.addAll(doIt)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
                 }
 
             act.runOnUiThread {

@@ -17,11 +17,11 @@
 package com.andromeda.ara.feeds
 
 import android.content.Context
+import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.NewsData
-import com.andromeda.ara.util.FeedModel
 import java.net.URL
 import java.util.*
 

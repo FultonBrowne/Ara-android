@@ -16,7 +16,7 @@
 
 package com.andromeda.ara.skills
 
-import com.andromeda.ara.util.SkillsModel
+import com.andromeda.ara.client.models.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.type.CollectionType
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
@@ -38,5 +38,11 @@ class Parse {
         val listType: CollectionType = mapper.typeFactory.constructCollectionType(ArrayList::class.java, tClass)
 
         return mapper.readValue(yaml, listType)!!
+    }
+    fun <T> yamlArrayToObject(yaml: String?, tClass: Class<T>): T {
+        //val mapper = ObjectMapper()
+        val mapper = ObjectMapper(YAMLFactory()) // jackson databind
+        val listType: CollectionType = mapper.typeFactory.constructCollectionType(ArrayList::class.java, tClass)
+        return mapper.readValue(yaml, tClass)
     }
 }

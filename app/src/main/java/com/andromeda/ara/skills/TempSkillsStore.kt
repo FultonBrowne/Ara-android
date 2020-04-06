@@ -16,7 +16,7 @@
 
 package com.andromeda.ara.skills
 
-import com.andromeda.ara.util.SkillsModel
+import com.andromeda.ara.client.models.SkillsModel
 
 data class TempSkillsStore(val mainData: SkillsModel, val order: Int) {
 }

@@ -26,8 +26,8 @@ import android.os.Build;
 import androidx.preference.PreferenceManager;
 
 import com.andromeda.ara.R;
+import com.andromeda.ara.client.models.FeedModel;
 import com.andromeda.ara.util.FeedDateParseModel;
-import com.andromeda.ara.util.FeedModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

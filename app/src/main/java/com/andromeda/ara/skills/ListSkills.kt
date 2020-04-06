@@ -16,10 +16,10 @@
 
 package com.andromeda.ara.skills
 
+import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.User
 import com.andromeda.ara.util.JsonParse
-import com.andromeda.ara.util.FeedModel
 import java.net.URL
 
 class ListSkills {

@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
+import com.andromeda.ara.client.models.SkillsModel
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.User
 import com.andromeda.ara.skills.Parse
@@ -32,7 +33,6 @@ import com.andromeda.ara.skills.TempSkillsStore
 import com.andromeda.ara.util.AraPopUps
 import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.SkillsDBModel
-import com.andromeda.ara.util.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.google.gson.Gson

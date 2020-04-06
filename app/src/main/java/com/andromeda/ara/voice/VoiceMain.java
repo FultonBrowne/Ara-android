@@ -34,16 +34,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andromeda.ara.R;
+import com.andromeda.ara.client.models.FeedModel;
+import com.andromeda.ara.client.models.SkillsModel;
+import com.andromeda.ara.client.search.Actions;
 import com.andromeda.ara.models.OutputModel;
 import com.andromeda.ara.models.TabModel;
 import com.andromeda.ara.search.Search;
+import com.andromeda.ara.skills.Parse;
+import com.andromeda.ara.skills.RunActions;
 import com.andromeda.ara.skills.SearchFunctions;
 import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.ApiOutputToRssFeed;
 import com.andromeda.ara.util.DownloadTask;
 import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.JsonParse;
-import com.andromeda.ara.util.FeedModel;
 import com.andromeda.ara.util.SpellChecker;
 import com.andromeda.ara.util.TabAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -69,7 +73,7 @@ import static com.andromeda.ara.constants.ConstantUtils.CHANNEL_CONFIG;
 import static com.andromeda.ara.constants.ConstantUtils.REQUEST_RECORD_AUDIO;
 import static com.andromeda.ara.constants.ConstantUtils.SAMPLE_RATE_HZ;
 
-public class VoiceMain extends AppCompatActivity implements SearchFunctions {
+public class VoiceMain extends AppCompatActivity implements SearchFunctions, Actions {
     private FileOutputStream os = null;
     private Thread recordingThread;
     boolean isRecording;
@@ -353,7 +357,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
                 if (link == null) runOnUiThread(new Runnable(){
                     @Override
                     public void run() {
-                        recyclerView.setAdapter(new Adapter(new Search().main(phrase[0], VoiceMain.this, VoiceMain.this, new TTS(), new ArrayList<>()), VoiceMain.this));
+                        recyclerView.setAdapter(new Adapter(new Search().main(phrase[0], VoiceMain.this, VoiceMain.this, new TTS(), new ArrayList<>(), VoiceMain.this), VoiceMain.this));
                     }
                 });
                 else new Search().outputPing(link.replace("TERM", phrase[0]), getApplicationContext(), this, this);
@@ -435,5 +439,14 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions {
         tabs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
         tabs.setAdapter(new TabAdapter(data, this));
 
+    }
+    @Override
+    public <T> T parseYaml(@NotNull String s) {
+        return (T) new Parse().yamlArrayToObject(s, SkillsModel.class);
+    }
+
+    @Override
+    public void runActions(@NotNull ArrayList<SkillsModel> arrayList, String term) {
+        new RunActions().doIt(arrayList, term, this, this, this);
     }
 }

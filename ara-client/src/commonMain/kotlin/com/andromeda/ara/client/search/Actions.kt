@@ -16,12 +16,13 @@
 
 package com.andromeda.ara.client.search
 
+import com.andromeda.ara.client.models.SkillsModel
 import com.andromeda.ara.client.models.TabModel
 import kotlin.reflect.KClass
 
 
 interface Actions {
-    fun runActions(action:String, arg1:String, arg2:String)
+    fun runActions(action: ArrayList<SkillsModel>, term:String)
     fun <T> parseYaml(yaml:String): T
     companion object{
         const val CALL = "CALL"

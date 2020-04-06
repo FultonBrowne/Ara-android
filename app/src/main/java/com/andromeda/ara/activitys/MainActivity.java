@@ -45,6 +45,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andromeda.ara.R;
+import com.andromeda.ara.client.models.FeedModel;
+import com.andromeda.ara.client.models.SkillsModel;
+import com.andromeda.ara.client.search.Actions;
 import com.andromeda.ara.constants.DrawerModeConstants;
 import com.andromeda.ara.constants.User;
 import com.andromeda.ara.feeds.Drawer;
@@ -55,12 +58,13 @@ import com.andromeda.ara.models.OutputModel;
 import com.andromeda.ara.models.TabModel;
 import com.andromeda.ara.search.Search;
 import com.andromeda.ara.skills.ListSkills;
+import com.andromeda.ara.skills.Parse;
+import com.andromeda.ara.skills.RunActions;
 import com.andromeda.ara.skills.SearchFunctions;
 import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.ApiOutputToRssFeed;
 import com.andromeda.ara.util.AraPopUps;
 import com.andromeda.ara.util.CardOnClick;
-import com.andromeda.ara.util.FeedModel;
 import com.andromeda.ara.util.GetSettings;
 import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.JsonParse;
@@ -72,7 +76,6 @@ import com.andromeda.ara.voice.VoiceMain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
-
 import com.microsoft.appcenter.crashes.Crashes;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -93,7 +96,7 @@ import java.util.Objects;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
-public class MainActivity extends AppCompatActivity implements SearchFunctions {
+public class MainActivity extends AppCompatActivity implements SearchFunctions, Actions {
     /**
      * these have to do with permissions
      **/
@@ -336,7 +339,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
                         assert locationManager != null;
                     }
                     try {
-                        recyclerView.setAdapter(new Adapter(new Search().main(query, MainActivity.this, MainActivity.this, null, feedModel1), act));
+                        recyclerView.setAdapter(new Adapter(new Search().main(query, MainActivity.this, MainActivity.this, null, feedModel1, MainActivity.this), act));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -464,5 +467,15 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions {
 
     public void newReminder(MenuItem item) {
         new AraPopUps().newReminder(this);
+    }
+
+    @Override
+    public <T> T parseYaml(@NotNull String s) {
+        return (T) new Parse().yamlArrayToObject(s, SkillsModel.class);
+    }
+
+    @Override
+    public void runActions(@NotNull ArrayList<SkillsModel> arrayList, String term) {
+        new RunActions().doIt(arrayList, term, this, this, this);
     }
 }

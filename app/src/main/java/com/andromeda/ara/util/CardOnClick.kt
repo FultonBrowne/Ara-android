@@ -22,6 +22,7 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import com.andromeda.ara.activitys.SkillsActivity
+import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.constants.DrawerModeConstants
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.User
@@ -58,7 +59,7 @@ class CardOnClick {
         }
 
     }
-    fun longClick(selected:FeedModel, ctx: Context, cursor: TagManager, mode: Long, act: Activity){
+    fun longClick(selected: FeedModel, ctx: Context, cursor: TagManager, mode: Long, act: Activity){
         when (mode) {
             DrawerModeConstants.SHORTCUTS -> {
                 val i = Intent(ctx, SkillsActivity::class.java)

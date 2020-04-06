@@ -22,11 +22,7 @@ import kotlin.reflect.KClass
 
 interface Actions {
     fun runActions(action:String, arg1:String, arg2:String)
-    fun parseYaml(yaml:String, classToParse:KClass<Any>)
-    fun callBack(m:String, link:String)
-    fun callForString(m:String):String
-    fun onTabTrigger(data:TabModel)
-    fun addTabData(data: List<TabModel>)
+    fun <T> parseYaml(yaml:String): T
     companion object{
         const val CALL = "CALL"
         const val APP = "OPEN_APP"

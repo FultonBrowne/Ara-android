@@ -17,6 +17,7 @@
 package com.andromeda.ara.client.search
 
 import com.andromeda.ara.client.models.OutputModel
+import com.andromeda.ara.client.models.SkillsModel
 import com.andromeda.ara.client.util.JsonParse
 import com.andromeda.ara.client.util.ServerUrl
 import io.ktor.client.HttpClient
@@ -36,6 +37,10 @@ class SearchAra {
         client.close()
         val outputModel = JsonParse().outputModel(data)
         try {
+           val yaml = actions.parseYaml<ArrayList<SkillsModel>>(outputModel[0].exes)
+            yaml.forEach {
+                actions.runActions(it.action, it.arg1, it.arg2)
+            }
             //actions.runActions()
         }
         catch (e:Exception){

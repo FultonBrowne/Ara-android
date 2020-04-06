@@ -15,16 +15,6 @@
  */
 package com.andromeda.ara.client.models
 
-class SkillsModel {
-    var action: String? = null
-    var arg1: String? = null
-    var arg2: String? = null
+data class SkillsModel(val action: String, val arg1: String, val arg2: String) {
 
-    constructor(action: String, arg1: String, arg2: String) {
-        this.action = action
-        this.arg1 = arg1
-        this.arg2 = arg2
-    }
-
-    constructor() {}
 }

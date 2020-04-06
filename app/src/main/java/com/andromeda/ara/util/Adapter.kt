@@ -35,7 +35,7 @@ import java.net.URL
 
 
 
-class Adapter(private val mFeedModels: List<FeedModel>, val act:Activity) : RecyclerView.Adapter<Adapter.FeedModelViewHolder>() {
+class Adapter(private val mFeedModels: ArrayList<FeedModel>, val act:Activity) : RecyclerView.Adapter<Adapter.FeedModelViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): FeedModelViewHolder {
         //Inflate the card view

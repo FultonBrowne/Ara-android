@@ -29,6 +29,7 @@ import androidx.core.app.ActivityCompat
 import com.andromeda.ara.R
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.client.search.Actions
+import com.andromeda.ara.client.search.SearchAra
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.models.SkillsFromDB
 import com.andromeda.ara.models.TabModel
@@ -38,13 +39,15 @@ import com.andromeda.ara.skills.SearchFunctions
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.voice.TTS
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.net.URL
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class Search {
-   fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: TTS?, outputList: ArrayList<FeedModel>, actions: Actions): ArrayList<FeedModel> {
+fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: TTS?, outputList: ArrayList<FeedModel>, actions: Actions): ArrayList<FeedModel> {
 
         var done2 = false
         var lat = 0.0
@@ -75,7 +78,18 @@ class Search {
             }
         }
                 if (!done2) {
-                    //outputList.addAll(SearchAra().search(lat.toString(), log.toString(), mainval,Locale.getDefault().country, actions ))
+                    val launch = GlobalScope.launch {
+                        outputList.addAll(
+                            SearchAra().search(
+                                lat.toString(),
+                                log.toString(),
+                                mainval,
+                                Locale.getDefault().country,
+                                actions
+                            )
+                        )
+                    }
+                    while (!launch.isCompleted);
                     println(R.string.done_search)
                 }
 

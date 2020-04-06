@@ -93,6 +93,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import kotlin.coroutines.Continuation;
+import kotlin.coroutines.CoroutineContext;
+import kotlinx.coroutines.GlobalScope;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
@@ -339,6 +342,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
                         assert locationManager != null;
                     }
                     try {
+
                         recyclerView.setAdapter(new Adapter(new Search().main(query, MainActivity.this, MainActivity.this, null, feedModel1, MainActivity.this), act));
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -474,8 +478,10 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         return (T) new Parse().yamlArrayToObject(s, SkillsModel.class);
     }
 
+
     @Override
-    public void runActions(@NotNull ArrayList<SkillsModel> arrayList, String term) {
-        new RunActions().doIt(arrayList, term, this, this, this);
+    public void runActions(@NotNull ArrayList<SkillsModel> action, @NotNull String term) {
+        new RunActions().doIt(action, term, this, this, this);
+
     }
 }

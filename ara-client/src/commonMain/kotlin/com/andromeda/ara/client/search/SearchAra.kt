@@ -29,6 +29,7 @@ class SearchAra {
     @OptIn(ImplicitReflectionSerializer::class)
     suspend fun search(lat: String, log: String, term: String, locale: String, actions: Actions): ArrayList<FeedModel> {
         val client = HttpClient()
+
         val data = client.get<String>(ServerUrl.getStandardSearch(
                 term = term,
                 log = log,

@@ -18,14 +18,23 @@ package com.andromeda.ara.client.util
 
 import com.andromeda.ara.client.models.NewsData
 import com.andromeda.ara.client.models.OutputModel
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.HttpClientEngine
 import kotlinx.serialization.ImplicitReflectionSerializer
+import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.parse
 
 class JsonParse {
+    @OptIn(UnstableDefault::class)
     @ImplicitReflectionSerializer
     fun outputModel(text:String): ArrayList<OutputModel> {
-        return Json.parse(text)
+        val array = arrayListOf<OutputModel>()
+        Json.parseJson(text).jsonArray.forEach {
+            val jo = it.jsonObject
+            array.add(OutputModel(jo.get("title").toString(), jo.get("description").toString(), jo.get("link").toString(), jo.get("image").toString(), jo.get("OutputTxt").toString(), jo.get("exes").toString()))
+        }
+                return array
     }
     @ImplicitReflectionSerializer
     fun newsData(text:String): ArrayList<NewsData> {

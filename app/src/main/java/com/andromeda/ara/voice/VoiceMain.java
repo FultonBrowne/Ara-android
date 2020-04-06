@@ -67,6 +67,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import kotlin.coroutines.Continuation;
+import kotlin.coroutines.CoroutineContext;
+import kotlinx.coroutines.GlobalScope;
+
 import static com.andromeda.ara.constants.ConstantUtils.AUDIO_FORMAT;
 import static com.andromeda.ara.constants.ConstantUtils.AUDIO_SOURCE;
 import static com.andromeda.ara.constants.ConstantUtils.CHANNEL_CONFIG;
@@ -106,7 +110,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions, Act
         deepSpeech = new DeepSpeech(this);
         recyclerView = findViewById(R.id.listVoice);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Adapter adapter = new Adapter(Collections.singletonList(new FeedModel("hello", "how can I help", "", "", "", true)), this);
+        Adapter adapter = new Adapter(new ArrayList<FeedModel>(), this);
         recyclerView.setAdapter(adapter);
         requestMicrophonePermission();
 
@@ -357,7 +361,8 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions, Act
                 if (link == null) runOnUiThread(new Runnable(){
                     @Override
                     public void run() {
-                        recyclerView.setAdapter(new Adapter(new Search().main(phrase[0], VoiceMain.this, VoiceMain.this, new TTS(), new ArrayList<>(), VoiceMain.this), VoiceMain.this));
+                        recyclerView.setAdapter(new Adapter( new Search().main(phrase[0], VoiceMain.this, VoiceMain.this, new TTS(), new ArrayList<>(), VoiceMain.this), VoiceMain.this));
+
                     }
                 });
                 else new Search().outputPing(link.replace("TERM", phrase[0]), getApplicationContext(), this, this);

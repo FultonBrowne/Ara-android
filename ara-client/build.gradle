@@ -25,7 +25,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation kotlin('stdlib-common')
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.20.0") // JVM dependency
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.20.0-mpp-dev-1") // JVM dependency
                 implementation("io.ktor:ktor-client-core:$ktor_version")
             }
         }

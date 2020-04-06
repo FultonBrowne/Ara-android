@@ -67,7 +67,7 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
                                         position: Int, id: Long) {
                 val text = SkillsMap().map(position)
                 outList.remove(toOut)
-                skills = SkillsModel(text, skills.arg1, skills.arg2)
+                skills = SkillsModel(text!!, skills.arg1!!, skills.arg2!!)
                 toOut = TempSkillsStore(skills, mainNum)
                 userHintTextView.setText(URL("https://ara-server.azurewebsites.net/skillsdata/$text").readText())
                 outList.add(toOut)
@@ -77,7 +77,7 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
             override fun onNothingSelected(arg0: AdapterView<*>?) {}
         }
         try {
-            spinner.setSelection(SkillsMap().mapFlip(model.action)!!)
+            spinner.setSelection(SkillsMap().mapFlip(model.action!!)!!)
         } catch (e: Exception) {
 
         }
@@ -103,7 +103,7 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
                 outList.remove(toOut)
                 val text = arg1Text.text.toString()
                 outList.remove(toOut)
-                skills = SkillsModel(skills.action, text, arg2Text.text.toString())
+                skills = SkillsModel(skills.action!!, text, arg2Text.text.toString())
                 toOut = TempSkillsStore(skills, mainNum)
                 outList.add(toOut)
 
@@ -122,7 +122,7 @@ class SkillsAdapter(private val list: List<SkillsModel>, act: Activity) : Recycl
                 outList.remove(toOut)
                 val text = arg2Text.text.toString()
                 outList.remove(toOut)
-                skills = SkillsModel(skills.action, arg1Text.text.toString(), text)
+                skills = SkillsModel(skills.action!!, arg1Text.text.toString(), text)
                 toOut = TempSkillsStore(skills, mainNum)
                 outList.add(toOut)
 

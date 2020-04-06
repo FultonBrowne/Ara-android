@@ -123,7 +123,7 @@ class SkillsActivity : AppCompatActivity() {
                     val actionToRun = allData?.action?.action
                     val toAdapter = Parse().parse(actionToRun);
                     name = allData!!.name
-                    runOn = allData!!.action.arg1
+                    runOn = allData!!.action.arg1!!
                     adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
                     recView?.adapter = adapter
                 }

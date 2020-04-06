@@ -25,7 +25,7 @@ import kotlinx.serialization.ImplicitReflectionSerializer
 
 class SearchAra {
     @ImplicitReflectionSerializer
-    suspend fun search(lat: String, log: String, term: String, locale: String): ArrayList<OutputModel> {
+    suspend fun search(lat: String, log: String, term: String, locale: String, actions: Actions): ArrayList<OutputModel> {
         val client = HttpClient()
         val data = client.get<String>(ServerUrl.getStandardSearch(
                 term = term,
@@ -34,7 +34,14 @@ class SearchAra {
                 locale = locale
         ))
         client.close()
-        return JsonParse().outputModel(data)
+        val outputModel = JsonParse().outputModel(data)
+        try {
+            //actions.runActions()
+        }
+        catch (e:Exception){
+            println(e.message)
+        }
+        return outputModel
 
     }
 }

@@ -17,10 +17,12 @@
 package com.andromeda.ara.client.search
 
 import com.andromeda.ara.client.models.TabModel
+import kotlin.reflect.KClass
 
 
 interface Actions {
     fun runActions(action:String, arg1:String, arg2:String)
+    fun parseYaml(yaml:String, classToParse:KClass<Any>)
     fun callBack(m:String, link:String)
     fun callForString(m:String):String
     fun onTabTrigger(data:TabModel)

@@ -13,22 +13,18 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.andromeda.ara.util
 
-package com.andromeda.ara.util;
+class SkillsModel {
+    var action: String? = null
+    var arg1: String? = null
+    var arg2: String? = null
 
-public class SkillsModel {
-    public String action;
-    public String arg1;
-    public String arg2;
-
-
-    public SkillsModel(String action, String arg1, String arg2) {
-        this.action = action;
-        this.arg1 = arg1;
-        this.arg2 = arg2;
+    constructor(action: String, arg1: String, arg2: String) {
+        this.action = action
+        this.arg1 = arg1
+        this.arg2 = arg2
     }
 
-    public SkillsModel() {
-    }
-
+    constructor() {}
 }

@@ -37,21 +37,21 @@ class RunActions {
             for (i in yaml) {
                 when (i.action) {
                     "OPEN_APP" -> {
-                        arg1 = if (i.arg1 == "TERM") searchTerm
-                        else i.arg1
+                        arg1 = (if (i.arg1 == "TERM") searchTerm
+                        else i.arg1)!!
                         OpenApp().openApp(arg1, ctx)
                     }
                     "CALL" -> {
-                        arg1 = if (i.arg1 == "TERM") searchTerm
-                        else i.arg1
+                        arg1 = (if (i.arg1 == "TERM") searchTerm
+                        else i.arg1)!!
                         Phone().call(arg1, ctx, act)
 
                     }
                     "TEXT" -> {
-                        arg1 = if (i.arg1 == "TERM") searchTerm
-                        else i.arg1
-                        arg2 = if (i.arg2 == "INFO") respond(searchFunctions, "cxf")
-                        else i.arg2
+                        arg1 = (if (i.arg1 == "TERM") searchTerm
+                        else i.arg1)!!
+                        arg2 = (if (i.arg2 == "INFO") respond(searchFunctions, "cxf")
+                        else i.arg2)!!
                         Text().sendText(arg1, arg2, ctx)
                     }
                     "TOG_MEDIA" -> {
@@ -61,29 +61,31 @@ class RunActions {
                         AraActions.cancel()
                     }
                     "OUTPUT" -> {
-                        returnedVal.add(FeedModel(i.arg2, "", i.arg1, "", "", true))
+                        returnedVal.add(FeedModel(i.arg2!!, "", i.arg1!!, "", "", true))
                     }
                     "SITE" -> {
-                        arg1 = if (i.arg1 == "TERM") searchTerm
-                        else i.arg1
+                        arg1 = (if (i.arg1 == "TERM") searchTerm
+                        else i.arg1)!!
                         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(arg1))
                         act.startActivity(browserIntent)
                     }
                     "MAPS" -> {
-                        val uri = java.lang.String.format(Locale.ENGLISH, "geo:%f,%f", i.arg1.toInt(), i.arg2.toInt())
+                        val uri = java.lang.String.format(Locale.ENGLISH, "geo:%f,%f",
+                            i.arg1?.toInt(), i.arg2?.toInt()
+                        )
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                         ctx.startActivity(intent)
                     }
                     "FLASH" -> {
-                        arg1 = if (i.arg1 == "TERM") searchTerm
-                        else i.arg1
+                        arg1 = (if (i.arg1 == "TERM") searchTerm
+                        else i.arg1)!!
                         if (arg1.equals("on", true)) FlashLight().on()
                         else FlashLight().off()
                     }
                     "TIMER" -> {
                         try{
-                        arg1 = if (i.arg1 == "TERM") searchTerm
-                        else i.arg1
+                        arg1 = (if (i.arg1 == "TERM") searchTerm
+                        else i.arg1)!!
                         val intent = Intent(ctx, AraActions::class.java)
                         intent.putExtra("type", 1)
                         intent.putExtra("length", arg1.toInt())
@@ -96,7 +98,7 @@ class RunActions {
 
                     }
                     "RESPOND" ->{
-                        searchFunctions.callBack(i.arg1, i.arg2.replace("ARASERVER", ServerUrl.url))
+                        searchFunctions.callBack(i.arg1!!, i.arg2!!.replace("ARASERVER", ServerUrl.url))
                     }
                 }
             }

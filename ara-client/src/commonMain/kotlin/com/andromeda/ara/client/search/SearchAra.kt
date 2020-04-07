@@ -46,7 +46,5 @@ class SearchAra {
             println(e.message)
         }
         return ApiOutToFeed().main(outputModel)
-
-
     }
 }

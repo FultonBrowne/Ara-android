@@ -93,9 +93,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import kotlin.coroutines.Continuation;
-import kotlin.coroutines.CoroutineContext;
-import kotlinx.coroutines.GlobalScope;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
@@ -122,41 +119,16 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                        android.Manifest.permission.READ_CONTACTS)) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("Read Contacts permission");
-                    builder.setPositiveButton(android.R.string.ok, null);
-                    builder.setMessage("Please enable access to contacts.");
-                    builder.setOnDismissListener(dialog -> requestPermissions(
-                            new String[]
-                                    {Manifest.permission.READ_CALENDAR, Manifest.permission.READ_CONTACTS, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.WRITE_CALENDAR}
-                            , 555));
-                    builder.show();
-                } else {
-                    ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.READ_CONTACTS, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION},
-                            123);
-                }
-            }
-        }
+        permissions();
         new LogIn().logIn(this);
-
         act = this;
         System.out.println("done part 1");
         new CacheData().main(this);
-
         AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
                 Analytics.class, Crashes.class);
         new GetSettings().starUp(this);
-
         final TagManager main53 = new TagManager(this);
-
         screenWidth = checkScreenWidth();
-
-        final Activity ctx = this;
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -167,8 +139,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
         recyclerView = findViewById(R.id.list);
-
-
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(DrawerModeConstants.HOME).withName("Home").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.home);
         SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.TAGS).withName("Tags").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.tag);
         SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.FOOD).withName("Food").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.food);
@@ -184,8 +154,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 //.withHeaderBackground(R.drawable.back)
-
-
                 .addProfiles(
                         new ProfileDrawerItem().withName(User.INSTANCE.getName()).withEmail(User.INSTANCE.getEmail()))
 
@@ -194,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
 
                 .build();
         runOnUiThread(() -> drawer = new DrawerBuilder()
-                .withActivity(ctx)
+                .withActivity(this)
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
                 .withSliderBackgroundColorRes(R.color.card_color)
@@ -228,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
 
                         } else {
                             try {
-                                new Drawer().main(drawerItem.getIdentifier(), ctx, main53, feedModel1);
+                                new Drawer().main(drawerItem.getIdentifier(), this, main53, feedModel1);
                                 recyclerView.setAdapter(new Adapter(feedModel1, this));
                                 mode = drawerItem.getIdentifier();
                             } catch (Exception e) {
@@ -255,30 +223,50 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
                 }
 
             }
-
-
             @Override
             public void onLongClick(View view, int position) {
                 new CardOnClick().longClick(feedModel1.get(position), getApplicationContext(), main53, mode, act);
             }
         }));
         System.out.println("pre feed");
-
         feedModel1 = (new News().newsGeneral(this));
         System.out.println("feed done");
-        //Adapter
         Adapter mAdapter = new Adapter(feedModel1, this);
-
         recyclerView.setAdapter(mAdapter);
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> {
-            // Start the recording and recognition thread
-            requestMicrophonePermission();
-            Intent intent = new Intent(ctx, VoiceMain.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        });
+        fab.setOnClickListener(view -> launchVoice());
 
+    }
+
+    private void launchVoice() {
+        // Start the recording and recognition thread
+        requestMicrophonePermission();
+        Intent intent = new Intent(this, VoiceMain.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void permissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.READ_CONTACTS)) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Read Contacts permission");
+                    builder.setPositiveButton(android.R.string.ok, null);
+                    builder.setMessage("Please enable access to contacts.");
+                    builder.setOnDismissListener(dialog -> requestPermissions(
+                            new String[]
+                                    {Manifest.permission.READ_CALENDAR, Manifest.permission.READ_CONTACTS, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.WRITE_CALENDAR}
+                            , 555));
+                    builder.show();
+                } else {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.READ_CONTACTS, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION},
+                            123);
+                }
+            }
+        }
     }
 
     private void checkScreenOrientation() {

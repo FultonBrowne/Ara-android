@@ -17,17 +17,25 @@
 package com.andromeda.ara.feeds
 
 import android.content.Context
+import com.andromeda.ara.client.feeds.News
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.NewsData
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.net.URL
 import java.util.*
 
 class News {
     fun newsGeneral(): ArrayList<FeedModel> {
-        return getFromLink(ServerUrl.url + linkMapGeneral(Locale.getDefault()))
+        val generalAsFeed = arrayListOf<FeedModel>()
+        GlobalScope.launch {
+            generalAsFeed.addAll(News().generalAsFeed(Locale.getDefault().country))
+        }
+        return generalAsFeed
+
 
     }
     fun newsGeneral(ctx:Context): ArrayList<FeedModel> {

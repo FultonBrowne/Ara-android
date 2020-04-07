@@ -70,6 +70,7 @@ import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.JsonParse;
 import com.andromeda.ara.util.LogIn;
 import com.andromeda.ara.util.RecyclerTouchListener;
+import com.andromeda.ara.util.SetFeedData;
 import com.andromeda.ara.util.TabAdapter;
 import com.andromeda.ara.util.TagManager;
 import com.andromeda.ara.voice.VoiceMain;
@@ -96,7 +97,7 @@ import java.util.Objects;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
-public class MainActivity extends AppCompatActivity implements SearchFunctions, Actions {
+public class MainActivity extends AppCompatActivity implements SearchFunctions, Actions, SetFeedData {
     /**
      * these have to do with permissions
      **/
@@ -330,8 +331,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
                         assert locationManager != null;
                     }
                     try {
-
-                        recyclerView.setAdapter(new Adapter(new Search().main(query, MainActivity.this, MainActivity.this, null, feedModel1, MainActivity.this), act));
+                        new Search().main(query, MainActivity.this, MainActivity.this, null, feedModel1, MainActivity.this, MainActivity.this::setData);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -471,5 +471,13 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     public void runActions(@NotNull ArrayList<SkillsModel> action, @NotNull String term) {
         new RunActions().doIt(action, term, this, this, this);
 
+    }
+
+    @Override
+    public void setData(@NotNull ArrayList<FeedModel> feedModel) {
+        runOnUiThread(() -> {
+            recyclerView.setAdapter(new Adapter(feedModel, this));
+
+        });
     }
 }

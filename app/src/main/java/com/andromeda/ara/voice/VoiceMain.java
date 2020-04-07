@@ -48,6 +48,7 @@ import com.andromeda.ara.util.ApiOutputToRssFeed;
 import com.andromeda.ara.util.DownloadTask;
 import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.JsonParse;
+import com.andromeda.ara.util.SetFeedData;
 import com.andromeda.ara.util.SpellChecker;
 import com.andromeda.ara.util.TabAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -62,14 +63,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import kotlin.coroutines.Continuation;
-import kotlin.coroutines.CoroutineContext;
-import kotlinx.coroutines.GlobalScope;
 
 import static com.andromeda.ara.constants.ConstantUtils.AUDIO_FORMAT;
 import static com.andromeda.ara.constants.ConstantUtils.AUDIO_SOURCE;
@@ -77,7 +73,7 @@ import static com.andromeda.ara.constants.ConstantUtils.CHANNEL_CONFIG;
 import static com.andromeda.ara.constants.ConstantUtils.REQUEST_RECORD_AUDIO;
 import static com.andromeda.ara.constants.ConstantUtils.SAMPLE_RATE_HZ;
 
-public class VoiceMain extends AppCompatActivity implements SearchFunctions, Actions {
+public class VoiceMain extends AppCompatActivity implements SearchFunctions, Actions, SetFeedData {
     private FileOutputStream os = null;
     private Thread recordingThread;
     boolean isRecording;
@@ -361,7 +357,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions, Act
                 if (link == null) runOnUiThread(new Runnable(){
                     @Override
                     public void run() {
-                        recyclerView.setAdapter(new Adapter( new Search().main(phrase[0], VoiceMain.this, VoiceMain.this, new TTS(), new ArrayList<>(), VoiceMain.this), VoiceMain.this));
+                         new Search().main(phrase[0], VoiceMain.this, VoiceMain.this, new TTS(), new ArrayList<>(), VoiceMain.this, VoiceMain.this::setData);
 
                     }
                 });
@@ -453,5 +449,13 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions, Act
     @Override
     public void runActions(@NotNull ArrayList<SkillsModel> arrayList, String term) {
         new RunActions().doIt(arrayList, term, this, this, this);
+    }
+
+    @Override
+    public void setData(@NotNull ArrayList<FeedModel> feedModel) {
+        runOnUiThread(() -> {
+            recyclerView.setAdapter(new Adapter(feedModel, this));
+
+        });
     }
 }

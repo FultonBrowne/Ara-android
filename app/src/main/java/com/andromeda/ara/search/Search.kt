@@ -38,6 +38,7 @@ import com.andromeda.ara.skills.RunActions
 import com.andromeda.ara.skills.SearchFunctions
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.JsonParse
+import com.andromeda.ara.util.SetFeedData
 import com.andromeda.ara.voice.TTS
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -47,7 +48,7 @@ import kotlin.collections.ArrayList
 
 
 class Search {
-fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: TTS?, outputList: ArrayList<FeedModel>, actions: Actions): ArrayList<FeedModel> {
+fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: TTS?, outputList: ArrayList<FeedModel>, actions: Actions, setFeedData: SetFeedData): ArrayList<FeedModel> {
 
         var done2 = false
         var lat = 0.0
@@ -88,22 +89,23 @@ fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: 
                                 actions
                             )
                         )
+                        act.runOnUiThread {
+                            tts?.start(act, outputList[0].out)
+                            val elements = TabModel("ara", ServerUrl.getStandardSearch(mainval, log.toString(), lat.toString()))
+                            val web = TabModel("web", ServerUrl.getWebSearch(mainval, log.toString(), lat.toString()))
+                            val image = TabModel("images", ServerUrl.getImageSearch(mainval, log.toString(), lat.toString()))
+                            val news = TabModel("news", ServerUrl.getNewsSearch(mainval, log.toString(), lat.toString()))
+                            val video = TabModel("video", ServerUrl.getVideoSearch(mainval, log.toString(), lat.toString()))
+                            val data = arrayListOf(elements, web, image, news,video)
+                            searchFunctions.addTabData(data)
+
+                        }
+                        setFeedData.setData(outputList)
                     }
-                    while (!launch.isCompleted);
                     println(R.string.done_search)
                 }
 
-            act.runOnUiThread {
-                tts?.start(act, outputList[0].out)
-                val elements = TabModel("ara", ServerUrl.getStandardSearch(mainval, log.toString(), lat.toString()))
-                val web = TabModel("web", ServerUrl.getWebSearch(mainval, log.toString(), lat.toString()))
-                val image = TabModel("images", ServerUrl.getImageSearch(mainval, log.toString(), lat.toString()))
-                val news = TabModel("news", ServerUrl.getNewsSearch(mainval, log.toString(), lat.toString()))
-                val video = TabModel("video", ServerUrl.getVideoSearch(mainval, log.toString(), lat.toString()))
-                val data = arrayListOf(elements, web, image, news,video)
-                searchFunctions.addTabData(data)
 
-            }
         return outputList
     }
 

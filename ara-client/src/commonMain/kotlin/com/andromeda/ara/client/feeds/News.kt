@@ -34,11 +34,16 @@ class News {
         val get = ReadURL().get("${ServerUrl.url}/${linkMapGeneral(locale)}")
         return JsonParse().newsAsFeed(get)
     }
-    fun tech(){
+    @ImplicitReflectionSerializer
+    suspend fun tech(): ArrayList<FeedModel> {
+        val get = ReadURL().get("${ServerUrl.url}/news/tech")
+        return JsonParse().newsAsFeed(get)
 
     }
-    fun money(){
-
+    @ImplicitReflectionSerializer
+    suspend fun money(): ArrayList<FeedModel> {
+        val get = ReadURL().get("${ServerUrl.url}news/money")
+        return JsonParse().newsAsFeed(get)
     }
     private fun linkMapGeneral(locale: String): String? {
         val map = mapOf("us" to "news/us", "uk" to "news/uk")

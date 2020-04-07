@@ -34,6 +34,12 @@ class News {
         val get = ReadURL().get("${ServerUrl.url}/${linkMapGeneral(locale)}")
         return JsonParse().newsAsFeed(get)
     }
+    fun tech(){
+
+    }
+    fun money(){
+
+    }
     private fun linkMapGeneral(locale: String): String? {
         val map = mapOf("us" to "news/us", "uk" to "news/uk")
         return map.getOrElse(locale, { return "news/us"})

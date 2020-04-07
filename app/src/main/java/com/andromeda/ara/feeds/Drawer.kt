@@ -28,6 +28,7 @@ import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.JsonParse
+import com.andromeda.ara.util.SetFeedData
 import com.andromeda.ara.util.TagManager
 import java.io.IOException
 import java.net.URL
@@ -35,7 +36,7 @@ import java.net.URL
 
 class Drawer {
     @Throws(IOException::class)
-    fun main(drawerItem: Long, ctx: Context, Db: TagManager, feedModel1: ArrayList<FeedModel>): ArrayList<FeedModel>? {
+    fun main(drawerItem: Long, ctx: Context, Db: TagManager, feedModel1: ArrayList<FeedModel>, setFeedData: SetFeedData): ArrayList<FeedModel>? {
         var lat = 0.0
         var log = 0.0
         feedModel1.clear()
@@ -56,7 +57,7 @@ class Drawer {
 
         when (drawerItem) {
             DrawerModeConstants.HOME -> {
-                feedModel1.addAll(News().newsGeneral(ctx))
+                feedModel1.addAll(News().newsGeneral(ctx, setFeedData))
                 return feedModel1
             }
             DrawerModeConstants.TAGS -> {
@@ -104,7 +105,7 @@ class Drawer {
                 return feedModel1
             }
             104L -> {
-                feedModel1.addAll(News().newsGeneral())
+                feedModel1.addAll(News().newsGeneral(setFeedData))
                 return feedModel1
             }
             102L -> {

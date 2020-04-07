@@ -23,26 +23,34 @@ import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.NewsData
+import com.andromeda.ara.util.SetFeedData
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.URL
 import java.util.*
 
 class News {
-    fun newsGeneral(): ArrayList<FeedModel> {
+    fun newsGeneral(setFeedData: SetFeedData): ArrayList<FeedModel> {
         val generalAsFeed = arrayListOf<FeedModel>()
         GlobalScope.launch {
             generalAsFeed.addAll(News().generalAsFeed(Locale.getDefault().country))
+            setFeedData.setData(generalAsFeed)
         }
         return generalAsFeed
 
 
     }
-    fun newsGeneral(ctx:Context): ArrayList<FeedModel> {
-        val feedData = newsGeneral()
+    fun newsGeneral(ctx:Context, setFeedData: SetFeedData): ArrayList<FeedModel> {
+        val feedData = newsGeneral(setFeedData)
         try {
-            feedData.addAll(0,
-                    CalUtility().getClosestEvents(ctx))
+            GlobalScope.launch {
+                feedData.addAll(News().generalAsFeed(Locale.getDefault().country))
+                feedData.addAll(
+                    0,
+                    CalUtility().getClosestEvents(ctx)
+                )
+                setFeedData.setData(feedData)
+            }
         }
         catch (e:Exception){
             e.printStackTrace()

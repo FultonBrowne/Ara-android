@@ -24,6 +24,7 @@ import io.ktor.client.engine.HttpClientEngine
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.content
 import kotlinx.serialization.parse
 
 class JsonParse {
@@ -33,7 +34,7 @@ class JsonParse {
         val array = arrayListOf<OutputModel>()
         Json.parseJson(text).jsonArray.forEach {
             val jo = it.jsonObject
-            array.add(OutputModel(jo.get("title").toString(), jo.get("description").toString(), jo.get("link").toString(), jo.get("image").toString(), jo.get("OutputTxt").toString(), jo.get("exes").toString()))
+            array.add(OutputModel(jo.get("title")!!.content, jo.get("description")!!.content, jo.get("link")!!.content, jo.get("image")!!.content, jo.get("OutputTxt")!!.content, jo.get("exes")!!.content))
         }
                 return array
     }
@@ -42,7 +43,8 @@ class JsonParse {
         val array = arrayListOf<NewsData>()
         Json.parseJson(text).jsonArray.forEach {
             val jo = it.jsonObject
-            array.add(NewsData(jo["title"].toString(),jo["info"].toString(), "", jo["link"].toString(), jo["pic"].toString() ))
+            array.add(NewsData(jo["title"]!!.content,
+                jo["info"]!!.content, "", jo["link"]!!.content, jo["pic"]!!.content ))
         }
         return array
     }

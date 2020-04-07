@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
 
                         } else {
                             try {
-                                new Drawer().main(drawerItem.getIdentifier(), this, main53, feedModel1);
+                                new Drawer().main(drawerItem.getIdentifier(), this, main53, feedModel1, this::setData);
                                 recyclerView.setAdapter(new Adapter(feedModel1, this));
                                 mode = drawerItem.getIdentifier();
                             } catch (Exception e) {

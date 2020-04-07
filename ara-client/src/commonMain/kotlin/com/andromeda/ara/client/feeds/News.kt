@@ -16,6 +16,7 @@
 
 package com.andromeda.ara.client.feeds
 
+import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.client.models.NewsData
 import com.andromeda.ara.client.util.JsonParse
 import com.andromeda.ara.client.util.ReadURL
@@ -27,6 +28,11 @@ class News {
     suspend fun general(locale: String): ArrayList<NewsData> {
         val get = ReadURL().get("${ServerUrl.url}/${linkMapGeneral(locale)}")
         return JsonParse().newsData(get)
+    }
+    @ImplicitReflectionSerializer
+    suspend fun generalAsFeed(locale: String): ArrayList<FeedModel> {
+        val get = ReadURL().get("${ServerUrl.url}/${linkMapGeneral(locale)}")
+        return JsonParse().newsAsFeed(get)
     }
     private fun linkMapGeneral(locale: String): String? {
         val map = mapOf("us" to "news/us", "uk" to "news/uk")

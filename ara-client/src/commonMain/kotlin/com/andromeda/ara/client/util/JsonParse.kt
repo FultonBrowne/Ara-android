@@ -16,6 +16,7 @@
 
 package com.andromeda.ara.client.util
 
+import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.client.models.NewsData
 import com.andromeda.ara.client.models.OutputModel
 import io.ktor.client.HttpClient
@@ -38,6 +39,20 @@ class JsonParse {
     }
     @ImplicitReflectionSerializer
     fun newsData(text:String): ArrayList<NewsData> {
-        return Json.parse(text)
+        val array = arrayListOf<NewsData>()
+        Json.parseJson(text).jsonArray.forEach {
+            val jo = it.jsonObject
+            array.add(NewsData(jo["title"].toString(),jo["info"].toString(), "", jo["link"].toString(), jo["pic"].toString() ))
+        }
+        return array
+    }
+    @ImplicitReflectionSerializer
+    fun newsAsFeed(text:String): ArrayList<FeedModel> {
+        val feedData = arrayListOf<FeedModel>()
+        val news = newsData(text)
+        for (i in news) {
+            feedData.add(FeedModel(i.info, i.link, i.title, i.pic, "", true))
+        }
+        return feedData
     }
 }

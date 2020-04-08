@@ -16,8 +16,21 @@
 
 package com.andromeda.ara.client.feeds
 
-class Food {
-    fun getAsFeed(){
+import com.andromeda.ara.client.models.FeedModel
+import com.andromeda.ara.client.models.OutputModel
+import com.andromeda.ara.client.util.ApiOutToFeed
+import com.andromeda.ara.client.util.JsonParse
+import com.andromeda.ara.client.util.ReadURL
+import com.andromeda.ara.client.util.ServerUrl
+import kotlinx.serialization.ImplicitReflectionSerializer
 
+class Food {
+    @ImplicitReflectionSerializer
+    suspend fun getAsFeed(log:String, lat:String): ArrayList<FeedModel> {
+        return ApiOutToFeed().main(getAsApi(log, lat))
+    }
+    @ImplicitReflectionSerializer
+    suspend fun getAsApi(log:String, lat:String): ArrayList<OutputModel> {
+        return JsonParse().outputModel(ReadURL().get("${ServerUrl.url}yelpclient/&log=$log&lat=$lat"))
     }
 }

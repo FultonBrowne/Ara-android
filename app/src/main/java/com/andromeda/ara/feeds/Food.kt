@@ -17,6 +17,7 @@
 package com.andromeda.ara.feeds
 
 
+import com.andromeda.ara.client.feeds.Food
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.util.ApiOutputToRssFeed
@@ -26,8 +27,8 @@ import java.util.*
 
 
 class Food {
-    fun getFood(log: String, lat: String): ArrayList<FeedModel> {
-        return ApiOutputToRssFeed().main(JsonParse().search(URL("${ServerUrl.url}yelpclient/&log=$log&lat=$lat").readText()))
+    suspend fun getFood(log: String, lat: String): ArrayList<FeedModel> {
+        return Food().getAsFeed(log, lat)
     }
 
 }

@@ -31,6 +31,8 @@ import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.SetFeedData
 import com.andromeda.ara.util.TagManager
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.IOException
 import java.net.URL
 
@@ -94,8 +96,10 @@ class Drawer {
 
             }
             DrawerModeConstants.FOOD -> {
-                feedModel1.addAll(Food().getFood(log.toString(), lat.toString()))
-                return feedModel1
+                GlobalScope.launch {
+                    setFeedData.setData(Food().getFood(log.toString(), lat.toString()))
+                }
+                return null
             }
             DrawerModeConstants.CAL -> {
                 feedModel1.addAll( CalUtility.readCalendarEvent(ctx))

@@ -19,6 +19,8 @@ package com.andromeda.ara.client.iot
 import com.andromeda.ara.client.util.ReadURL
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
+import io.ktor.client.request.header
+import io.ktor.client.request.host
 import io.ktor.http.HttpMethod
 import io.ktor.http.URLBuilder
 
@@ -27,6 +29,8 @@ object IotRequest {
         val client = HttpClient()
         val request = HttpRequestBuilder()
         request.method = HttpMethod("GET")
+        request.host = "${IotData.urlToApi}/$command"
+        request.header("", "")
 
     }
 }

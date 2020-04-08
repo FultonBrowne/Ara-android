@@ -63,11 +63,11 @@ class News {
         val map = mapOf(Locale.US to "news/us", Locale.UK to "news/")
         return map.getOrElse(locale, { return "news/us"})
     }
-    fun newsTech(): ArrayList<FeedModel> {
+    fun newsTech(setFeedData: SetFeedData): ArrayList<FeedModel> {
         return getFromLink(ServerUrl.url + "news/tech")
 
     }
-    fun newsMoney(): ArrayList<FeedModel> {
+    fun newsMoney(setFeedData: SetFeedData): ArrayList<FeedModel> {
         return getFromLink(ServerUrl.url + "news/money")
 
     }

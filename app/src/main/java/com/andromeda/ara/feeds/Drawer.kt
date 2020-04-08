@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2020. Fulton Browne
  *  This program is free software: you can redistribute it and/or modify
@@ -109,11 +110,11 @@ class Drawer {
                 return feedModel1
             }
             102L -> {
-                feedModel1.addAll(News().newsTech())
+                feedModel1.addAll(News().newsTech(setFeedData))
                 return feedModel1
             }
             105L -> {
-                feedModel1.addAll(News().newsMoney())
+                feedModel1.addAll(News().newsMoney(setFeedData))
                 return feedModel1
             }
             else -> {

@@ -59,16 +59,22 @@ class News {
         return feedData
 
     }
-    private fun linkMapGeneral(locale: Locale): String? {
-        val map = mapOf(Locale.US to "news/us", Locale.UK to "news/")
-        return map.getOrElse(locale, { return "news/us"})
-    }
     fun newsTech(setFeedData: SetFeedData): ArrayList<FeedModel> {
-        return getFromLink(ServerUrl.url + "news/tech")
+        val generalAsFeed = arrayListOf<FeedModel>()
+        GlobalScope.launch {
+            generalAsFeed.addAll(News().tech())
+            setFeedData.setData(generalAsFeed)
+        }
+        return generalAsFeed
 
     }
     fun newsMoney(setFeedData: SetFeedData): ArrayList<FeedModel> {
-        return getFromLink(ServerUrl.url + "news/money")
+        val generalAsFeed = arrayListOf<FeedModel>()
+        GlobalScope.launch {
+            generalAsFeed.addAll(News().money())
+            setFeedData.setData(generalAsFeed)
+        }
+        return generalAsFeed
 
     }
 

@@ -16,17 +16,22 @@
 
 package com.andromeda.ara.client.reminders
 
+import com.andromeda.ara.client.models.RemindersModel
+
 class Reminders {
-    fun get(){
+    fun get(id:String, user:String){
     }
-    fun new(){
+    fun get(user: String){
 
     }
-    fun delete(){
+    fun new(remindersModel: RemindersModel, user: String){
+
+    }
+    fun delete(id:String, user: String){
 
     }
 
-    fun set(){
+    fun set(id: String, user: String, remindersModel: RemindersModel){
 
     }
 }

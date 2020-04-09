@@ -56,13 +56,12 @@ class LogIn {
 
     private fun startLogIn( serviceConfiguration: AuthorizationServiceConfiguration?, act: Activity) {
         println("go")
-        val config1 = serviceConfiguration
-        val req: AuthorizationRequest = AuthorizationRequest.Builder(config1!!, "e4e16983-2565-496c-aa70-8fe0f1bf0907", ResponseTypeValues.CODE, Uri.parse("msale4e16983-2565-496c-aa70-8fe0f1bf0907://auth"))
+        val req: AuthorizationRequest = AuthorizationRequest.Builder(serviceConfiguration!!, "e4e16983-2565-496c-aa70-8fe0f1bf0907", ResponseTypeValues.CODE, Uri.parse("msale4e16983-2565-496c-aa70-8fe0f1bf0907://auth"))
                 .setScope("openid")
                 .setPrompt("login")
                 .build()
         println(req.toUri())
-        authState = AuthState(config1)
+        authState = AuthState(serviceConfiguration)
         val generator = Random()
         service = AuthorizationService(act)
         val i = PendingIntent.getActivity(act, generator.nextInt(), Intent(act, GetData::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
@@ -89,7 +88,9 @@ class LogIn {
                 Toast.makeText(this, "logged in", Toast.LENGTH_LONG).show()
 
             } else { //
-                Toast.makeText(this, "fail", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, ":( Ara  has run in to a problem an needs to restart" +
+                        "error code: ${ex?.code}" +
+                        "${ex?.error}", Toast.LENGTH_LONG).show()
                 throw ex!!// authorization failed, check ex for more details
             }
             onBackPressed()
@@ -105,9 +106,11 @@ class LogIn {
             Log.d("JWT_DECODED", "Header: " + getJson(split[0]))
             val body = getJson(split[1])
             val jsonParser = JsonParser()
-            User.id = jsonParser.parse(body).asJsonObject.get("sub").asString
-            User.name= jsonParser.parse(body).asJsonObject.get("given_name").asString
-            User.name= jsonParser.parse(body).asJsonObject.get("name").asString
+            val id = jsonParser.parse(body).asJsonObject.get("sub").asString
+            User.id = id
+            val name = jsonParser.parse(body).asJsonObject.get("name").asString
+            User.name= name
+            com.andromeda.ara.client.util.User.config(name, "", id)
             Log.d("JWT_DECODED", "Body: $body")
         } catch (e: UnsupportedEncodingException) { //Error
         }

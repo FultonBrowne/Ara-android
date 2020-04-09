@@ -26,8 +26,6 @@ import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
-import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
@@ -37,7 +35,9 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
+import com.andromeda.ara.client.models.RemindersModel
 import com.andromeda.ara.client.models.SkillsModel
+import com.andromeda.ara.client.reminders.Reminders
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.ServerUrl.url
 import com.andromeda.ara.constants.User
@@ -49,6 +49,8 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.google.gson.Gson
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.*
 import java.io.IOException
 import java.net.URL
@@ -191,6 +193,9 @@ class AraPopUps {
                    R.id.reminderName)?.text.toString()
             println(title)
             val info = create?.findViewById<TextView>(R.id.reminderTitle)?.text.toString()
+            GlobalScope.launch {
+                Reminders().new(RemindersModel(title, info, time))
+            }
             println(URL("$url/remindernn/name=$title&user=$id&time=$time&info=$info".replace(" ", "%20")).readText())
         }
         create = alert.create()
@@ -236,7 +241,7 @@ class AraPopUps {
                     R.id.reminderName)?.text.toString()
             println(title)
             val info = create?.findViewById<TextView>(R.id.reminderTitle)?.text.toString()
-            println(URL("$url/reminderu/name=$title&user=${User.id}&time=$time&info=$info&id=$id1".replace(" ", "%20")).readText())
+            Reminders().set(id, RemindersModel(title, info, time))
         }
         create = alert.create()
         create.show()
@@ -257,11 +262,11 @@ class AraPopUps {
         builder.setView(input)
         builder.setPositiveButton("Yes") { _, _ ->
             println(URL("$url/reminderd/&user=${User.id}&id=$id".replace(" ", "%20")).readText())
+            GlobalScope.launch {
+                Reminders().delete(id)
+            }
         }
-        builder.setNeutralButton("help"){ _: DialogInterface, i: Int ->
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FultonBrowne/Ara-android/wiki/How-to-set-up-Home-assistant-with-Ara"))
-            ctx.startActivity(browserIntent)
-        }
+
         builder.show()
 
     }

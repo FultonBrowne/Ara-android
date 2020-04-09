@@ -31,7 +31,7 @@ class Reminders {
         val remindersList = ServerUrl.getRemindersList("", "", "", "")
         ReadURL().get(remindersList)
     }
-    suspend fun new(remindersModel: RemindersModel, user: String){
+    suspend fun new(remindersModel: RemindersModel){
         val replace =
             "$url/remindernn/name=$remindersModel&user=${User.id}&time=${remindersModel.time}&info=${remindersModel.body}".replace(
                 " ",
@@ -39,7 +39,7 @@ class Reminders {
             )
         ReadURL().get(replace)
     }
-    suspend fun delete(id:String, user: String){
+    suspend fun delete(id: String){
         val replace =
             "$url/reminderd/name=&user=${User.id}&id=$id".replace(
                 " ",

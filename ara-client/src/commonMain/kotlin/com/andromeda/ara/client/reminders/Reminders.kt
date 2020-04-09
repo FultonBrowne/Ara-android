@@ -14,25 +14,19 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.client.iot
+package com.andromeda.ara.client.reminders
 
-import com.andromeda.ara.client.util.ReadURL
-import io.ktor.client.HttpClient
-import io.ktor.client.request.HttpRequestBuilder
-import io.ktor.client.request.header
-import io.ktor.client.request.host
-import io.ktor.client.request.request
-import io.ktor.http.HttpMethod
-import io.ktor.http.URLBuilder
+class Reminders {
+    fun get(){
+    }
+    fun new(){
 
-object IotRequest {
-    suspend fun getRequest(command:String){
-        val client = HttpClient()
-        val request = HttpRequestBuilder()
-        request.method = HttpMethod("GET")
-        request.host = "${IotData.urlToApi}/$command"
-        request.header("Authorization", "Bearer ${IotData.accessKey}")
-        client.request<String>(request)
+    }
+    fun delete(){
+
+    }
+
+    fun set(){
 
     }
 }

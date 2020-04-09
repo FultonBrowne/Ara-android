@@ -24,7 +24,8 @@ object ServerUrl {
     fun getStandardSearch(term:String, log:String, lat:String, locale:String): String {
         return "$url/api/${searchDataParser(term, log, lat, locale)}"
     }
-    fun getWebSearch(term:String, log:String, lat:String, locale:String): String {
+
+        fun getWebSearch(term:String, log:String, lat:String, locale:String): String {
         return "$url/searchb/${searchDataParser(term, log, lat, locale)}"
     }
     fun getImageSearch(term:String, log:String, lat:String, locale:String): String {

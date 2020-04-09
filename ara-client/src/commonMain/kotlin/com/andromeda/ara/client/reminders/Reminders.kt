@@ -17,17 +17,35 @@
 package com.andromeda.ara.client.reminders
 
 import com.andromeda.ara.client.models.RemindersModel
+import com.andromeda.ara.client.util.ReadURL
+import com.andromeda.ara.client.util.ServerUrl
+import com.andromeda.ara.client.util.ServerUrl.url
+import com.andromeda.ara.client.util.User
 
 class Reminders {
-    fun get(id:String, user:String){
+    suspend fun get(id:String){
+        val reminderUrl = ServerUrl.getReminder(id)
+        ReadURL().get(reminderUrl)
     }
-    fun get(user: String){
-
+    suspend fun get(){
+        val remindersList = ServerUrl.getRemindersList("", "", "", "")
+        ReadURL().get(remindersList)
     }
-    fun new(remindersModel: RemindersModel, user: String){
-
+    suspend fun new(remindersModel: RemindersModel, user: String){
+        val replace =
+            "$url/remindernn/name=$remindersModel&user=${User.id}&time=${remindersModel.time}&info=${remindersModel.body}".replace(
+                " ",
+                "%20"
+            )
+        ReadURL().get(replace)
     }
-    fun delete(id:String, user: String){
+    suspend fun delete(id:String, user: String){
+        val replace =
+            "$url/remindernn/name=&user=${User.id}&id=$id".replace(
+                " ",
+                "%20"
+            )
+        ReadURL().get(replace)
 
     }
 

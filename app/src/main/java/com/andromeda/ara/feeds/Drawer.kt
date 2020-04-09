@@ -24,6 +24,7 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
 import com.andromeda.ara.client.models.FeedModel
+import com.andromeda.ara.client.reminders.Reminders
 import com.andromeda.ara.constants.DrawerModeConstants
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.phoneData.CalUtility
@@ -106,8 +107,10 @@ class Drawer {
                 return feedModel1
             }
             DrawerModeConstants.REMINDERS ->{
-                feedModel1.addAll(ApiOutputToRssFeed().main(JsonParse().search(URL(ServerUrl.getRemindersList("", log.toString(), lat.toString())).readText())))
-                return feedModel1
+                GlobalScope.launch {
+                    setFeedData.setData(Reminders().get())
+                }
+                return null
             }
             104L -> {
                 feedModel1.addAll(News().newsGeneral(setFeedData))

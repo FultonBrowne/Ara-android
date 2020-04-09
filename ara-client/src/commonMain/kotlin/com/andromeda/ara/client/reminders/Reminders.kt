@@ -16,20 +16,21 @@
 
 package com.andromeda.ara.client.reminders
 
+import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.client.models.RemindersModel
-import com.andromeda.ara.client.util.ReadURL
-import com.andromeda.ara.client.util.ServerUrl
+import com.andromeda.ara.client.util.*
 import com.andromeda.ara.client.util.ServerUrl.url
-import com.andromeda.ara.client.util.User
+import kotlinx.serialization.ImplicitReflectionSerializer
 
 class Reminders {
     suspend fun get(id:String){
         val reminderUrl = ServerUrl.getReminder(id)
         ReadURL().get(reminderUrl)
     }
-    suspend fun get(){
+    @ImplicitReflectionSerializer
+    suspend fun get(): ArrayList<FeedModel> {
         val remindersList = ServerUrl.getRemindersList("", "", "", "")
-        ReadURL().get(remindersList)
+        return ApiOutToFeed().main(JsonParse().outputModel(ReadURL().get(remindersList)))
     }
     suspend fun new(remindersModel: RemindersModel){
         val replace =

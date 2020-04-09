@@ -266,14 +266,8 @@ class AraPopUps {
                 Reminders().delete(id)
             }
         }
-
         builder.show()
 
     }
-
-
-
-
-
 }
 

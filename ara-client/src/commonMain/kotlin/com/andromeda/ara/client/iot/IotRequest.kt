@@ -30,7 +30,7 @@ object IotRequest {
         val request = HttpRequestBuilder()
         request.method = HttpMethod("GET")
         request.host = "${IotData.urlToApi}/$command"
-        request.header("", "")
+        request.header("Authorization", "Bearer ${IotData.accessKey}")
 
     }
 }

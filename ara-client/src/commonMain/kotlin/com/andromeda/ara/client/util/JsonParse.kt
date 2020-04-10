@@ -33,6 +33,7 @@ class JsonParse {
             val jo = it.jsonObject
             array.add(OutputModel(jo.get("title")!!.content, jo.get("description")!!.content, jo.get("link")!!.content, jo.get("image")!!.content, jo["OutputTxt"]!!.content, jo.get("exes")!!.content))
         }
+        println(array)
                 return array
     }
     @ImplicitReflectionSerializer

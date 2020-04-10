@@ -25,20 +25,19 @@ class ApiOutToFeed {
         val feedModels: ArrayList<FeedModel> = arrayListOf()
         println(tofeed.size)
         try {
-            for (i in 0..feedModels.size) {
+            for (i in tofeed) {
                 println(i)
-                val mInfo: String = tofeed.get(i).description
-                val mTitle: String = tofeed.get(i).title
+                val mInfo: String = i.description
+                val mTitle: String = i.title
                 println(mTitle)
-                val mlink: String = tofeed.get(i).link
-                val mOut: String = tofeed.get(i).OutputTxt
-                val mPic: String = tofeed.get(i).image
+                val mlink: String = i.link
+                val mOut: String = i.OutputTxt?: ""
+                val mPic: String = i.image
                 val mainModel =FeedModel(mInfo, mlink, mTitle, mPic, mOut, true)
                 println(mOut)
                 feedModels.add(mainModel)
             }
         } catch (ignored: Exception) {
-
         }
         return feedModels
     }

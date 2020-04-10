@@ -480,6 +480,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     @Override
     public void setData(@NotNull ArrayList<FeedModel> feedModel) {
         runOnUiThread(() -> {
+            System.out.println(feedModel);
             recyclerView.setAdapter(new Adapter(feedModel, this));
 
         });

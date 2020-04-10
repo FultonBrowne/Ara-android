@@ -41,7 +41,7 @@ object ServerUrl {
         return "$url/remindergaapi/${searchDataParser(term, log, lat, locale)}"
     }
     private fun searchDataParser(term:String, log:String, lat:String, locale:String): String {
-        return "$term&log=$log&lat=$lat&cc=$locale&key=${User.id}".replace(" ", "%20")
+        return "$term&log=$log&lat=$lat&key=${User.id}".replace(" ", "%20")
     }
     fun getReminder(id:String): String {
         return "$url/reminderg/user=${User.id}&id=$id"

@@ -34,7 +34,7 @@ class Reminders {
     }
     suspend fun new(remindersModel: RemindersModel){
         val replace =
-            "$url/remindernn/name=$remindersModel&user=${User.id}&time=${remindersModel.time}&info=${remindersModel.body}".replace(
+            "$url/remindernn/name=${remindersModel.header}&user=${User.id}&time=${remindersModel.time}&info=${remindersModel.body}".replace(
                 " ",
                 "%20"
             )
@@ -42,7 +42,7 @@ class Reminders {
     }
     suspend fun delete(id: String){
         val replace =
-            "$url/reminderd/name=&user=${User.id}&id=$id".replace(
+            "$url/reminderd/user=${User.id}&id=$id".replace(
                 " ",
                 "%20"
             )
@@ -52,7 +52,7 @@ class Reminders {
 
     suspend fun set(id: String, remindersModel: RemindersModel){
         val replace =
-            "$url/reminderne/name=$remindersModel&user=${User.id}&time=${remindersModel.time}&info=${remindersModel.body}".replace(
+            "$url/remindere/name=$remindersModel&user=${User.id}&time=${remindersModel.time}&info=${remindersModel.body}".replace(
                 " ",
                 "%20"
             )

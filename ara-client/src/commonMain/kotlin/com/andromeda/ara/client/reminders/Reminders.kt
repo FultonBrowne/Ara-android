@@ -50,7 +50,12 @@ class Reminders {
 
     }
 
-    fun set(id: String, remindersModel: RemindersModel){
-
+    suspend fun set(id: String, remindersModel: RemindersModel){
+        val replace =
+            "$url/reminderne/name=$remindersModel&user=${User.id}&time=${remindersModel.time}&info=${remindersModel.body}".replace(
+                " ",
+                "%20"
+            )
+        ReadURL().get(replace)
     }
 }

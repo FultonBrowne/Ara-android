@@ -218,7 +218,9 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
             @Override
             public void onClick(View view, int position) {
                 try {
-                    new CardOnClick().mainFun(mode, feedModel1.get(position).getLink(), act, getApplicationContext(), MainActivity.this);
+                    Adapter adapter = (Adapter) recyclerView.getAdapter();
+                    assert adapter != null;
+                    new CardOnClick().mainFun(mode, adapter.getMFeedModels().get(position).getLink(), act, getApplicationContext(), MainActivity.this);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -226,7 +228,9 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
             }
             @Override
             public void onLongClick(View view, int position) {
-                new CardOnClick().longClick(feedModel1.get(position), getApplicationContext(), main53, mode, act);
+                Adapter adapter = (Adapter) recyclerView.getAdapter();
+                assert adapter != null;
+                new CardOnClick().longClick( adapter.getMFeedModels().get(position), getApplicationContext(), main53, mode, act);
             }
         }));
         System.out.println("pre feed");

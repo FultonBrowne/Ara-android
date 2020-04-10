@@ -241,7 +241,9 @@ class AraPopUps {
                     R.id.reminderName)?.text.toString()
             println(title)
             val info = create?.findViewById<TextView>(R.id.reminderTitle)?.text.toString()
-            Reminders().set(id, RemindersModel(title, info, time))
+            GlobalScope.launch {
+                Reminders().set(id, RemindersModel(title, info, time))
+            }
         }
         create = alert.create()
         create.show()

@@ -30,7 +30,7 @@ import com.andromeda.ara.R
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.client.search.Actions
 import com.andromeda.ara.client.search.SearchAra
-import com.andromeda.ara.constants.ServerUrl
+import com.andromeda.ara.client.util.ServerUrl
 import com.andromeda.ara.models.SkillsFromDB
 import com.andromeda.ara.models.TabModel
 import com.andromeda.ara.skills.Parse
@@ -91,11 +91,11 @@ fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: 
                         )
                         act.runOnUiThread {
                             tts?.start(act, outputList[0].out)
-                            val elements = TabModel("ara", ServerUrl.getStandardSearch(mainval, log.toString(), lat.toString()))
-                            val web = TabModel("web", ServerUrl.getWebSearch(mainval, log.toString(), lat.toString()))
-                            val image = TabModel("images", ServerUrl.getImageSearch(mainval, log.toString(), lat.toString()))
-                            val news = TabModel("news", ServerUrl.getNewsSearch(mainval, log.toString(), lat.toString()))
-                            val video = TabModel("video", ServerUrl.getVideoSearch(mainval, log.toString(), lat.toString()))
+                            val elements = TabModel("ara", ServerUrl.getStandardSearch(mainval, log.toString(), lat.toString(), Locale.getDefault().country))
+                            val web = TabModel("web", ServerUrl.getWebSearch(mainval, log.toString(), lat.toString(), Locale.getDefault().country))
+                            val image = TabModel("images", ServerUrl.getImageSearch(mainval, log.toString(), lat.toString(), Locale.getDefault().country))
+                            val news = TabModel("news", ServerUrl.getNewsSearch(mainval, log.toString(), lat.toString(), Locale.getDefault().country))
+                            val video = TabModel("video", ServerUrl.getVideoSearch(mainval, log.toString(), lat.toString(), Locale.getDefault().country))
                             val data = arrayListOf(elements, web, image, news,video)
                             searchFunctions.addTabData(data)
 

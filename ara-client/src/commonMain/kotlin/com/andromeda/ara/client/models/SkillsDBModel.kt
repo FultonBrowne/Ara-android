@@ -14,12 +14,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.client
+package com.andromeda.ara.client.models
 
-class Routines {
-    fun get(id:String){}
-    fun get(){}
-    fun set(id:String){}
-    fun new(){}
-    fun delete(){}
-}
+
+data class SkillsDBModel(val action: SkillsModel, var name: String, val index:String)

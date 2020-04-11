@@ -14,19 +14,22 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.feeds
+package com.andromeda.ara.client.routines
 
-import com.andromeda.ara.util.JsonParse
-import com.andromeda.ara.models.OutputModel
-import java.net.URL
-import java.util.*
+import com.andromeda.ara.client.util.ReadURL
+import com.andromeda.ara.client.util.ServerUrl
+import com.andromeda.ara.client.util.ServerUrl.url
+import com.andromeda.ara.client.util.User
 
-class Skills {
-    fun getThem(): ArrayList<OutputModel>? {
-        val url = URL("https://ara-server.azurewebsites.net/store")
-        println(url)
-        //parse Json
-        return JsonParse().search(url.readText())
+class Routines {
+    fun get(id:String){}
+    suspend fun get(){
+        val url = ServerUrl.url + "user/" + User.id
+        val data = ReadURL().get(url)
     }
-
+    fun rename(id:String, name:String){
+        "${url}updateuserdata/user=${User.id}id=$id&prop=name&newval=${name}"
+    }
+    fun new(){}
+    fun delete(){}
 }

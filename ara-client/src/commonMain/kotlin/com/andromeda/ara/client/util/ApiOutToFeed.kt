@@ -31,7 +31,7 @@ class ApiOutToFeed {
                 val mTitle: String = i.title
                 println(mTitle)
                 val mlink: String = i.link
-                val mOut: String = i.OutputTxt?: ""
+                val mOut: String = i.OutputTxt
                 val mPic: String = i.image
                 val mainModel =FeedModel(mInfo, mlink, mTitle, mPic, mOut, true)
                 println(mOut)

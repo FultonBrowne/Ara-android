@@ -19,10 +19,13 @@ package com.andromeda.ara.client.util
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.client.models.NewsData
 import com.andromeda.ara.client.models.OutputModel
+import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 import kotlinx.serialization.json.content
+import kotlinx.serialization.parse
 
 class JsonParse {
     @OptIn(UnstableDefault::class)
@@ -54,5 +57,12 @@ class JsonParse {
             feedData.add(FeedModel(i.info, i.link, i.title, i.pic, "", true))
         }
         return feedData
+    }
+    @OptIn(UnstableDefault::class)
+    @ImplicitReflectionSerializer
+    fun any(text:String) :ArrayList<Any> {
+        return Json(JsonConfiguration.Default).parse(text)
+    }
+    fun arrayOfAny(text: String){
     }
 }

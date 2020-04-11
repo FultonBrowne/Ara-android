@@ -57,7 +57,6 @@ import com.andromeda.ara.iot.IotRequest;
 import com.andromeda.ara.models.OutputModel;
 import com.andromeda.ara.models.TabModel;
 import com.andromeda.ara.search.Search;
-import com.andromeda.ara.skills.ListSkills;
 import com.andromeda.ara.skills.Parse;
 import com.andromeda.ara.skills.RunActions;
 import com.andromeda.ara.skills.SearchFunctions;
@@ -188,14 +187,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
                             feedModel1 = IotRequest.INSTANCE.parseAllAsFeed();
                             recyclerView.setAdapter(new Adapter(feedModel1, this));
                             mode = drawerItem.getIdentifier();
-                        } else if (drawerItem.getIdentifier() == DrawerModeConstants.SHORTCUTS) {
-                            System.out.println("shortcuts");
-                            feedModel1 = new ListSkills().main();
-                            recyclerView.setAdapter(new Adapter(feedModel1, act));
-                            mode = drawerItem.getIdentifier();
-
-
-                        } else {
+                        }  else {
                             try {
                                 new Drawer().main(drawerItem.getIdentifier(), this, main53, feedModel1, this::setData);
                                 recyclerView.setAdapter(new Adapter(feedModel1, this));

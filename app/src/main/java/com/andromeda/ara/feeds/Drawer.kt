@@ -28,6 +28,7 @@ import com.andromeda.ara.client.reminders.Reminders
 import com.andromeda.ara.constants.DrawerModeConstants
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.phoneData.CalUtility
+import com.andromeda.ara.skills.ListSkills
 import com.andromeda.ara.util.ApiOutputToRssFeed
 import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.SetFeedData
@@ -99,6 +100,12 @@ class Drawer {
             DrawerModeConstants.FOOD -> {
                 GlobalScope.launch {
                     setFeedData.setData(Food().getFood(log.toString(), lat.toString()))
+                }
+                return null
+            }
+            DrawerModeConstants.SHORTCUTS -> {
+                GlobalScope.launch {
+                    setFeedData.setData(ListSkills().main())
                 }
                 return null
             }

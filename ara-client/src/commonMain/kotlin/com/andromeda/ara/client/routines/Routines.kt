@@ -16,19 +16,30 @@
 
 package com.andromeda.ara.client.routines
 
+import com.andromeda.ara.client.models.SkillsDBModel
+import com.andromeda.ara.client.util.JsonParse
 import com.andromeda.ara.client.util.ReadURL
 import com.andromeda.ara.client.util.ServerUrl
 import com.andromeda.ara.client.util.ServerUrl.url
 import com.andromeda.ara.client.util.User
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.serialization.ImplicitReflectionSerializer
 
 class Routines {
     fun get(id:String){}
-    suspend fun get(){
+    @ImplicitReflectionSerializer
+    suspend fun get(): ArrayList<SkillsDBModel> {
         val url = ServerUrl.url + "user/" + User.id
         val data = ReadURL().get(url)
+        return JsonParse().any(data) as ArrayList<SkillsDBModel>
+
     }
     fun rename(id:String, name:String){
-        "${url}updateuserdata/user=${User.id}id=$id&prop=name&newval=${name}"
+        val url = "${url}updateuserdata/user=${User.id}id=$id&prop=name&newval=${name}"
+        GlobalScope.launch {
+            ReadURL().get(url)
+        }
     }
     fun new(){}
     fun delete(){}

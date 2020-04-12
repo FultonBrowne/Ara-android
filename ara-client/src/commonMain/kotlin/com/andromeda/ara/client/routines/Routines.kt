@@ -32,7 +32,7 @@ class Routines {
     suspend fun get(): ArrayList<SkillsDBModel> {
         val url = ServerUrl.url + "user/" + User.id
         val data = ReadURL().get(url)
-        return JsonParse().any(data) as ArrayList<SkillsDBModel>
+        return JsonParse().userSkills(data)
 
     }
     fun rename(id:String, name:String){

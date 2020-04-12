@@ -16,9 +16,7 @@
 
 package com.andromeda.ara.client.util
 
-import com.andromeda.ara.client.models.FeedModel
-import com.andromeda.ara.client.models.NewsData
-import com.andromeda.ara.client.models.OutputModel
+import com.andromeda.ara.client.models.*
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.UnstableDefault
@@ -62,6 +60,17 @@ class JsonParse {
     @ImplicitReflectionSerializer
     fun any(text:String) :ArrayList<Any> {
         return Json(JsonConfiguration.Default).parse(text)
+    }
+    fun userSkills(text: String): ArrayList<SkillsDBModel> {
+        val toReturn = arrayListOf<SkillsDBModel>()
+        val parseJson = Json.parseJson(text).jsonArray
+        parseJson.forEach {
+            val main = it.jsonObject
+            val sub = main.getObject("action")
+            val model = SkillsDBModel(SkillsModel(sub.get("action")!!.content, sub.get("arg1")!!.content, sub.get("arg2")!!.content), sub.get("name")!!.content, sub.get("index")!!.content)
+            toReturn.add(model)
+        }
+        return toReturn
     }
     fun arrayOfAny(text: String){
     }

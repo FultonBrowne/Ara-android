@@ -17,11 +17,26 @@
 package com.andromeda.ara.client.util
 
 import io.ktor.client.HttpClient
+import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
+import io.ktor.client.request.post
+import io.ktor.http.takeFrom
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class ReadURL {
     suspend fun get(url:String): String {
         val client = HttpClient()
         return client.get(url)
+    }
+    fun post(url:String, payload:String) {
+        val client = HttpClient()
+        val httpRequestBuilder = HttpRequestBuilder()
+            httpRequestBuilder.headers["data"] = payload
+        httpRequestBuilder.url.takeFrom(url)
+        println(httpRequestBuilder.url.buildString())
+        GlobalScope.launch {
+            client.post(httpRequestBuilder)
+        }
     }
 }

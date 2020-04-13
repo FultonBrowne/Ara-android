@@ -27,6 +27,7 @@ import com.andromeda.ara.R
 import com.andromeda.ara.client.models.SkillsDBModel
 import com.andromeda.ara.client.models.SkillsModel
 import com.andromeda.ara.client.routines.Routines
+import com.andromeda.ara.client.util.ReadURL
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.User
 import com.andromeda.ara.skills.Parse
@@ -137,20 +138,7 @@ class SkillsActivity : AppCompatActivity() {
         println(serverURL)
         println(id)
         println(message)
-        val okHttpClient = OkHttpClient()
-        val request = Request.Builder()
-                .addHeader("data", message)
-                .url(serverURL)
-                .build()
-        okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                println("fail")
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                println("call back: " + response.message)
-            }
-        })
+        ReadURL().post(serverURL, message)
 
 
     }

@@ -17,6 +17,7 @@
 package com.andromeda.ara.client.routines
 
 import com.andromeda.ara.client.models.SkillsDBModel
+import com.andromeda.ara.client.models.SkillsModel
 import com.andromeda.ara.client.util.JsonParse
 import com.andromeda.ara.client.util.ReadURL
 import com.andromeda.ara.client.util.ServerUrl
@@ -25,6 +26,7 @@ import com.andromeda.ara.client.util.User
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.ImplicitReflectionSerializer
+import kotlinx.serialization.json.Json
 
 class Routines {
     suspend fun get(id:String): ArrayList<SkillsDBModel> {
@@ -44,6 +46,10 @@ class Routines {
         GlobalScope.launch {
             ReadURL().get(url)
         }
+    }
+    @ImplicitReflectionSerializer
+    fun edit(new:SkillsModel){
+        GlobalScope.launch {  ReadURL().post("", Json.toJson(new).toString())}
     }
     fun new(){}
     fun delete(){}

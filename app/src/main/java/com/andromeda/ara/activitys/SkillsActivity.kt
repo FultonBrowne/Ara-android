@@ -24,22 +24,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
+import com.andromeda.ara.client.models.SkillsDBModel
 import com.andromeda.ara.client.models.SkillsModel
+import com.andromeda.ara.client.routines.Routines
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.User
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.SkillsAdapter
 import com.andromeda.ara.skills.TempSkillsStore
 import com.andromeda.ara.util.AraPopUps
-import com.andromeda.ara.util.JsonParse
-import com.andromeda.ara.util.SkillsDBModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_skills.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.*
 import java.io.IOException
-import java.net.URL
 import java.util.*
 
 
@@ -49,7 +50,7 @@ class SkillsActivity : AppCompatActivity() {
     var name = ""
     private var runOn = ""
     private var recView: RecyclerView? = null
-    private var allData:SkillsDBModel? = null
+    private var allData: SkillsDBModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,22 +116,20 @@ class SkillsActivity : AppCompatActivity() {
         reload()
     }
     private fun reload(){
-                runOnUiThread {
-                    val data = JsonParse().skillsServer(URL("${ServerUrl.url}1user/user=${User.id}&id=$id").readText())
-                    println(data)
-                    allData = data[0]
+        GlobalScope.launch {
+            val data = id?.let { Routines().get(it) }
+            runOnUiThread {
+                println(data)
+                allData = data!![0]
 
-                    val actionToRun = allData?.action?.action
-                    val toAdapter = Parse().parse(actionToRun);
-                    name = allData!!.name
-                    runOn = allData!!.action.arg1!!
-                    adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this) }
-                    recView?.adapter = adapter
-                }
-
-
-
-
+                val actionToRun = allData?.action?.action
+                val toAdapter = Parse().parse(actionToRun);
+                name = allData!!.name
+                runOn = allData!!.action.arg1!!
+                adapter = toAdapter?.toList()?.let { SkillsAdapter(it, this@SkillsActivity) }
+                recView?.adapter = adapter
+            }
+        }
     }
     fun updateServer(message: String) {
 

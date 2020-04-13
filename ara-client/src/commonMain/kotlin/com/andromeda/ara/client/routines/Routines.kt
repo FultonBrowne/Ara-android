@@ -27,7 +27,11 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.ImplicitReflectionSerializer
 
 class Routines {
-    fun get(id:String){}
+    suspend fun get(id:String): ArrayList<SkillsDBModel> {
+        val url = "${ServerUrl.url}1user/user=${User.id}&id=$id"
+        val data = ReadURL().get(url)
+        return JsonParse().userSkills(data)
+    }
     @ImplicitReflectionSerializer
     suspend fun get(): ArrayList<SkillsDBModel> {
         val url = ServerUrl.url + "user/" + User.id

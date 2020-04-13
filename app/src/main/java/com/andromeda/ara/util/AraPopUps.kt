@@ -38,6 +38,7 @@ import com.andromeda.ara.R
 import com.andromeda.ara.client.models.RemindersModel
 import com.andromeda.ara.client.models.SkillsModel
 import com.andromeda.ara.client.reminders.Reminders
+import com.andromeda.ara.client.routines.Routines
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.ServerUrl.url
 import com.andromeda.ara.constants.User
@@ -87,7 +88,7 @@ class AraPopUps {
         builder.show()
         return text
     }
-    fun renameSkill(ctx: Context, id:String, allData: SkillsDBModel) {
+    fun renameSkill(ctx: Context, id:String, allData: com.andromeda.ara.client.models.SkillsDBModel) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(ctx)
         builder.setTitle("Title")
         val input = EditText(ctx)
@@ -96,7 +97,7 @@ class AraPopUps {
         builder.setPositiveButton("OK") { _, _ ->
             val text = input.text.toString()
             allData.name = text
-            URL("${url}updateuserdata/user=${User.id}id=$id&prop=name&newval=$text").readText()
+            Routines().rename(id, text)
         }
 
             builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }

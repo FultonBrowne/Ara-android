@@ -20,6 +20,7 @@ import com.andromeda.ara.client.models.SkillsModel
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.type.CollectionType
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.IOException
 
 
@@ -34,14 +35,14 @@ class Parse {
     @Throws(IOException::class)
     fun <T> yamlArrayToObjectList(yaml: String?, tClass: Class<T>): ArrayList<T> {
         //val mapper = ObjectMapper()
-        val mapper = ObjectMapper(YAMLFactory()) // jackson databind
+        val mapper = ObjectMapper(YAMLFactory()).registerKotlinModule()
         val listType: CollectionType = mapper.typeFactory.constructCollectionType(ArrayList::class.java, tClass)
 
         return mapper.readValue(yaml, listType)!!
     }
     fun <T> yamlArrayToObject(yaml: String?, tClass: Class<T>): T {
         //val mapper = ObjectMapper()
-        val mapper = ObjectMapper(YAMLFactory()) // jackson databind
+        val mapper = ObjectMapper(YAMLFactory()).registerKotlinModule() // jackson databind
         val listType: CollectionType = mapper.typeFactory.constructCollectionType(ArrayList::class.java, tClass)
         return mapper.readValue(yaml, tClass)
     }

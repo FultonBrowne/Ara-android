@@ -56,11 +56,6 @@ class JsonParse {
         }
         return feedData
     }
-    @OptIn(UnstableDefault::class)
-    @ImplicitReflectionSerializer
-    fun any(text:String) :ArrayList<Any> {
-        return Json(JsonConfiguration.Default).parse(text)
-    }
     fun userSkills(text: String): ArrayList<SkillsDBModel> {
         val toReturn = arrayListOf<SkillsDBModel>()
         val parseJson = Json.parseJson(text).jsonArray
@@ -71,7 +66,5 @@ class JsonParse {
             toReturn.add(model)
         }
         return toReturn
-    }
-    fun arrayOfAny(text: String){
     }
 }

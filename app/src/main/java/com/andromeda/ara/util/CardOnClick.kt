@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import com.andromeda.ara.client.models.SkillsDBModel
 import com.andromeda.ara.activitys.SkillsActivity
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.constants.DrawerModeConstants

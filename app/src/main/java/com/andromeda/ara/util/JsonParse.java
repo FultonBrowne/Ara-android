@@ -16,10 +16,11 @@
 
 package com.andromeda.ara.util;
 
+import com.andromeda.ara.client.models.RemindersModel;
+import com.andromeda.ara.client.models.SkillsDBModel;
 import com.andromeda.ara.models.HaModel;
 import com.andromeda.ara.models.OutputModel;
 import com.andromeda.ara.models.SkillsFromDB;
-import com.andromeda.ara.client.models.RemindersModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

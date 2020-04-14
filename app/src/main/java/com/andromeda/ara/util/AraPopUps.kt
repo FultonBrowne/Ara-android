@@ -36,6 +36,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andromeda.ara.R
 import com.andromeda.ara.client.models.RemindersModel
+import com.andromeda.ara.client.models.SkillsDBModel
 import com.andromeda.ara.client.models.SkillsModel
 import com.andromeda.ara.client.reminders.Reminders
 import com.andromeda.ara.client.routines.Routines
@@ -79,6 +80,7 @@ class AraPopUps {
             try {
                 val i = (Math.random() * (30000 + 1)).toInt()
                 newDoc(Gson().toJson(SkillsDBModel(SkillsModel(mapper.writeValueAsString(toYML), "", ""), text, id)), i.toString() + id)
+                Routines().new(i.toString(), SkillsDBModel(SkillsModel(mapper.writeValueAsString(toYML), "", ""), text, id))
             } catch (e: JsonProcessingException) {
                 e.printStackTrace()
             }
@@ -161,7 +163,6 @@ class AraPopUps {
         return resultValue
     }
     fun newDoc(message: String, id:String) {
-
         val serverURL = "${url}newdoc/user=${User.id}&id=$id"
         println(serverURL)
         println(id)

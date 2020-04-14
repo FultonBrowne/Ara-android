@@ -23,6 +23,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
+import com.andromeda.ara.client.iot.GetAllData
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.client.reminders.Reminders
 import com.andromeda.ara.constants.DrawerModeConstants
@@ -95,6 +96,13 @@ class Drawer {
 
                 }
                 return feedModel1
+
+            }
+            DrawerModeConstants.DEVICES ->{
+                GlobalScope.launch {
+                    setFeedData.setData(GetAllData().main())
+                }
+                return null
 
             }
             DrawerModeConstants.FOOD -> {

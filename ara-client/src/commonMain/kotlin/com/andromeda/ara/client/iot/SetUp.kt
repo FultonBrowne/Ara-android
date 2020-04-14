@@ -18,8 +18,11 @@ package com.andromeda.ara.client.iot
 
 import com.andromeda.ara.client.models.HaModel
 import com.andromeda.ara.client.util.ReadURL
+import com.andromeda.ara.client.util.ServerUrl
 import com.andromeda.ara.client.util.ServerUrl.url
 import com.andromeda.ara.client.util.User
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
 
@@ -28,5 +31,11 @@ class SetUp {
     private fun writeToCloud(link:String, key: String){
         val id = "ha-${User.id}"
         ReadURL().post("${url}newdoc/user=${User.id}&id=$id", Json.toJson(HaModel(link, key)).toString())
+    }
+    private fun deleteFromCloud(){
+        GlobalScope.launch {
+            ReadURL().get("${ServerUrl.url}/del/user=${User.id}&id=ha-${User.id}")
+        }
+
     }
 }

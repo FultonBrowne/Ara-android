@@ -16,5 +16,28 @@
 
 package com.andromeda.ara.client.iot
 
+import com.andromeda.ara.client.models.FeedModel
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.content
+
 class GetAllData {
+    suspend fun main(): ArrayList<FeedModel> {
+        val toReturn = arrayListOf<FeedModel>()
+        val request = IotRequest.getRequest("/state")
+        Json.parseJson(request).jsonArray.forEach {
+            try {
+                val jsonObject = it.jsonObject
+                val attributes = jsonObject.get("attributes")!!.jsonObject
+                val name = attributes.get("friendly_name")!!.content
+                val id = jsonObject.get("entity_id")!!.content
+                val description = jsonObject.get("state")!!.content
+                toReturn.add(FeedModel(description, id, name, "", "", false))
+            }
+            catch (e:Exception){
+            }
+
+        }
+        return toReturn
+
+    }
 }

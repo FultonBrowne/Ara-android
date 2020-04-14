@@ -26,13 +26,13 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.URLBuilder
 
 object IotRequest {
-    suspend fun getRequest(command:String){
+    suspend fun getRequest(command:String): String {
         val client = HttpClient()
         val request = HttpRequestBuilder()
         request.method = HttpMethod("GET")
         request.host = "${IotData.urlToApi}/$command"
         request.header("Authorization", "Bearer ${IotData.accessKey}")
-        client.request<String>(request)
+        return client.request<String>(request)
 
     }
 }

@@ -23,6 +23,7 @@ import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import kotlinx.serialization.json.content
+import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.parse
 
 class JsonParse {
@@ -36,6 +37,13 @@ class JsonParse {
         }
         println(array)
                 return array
+    }
+    fun reminder(text:String): RemindersModel {
+        val array = arrayListOf<RemindersModel>()
+        val jo = Json.parseJson(text).jsonObject
+            return RemindersModel(jo.get("header")!!.content, jo.get("body")!!.contentOrNull,
+                jo.get("title")!!.contentOrNull?.toLong()
+            )
     }
     @ImplicitReflectionSerializer
     fun newsData(text:String): ArrayList<NewsData> {

@@ -230,32 +230,36 @@ class AraPopUps {
     }
 
     fun editReminder(ctx:Activity, id:String){
-        val readText = URL(ServerUrl.getReminder(id)).readText()
-        println(readText)
-        val reminder = JsonParse().reminder(readText)[0]
-        var time:Long? = reminder.time
-        val alert = AlertDialog.Builder(ctx)
-        val inflate = ctx.layoutInflater.inflate(R.layout.layout, null)
-        alert.setView(inflate)
-        var create: AlertDialog? = null
-        alert.setPositiveButton("ok") { _, id1 ->
-            val title = create?.findViewById<TextView>(
-                    R.id.reminderName)?.text.toString()
-            println(title)
-            val info = create?.findViewById<TextView>(R.id.reminderTitle)?.text.toString()
-            GlobalScope.launch {
-                Reminders().set(id, RemindersModel(title, info, time))
-            }
-        }
-        create = alert.create()
-        create.show()
-        create?.findViewById<TextView>(
-                R.id.reminderName)?.text = reminder.header
-        create?.findViewById<TextView>(R.id.reminderTitle)?.text = reminder.body
-        val button = create.findViewById<Button>(R.id.popupDialogButton)
-        button.setOnClickListener {
-            time = getTime(ctx)
+        GlobalScope.launch {
+            val reminder = Reminders().get(id)
+            ctx.runOnUiThread {
+                var time: Long? = reminder.time
+                val alert = AlertDialog.Builder(ctx)
+                val inflate = ctx.layoutInflater.inflate(R.layout.layout, null)
+                alert.setView(inflate)
+                var create: AlertDialog? = null
+                alert.setPositiveButton("ok") { _, id1 ->
+                    val title = create?.findViewById<TextView>(
+                        R.id.reminderName
+                    )?.text.toString()
+                    println(title)
+                    val info = create?.findViewById<TextView>(R.id.reminderTitle)?.text.toString()
+                    GlobalScope.launch {
+                        Reminders().set(id, RemindersModel(title, info, time))
+                    }
+                }
+                create = alert.create()
+                create.show()
+                create?.findViewById<TextView>(
+                    R.id.reminderName
+                )?.text = reminder.header
+                create?.findViewById<TextView>(R.id.reminderTitle)?.text = reminder.body
+                val button = create.findViewById<Button>(R.id.popupDialogButton)
+                button.setOnClickListener {
+                    time = getTime(ctx)
 
+                }
+            }
         }
     }
     fun delete(ctx: Activity,  id: String){

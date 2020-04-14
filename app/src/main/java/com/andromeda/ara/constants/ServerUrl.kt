@@ -22,27 +22,7 @@ import java.util.*
 
 object ServerUrl {
     var url = "https://ara-server.azurewebsites.net/"
-    fun getStandardSearch(term:String, log:String, lat:String): String {
-        return "$url/api/${searchDataParser(term, log, lat)}"
-    }
-    fun getWebSearch(term:String, log:String, lat:String): String {
-        return "$url/searchb/${searchDataParser(term, log, lat)}"
-    }
-    fun getImageSearch(term:String, log:String, lat:String): String {
-        return "$url/searchi/${searchDataParser(term, log, lat)}"
-    }
-    fun getNewsSearch(term:String, log:String, lat:String): String {
-        return "$url/searchn/${searchDataParser(term, log, lat)}"
-    }
-    fun getVideoSearch(term:String, log:String, lat:String): String {
-        return "$url/searchv/${searchDataParser(term, log, lat)}"
-    }
-    fun getRemindersList(term:String, log:String, lat:String): String {
-        return "$url/remindergaapi/${searchDataParser(term, log, lat)}"
-    }
-    private fun searchDataParser(term:String, log:String, lat:String): String {
-        return "$term&log=$log&lat=$lat&cc=${Locale.getDefault().country}&key=${User.id}".replace(" ", "%20")
-    }
+
     fun getReminder(id:String): String {
         return "$url/reminderg/user=${User.id}&id=$id"
     }

@@ -23,9 +23,10 @@ import com.andromeda.ara.client.util.ServerUrl.url
 import kotlinx.serialization.ImplicitReflectionSerializer
 
 class Reminders {
-    suspend fun get(id:String){
+    @ImplicitReflectionSerializer
+    suspend fun get(id:String): RemindersModel {
         val reminderUrl = ServerUrl.getReminder(id)
-        ReadURL().get(reminderUrl)
+        return JsonParse().reminder(ReadURL().get(reminderUrl))
     }
     @ImplicitReflectionSerializer
     suspend fun get(): ArrayList<FeedModel> {

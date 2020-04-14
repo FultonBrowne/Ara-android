@@ -26,7 +26,9 @@ import com.andromeda.ara.client.util.User
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.ImplicitReflectionSerializer
+import kotlinx.serialization.Serializer
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 
 class Routines {
     suspend fun get(id:String): ArrayList<SkillsDBModel> {
@@ -51,9 +53,11 @@ class Routines {
     fun edit(new:SkillsModel, id:String){
         GlobalScope.launch {  ReadURL().post("${ServerUrl.url}postupdate/user=${User.id}&id=$id&prop=action", Json.toJson(new).toString())}
     }
-    @ImplicitReflectionSerializer
+    @OptIn(ImplicitReflectionSerializer::class)
     fun new(id:String, new:SkillsDBModel){
-        GlobalScope.launch {  ReadURL().post("${ServerUrl.url}newdoc/user=${User.id}&id=$id&prop=action", Json.toJson(new).toString())}
+        GlobalScope.launch {  ReadURL().post("${ServerUrl.url}newdoc/user=${User.id}&id=$id&prop=action", Json(
+            JsonConfiguration.Stable
+        ).toJson(new).toString())}
     }
     fun delete(id:String){}
 }

@@ -40,10 +40,13 @@ class JsonParse {
     }
     fun reminder(text:String): RemindersModel {
         val array = arrayListOf<RemindersModel>()
-        val jo = Json.parseJson(text).jsonObject
+        Json.parseJson(text).jsonArray.forEach {
+            val jo = it.jsonObject
             return RemindersModel(jo.get("header")!!.content, jo.get("body")!!.contentOrNull,
-                jo.get("title")!!.contentOrNull?.toLong()
+                jo.get("time")!!.contentOrNull?.toLong()
             )
+        }
+        return RemindersModel("", "", 0)
     }
     @ImplicitReflectionSerializer
     fun newsData(text:String): ArrayList<NewsData> {

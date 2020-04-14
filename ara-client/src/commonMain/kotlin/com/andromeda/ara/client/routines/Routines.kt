@@ -48,9 +48,12 @@ class Routines {
         }
     }
     @ImplicitReflectionSerializer
-    fun edit(new:SkillsModel){
-        GlobalScope.launch {  ReadURL().post("", Json.toJson(new).toString())}
+    fun edit(new:SkillsModel, id:String){
+        GlobalScope.launch {  ReadURL().post("${ServerUrl.url}postupdate/user=${User.id}&id=$id&prop=action", Json.toJson(new).toString())}
     }
-    fun new(){}
-    fun delete(){}
+    @ImplicitReflectionSerializer
+    fun new(id:String, new:SkillsDBModel){
+        GlobalScope.launch {  ReadURL().post("${ServerUrl.url}newdoc/user=${User.id}&id=$id&prop=action", Json.toJson(new).toString())}
+    }
+    fun delete(id:String){}
 }

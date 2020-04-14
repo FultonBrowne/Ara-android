@@ -100,7 +100,12 @@ class Drawer {
             }
             DrawerModeConstants.DEVICES ->{
                 GlobalScope.launch {
-                    setFeedData.setData(GetAllData().main())
+                    try {
+                        setFeedData.setData(GetAllData().main())
+                    }
+                    catch (e:Exception){
+                        e.printStackTrace()
+                    }
                 }
                 return null
 

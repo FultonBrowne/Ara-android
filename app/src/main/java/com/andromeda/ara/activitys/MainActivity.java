@@ -53,7 +53,6 @@ import com.andromeda.ara.constants.User;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.News;
 import com.andromeda.ara.iot.CacheData;
-import com.andromeda.ara.iot.IotRequest;
 import com.andromeda.ara.models.OutputModel;
 import com.andromeda.ara.models.TabModel;
 import com.andromeda.ara.search.Search;
@@ -183,11 +182,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
                     MainActivity.this.runOnUiThread(() -> {
                         RecyclerView tabs = findViewById(R.id.tabs);
                         tabs.setVisibility(View.INVISIBLE);
-                        if (drawerItem.getIdentifier() == DrawerModeConstants.DEVICES) {
-                            feedModel1 = IotRequest.INSTANCE.parseAllAsFeed();
-                            recyclerView.setAdapter(new Adapter(feedModel1, this));
-                            mode = drawerItem.getIdentifier();
-                        }  else {
                             try {
                                 new Drawer().main(drawerItem.getIdentifier(), this, main53, feedModel1, this::setData);
                                 recyclerView.setAdapter(new Adapter(feedModel1, this));
@@ -195,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }
+
                     });
 
                     return false;

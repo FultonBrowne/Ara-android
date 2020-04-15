@@ -18,7 +18,7 @@ package com.andromeda.ara.models
 
 import android.widget.Button
 
-enum class IotStateModel(val buttons: ArrayList<Button>) {
+class IotStateModel(val buttons: ArrayList<Button>){
     fun fromHaOutput(){
 
     }

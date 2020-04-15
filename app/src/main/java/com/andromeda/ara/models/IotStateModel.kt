@@ -16,5 +16,15 @@
 
 package com.andromeda.ara.models
 
-class IotStateModel {
+import android.widget.Button
+
+enum class IotStateModel(val buttons: ArrayList<Button>) {
+    fun fromHaOutput(){
+
+    }
+    companion object{
+
+    }
+    data class Button(val value:Any, val text: Any, val dataType:Int){
+    }
 }

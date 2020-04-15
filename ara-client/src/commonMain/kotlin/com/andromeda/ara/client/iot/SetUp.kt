@@ -17,6 +17,8 @@
 package com.andromeda.ara.client.iot
 
 import com.andromeda.ara.client.models.HaModel
+import com.andromeda.ara.client.models.IotDataModel
+import com.andromeda.ara.client.util.JsonParse
 import com.andromeda.ara.client.util.ReadURL
 import com.andromeda.ara.client.util.ServerUrl
 import com.andromeda.ara.client.util.ServerUrl.url
@@ -38,8 +40,17 @@ class SetUp {
         }
 
     }
-    suspend fun getFromCloud(){
-        val get = ReadURL().get("${ServerUrl.url}getha/")
+    suspend fun getFromCloud(): IotDataModel? {
+        return try {
 
+            val get = ReadURL().get("${ServerUrl.url}getha/")
+            val iot = JsonParse().iot(get)
+            IotData.accessKey = iot[0].key
+            IotData.urlToApi = iot[0].url
+            iot[0]
+        } catch (e:Exception){
+            println(e.message)
+            null
+        }
     }
 }

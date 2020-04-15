@@ -78,4 +78,13 @@ class JsonParse {
         }
         return toReturn
     }
+    fun iot(text:String): ArrayList<IotDataModel> {
+        val array = arrayListOf<IotDataModel>()
+        Json.parseJson(text).jsonArray.forEach {
+            val jo = it.jsonObject
+            array.add(IotDataModel( jo["link"]!!.content, jo["key"]!!.content ))
+        }
+        return array
+    }
+
 }

@@ -23,21 +23,17 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
-import com.andromeda.ara.client.iot.GetAllData
+import com.andromeda.ara.client.iot.Actions
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.client.reminders.Reminders
 import com.andromeda.ara.constants.DrawerModeConstants
-import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.phoneData.CalUtility
 import com.andromeda.ara.skills.ListSkills
-import com.andromeda.ara.util.ApiOutputToRssFeed
-import com.andromeda.ara.util.JsonParse
 import com.andromeda.ara.util.SetFeedData
 import com.andromeda.ara.util.TagManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.IOException
-import java.net.URL
 
 
 class Drawer {
@@ -101,7 +97,7 @@ class Drawer {
             DrawerModeConstants.DEVICES ->{
                 GlobalScope.launch {
                     try {
-                        setFeedData.setData(GetAllData().main())
+                        setFeedData.setData(Actions().getAll())
                     }
                     catch (e:Exception){
                         e.printStackTrace()

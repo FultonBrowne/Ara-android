@@ -38,4 +38,8 @@ class SetUp {
         }
 
     }
+    suspend fun getFromCloud(){
+        val get = ReadURL().get("${ServerUrl.url}getha/")
+
+    }
 }

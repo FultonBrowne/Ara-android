@@ -20,8 +20,8 @@ import com.andromeda.ara.client.models.FeedModel
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.content
 
-class GetAllData {
-    suspend fun main(): ArrayList<FeedModel> {
+class Actions {
+    suspend fun getAll(): ArrayList<FeedModel> {
         val toReturn = arrayListOf<FeedModel>()
         val request = IotRequest.getRequest("/state")
         Json.parseJson(request).jsonArray.forEach {
@@ -38,6 +38,9 @@ class GetAllData {
 
         }
         return toReturn
+
+    }
+    fun get(id:String){
 
     }
 }

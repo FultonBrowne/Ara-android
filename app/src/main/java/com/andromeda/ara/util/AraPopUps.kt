@@ -79,7 +79,6 @@ class AraPopUps {
         builder.setPositiveButton("OK") { _, _ -> text = input.text.toString()
             try {
                 val i = (Math.random() * (30000 + 1)).toInt()
-                newDoc(Gson().toJson(SkillsDBModel(SkillsModel(mapper.writeValueAsString(toYML), "", ""), text, id)), i.toString() + id)
                 Routines().new(i.toString(), SkillsDBModel(SkillsModel(mapper.writeValueAsString(toYML), "", ""), text, id))
             } catch (e: JsonProcessingException) {
                 e.printStackTrace()

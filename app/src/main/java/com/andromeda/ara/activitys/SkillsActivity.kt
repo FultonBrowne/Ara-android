@@ -40,8 +40,6 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_skills.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import okhttp3.*
-import java.io.IOException
 import java.util.*
 
 
@@ -73,7 +71,7 @@ class SkillsActivity : AppCompatActivity() {
         val mapper = ObjectMapper(YAMLFactory())
         val yml = mapper.writeValueAsString(toYAML)
         println(yml)
-        updateServer(Gson().toJson(SkillsModel(yml, runOn, "")))
+        updateServer(SkillsModel(yml, runOn, ""))
         onBackPressed()
     }
 
@@ -106,7 +104,7 @@ class SkillsActivity : AppCompatActivity() {
 
         val yml = mapper.writeValueAsString(toYAML)
         println(yml)
-        updateServer(Gson().toJson(SkillsModel(yml, runOn, "")))
+        updateServer(SkillsModel(yml, runOn, ""))
 
        reload()
     }
@@ -132,14 +130,8 @@ class SkillsActivity : AppCompatActivity() {
             }
         }
     }
-    fun updateServer(message: String) {
-
-        val serverURL: String = "${ServerUrl.url}postupdate/user=${User.id}&id=$id&prop=action"
-        println(id)
-        println(message)
-        ReadURL().post(serverURL, message)
-
-
+    fun updateServer(message: SkillsModel) {
+        Routines().edit(message, id!!)
     }
 
 }

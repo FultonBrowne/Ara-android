@@ -198,7 +198,6 @@ class AraPopUps {
             GlobalScope.launch {
                 Reminders().new(RemindersModel(title, info, time))
             }
-            println(URL("$url/remindernn/name=$title&user=$id&time=$time&info=$info".replace(" ", "%20")).readText())
         }
         create = alert.create()
         create.show()
@@ -269,7 +268,6 @@ class AraPopUps {
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
         builder.setPositiveButton("Yes") { _, _ ->
-            println(URL("$url/reminderd/&user=${User.id}&id=$id".replace(" ", "%20")).readText())
             GlobalScope.launch {
                 Reminders().delete(id)
             }

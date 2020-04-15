@@ -135,7 +135,6 @@ class SkillsActivity : AppCompatActivity() {
     fun updateServer(message: String) {
 
         val serverURL: String = "${ServerUrl.url}postupdate/user=${User.id}&id=$id&prop=action"
-        println(serverURL)
         println(id)
         println(message)
         ReadURL().post(serverURL, message)

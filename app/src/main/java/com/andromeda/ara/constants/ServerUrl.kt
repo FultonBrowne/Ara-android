@@ -23,7 +23,4 @@ import java.util.*
 object ServerUrl {
     var url = "https://ara-server.azurewebsites.net/"
 
-    fun getReminder(id:String): String {
-        return "$url/reminderg/user=${User.id}&id=$id"
-    }
 }

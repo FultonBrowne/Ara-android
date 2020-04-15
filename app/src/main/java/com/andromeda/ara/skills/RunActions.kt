@@ -22,7 +22,7 @@ import android.content.Intent
 import android.net.Uri
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.client.models.SkillsModel
-import com.andromeda.ara.constants.ServerUrl
+import com.andromeda.ara.client.util.ServerUrl
 import com.andromeda.ara.services.AraActions
 import java.util.*
 

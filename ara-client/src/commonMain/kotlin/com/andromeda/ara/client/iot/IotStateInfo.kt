@@ -14,10 +14,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.client.models
+package com.andromeda.ara.client.iot
 
 
-class IotStateModel(buttons: ArrayList<Int>) {
+class IotStateInfo(buttons: ArrayList<Int>) {
     companion object {
         const val OFF = 0
         const val ON = 1
@@ -35,7 +35,7 @@ class IotStateModel(buttons: ArrayList<Int>) {
                     arrayList.addAll(skip())
                 }
                 state.equals("pause") -> {
-                    arrayList.add(PAUSE)
+                    arrayList.add(PLAY)
                     arrayList.addAll(skip())
                 }
             }
@@ -45,9 +45,11 @@ class IotStateModel(buttons: ArrayList<Int>) {
         }
 
         private fun skip(): ArrayList<Int> {
-            return arrayListOf(SKIP_FWD, SKIP_BACK)
+            return arrayListOf(
+                SKIP_FWD,
+                SKIP_BACK
+            )
         }
     }
 
-    data class HaButton(val text: Any, val newState: Int)
 }

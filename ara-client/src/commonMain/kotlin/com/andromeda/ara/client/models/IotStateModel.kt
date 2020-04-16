@@ -25,7 +25,7 @@ class IotStateModel(buttons: ArrayList<Int>) {
         const val PAUSE = 3
         const val SKIP_FWD = 4
         const val SKIP_BACK = 5
-        fun fromHaOutput(state: String) {
+        fun fromHaOutput(state: String): ArrayList<Int> {
             val arrayList = arrayListOf<Int>()
             when {
                 state.equals("on") -> arrayList.add(OFF)
@@ -39,6 +39,8 @@ class IotStateModel(buttons: ArrayList<Int>) {
                     arrayList.addAll(skip())
                 }
             }
+            return arrayList
+
 
         }
 

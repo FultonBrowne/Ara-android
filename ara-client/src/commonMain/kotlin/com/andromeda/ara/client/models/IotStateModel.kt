@@ -18,11 +18,22 @@ package com.andromeda.ara.client.models
 
 
 class IotStateModel(val buttons: ArrayList<HaButton>){
-
     companion object{
-        fun fromHaOutput(){
+        const val OFF = 0
+        const val ON = 1
+        const val PLAY = 2
+        const val PAUSE = 3
+        fun fromHaOutput(state:String){
+            val arrayList = arrayListOf<Int>()
+            when {
+                state.equals("on") -> {
+                    arrayList.add(OFF)
+                }
+                state.equals("off") -> {arrayList.add(ON)}
+                state.equals("play") -> {arrayList.add(PAUSE)}
+            }
 
         }
     }
-    data class HaButton(val text: Any, val newState:String)
+    data class HaButton(val text: Any, val newState:Int)
 }

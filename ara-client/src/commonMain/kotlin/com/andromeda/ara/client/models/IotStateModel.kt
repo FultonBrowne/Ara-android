@@ -17,23 +17,35 @@
 package com.andromeda.ara.client.models
 
 
-class IotStateModel(val buttons: ArrayList<HaButton>){
-    companion object{
+class IotStateModel(buttons: ArrayList<Int>) {
+    companion object {
         const val OFF = 0
         const val ON = 1
         const val PLAY = 2
         const val PAUSE = 3
-        fun fromHaOutput(state:String){
+        const val SKIP_FWD = 4
+        const val SKIP_BACK = 5
+        fun fromHaOutput(state: String) {
             val arrayList = arrayListOf<Int>()
             when {
-                state.equals("on") -> {
-                    arrayList.add(OFF)
+                state.equals("on") -> arrayList.add(OFF)
+                state.equals("off") -> arrayList.add(ON)
+                state.equals("play") -> {
+                    arrayList.add(PAUSE)
+                    arrayList.addAll(skip())
                 }
-                state.equals("off") -> {arrayList.add(ON)}
-                state.equals("play") -> {arrayList.add(PAUSE)}
+                state.equals("pause") -> {
+                    arrayList.add(PAUSE)
+                    arrayList.addAll(skip())
+                }
             }
 
         }
+
+        private fun skip(): ArrayList<Int> {
+            return arrayListOf(SKIP_FWD, SKIP_BACK)
+        }
     }
-    data class HaButton(val text: Any, val newState:Int)
+
+    data class HaButton(val text: Any, val newState: Int)
 }

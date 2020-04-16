@@ -14,17 +14,15 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.andromeda.ara.models
+package com.andromeda.ara.client.models
 
-import android.widget.Button
 
-class IotStateModel(val buttons: ArrayList<Button>){
-    fun fromHaOutput(){
+class IotStateModel(val buttons: ArrayList<HaButton>){
 
-    }
     companion object{
+        fun fromHaOutput(){
 
+        }
     }
-    data class Button(val value:Any, val text: Any, val dataType:Int){
-    }
+    data class HaButton(val text: Any, val newState:String)
 }

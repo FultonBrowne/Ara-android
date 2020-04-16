@@ -22,8 +22,15 @@ import kotlinx.serialization.json.content
 
 class Actions {
     suspend fun getAll(): ArrayList<FeedModel> {
+        return get("")
+
+    }
+    suspend fun get(id:String): ArrayList<FeedModel> {
+        val link =
+        if (id != "" && !id.startsWith("/")) "/$id"
+        else id
         val toReturn = arrayListOf<FeedModel>()
-        val request = IotRequest.getRequest("/state")
+        val request = IotRequest.getRequest("/states")
         Json.parseJson(request).jsonArray.forEach {
             try {
                 val jsonObject = it.jsonObject
@@ -40,8 +47,7 @@ class Actions {
         return toReturn
 
     }
-    fun get(id:String){
-    }
-    fun edit(id: String){
+    suspend fun edit(id: String){
+        val get = get(id)
     }
 }

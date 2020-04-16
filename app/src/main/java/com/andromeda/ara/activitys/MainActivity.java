@@ -73,9 +73,6 @@ import com.andromeda.ara.util.TabAdapter;
 import com.andromeda.ara.util.TagManager;
 import com.andromeda.ara.voice.VoiceMain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.microsoft.appcenter.AppCenter;
-import com.microsoft.appcenter.analytics.Analytics;
-import com.microsoft.appcenter.crashes.Crashes;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -123,8 +120,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         act = this;
         System.out.println("done part 1");
         new CacheData().main(this);
-        AppCenter.start(getApplication(), "fbc54802-e5ba-4a5d-9e02-e3a5dcf4922b",
-                Analytics.class, Crashes.class);
         new GetSettings().starUp(this);
         final TagManager main53 = new TagManager(this);
         screenWidth = checkScreenWidth();

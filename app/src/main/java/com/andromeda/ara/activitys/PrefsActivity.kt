@@ -41,14 +41,12 @@ class PrefsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         setSupportActionBar(toolbar)
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val spinner = findViewById<Spinner>(R.id.timespinner)
-        val switch1 = findViewById<Switch>(R.id.switch1)
         val switch2 = findViewById<Switch>(R.id.switch2)
         val switch3 = findViewById<Switch>(R.id.switch3)
         val switch4 = findViewById<Switch>(R.id.switch4)
         val switch5 = findViewById<Switch>(R.id.switch5)
         val switch6 = findViewById<Switch>(R.id.useOtherServer)
         val text = findViewById<EditText>(R.id.otherServer)
-        switch1.isChecked = prefs.getBoolean("getData", true)
         switch2.isChecked = prefs.getBoolean("araAccount", true)
         switch3.isChecked = prefs.getBoolean("EAS", false)
         switch4.isChecked = prefs.getBoolean("heyAra", true)
@@ -59,9 +57,6 @@ class PrefsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         dataAdapter!!.add("15 minutes")
         spinner.onItemSelectedListener = this
         spinner.adapter = dataAdapter
-        switch1.setOnCheckedChangeListener { _, isChecked ->
-            prefs.edit().putBoolean("getData", isChecked).apply()
-        }
         switch2.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("araAccount", isChecked).apply()
         }

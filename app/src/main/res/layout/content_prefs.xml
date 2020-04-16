@@ -43,14 +43,6 @@
                     android:orientation="vertical">
 
                 <Switch
-                        android:id="@+id/switch1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/send_crash_reports_to_andromeda"
-                        android:textColor="#FFFFFF"/>
-
-                <Switch
                         android:id="@+id/switch2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

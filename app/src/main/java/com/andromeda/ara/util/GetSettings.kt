@@ -20,14 +20,9 @@ import android.content.Context
 import android.widget.Toast
 import androidx.preference.PreferenceManager
 import com.andromeda.ara.constants.ServerUrl
-import com.microsoft.appcenter.analytics.Analytics
-import com.microsoft.appcenter.crashes.Crashes
-
 class GetSettings {
     fun starUp(ctx: Context) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
-        Crashes.setEnabled(prefs.getBoolean("getData", false))
-        Analytics.setEnabled(prefs.getBoolean("getData", false))
         if (prefs.getBoolean("useOther", false)){
             ServerUrl.url = prefs.getString("serverText", "")!!
 

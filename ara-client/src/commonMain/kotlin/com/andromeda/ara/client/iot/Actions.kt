@@ -18,6 +18,7 @@ package com.andromeda.ara.client.iot
 
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.client.models.IotState
+import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.content
 
@@ -48,7 +49,8 @@ class Actions {
         return toReturn
 
     }
-    suspend fun edit(id: String): ArrayList<IotState> {
+    @OptIn(UnstableDefault::class)
+    suspend fun edit(id: String) {
         val toReturn = arrayListOf<IotState>()
         val attributesMap = mutableMapOf<String, String>()
         val request = IotRequest.getRequest("/states/$id")
@@ -62,13 +64,13 @@ class Actions {
                 val name = attributes.get("friendly_name")!!.content
                 val id = jsonObject.get("entity_id")!!.content
                 val description = jsonObject.get("state")!!.content
-                toReturn.add(IotState(state = description, context = null, attributes = null))
+                toReturn.add(IotState(state = description, context = null, attributes = attributesMap))
+                
             }
             catch (e:Exception){
             }
 
         }
-        return toReturn
 
     }
 }

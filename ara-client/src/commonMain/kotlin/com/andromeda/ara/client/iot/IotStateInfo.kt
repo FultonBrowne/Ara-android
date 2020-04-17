@@ -16,6 +16,8 @@
 
 package com.andromeda.ara.client.iot
 
+import com.andromeda.ara.client.models.IotState
+
 
 class IotStateInfo(buttons: ArrayList<Int>) {
     companion object {
@@ -25,7 +27,8 @@ class IotStateInfo(buttons: ArrayList<Int>) {
         const val PAUSE = 3
         const val SKIP_FWD = 4
         const val SKIP_BACK = 5
-        fun fromHaOutput(state: String): ArrayList<Int> {
+        fun fromHaOutput(stateAll:IotState): ArrayList<Int> {
+            val state = stateAll.state
             val arrayList = arrayListOf<Int>()
             when {
                 state.equals("on") -> arrayList.add(OFF)

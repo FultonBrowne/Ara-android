@@ -16,7 +16,7 @@
 
 package com.andromeda.ara.client.models
 
-data class IotState(val state:String, val context:MutableMap<String, String>?, val attributes: MutableMap<String, String>?) {
+data class IotState(var state:String, val context:MutableMap<String, String>?, val attributes: MutableMap<String, String>?) {
     companion object{
         fun fromRawState(rawIotState: RawIotState): IotState {
             return IotState(rawIotState.state, null, null)

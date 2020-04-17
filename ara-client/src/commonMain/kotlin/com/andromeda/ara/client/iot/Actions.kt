@@ -65,7 +65,6 @@ class Actions {
                 val id = jsonObject.get("entity_id")!!.content
                 val description = jsonObject.get("state")!!.content
                 toReturn.add(IotState(state = description, context = null, attributes = attributesMap))
-                
             }
             catch (e:Exception){
             }

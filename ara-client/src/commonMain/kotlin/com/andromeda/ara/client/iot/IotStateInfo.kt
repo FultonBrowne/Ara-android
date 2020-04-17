@@ -54,10 +54,12 @@ object IotStateInfo {
 
         }
     fun onPressed(id:String, newState:String, oldState:IotState){
-
+        oldState.state = newState
+        onPressed(id, oldState)
     }
     fun onPressed(id:String, newState:Int,  oldState:IotState){
-
+        oldState.state = ""
+        onPressed(id, oldState)
     }
     fun onPressed(id:String,  newState:IotState){
         val attributes = Any::class

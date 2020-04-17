@@ -49,13 +49,16 @@ class Actions {
 
     }
     suspend fun edit(id: String): ArrayList<IotState> {
-
         val toReturn = arrayListOf<IotState>()
+        val attributesMap = mutableMapOf<String, String>()
         val request = IotRequest.getRequest("/states/$id")
-        Json.parseJson(request).jsonArray.forEach {
+        Json.parseJson(request).jsonArray.forEach { it ->
             try {
                 val jsonObject = it.jsonObject
                 val attributes = jsonObject.get("attributes")!!.jsonObject
+                attributes.content.entries.forEach {
+                    attributesMap[it.key] = it.value.content
+                }
                 val name = attributes.get("friendly_name")!!.content
                 val id = jsonObject.get("entity_id")!!.content
                 val description = jsonObject.get("state")!!.content

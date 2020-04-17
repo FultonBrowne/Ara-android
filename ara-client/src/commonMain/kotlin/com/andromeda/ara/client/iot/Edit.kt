@@ -17,7 +17,7 @@
 package com.andromeda.ara.client.iot
 
 class Edit {
-    fun main(id:String){
+    suspend fun main(id:String){
         Actions().edit(id)
     }
 }

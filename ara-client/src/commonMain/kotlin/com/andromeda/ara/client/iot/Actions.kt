@@ -17,6 +17,7 @@
 package com.andromeda.ara.client.iot
 
 import com.andromeda.ara.client.models.FeedModel
+import com.andromeda.ara.client.models.IotState
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.content
 
@@ -47,7 +48,24 @@ class Actions {
         return toReturn
 
     }
-    suspend fun edit(id: String){
-        val get = get(id)
+    suspend fun edit(id: String): ArrayList<IotState> {
+
+        val toReturn = arrayListOf<IotState>()
+        val request = IotRequest.getRequest("/states/$id")
+        Json.parseJson(request).jsonArray.forEach {
+            try {
+                val jsonObject = it.jsonObject
+                val attributes = jsonObject.get("attributes")!!.jsonObject
+                val name = attributes.get("friendly_name")!!.content
+                val id = jsonObject.get("entity_id")!!.content
+                val description = jsonObject.get("state")!!.content
+                toReturn.add(IotState(state = description, context = null, attributes = null))
+            }
+            catch (e:Exception){
+            }
+
+        }
+        return toReturn
+
     }
 }

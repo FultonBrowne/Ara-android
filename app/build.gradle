@@ -112,7 +112,7 @@ dependencies {
 
 
     implementation 'androidx.ui:ui-layout:0.1.0-dev02'
-    implementation 'androidx.ui:ui-material:0.1.0-dev02'
+    implementation 'androidx.ui:ui-material:0.1.0-dev09'
     implementation 'androidx.ui:ui-tooling:0.1.0-dev02'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha04')
     implementation "com.mikepenz:materialdrawer:8.0.1"

@@ -18,6 +18,13 @@ package com.andromeda.ara.client.iot
 
 import com.andromeda.ara.client.models.IotState
 import com.andromeda.ara.client.models.RawIotState
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.serializer
+import kotlin.reflect.KCallable
+import kotlin.reflect.KMutableProperty
 
 
 object IotStateInfo {
@@ -53,11 +60,17 @@ object IotStateInfo {
 
     }
     fun onPressed(id:String,  newState:IotState){
+        val attributes = Any::class
+        val attributesMap = mutableMapOf<String, JsonElement>()
+        newState.attributes?.forEach {
+            attributesMap[it.key] = JsonPrimitive(it.value)
+        }
+        val attributesObject = JsonObject(attributesMap)
+        val jsonObject = JsonObject(mapOf("state" to JsonPrimitive(newState.state), "attributes" to attributesObject))
+        println(jsonObject.content)
 
     }
-    fun onPressed(id:String,  newState: RawIotState){
 
-    }
 
 
     private fun skip(): ArrayList<Int> {

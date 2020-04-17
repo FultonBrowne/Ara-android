@@ -103,7 +103,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.microsoft.identity.client:msal:1.0.+'
     implementation group: 'net.openid', name: 'appauth', version: '0.7.1'
-    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.preference:preference:1.1.1'
     implementation 'com.google.code.ndef-tools-for-android:ndeftools-util:1.2.4'
     testImplementation "io.mockk:mockk:1.9.3"
 

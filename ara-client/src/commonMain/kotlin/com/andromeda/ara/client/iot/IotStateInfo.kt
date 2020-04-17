@@ -17,10 +17,10 @@
 package com.andromeda.ara.client.iot
 
 import com.andromeda.ara.client.models.IotState
+import com.andromeda.ara.client.models.RawIotState
 
 
-class IotStateInfo(buttons: ArrayList<Int>) {
-    companion object {
+object IotStateInfo {
         const val OFF = 0
         const val ON = 1
         const val PLAY = 2
@@ -46,13 +46,26 @@ class IotStateInfo(buttons: ArrayList<Int>) {
 
 
         }
+    fun onPressed(id:String, newState:String, oldState:IotState){
 
-        private fun skip(): ArrayList<Int> {
+    }
+    fun onPressed(id:String, newState:Int,  oldState:IotState){
+
+    }
+    fun onPressed(id:String,  newState:IotState){
+
+    }
+    fun onPressed(id:String,  newState: RawIotState){
+
+    }
+
+
+    private fun skip(): ArrayList<Int> {
             return arrayListOf(
                 SKIP_FWD,
                 SKIP_BACK
             )
         }
-    }
+
 
 }

@@ -60,15 +60,19 @@ class Actions {
                     attributesMap[it.key] = it.value.content
                 }
                 val description = jsonObject.get("state")!!.content
+                val stateAll = IotState(
+                    state = description,
+                    context = null,
+                    attributes = attributesMap
+                )
                 val fromHaOutput = IotStateInfo.fromHaOutput(
-                    IotState(
-                        state = description,
-                        context = null,
-                        attributes = attributesMap
-                    )
+                    stateAll
                 )
                 if (fromHaOutput.size == 1) when (fromHaOutput[0]){
-                    -1 -> getNewInputs.text()
+                    -1 -> {
+                        val text = getNewInputs.text()
+                        IotStateInfo.onPressed(id, text, stateAll)
+                    }
                 }
                 return fromHaOutput
             }

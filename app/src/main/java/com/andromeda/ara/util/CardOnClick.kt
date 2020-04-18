@@ -23,6 +23,7 @@ import android.net.Uri
 import android.widget.Toast
 import com.andromeda.ara.activitys.SkillsActivity
 import com.andromeda.ara.client.iot.Actions
+import com.andromeda.ara.client.iot.GetNewInputs
 import com.andromeda.ara.client.iot.IotRequest
 import com.andromeda.ara.client.iot.IotStateInfo
 import com.andromeda.ara.client.models.FeedModel
@@ -40,7 +41,7 @@ import java.net.URL
 
 
 class CardOnClick {
-    fun mainFun(mode: Long, linkText: String, act: Activity, ctx: Context, searchFunctions: SearchFunctions) {
+    fun mainFun(mode: Long, linkText: String, act: Activity, ctx: Context, searchFunctions: SearchFunctions, getNewInputs: GetNewInputs) {
         when (mode) {
             DrawerModeConstants.SHORTCUTS-> {
                 try {
@@ -53,7 +54,7 @@ class CardOnClick {
             }
             DrawerModeConstants.DEVICES -> {
                 GlobalScope.launch {
-                    Actions().edit(linkText)
+                    Actions().edit(linkText, getNewInputs)
                 }
             }
             DrawerModeConstants.REMINDERS ->{

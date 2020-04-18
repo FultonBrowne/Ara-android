@@ -140,7 +140,7 @@ class AraPopUps {
 
     private var resultValue = "null"
     @SuppressLint("HandlerLeak")
-    fun getDialogValueBack(context: Context?, m: String): String {
+    fun getDialogValueBack(context: Activity?, m: String): String {
         val handler: Handler = object : Handler() {
             override fun handleMessage(mesg: Message?) {
                 throw RuntimeException()
@@ -154,7 +154,7 @@ class AraPopUps {
             resultValue = textView.text.toString()
             handler.sendMessage(handler.obtainMessage())
         }
-        alert.show()
+        context!!.runOnUiThread {  alert.show()}
         try {
             Looper.loop()
         } catch (e: RuntimeException) {

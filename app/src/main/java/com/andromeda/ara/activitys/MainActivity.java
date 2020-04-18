@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
                 try {
                     Adapter adapter = (Adapter) recyclerView.getAdapter();
                     assert adapter != null;
-                    new CardOnClick().mainFun(mode, adapter.getMFeedModels().get(position).getLink(), act, getApplicationContext(), MainActivity.this);
+                    new CardOnClick().mainFun(mode, adapter.getMFeedModels().get(position).getLink(), act, getApplicationContext(), MainActivity.this, MainActivity.this);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -470,7 +470,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
 
     @Override
     public String text() {
-        return new AraPopUps().getDialogValueBack(this, "edit state value");
+        return new AraPopUps().getDialogValueBack(MainActivity.this, "edit state value");
     }
 
     @Override

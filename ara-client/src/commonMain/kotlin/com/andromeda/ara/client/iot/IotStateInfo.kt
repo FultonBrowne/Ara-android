@@ -28,6 +28,7 @@ import kotlin.reflect.KMutableProperty
 
 
 object IotStateInfo {
+    const val NONE = -1
         const val OFF = 0
         const val ON = 1
         const val PLAY = 2
@@ -48,6 +49,7 @@ object IotStateInfo {
                     arrayList.add(PLAY)
                     arrayList.addAll(skip())
                 }
+                else -> arrayList.add(NONE)
             }
             return arrayList
 

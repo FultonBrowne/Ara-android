@@ -50,7 +50,7 @@ class Actions {
 
     }
     @OptIn(UnstableDefault::class)
-    suspend fun edit(id: String) {
+    suspend fun edit(id: String): ArrayList<Int>? {
         val toReturn = arrayListOf<IotState>()
         val attributesMap = mutableMapOf<String, String>()
         val request = IotRequest.getRequest("/states/$id")
@@ -64,12 +64,13 @@ class Actions {
                 val name = attributes.get("friendly_name")!!.content
                 val id = jsonObject.get("entity_id")!!.content
                 val description = jsonObject.get("state")!!.content
-                toReturn.add(IotState(state = description, context = null, attributes = attributesMap))
+                return IotStateInfo.fromHaOutput(IotState(state = description, context = null, attributes = attributesMap))
             }
             catch (e:Exception){
             }
 
         }
+        return  null
 
     }
 }

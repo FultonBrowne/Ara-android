@@ -140,24 +140,29 @@ class AraPopUps {
 
     private var resultValue = "null"
     @SuppressLint("HandlerLeak")
-    fun getDialogValueBack(context: Activity?, m: String): String {
+    fun getDialogValueBack(context: Activity?, m: String): String{
         val handler: Handler = object : Handler() {
             override fun handleMessage(mesg: Message?) {
                 throw RuntimeException()
             }
         }
-        val alert = AlertDialog.Builder(context)
-        alert.setTitle(m)
-        val textView =EditText(context)
-        alert.setView(textView)
-        alert.setPositiveButton("ok") { _, _ ->
-            resultValue = textView.text.toString()
-            handler.sendMessage(handler.obtainMessage())
-        }
-         alert.show()
-        try {
-            Looper.loop()
-        } catch (e: RuntimeException) {
+        return getDialogValueBack(context, m, handler)
+    }
+    fun getDialogValueBack(context: Activity?, m: String, handler: Handler): String {
+        context!!.runOnUiThread {
+            val alert = AlertDialog.Builder(context)
+            alert.setTitle(m)
+            val textView = EditText(context)
+            alert.setView(textView)
+            alert.setPositiveButton("ok") { _, _ ->
+                resultValue = textView.text.toString()
+                handler.sendMessage(handler.obtainMessage())
+            }
+            alert.show()
+            try {
+                Looper.loop()
+            } catch (e: RuntimeException) {
+            }
         }
         return resultValue
     }

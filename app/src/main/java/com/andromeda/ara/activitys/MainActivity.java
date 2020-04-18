@@ -26,6 +26,8 @@ import android.content.res.Configuration;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -98,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
      * these have to do with permissions
      **/
     private static final int REQUEST_RECORD_AUDIO = 13;
+    Handler handler = null;
     //this is the text for the greeting it is hello by default for compatibility reasons
     private String mTime = "Hello";
     //this is the navigation Drawer
@@ -123,6 +126,14 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         new CacheData().main(this);
         new GetSettings().starUp(this);
         final TagManager main53 = new TagManager(this);
+        handler = new Handler(){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                throw new RuntimeException();
+
+            }
+        };
         screenWidth = checkScreenWidth();
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -470,7 +481,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
 
     @Override
     public String text() {
-        return new AraPopUps().getDialogValueBack(MainActivity.this, "edit state value");
+        return new AraPopUps().getDialogValueBack(MainActivity.this, "edit state value", handler);
     }
 
     @Override

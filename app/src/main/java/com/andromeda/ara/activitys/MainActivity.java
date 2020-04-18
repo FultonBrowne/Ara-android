@@ -45,6 +45,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andromeda.ara.R;
+import com.andromeda.ara.client.iot.GetNewInputs;
 import com.andromeda.ara.client.models.FeedModel;
 import com.andromeda.ara.client.models.SkillsModel;
 import com.andromeda.ara.client.search.Actions;
@@ -92,7 +93,7 @@ import java.util.Objects;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
-public class MainActivity extends AppCompatActivity implements SearchFunctions, Actions, SetFeedData {
+public class MainActivity extends AppCompatActivity implements SearchFunctions, Actions, SetFeedData, GetNewInputs {
     /**
      * these have to do with permissions
      **/
@@ -465,5 +466,15 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
             recyclerView.setAdapter(new Adapter(feedModel, this));
 
         });
+    }
+
+    @Override
+    public String text() {
+        return new AraPopUps().getDialogValueBack(this, "edit state value");
+    }
+
+    @Override
+    public boolean toggle(@NotNull String s) {
+        return true;
     }
 }

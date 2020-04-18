@@ -50,8 +50,7 @@ class Actions {
 
     }
     @OptIn(UnstableDefault::class)
-    suspend fun edit(id: String): ArrayList<Int>? {
-        val toReturn = arrayListOf<IotState>()
+    suspend fun edit(id: String, getNewInputs: GetNewInputs): ArrayList<Int>? {
         val attributesMap = mutableMapOf<String, String>()
         val request = IotRequest.getRequest("/states/$id")
         val jsonObject = Json.parseJson(request).jsonObject
@@ -60,10 +59,18 @@ class Actions {
                 attributes.content.entries.forEach {
                     attributesMap[it.key] = it.value.content
                 }
-                val name = attributes.get("friendly_name")!!.content
-                val id = jsonObject.get("entity_id")!!.content
                 val description = jsonObject.get("state")!!.content
-                return IotStateInfo.fromHaOutput(IotState(state = description, context = null, attributes = attributesMap))
+                val fromHaOutput = IotStateInfo.fromHaOutput(
+                    IotState(
+                        state = description,
+                        context = null,
+                        attributes = attributesMap
+                    )
+                )
+                if (fromHaOutput.size == 1) when (fromHaOutput[0]){
+                    -1 -> getNewInputs.text()
+                }
+                return fromHaOutput
             }
             catch (e:Exception){
                 println(e.message)

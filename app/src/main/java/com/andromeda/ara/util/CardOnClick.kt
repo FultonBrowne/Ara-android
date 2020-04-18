@@ -23,6 +23,8 @@ import android.net.Uri
 import android.widget.Toast
 import com.andromeda.ara.activitys.SkillsActivity
 import com.andromeda.ara.client.iot.Actions
+import com.andromeda.ara.client.iot.IotRequest
+import com.andromeda.ara.client.iot.IotStateInfo
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.constants.DrawerModeConstants
 import com.andromeda.ara.constants.ServerUrl
@@ -51,7 +53,7 @@ class CardOnClick {
             }
             DrawerModeConstants.DEVICES -> {
                 GlobalScope.launch {
-                    println(Actions().edit(linkText))
+                    Actions().edit(linkText)
                 }
             }
             DrawerModeConstants.REMINDERS ->{

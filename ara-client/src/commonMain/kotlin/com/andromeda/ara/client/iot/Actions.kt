@@ -54,9 +54,8 @@ class Actions {
         val toReturn = arrayListOf<IotState>()
         val attributesMap = mutableMapOf<String, String>()
         val request = IotRequest.getRequest("/states/$id")
-        Json.parseJson(request).jsonArray.forEach { it ->
+        val jsonObject = Json.parseJson(request).jsonObject
             try {
-                val jsonObject = it.jsonObject
                 val attributes = jsonObject.get("attributes")!!.jsonObject
                 attributes.content.entries.forEach {
                     attributesMap[it.key] = it.value.content
@@ -67,9 +66,9 @@ class Actions {
                 return IotStateInfo.fromHaOutput(IotState(state = description, context = null, attributes = attributesMap))
             }
             catch (e:Exception){
+                println(e.message)
             }
 
-        }
         return  null
 
     }

@@ -51,7 +51,7 @@ class CardOnClick {
             }
             DrawerModeConstants.DEVICES -> {
                 GlobalScope.launch {
-                    Actions().edit(linkText)
+                    println(Actions().edit(linkText))
                 }
             }
             DrawerModeConstants.REMINDERS ->{

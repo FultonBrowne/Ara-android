@@ -31,9 +31,11 @@ object IotRequest {
         val client = HttpClient()
         val request = HttpRequestBuilder()
         request.method = HttpMethod("GET")
-        request.url.takeFrom("${IotData.urlToApi}/$command")
+        request.url.takeFrom("${IotData.urlToApi}$command")
         request.header("Authorization", "Bearer ${IotData.accessKey}")
-        return client.request<String>(request)
+        val request1 = client.request<String>(request)
+        client.close()
+        return request1
 
     }
 }

@@ -17,6 +17,7 @@
 package com.andromeda.ara.iot
 
 import android.app.Activity
+import com.andromeda.ara.client.iot.IotData
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.util.JsonParse
 import java.net.URL
@@ -26,6 +27,8 @@ class CacheData {
         val sharedPreferences = act.getSharedPreferences("iot", 0)
         IotCache.id = sharedPreferences.getString("key", "")!!
         IotCache.url = sharedPreferences.getString("url", "")!!
+        IotData.urlToApi = sharedPreferences.getString("url", "")!!
+        IotData.accessKey= sharedPreferences.getString("key", "")!!
         IotRequest.testPing()
         try {
             getFromCloud(act)

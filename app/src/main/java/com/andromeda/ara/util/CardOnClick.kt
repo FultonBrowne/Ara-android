@@ -53,9 +53,8 @@ class CardOnClick {
 
             }
             DrawerModeConstants.DEVICES -> {
-                GlobalScope.launch {
                     Actions().edit(linkText, getNewInputs)
-                }
+
             }
             DrawerModeConstants.REMINDERS ->{
                 AraPopUps().editReminder(act, linkText)

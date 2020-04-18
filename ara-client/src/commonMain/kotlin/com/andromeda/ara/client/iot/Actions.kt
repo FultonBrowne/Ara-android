@@ -18,6 +18,8 @@ package com.andromeda.ara.client.iot
 
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.client.models.IotState
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.content
@@ -50,10 +52,11 @@ class Actions {
 
     }
     @OptIn(UnstableDefault::class)
-    suspend fun edit(id: String, getNewInputs: GetNewInputs): ArrayList<Int>? {
+    fun edit(id: String, getNewInputs: GetNewInputs){
         val attributesMap = mutableMapOf<String, String>()
-        val request = IotRequest.getRequest("/states/$id")
-        val jsonObject = Json.parseJson(request).jsonObject
+        GlobalScope.launch {
+            val request = IotRequest.getRequest("/states/$id")
+            val jsonObject = Json.parseJson(request).jsonObject
             try {
                 val attributes = jsonObject.get("attributes")!!.jsonObject
                 attributes.content.entries.forEach {
@@ -68,19 +71,15 @@ class Actions {
                 val fromHaOutput = IotStateInfo.fromHaOutput(
                     stateAll
                 )
-                if (fromHaOutput.size == 1) when (fromHaOutput[0]){
+                if (fromHaOutput.size == 1) when (fromHaOutput[0]) {
                     -1 -> {
                         val text = getNewInputs.text()
                         IotStateInfo.onPressed(id, text, stateAll)
                     }
                 }
-                return fromHaOutput
-            }
-            catch (e:Exception){
+            } catch (e: Exception) {
                 println(e.message)
             }
-
-        return  null
-
+        }
     }
 }

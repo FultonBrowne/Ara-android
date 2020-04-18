@@ -154,7 +154,7 @@ class AraPopUps {
             resultValue = textView.text.toString()
             handler.sendMessage(handler.obtainMessage())
         }
-        context!!.runOnUiThread {  alert.show()}
+         alert.show()
         try {
             Looper.loop()
         } catch (e: RuntimeException) {

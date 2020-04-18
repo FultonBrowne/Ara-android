@@ -60,6 +60,7 @@ object IotStateInfo {
         onPressed(id, oldState)
     }
     fun onPressed(id:String, newState:Int,  oldState:IotState){
+        if (newState == -1) throw IllegalStateException("must be a text input")
         oldState.state = ""
         onPressed(id, oldState)
     }

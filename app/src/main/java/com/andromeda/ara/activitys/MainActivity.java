@@ -33,6 +33,7 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -486,7 +487,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
 
     @Override
     public boolean toggle(@NotNull boolean s) {
+        Toast.makeText(this, "state toggled", Toast.LENGTH_LONG);
+        return s;
 
-       return new AraPopUps().getDialogValueBackBool(this, "on or off", handler, s);
     }
 }

@@ -491,7 +491,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
 
     @Override
     public boolean toggle(boolean s) {
-        Toast.makeText(this, "state toggled", Toast.LENGTH_LONG).show();
+        runOnUiThread(() -> Toast.makeText(this, "state toggled", Toast.LENGTH_LONG).show());
         return s;
     }
 }

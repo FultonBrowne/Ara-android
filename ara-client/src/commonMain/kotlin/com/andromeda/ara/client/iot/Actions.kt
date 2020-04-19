@@ -76,6 +76,9 @@ class Actions {
                         val text = getNewInputs.text()
                         IotStateInfo.onPressed(id, text, stateAll)
                     }
+                    0 ->{
+                        
+                    }
                 }
             } catch (e: Exception) {
                 println(e.message)

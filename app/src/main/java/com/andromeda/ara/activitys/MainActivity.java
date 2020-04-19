@@ -485,7 +485,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     }
 
     @Override
-    public boolean toggle(@NotNull String s) {
+    public boolean toggle(@NotNull boolean s) {
+
         return true;
     }
 }

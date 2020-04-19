@@ -18,6 +18,6 @@ package com.andromeda.ara.client.iot
 
 interface GetNewInputs {
     fun text() : String
-    fun toggle(headerText:String) : Boolean
+    fun toggle(currentVal:Boolean) : Boolean
     //fun buttonList()
 }

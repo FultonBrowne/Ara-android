@@ -34,6 +34,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.ui.material.Switch
 import com.andromeda.ara.R
 import com.andromeda.ara.client.models.RemindersModel
 import com.andromeda.ara.client.models.SkillsDBModel
@@ -165,6 +166,28 @@ class AraPopUps {
             }
         }
         return resultValue
+    }
+    fun getDialogValueBackBool(context: Activity?, m: String, handler: Handler,checked:Boolean): Boolean {
+        var resultBool = checked
+        context!!.runOnUiThread {
+            val alert = AlertDialog.Builder(context)
+            alert.setTitle(m)
+            val textView = android.widget.Switch(context)
+            textView.isChecked = checked
+            textView.setOnCheckedChangeListener { buttonView, isChecked ->
+                resultBool = isChecked
+            }
+            alert.setView(textView)
+            alert.setPositiveButton("ok") { _, _ ->
+                handler.sendMessage(handler.obtainMessage())
+            }
+            alert.show()
+            try {
+                Looper.loop()
+            } catch (e: RuntimeException) {
+            }
+        }
+        return resultBool
     }
     fun newDoc(message: String, id:String) {
         val serverURL = "${url}newdoc/user=${User.id}&id=$id"

@@ -487,6 +487,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     @Override
     public boolean toggle(@NotNull boolean s) {
 
-        return true;
+       return new AraPopUps().getDialogValueBackBool(this, "on or off", handler, s);
     }
 }

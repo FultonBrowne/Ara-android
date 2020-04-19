@@ -20,10 +20,10 @@
 >
 
     <item>
-        <bitmap
+        <color
                 android:gravity="fill|left|center"
 
-                android:src="@drawable/splash"/>
+            android:color="@color/colorPrimary" />
     </item>
     <item>
         <bitmap android:gravity="top|left" android:src="@mipmap/ic_launcher_foreground"

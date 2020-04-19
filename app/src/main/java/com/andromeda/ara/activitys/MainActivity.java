@@ -17,6 +17,7 @@
 package com.andromeda.ara.activitys;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     Activity act;
 
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         new GetSettings().starUp(this);
         final TagManager main53 = new TagManager(this);
         handler = new Handler(){
+            @SuppressLint("HandlerLeak")
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
@@ -191,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
                         RecyclerView tabs = findViewById(R.id.tabs);
                         tabs.setVisibility(View.INVISIBLE);
                             try {
-                                new Drawer().main(drawerItem.getIdentifier(), this, main53, feedModel1, this::setData);
+                                new Drawer().main(drawerItem.getIdentifier(), this, main53, feedModel1, this);
                                 recyclerView.setAdapter(new Adapter(feedModel1, this));
                                 mode = drawerItem.getIdentifier();
                             } catch (Exception e) {
@@ -329,7 +332,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
                         assert locationManager != null;
                     }
                     try {
-                        new Search().main(query, MainActivity.this, MainActivity.this, null, feedModel1, MainActivity.this, MainActivity.this::setData);
+                        new Search().main(query, MainActivity.this, MainActivity.this, null, feedModel1, MainActivity.this, MainActivity.this);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -480,15 +483,15 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         });
     }
 
+    @NonNull
     @Override
     public String text() {
         return new AraPopUps().getDialogValueBack(MainActivity.this, "edit state value", handler);
     }
 
     @Override
-    public boolean toggle(@NotNull boolean s) {
-        Toast.makeText(this, "state toggled", Toast.LENGTH_LONG);
+    public boolean toggle(boolean s) {
+        Toast.makeText(this, "state toggled", Toast.LENGTH_LONG).show();
         return s;
-
     }
 }

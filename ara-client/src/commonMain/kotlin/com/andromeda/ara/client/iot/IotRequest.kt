@@ -25,6 +25,8 @@ import io.ktor.client.request.request
 import io.ktor.http.HttpMethod
 import io.ktor.http.URLBuilder
 import io.ktor.http.takeFrom
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 object IotRequest {
     suspend fun getRequest(command:String): String {
@@ -37,5 +39,17 @@ object IotRequest {
         client.close()
         return request1
 
+    }
+    fun postRequest(command:String, body:String){
+        val client = HttpClient()
+        val request = HttpRequestBuilder()
+        request.method = HttpMethod("POST")
+        request.body = body
+        request.url.takeFrom("${IotData.urlToApi}$command")
+        request.header("Authorization", "Bearer ${IotData.accessKey}")
+        GlobalScope.launch {
+        val request1 = client.request<String>(request)
+            client.close()
+        }
     }
 }

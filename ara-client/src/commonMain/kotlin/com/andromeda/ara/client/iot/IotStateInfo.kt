@@ -29,56 +29,62 @@ import kotlin.reflect.KMutableProperty
 
 object IotStateInfo {
     const val NONE = -1
-        const val OFF = 0
-        const val ON = 1
-        const val PLAY = 2
-        const val PAUSE = 3
-        const val SKIP_FWD = 4
-        const val SKIP_BACK = 5
-        fun fromHaOutput(stateAll:IotState): ArrayList<Int> {
-            val state = stateAll.state
-            val arrayList = arrayListOf<Int>()
-            when {
-                state.equals("on") -> arrayList.add(OFF)
-                state.equals("off") -> arrayList.add(ON)
-                state.equals("play") -> {
-                    arrayList.add(PAUSE)
-                    arrayList.addAll(skip())
-                }
-                state.equals("pause") -> {
-                    arrayList.add(PLAY)
-                    arrayList.addAll(skip())
-                }
-                else -> arrayList.add(NONE)
+    const val OFF = 0
+    const val ON = 1
+    const val PLAY = 2
+    const val PAUSE = 3
+    const val SKIP_FWD = 4
+    const val SKIP_BACK = 5
+    fun fromHaOutput(stateAll: IotState): ArrayList<Int> {
+        val state = stateAll.state
+        val arrayList = arrayListOf<Int>()
+        when {
+            state.equals("on") -> arrayList.add(OFF)
+            state.equals("off") -> arrayList.add(ON)
+            state.equals("play") -> {
+                arrayList.add(PAUSE)
+                arrayList.addAll(skip())
             }
-            return arrayList
-
-
+            state.equals("pause") -> {
+                arrayList.add(PLAY)
+                arrayList.addAll(skip())
+            }
+            else -> arrayList.add(NONE)
         }
-    fun onPressed(id:String, newState:String, oldState:IotState){
+        return arrayList
+
+
+    }
+
+    fun onPressed(id: String, newState: String, oldState: IotState) {
         oldState.state = newState
         onPressed(id, oldState)
     }
-    fun onPressed(id:String,  newState:IotState){
+
+    fun onPressed(id: String, newState: IotState) {
         val attributes = Any::class
         val attributesMap = mutableMapOf<String, JsonElement>()
         newState.attributes?.forEach {
             attributesMap[it.key] = JsonPrimitive(it.value)
         }
         val attributesObject = JsonObject(attributesMap)
-        val jsonObject = JsonObject(mapOf("state" to JsonPrimitive(newState.state), "attributes" to attributesObject))
-        println(jsonObject.content)
+        val jsonObject = JsonObject(
+            mapOf(
+                "state" to JsonPrimitive(newState.state),
+                "attributes" to attributesObject
+            )
+        )
+        IotRequest.postRequest("/states/$id",jsonObject.toString())
 
     }
 
 
-
     private fun skip(): ArrayList<Int> {
-            return arrayListOf(
-                SKIP_FWD,
-                SKIP_BACK
-            )
-        }
+        return arrayListOf(
+            SKIP_FWD,
+            SKIP_BACK
+        )
+    }
 
 
 }

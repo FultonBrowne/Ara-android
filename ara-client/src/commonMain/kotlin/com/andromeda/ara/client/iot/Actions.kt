@@ -71,14 +71,13 @@ class Actions {
                 val fromHaOutput = IotStateInfo.fromHaOutput(
                     stateAll
                 )
-                var text = ""
-                if (fromHaOutput.size == 1)   text = when (fromHaOutput[0]) {
+                val text: String
+                text = if (fromHaOutput.size == 1) when (fromHaOutput[0]) {
                     -1 -> {
                         getNewInputs.text()
                     }
                     0 ->{
                         getNewInputs.toggle(true)
-
                         "on"
                     }
                     1 ->{
@@ -87,8 +86,8 @@ class Actions {
                     }
                     else ->  getNewInputs.text()
                 }
+                else getNewInputs.text()
                 IotStateInfo.onPressed(id, text, stateAll)
-
             } catch (e: Exception) {
                 println(e.message)
             }

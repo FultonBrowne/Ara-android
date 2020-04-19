@@ -59,11 +59,6 @@ object IotStateInfo {
         oldState.state = newState
         onPressed(id, oldState)
     }
-    fun onPressed(id:String, newState:Int,  oldState:IotState){
-        if (newState == -1) throw IllegalStateException("must be a text input")
-        oldState.state = ""
-        onPressed(id, oldState)
-    }
     fun onPressed(id:String,  newState:IotState){
         val attributes = Any::class
         val attributesMap = mutableMapOf<String, JsonElement>()

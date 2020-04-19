@@ -26,7 +26,7 @@
             android:color="@color/colorPrimary" />
     </item>
     <item>
-        <bitmap android:gravity="top|left" android:src="@mipmap/ic_launcher_foreground"
+        <bitmap android:gravity="center" android:src="@mipmap/ic_launcher_foreground"
         />
     </item>
     <item>

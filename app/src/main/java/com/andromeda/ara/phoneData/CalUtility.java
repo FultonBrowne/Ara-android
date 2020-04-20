@@ -77,47 +77,6 @@ public class CalUtility {
         return formatter.format(calendar.getTime());
     }
 
-    public static ArrayList<FeedDateParseModel> getComplexData(Context context) {
-        Date currentDate = new Date(System.currentTimeMillis());
-        System.out.println(currentDate);
-        Cursor cursor = context.getContentResolver()
-                .query(
-                        Uri.parse("content://com.android.calendar/events"),
-                        new String[]{context.getString(R.string.calender_id), context.getString(R.string.title), context.getString(R.string.description),
-                                context.getString(R.string.dtstart), context.getString(R.string.dtend), context.getString(R.string.eventLocation)}, null,
-                        null, null);
-        assert cursor != null;
-        cursor.moveToFirst();
-        @SuppressWarnings("MismatchedReadAndWriteOfArray") String[] CNames = new String[cursor.getCount()];
-
-        complexDataMain.clear();
-        for (int i = 0; i < CNames.length; i++) {
-
-            String nameOfEvent = cursor.getString(1);
-            String startDates = (getDate(Long.parseLong(cursor.getString(3))));
-            Date startDatesAsTime = (new Date(Long.parseLong(cursor.getString(3))));
-            System.out.println(startDatesAsTime);
-            String endDates = (getDate(Long.parseLong(cursor.getString(4))));
-            String descriptions = (cursor.getString(2));
-            long ltime = currentDate.getTime() + 4 * 24 * 60 * 60 * 1000;
-            Date today4 = new Date(ltime);
-            long toSub;
-            if (currentDate.getTime() < startDatesAsTime.getTime() && !startDatesAsTime.after(today4)) {
-                toSub = startDatesAsTime.getTime() - currentDate.getTime();
-                toSub = toSub * 2;
-                startDatesAsTime = new Date(startDatesAsTime.getTime() - toSub);
-                complexDataMain.add(new FeedDateParseModel(nameOfEvent, startDates + endDates + System.lineSeparator() + descriptions, "", "", "", startDatesAsTime));
-            }
-            CNames[i] = cursor.getString(1);
-            cursor.moveToNext();
-
-
-        }
-        cursor.close();
-
-
-        return complexDataMain;
-    }
     public ArrayList<FeedModel> getClosestEvents(Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -133,18 +92,16 @@ public class CalUtility {
         assert cursor != null;
         cursor.moveToFirst();
         long ltime = currentDate.getTime() + 60 * 1000 * prefs.getInt("time", 60) ;
-        Date today4 = new Date(ltime);
         @SuppressWarnings("MismatchedReadAndWriteOfArray") String[] CNames = new String[cursor.getCount()];
 
         for (int i = 0; i < CNames.length; i++) {
 
             String nameOfEvent = cursor.getString(1);
-            String startDates = (getDate(Long.parseLong(cursor.getString(3))));
+            getDate(Long.parseLong(cursor.getString(3)));
             Date startDatesAsTime = (new Date(Long.parseLong(cursor.getString(3))));
             System.out.println(startDatesAsTime);
             DateFormat df = DateFormat.getTimeInstance();
-            String descriptions = (cursor.getString(2));
-            long toSub;
+            cursor.getString(2);
             CNames[i] = cursor.getString(1);
             if(startDatesAsTime.getTime() < ltime && startDatesAsTime.getTime() > currentDate.getTime()){
                 String format = df.format(startDatesAsTime);

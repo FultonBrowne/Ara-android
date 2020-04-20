@@ -59,6 +59,7 @@ class Actions {
             val jsonObject = Json.parseJson(request).jsonObject
             try {
                 val attributes = jsonObject.get("attributes")!!.jsonObject
+                println(attributes)
                 attributes.content.entries.forEach {
                     attributesMap[it.key] = it.value.content
                 }
@@ -89,7 +90,7 @@ class Actions {
                 else getNewInputs.text()
                 IotStateInfo.onPressed(id, text, stateAll)
             } catch (e: Exception) {
-                println(e.message)
+                println(e)
             }
         }
     }

@@ -48,7 +48,7 @@ object IotRequest {
         request.url.takeFrom("${IotData.urlToApi}$command")
         request.header("Authorization", "Bearer ${IotData.accessKey}")
         GlobalScope.launch {
-        val request1 = client.request<String>(request)
+        client.request<String>(request)
             client.close()
         }
     }

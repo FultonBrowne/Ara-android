@@ -24,18 +24,13 @@ import android.widget.Toast
 import com.andromeda.ara.activitys.SkillsActivity
 import com.andromeda.ara.client.iot.Actions
 import com.andromeda.ara.client.iot.GetNewInputs
-import com.andromeda.ara.client.iot.IotRequest
-import com.andromeda.ara.client.iot.IotStateInfo
 import com.andromeda.ara.client.models.FeedModel
 import com.andromeda.ara.constants.DrawerModeConstants
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.User
-import com.andromeda.ara.iot.Edit
 import com.andromeda.ara.skills.Parse
 import com.andromeda.ara.skills.RunActions
 import com.andromeda.ara.skills.SearchFunctions
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.net.URL
 
 

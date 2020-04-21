@@ -40,10 +40,10 @@ class VoiceView : FloatingActionButton {
     private var mMaxRadius = 0f
     private var mCurrentRadius = 0f
 
-    constructor(context: Context?) : super(context) {
+    constructor(context: Context) : super(context) {
     }
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
     }
     init {
         mNormalBitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_foreground)

@@ -107,7 +107,7 @@ public class CalUtility {
                 String format = df.format(startDatesAsTime);
                 FeedModel e = new FeedModel("at: " + format.substring(0, format.length() - 3), "", nameOfEvent, "", "", false);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    e.setColor(context.getColor(R.color.accent));
+                    e.setColor(context.getColor(R.color.colorAccent));
                 }
                 feedModels.add(e);
 

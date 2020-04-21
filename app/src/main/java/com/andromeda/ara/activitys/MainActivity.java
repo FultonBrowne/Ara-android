@@ -44,6 +44,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,8 +54,6 @@ import com.andromeda.ara.client.iot.GetNewInputs;
 import com.andromeda.ara.client.models.FeedModel;
 import com.andromeda.ara.client.models.SkillsModel;
 import com.andromeda.ara.client.search.Actions;
-import com.andromeda.ara.constants.DrawerModeConstants;
-import com.andromeda.ara.constants.User;
 import com.andromeda.ara.feeds.Drawer;
 import com.andromeda.ara.feeds.News;
 import com.andromeda.ara.iot.CacheData;
@@ -78,12 +77,7 @@ import com.andromeda.ara.util.TabAdapter;
 import com.andromeda.ara.util.TagManager;
 import com.andromeda.ara.voice.VoiceMain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -106,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     //this is the text for the greeting it is hello by default for compatibility reasons
     private String mTime = "Hello";
     //this is the navigation Drawer
-    private com.mikepenz.materialdrawer.Drawer drawer = null;
+    private MaterialDrawerSliderView drawer = null;
     // Data set for list out put
     private ArrayList<FeedModel> feedModel1 = new ArrayList<>();
     //RecyclerView
@@ -149,20 +143,19 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
         recyclerView = findViewById(R.id.list);
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(DrawerModeConstants.HOME).withName("Home").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.home);
-        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.TAGS).withName("Tags").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.tag);
-        SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.FOOD).withName("Food").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.food);
-        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.CAL).withName("Agenda").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.ic_today_black_24dp);
-        SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.SHORTCUTS).withName("Shortcuts").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.shortcut);
-        SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.DEVICES).withName("Devices").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.devices);
-        SecondaryDrawerItem item8 = new SecondaryDrawerItem().withIdentifier(DrawerModeConstants.REMINDERS).withName("Reminders").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.done);
-        SecondaryDrawerItem news1 = new SecondaryDrawerItem().withIdentifier(102).withName("Tech").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.technews);
-        SecondaryDrawerItem news3 = new SecondaryDrawerItem().withIdentifier(104).withName(getString(R.string.domeNews)).withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.domnews);
-        SecondaryDrawerItem news4 = new SecondaryDrawerItem().withIdentifier(105).withName(getString(R.string.moneyText)).withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.money);
-        SecondaryDrawerItem newsmain = new SecondaryDrawerItem().withIdentifier(101).withName("News").withTextColorRes(R.color.md_white_1000).withSelectedColorRes(R.color.card_color).withSubItems(news1, news3, news4).withSelectedTextColorRes(R.color.md_white_1000).withIcon(R.drawable.news);
+        /*SecondaryDrawerItem item1 = Drawer.Companion.newItem(DrawerModeConstants.HOME, "Home");
+        SecondaryDrawerItem item3 = new SecondaryDrawerItem().setIdentifier(DrawerModeConstants.FOOD).setName("Food").setTextColorRes(R.color.md_white_1000).setSelectedColorRes(R.color.card_color).setSelectedTextColorRes(R.color.md_white_1000).setIcon(R.drawable.food);
+        SecondaryDrawerItem item5 = new SecondaryDrawerItem().setIdentifier(DrawerModeConstants.CAL).setName("Agenda").setTextColorRes(R.color.md_white_1000).setSelectedColorRes(R.color.card_color).setSelectedTextColorRes(R.color.md_white_1000).setIcon(R.drawable.ic_today_black_24dp);
+        SecondaryDrawerItem item6 = new SecondaryDrawerItem().setIdentifier(DrawerModeConstants.SHORTCUTS).setName("Shortcuts").setTextColorRes(R.color.md_white_1000).setSelectedColorRes(R.color.card_color).setSelectedTextColorRes(R.color.md_white_1000).setIcon(R.drawable.shortcut);
+        SecondaryDrawerItem item7 = new SecondaryDrawerItem().setIdentifier(DrawerModeConstants.DEVICES).setName("Devices").setTextColorRes(R.color.md_white_1000).setSelectedColorRes(R.color.card_color).setSelectedTextColorRes(R.color.md_white_1000).setIcon(R.drawable.devices);
+        SecondaryDrawerItem item8 = new SecondaryDrawerItem().setIdentifier(DrawerModeConstants.REMINDERS).setName("Reminders").setTextColorRes(R.color.md_white_1000).setSelectedColorRes(R.color.card_color).setSelectedTextColorRes(R.color.md_white_1000).setIcon(R.drawable.done);
+        SecondaryDrawerItem news1 = new SecondaryDrawerItem().setIdentifier(102).setName("Tech").setTextColorRes(R.color.md_white_1000).setSelectedColorRes(R.color.card_color).setSelectedTextColorRes(R.color.md_white_1000).setIcon(R.drawable.technews);
+        SecondaryDrawerItem news3 = new SecondaryDrawerItem().setIdentifier(104).setName(getString(R.string.domeNews)).setTextColorRes(R.color.md_white_1000).setSelectedColorRes(R.color.card_color).setSelectedTextColorRes(R.color.md_white_1000).setIcon(R.drawable.domnews);
+        SecondaryDrawerItem news4 = new SecondaryDrawerItem().setIdentifier(105).setName(getString(R.string.moneyText)).setTextColorRes(R.color.md_white_1000).setSelectedColorRes(R.color.card_color).setSelectedTextColorRes(R.color.md_white_1000).setIcon(R.drawable.money);
+        SecondaryDrawerItem newsmain = new SecondaryDrawerItem().setIdentifier(101).setName("News").setTextColorRes(R.color.md_white_1000).setSelectedColorRes(R.color.card_color).setSubItems(news1, news3, news4).setSelectedTextColorRes(R.color.md_white_1000).setIcon(R.drawable.news);
         System.out.println("items");
         AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
+                .setActivity(this)
                 //.withHeaderBackground(R.drawable.back)
                 .addProfiles(
                         new ProfileDrawerItem().withName(User.INSTANCE.getName()).withEmail(User.INSTANCE.getEmail()))
@@ -208,8 +201,13 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
                 })
                 .build());
 
+         */
+        drawer = findViewById(R.id.slider);
+        Drawer.Companion.drawer(this, drawer, this);
         System.out.println("drawer");
         Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ham);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         StrictMode.setThreadPolicy(policy);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
@@ -363,10 +361,11 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     @Override
     public void onBackPressed() {
         //handle the back press :D close the Drawer first and if the Drawer is closed close the activity
-        if (drawer != null && drawer.isDrawerOpen()) {
-            drawer.closeDrawer();
-        } else if (drawer != null && !drawer.isDrawerOpen()) {
-            drawer.openDrawer();
+        DrawerLayout viewById = (DrawerLayout) findViewById(R.id.root);
+        if (viewById != null && viewById.isOpen()) {
+            viewById.close();
+        } else if (viewById != null && !viewById.isOpen()) {
+            viewById.open();
         } else {
             super.onBackPressed();
         }

@@ -64,7 +64,7 @@
         android:layout_margin="32dp"
         android:clickable="true"
         android:focusable="true"
-        android:background="@color/accent"
+        android:background="@color/colorAccent"
         android:onClick="record"
 
         app:srcCompat="@drawable/mic"/>

@@ -30,11 +30,11 @@ import kotlinx.serialization.json.Json
 
 class SetUp {
     @ImplicitReflectionSerializer
-    private fun writeToCloud(link:String, key: String){
+    fun writeToCloud(link:String, key: String){
         val id = "ha-${User.id}"
         ReadURL().post("${url}newdoc/user=${User.id}&id=$id", Json.toJson(HaModel(link, key)).toString())
     }
-    private fun deleteFromCloud(){
+    fun deleteFromCloud(){
         GlobalScope.launch {
             ReadURL().get("${ServerUrl.url}/del/user=${User.id}&id=ha-${User.id}")
         }
@@ -42,7 +42,6 @@ class SetUp {
     }
     suspend fun getFromCloud(): IotDataModel? {
         return try {
-
             val get = ReadURL().get("${ServerUrl.url}getha/")
             val iot = JsonParse().iot(get)
             IotData.accessKey = iot[0].key

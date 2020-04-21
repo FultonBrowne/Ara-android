@@ -18,6 +18,7 @@ package com.andromeda.ara.iot
 
 import android.app.Activity
 import android.widget.Toast
+import com.andromeda.ara.client.iot.SetUp
 import com.andromeda.ara.constants.ServerUrl
 import com.andromeda.ara.constants.User
 import com.andromeda.ara.models.HaModel
@@ -27,7 +28,7 @@ import com.google.gson.Gson
 class SetUp {
     fun setUp(key:String, Url:String, act:Activity){
         try {
-            deleteFromCloud()
+            SetUp().deleteFromCloud()
         }
         catch (e:Exception){
             //an exception here should be ignored for new users With no DB entry
@@ -42,7 +43,7 @@ class SetUp {
         val edit = sharedPreferences.edit()
         println(url)
         try {
-            writeToCloud(url, key)
+            SetUp().writeToCloud(url, key)
         }
         catch (e:Exception){
             Toast.makeText(act, "Fail", Toast.LENGTH_LONG).show()

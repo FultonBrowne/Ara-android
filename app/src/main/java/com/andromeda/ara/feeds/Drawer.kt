@@ -164,7 +164,7 @@ class Drawer {
                 }
 
             }
-                true
+                false
             }
             materialDrawerSliderView.setItems(home, food, cal, shortcuts, devices, reminders, news)
             materialDrawerSliderView.setBackgroundResource(R.color.colorBack)
@@ -173,7 +173,6 @@ class Drawer {
             profile.nameText = User.name
             accountHeaderView.addProfile(profile, 0)
             materialDrawerSliderView.accountHeader = accountHeaderView
-            materialDrawerSliderView.closeOnClick = true
 
 
         }

@@ -62,23 +62,7 @@ fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: 
                 log = location.longitude
             }
         }
-        val skills = getSearch(act)
-        if (skills != null) {
-            for (i in skills){
-                if (mainval.startsWith(i.pre)){
-                    done2 = true
-                    try {
-                        val parsed = Parse().parse(i.action)
-                        val doIt = RunActions().doIt(parsed, mainval.replace(i.pre + " ", ""), act, act, searchFunctions)
-                        outputList.addAll(doIt)
-                    }
-                    catch (e:Exception){
-                        e.printStackTrace()
-                    }
-                }
-            }
-        }
-                if (!done2) {
+
                     val launch = GlobalScope.launch {
                         outputList.addAll(
                             SearchAra().search(
@@ -103,7 +87,7 @@ fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: 
                         setFeedData.setData(outputList)
                     }
                     println(R.string.done_search)
-                }
+
 
 
         return outputList

@@ -107,7 +107,7 @@ dependencies {
     implementation group: 'net.openid', name: 'appauth', version: '0.7.1'
     implementation 'androidx.preference:preference:1.1.1'
     implementation 'com.google.code.ndef-tools-for-android:ndeftools-util:1.2.4'
-    testImplementation "io.mockk:mockk:1.9.3"
+    testImplementation "io.mockk:mockk:1.10.0"
 
 
     implementation group: 'org.mozilla.deepspeech', name: 'libdeepspeech', version: '0.7.0'

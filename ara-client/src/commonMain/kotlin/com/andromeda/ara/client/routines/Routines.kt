@@ -43,7 +43,6 @@ class Routines {
         val url = ServerUrl.url + "user/" + User.id
         val data = ReadURL().get(url)
         return JsonParse().userSkills(data)
-
     }
     fun rename(id:String, name:String){
         val url = "${url}updateuserdata/user=${User.id}id=$id&prop=name&newval=${name}"
@@ -57,7 +56,9 @@ class Routines {
     }
     @OptIn(ImplicitReflectionSerializer::class)
     fun new(id:String, new:SkillsDBModel){
-        ReadURL().post("${ServerUrl.url}newdoc/user=${User.id}&id=$id&prop=action", toJson(new))
+        val payload = toJson(new)
+        println(payload)
+        ReadURL().post("${ServerUrl.url}newdoc/user=${User.id}&id=$id&prop=action", payload)
     }
     fun toJson(new:SkillsDBModel): String {
         val jsonObject = JsonObject(

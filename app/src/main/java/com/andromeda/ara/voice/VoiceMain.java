@@ -25,7 +25,6 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -97,7 +96,7 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions, Act
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        File file = new File(ctx.getCacheDir() + "/main.tflite");
+        File file = new File(ctx.getCacheDir() + "/main2.tflite");
         File file1 = new File(this.getCacheDir() + "/alphabet.txt");
         if(file1.exists() && file.exists()){
         System.out.println(bufferSizeInBytes);
@@ -120,10 +119,10 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions, Act
             mProgressDialog.setIndeterminate(true);
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mProgressDialog.setCancelable(true);
-            DownloadTask downloadTask = new DownloadTask(this, ctx.getCacheDir() + "/main.tflite", mProgressDialog);
+            DownloadTask downloadTask = new DownloadTask(this, ctx.getCacheDir() + "/main2.tflite", mProgressDialog);
             DownloadTask downloadTask2 = new DownloadTask(this, ctx.getCacheDir() + "/alphabet.txt", mProgressDialog);
 
-            downloadTask.execute("https://arafilestore.file.core.windows.net/ara-server-files/main.tflite?sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2024-04-01T22:11:11Z&st=2019-12-19T15:11:11Z&spr=https&sig=lfjMHSahA6fw8enCbx0hFTE1uAVJWvPmC4m6blVSuuo%3D");
+            downloadTask.execute("https://arafilestore.file.core.windows.net/ara-server-files/deepspeech-0.7.0-models.tflite?sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2024-04-01T22:11:11Z&st=2019-12-19T15:11:11Z&spr=https&sig=lfjMHSahA6fw8enCbx0hFTE1uAVJWvPmC4m6blVSuuo%3D");
             downloadTask2.execute("https://arafilestore.file.core.windows.net/ara-server-files/alphabet.txt?sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2024-04-01T22:11:11Z&st=2019-12-19T15:11:11Z&spr=https&sig=lfjMHSahA6fw8enCbx0hFTE1uAVJWvPmC4m6blVSuuo%3D");
             mProgressDialog.setOnCancelListener(dialog -> {
                 downloadTask.cancel(true); //cancel the task

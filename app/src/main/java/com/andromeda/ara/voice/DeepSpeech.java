@@ -30,6 +30,8 @@ import java.nio.ByteOrder;
 
 
 class DeepSpeech {
+
+
     private DeepSpeechModel _m = null;
     public String decode = "";
     Thread thread;
@@ -46,7 +48,7 @@ class DeepSpeech {
     private void newModel(Context ctx) {
         System.out.println("working");
         if (this._m == null) {
-            this._m = new DeepSpeechModel(ctx.getCacheDir() + "/main.tflite", ctx.getCacheDir() + "/alphabet.txt", 50);
+            this._m = new DeepSpeechModel(ctx.getCacheDir().getAbsolutePath() + "/main2.tflite");
         }
         stream = _m.createStream();
 

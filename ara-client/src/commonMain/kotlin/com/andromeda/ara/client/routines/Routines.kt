@@ -29,6 +29,8 @@ import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.Serializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 
 class Routines {
     suspend fun get(id:String): ArrayList<SkillsDBModel> {
@@ -55,9 +57,23 @@ class Routines {
     }
     @OptIn(ImplicitReflectionSerializer::class)
     fun new(id:String, new:SkillsDBModel){
-        ReadURL().post("${ServerUrl.url}newdoc/user=${User.id}&id=$id&prop=action", Json(
-            JsonConfiguration.Stable
-        ).toJson(new).toString())
+        ReadURL().post("${ServerUrl.url}newdoc/user=${User.id}&id=$id&prop=action", toJson(new))
+    }
+    fun toJson(new:SkillsDBModel): String {
+        val jsonObject = JsonObject(
+            mapOf(
+                "action" to JsonPrimitive(new.action.action),
+                "arg1" to JsonPrimitive(new.action.arg1),
+                "arg2" to JsonPrimitive(new.action.arg2)
+            )
+        )
+        return JsonObject(
+            mapOf(
+                "action" to jsonObject,
+                "name" to JsonPrimitive(new.name),
+                "index" to JsonPrimitive(new.index)
+            )
+        ).toString()
     }
     fun delete(id:String){}
 }

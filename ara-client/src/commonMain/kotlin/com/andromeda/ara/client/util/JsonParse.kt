@@ -73,9 +73,20 @@ class JsonParse {
         parseJson.forEach {
             val main = it.jsonObject
             println(main)
-            val sub = main.getObject("action")
-            val model = SkillsDBModel(SkillsModel(sub.get("action")!!.content, sub.get("arg1")!!.content, sub.get("arg2")!!.content), main.get("name")!!.content, main.get("index")!!.content)
-            toReturn.add(model)
+            try {
+                val sub = main.getObject("action")
+                val model = SkillsDBModel(
+                    SkillsModel(
+                        sub.get("action")!!.content,
+                        sub.get("arg1")!!.content,
+                        sub.get("arg2")!!.content
+                    ), main.get("name")!!.content, main.get("index")!!.content
+                )
+                toReturn.add(model)
+            }
+            catch (e:Exception){
+                println(e)
+            }
         }
         return toReturn
     }

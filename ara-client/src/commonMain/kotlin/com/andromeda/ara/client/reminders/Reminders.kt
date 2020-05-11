@@ -30,7 +30,8 @@ class Reminders {
     }
     @ImplicitReflectionSerializer
     suspend fun get(): ArrayList<FeedModel> {
-        val remindersList = ServerUrl.getRemindersList("", "", "", "")
+        val remindersList = ServerUrl.getRemindersList("bmfbmfdlkbfldkng", "", "", "")
+        println(remindersList)
         return ApiOutToFeed().main(JsonParse().outputModel(ReadURL().get(remindersList)))
     }
     suspend fun new(remindersModel: RemindersModel){
@@ -39,6 +40,7 @@ class Reminders {
                 " ",
                 "%20"
             )
+        println(replace)
         ReadURL().get(replace)
     }
     suspend fun delete(id: String){

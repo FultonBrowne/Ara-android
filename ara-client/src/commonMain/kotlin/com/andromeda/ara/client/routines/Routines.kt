@@ -55,9 +55,9 @@ class Routines {
     }
     @OptIn(ImplicitReflectionSerializer::class)
     fun new(id:String, new:SkillsDBModel){
-        GlobalScope.launch {  ReadURL().post("${ServerUrl.url}newdoc/user=${User.id}&id=$id&prop=action", Json(
+        ReadURL().post("${ServerUrl.url}newdoc/user=${User.id}&id=$id&prop=action", Json(
             JsonConfiguration.Stable
-        ).toJson(new).toString())}
+        ).toJson(new).toString())
     }
     fun delete(id:String){}
 }

@@ -34,6 +34,7 @@ class DeepSpeech {
 
     private DeepSpeechModel _m = null;
     public String decode = "";
+    private VoiceMain voiceMain;
     Thread thread;
     DeepSpeechStreamingState stream;
     public DeepSpeech(Context ctx){
@@ -55,6 +56,7 @@ class DeepSpeech {
     }
 
     void updateV3(VoiceMain voiceMain){
+       this.voiceMain = voiceMain
        thread = new Thread(()->{
            try {
                Thread.sleep(200);
@@ -64,7 +66,6 @@ class DeepSpeech {
            while (voiceMain.isRecording){
 
            byte[] bytes = voiceMain.byteIS.toByteArray();
-            System.out.println("nummmmmmm");
             voiceMain.byteIS.reset();
             short[] shorts = new short[bytes.length / 2];
             ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
@@ -74,12 +75,18 @@ class DeepSpeech {
        thread.start();
 
     }
-    public String voiceV3(){
+    public String voiceV3(){	
         try {
             thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+	VoiceMain voiceMain = this.voiceMain
+	byte[] bytes = voiceMain.byteIS.toByteArray();
+	voiceMain.byteIS.reset();
+	short[] shorts = new short[bytes.length / 2];
+	ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
+	_m.feedAudioContent(stream, shorts, shorts.length);	
         return _m.finishStream(stream);
     }
 

@@ -56,7 +56,7 @@ class DeepSpeech {
     }
 
     void updateV3(VoiceMain voiceMain){
-       this.voiceMain = voiceMain
+       this.voiceMain = voiceMain;
        thread = new Thread(()->{
            try {
                Thread.sleep(200);
@@ -81,7 +81,7 @@ class DeepSpeech {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-	VoiceMain voiceMain = this.voiceMain
+	VoiceMain voiceMain = this.voiceMain;
 	byte[] bytes = voiceMain.byteIS.toByteArray();
 	voiceMain.byteIS.reset();
 	short[] shorts = new short[bytes.length / 2];

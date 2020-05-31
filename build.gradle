@@ -27,7 +27,6 @@ buildscript {
 }
 plugins {
     // :refreshVersions see https://github.com/jmfayard/buildSrcVersions/issues/77
-    id("de.fayard.buildSrcVersions").version("0.6.1")
 
 }
 

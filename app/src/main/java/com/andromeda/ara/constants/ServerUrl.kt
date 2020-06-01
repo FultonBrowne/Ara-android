@@ -22,5 +22,6 @@ import java.util.*
 
 object ServerUrl {
     var url = "https://ara-server.azurewebsites.net/"
+    val urls = arrayListOf(url)
 
 }

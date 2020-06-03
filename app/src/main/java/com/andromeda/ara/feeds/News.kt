@@ -33,8 +33,12 @@ class News {
     fun newsGeneral(setFeedData: SetFeedData): ArrayList<FeedModel> {
         val generalAsFeed = arrayListOf<FeedModel>()
         GlobalScope.launch {
+		try{
             generalAsFeed.addAll(News().generalAsFeed(Locale.getDefault().country))
             setFeedData.setData(generalAsFeed)
+    		}
+	catch(e:Exception){
+	}
         }
         return generalAsFeed
 

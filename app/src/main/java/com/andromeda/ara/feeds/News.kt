@@ -75,8 +75,11 @@ class News {
     fun newsMoney(setFeedData: SetFeedData): ArrayList<FeedModel> {
         val generalAsFeed = arrayListOf<FeedModel>()
         GlobalScope.launch {
+		try{
             generalAsFeed.addAll(News().money())
             setFeedData.setData(generalAsFeed)
+    }
+    catch(e:Exception)
         }
         return generalAsFeed
 

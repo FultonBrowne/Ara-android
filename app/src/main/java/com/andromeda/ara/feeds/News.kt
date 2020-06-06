@@ -46,8 +46,8 @@ class News {
     }
     fun newsGeneral(ctx:Context, setFeedData: SetFeedData): ArrayList<FeedModel> {
         val feedData = newsGeneral(setFeedData)
-        try {
             GlobalScope.launch {
+		    try{
                 feedData.addAll(News().generalAsFeed(Locale.getDefault().country))
                 feedData.addAll(
                     0,
@@ -55,10 +55,9 @@ class News {
                 )
                 setFeedData.setData(feedData)
             }
-        }
-        catch (e:Exception){
-            e.printStackTrace()
-        }
+	    catch(e:Exception){
+	    }
+    }
 
         return feedData
 

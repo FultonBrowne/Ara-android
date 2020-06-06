@@ -79,10 +79,11 @@ class News {
             generalAsFeed.addAll(News().money())
             setFeedData.setData(generalAsFeed)
     }
-    catch(e:Exception)
-        }
-        return generalAsFeed
+    catch(e:Exception){
+}
 
+    }
+    return generalAsFeed
     }
 
     private fun getFromLink(link:String): ArrayList<FeedModel> {

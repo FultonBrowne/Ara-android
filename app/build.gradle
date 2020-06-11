@@ -113,7 +113,7 @@ dependencies {
     implementation group: 'org.mozilla.deepspeech', name: 'libdeepspeech', version: '0.7.1'
 
 
-    implementation 'androidx.ui:ui-layout:0.1.0-dev10'
+    implementation 'androidx.ui:ui-layout:0.1.0-dev13'
     implementation 'androidx.ui:ui-material:0.1.0-dev10'
     implementation 'androidx.ui:ui-tooling:0.1.0-dev10'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-beta02')

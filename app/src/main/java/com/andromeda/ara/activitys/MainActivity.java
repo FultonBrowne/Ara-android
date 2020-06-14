@@ -426,7 +426,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     @NonNull
     @Override
     public String text() {
-        return new AraPopUps().getDialogValueBack(MainActivity.this, "edit state value", handler);
+        return new AraPopUps().getDialogValueBack(MainActivity.this, "edit state value");
     }
 
     @Override

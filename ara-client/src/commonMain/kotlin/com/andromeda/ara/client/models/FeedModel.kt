@@ -1,21 +1,10 @@
-/*
- * Copyright (c) 2020. Fulton Browne
- *  This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-package com.andromeda.ara.client.models
+package com.andromeda.araserver.util
 
-data class FeedModel(var description: String, var link: String, var title: String, var image: String, var out: String?, var longText: Boolean) {
-    var color: Int? = null
-
+/** 
+This is the type used for the feed list
+ **/
+ data class FeedModel(var title: String, var description: String, var link: String?, var image: String?, var longText: Boolean, var color:Int?) {
+	 constructor(title:String, description:String, link:String, image:String, longText:Boolean):this(title, description, link, image, longText, null)
+	 constructor(title:String, description:String, link:String):this(title, description, link, null, false, null)
+	 constructor(title:String, description:String):this(title, description, null , null, false, null)
 }

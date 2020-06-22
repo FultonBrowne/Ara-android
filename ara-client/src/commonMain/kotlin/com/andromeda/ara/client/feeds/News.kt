@@ -49,4 +49,8 @@ class News {
         val map = mapOf("us" to "news/us", "uk" to "news/uk")
         return map.getOrElse(locale, { return "news/us"})
     }
+    suspend fun feed(log:String, lat:String, locale:String):Feed{
+	    val json = ReadURL().get(ServerUrl.getFeed(log, lat, locale))
+	    return JsonParse().feed(json)
+    }
 }

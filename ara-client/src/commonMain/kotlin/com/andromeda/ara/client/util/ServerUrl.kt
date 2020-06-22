@@ -24,6 +24,9 @@ object ServerUrl {
     fun getStandardSearch(term:String, log:String, lat:String, locale:String): String {
         return "$url/v1/search${searchDataParser(term, log, lat, locale)}"
     }
+    fun getFeed(log:String, lat:String, locale:String): String {
+	    return "$url/v1/search${feedDataParser(log, lat, locale)}"
+    }
 
         fun getWebSearch(term:String, log:String, lat:String, locale:String): String {
         return "$url/v1/search/web${searchDataParser(term, log, lat, locale)}"
@@ -41,8 +44,12 @@ object ServerUrl {
         return "$url/remindergaapi/${searchDataParser(term, log, lat, locale)}"
     }
     private fun searchDataParser(term:String, log:String, lat:String, locale:String): String {
-        return "?term=$term&log=$log&lat=$lat&key=${User.id}".replace(" ", "%20")
+	    return "?term=$term&log=$log&lat=$lat&key=${User.id}&cc=$locale".replace(" ", "%20")
     }
+    private fun feedDataParser(log:String, lat:String, locale:String): String {
+	    return "?log=$log&lat=$lat&key=${User.id}&cc=$locale".replace(" ", "%20")
+    }
+    
     fun getReminder(id:String): String {
         return "$url/reminderg/user=${User.id}&id=$id"
     }

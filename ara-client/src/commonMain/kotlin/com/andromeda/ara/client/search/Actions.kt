@@ -23,7 +23,6 @@ import kotlin.reflect.KClass
 
 interface Actions {
     fun runActions(action: ArrayList<SkillsModel>, term:String)
-    fun <T> parseYaml(yaml:String): T
     companion object{
         const val CALL = "CALL"
         const val APP = "OPEN_APP"

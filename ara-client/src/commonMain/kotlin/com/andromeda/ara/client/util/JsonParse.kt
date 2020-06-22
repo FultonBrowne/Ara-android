@@ -51,6 +51,7 @@ class JsonParse {
 	    }
 	    mainFeed.forEach{
 		    val jo = it.jsonObject
+		    feedArray.add(FeedModel(jo.get("title")!!.content, jo.get("description")!!.content, jo.get("link")?.contentOrNull, jo.get("image")?.contentOrNull, jo.get("longText")!!.primitive.boolean, jo.get("color")?.primitive?.intOrNull))
 	    }
     }
     fun reminder(text:String): RemindersModel {

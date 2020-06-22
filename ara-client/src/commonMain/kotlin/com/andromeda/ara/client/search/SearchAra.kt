@@ -27,7 +27,6 @@ import kotlinx.serialization.ImplicitReflectionSerializer
 
 class SearchAra {
     @OptIn(ImplicitReflectionSerializer::class)
-    @Deprecated
     suspend fun search(lat: String, log: String, term: String, locale: String, actions: Actions): ArrayList<FeedModel> {
         val client = HttpClient()
 

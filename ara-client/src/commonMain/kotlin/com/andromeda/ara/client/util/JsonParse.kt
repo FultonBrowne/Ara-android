@@ -41,11 +41,16 @@ class JsonParse {
     fun feed(text:String){
 	    val obj  =  Json.parseJson(text).jsonObject
 	    val action  = obj.getArray("action")
+	    val mainFeed = obj.getArray("feed")
 	    val actionsArray = arrayListOf<SkillsModel>()
+	    val feedArray = arrayListOf<FeedModel>()
 	    action.forEach{
 		    val jo = it.jsonObject
-		    actionsArray.add(SkillsModel(jo.get("action")!!.content,(o.get("arg1")!!.content, jo.get("arg2")!!.content))
+		    actionsArray.add(SkillsModel(jo.get("action")!!.content,jo.get("arg1")!!.content, jo.get("arg2")!!.content))
 
+	    }
+	    mainFeed.forEach{
+		    val jo = it.jsonObject
 	    }
     }
     fun reminder(text:String): RemindersModel {

@@ -1,4 +1,4 @@
-package com.andromeda.araserver.util
+package com.andromeda.ara.client.models
 
 /** 
 This is the type used for the feed list

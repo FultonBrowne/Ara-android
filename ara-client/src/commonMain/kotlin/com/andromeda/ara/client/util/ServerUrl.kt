@@ -26,10 +26,10 @@ object ServerUrl {
     }
 
         fun getWebSearch(term:String, log:String, lat:String, locale:String): String {
-        return "$url/v0/search/web${searchDataParser(term, log, lat, locale)}"
+        return "$url/v1/search/web${searchDataParser(term, log, lat, locale)}"
     }
     fun getImageSearch(term:String, log:String, lat:String, locale:String): String {
-        return "$url/searchi/${searchDataParser(term, log, lat, locale)}"
+	    return "$url/v1/search/image${searchDataParser(term, log, lat, locale)}"
     }
     fun getNewsSearch(term:String, log:String, lat:String,locale:String): String {
         return "$url/searchn/${searchDataParser(term, log, lat, locale)}"

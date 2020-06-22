@@ -17,6 +17,7 @@
 package com.andromeda.ara.client.feeds
 
 import com.andromeda.ara.client.models.FeedModel
+import com.andromeda.ara.client.models.Feed
 import com.andromeda.ara.client.models.NewsData
 import com.andromeda.ara.client.util.JsonParse
 import com.andromeda.ara.client.util.ReadURL

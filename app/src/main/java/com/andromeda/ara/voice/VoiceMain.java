@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andromeda.ara.R;
 import com.andromeda.ara.client.models.FeedModel;
+import com.andromeda.ara.client.models.Feed;
 import com.andromeda.ara.client.models.SkillsModel;
 import com.andromeda.ara.client.search.Actions;
 import com.andromeda.ara.models.OutputModel;
@@ -439,9 +440,9 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions, Act
     }
 
     @Override
-    public void setData(@NotNull ArrayList<FeedModel> feedModel) {
+    public void setData(@NotNull Feed feedModel) {
         runOnUiThread(() -> {
-            recyclerView.setAdapter(new Adapter(feedModel, this));
+            recyclerView.setAdapter(new Adapter(feedModel.feed, this));
 
         });
     }

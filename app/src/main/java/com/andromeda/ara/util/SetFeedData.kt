@@ -16,8 +16,8 @@
 
 package com.andromeda.ara.util
 
-import com.andromeda.ara.client.models.FeedModel
+import com.andromeda.ara.client.models.Feed
 
 interface SetFeedData {
-    fun setData(feedModel: ArrayList<FeedModel>)
+    fun setData(feedModel: Feed)
 }

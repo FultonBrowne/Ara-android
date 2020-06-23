@@ -81,7 +81,7 @@ class Drawer {
             DrawerModeConstants.DEVICES ->{
                 GlobalScope.launch {
                     try {
-                        setFeedData.setData(Actions().getAll())
+//                        setFeedData.setData(Actions().getAll())
                     }
                     catch (e:Exception){
                         e.printStackTrace()
@@ -92,13 +92,13 @@ class Drawer {
             }
             DrawerModeConstants.FOOD -> {
                 GlobalScope.launch {
-                    setFeedData.setData(Food().getFood(log.toString(), lat.toString()))
+//                    setFeedData.setData(Food().getFood(log.toString(), lat.toString()))
                 }
                 return null
             }
             DrawerModeConstants.SHORTCUTS -> {
                 GlobalScope.launch {
-                    setFeedData.setData(ListSkills().main())
+//                    setFeedData.setData(ListSkills().main())
                 }
                 return null
             }
@@ -108,20 +108,20 @@ class Drawer {
             }
             DrawerModeConstants.REMINDERS ->{
                 GlobalScope.launch {
-                    setFeedData.setData(Reminders().get())
+//                    setFeedData.setData(Reminders().get())
                 }
                 return null
             }
             104L -> {
-                feedModel1.addAll(News().newsGeneral(setFeedData))
+//               feedModel1.addAll(News().newsGeneral(setFeedData))
                 return feedModel1
             }
             102L -> {
-                feedModel1.addAll(News().newsTech(setFeedData))
+//                feedModel1.addAll(News().newsTech(setFeedData))
                 return feedModel1
             }
             105L -> {
-                feedModel1.addAll(News().newsMoney(setFeedData))
+//                feedModel1.addAll(News().newsMoney(setFeedData))
                 return feedModel1
             }
             else -> {

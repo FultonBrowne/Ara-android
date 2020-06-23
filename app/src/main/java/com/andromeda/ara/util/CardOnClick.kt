@@ -71,7 +71,7 @@ class CardOnClick {
 
             }
             DrawerModeConstants.REMINDERS -> {
-                AraPopUps().delete(act, selected.link)
+                AraPopUps().delete(act, selected.link!!)
             }
             else -> {
                 insert(selected.title, selected.link, cursor)

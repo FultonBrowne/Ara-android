@@ -429,10 +429,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions, Act
         tabs.setAdapter(new TabAdapter(data, this));
 
     }
-    @Override
-    public <T> T parseYaml(@NotNull String s) {
-        return (T) new Parse().yamlArrayToObject(s, SkillsModel.class);
-    }
 
     @Override
     public void runActions(@NotNull ArrayList<SkillsModel> arrayList, String term) {

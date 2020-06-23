@@ -52,6 +52,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andromeda.ara.R;
 import com.andromeda.ara.client.iot.GetNewInputs;
 import com.andromeda.ara.client.models.FeedModel;
+import com.andromeda.ara.client.models.Feed;
 import com.andromeda.ara.client.models.SkillsModel;
 import com.andromeda.ara.client.search.Actions;
 import com.andromeda.ara.feeds.Drawer;;
@@ -402,11 +403,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         new AraPopUps().newReminder(this);
     }
 
-    @Override
-    public <T> T parseYaml(@NotNull String s) {
-        return (T) new Parse().yamlArrayToObject(s, SkillsModel.class);
-    }
-
 
     @Override
     public void runActions(@NotNull ArrayList<SkillsModel> action, @NotNull String term) {
@@ -415,10 +411,9 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     }
 
     @Override
-    public void setData(@NotNull ArrayList<FeedModel> feedModel) {
+    public void setData(@NotNull Feed feedModel) {
         runOnUiThread(() -> {
-            System.out.println(feedModel);
-            recyclerView.setAdapter(new Adapter(feedModel, this));
+            recyclerView.setAdapter(new Adapter(feedModel.feed, this));
 
         });
     }

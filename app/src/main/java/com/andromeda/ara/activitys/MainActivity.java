@@ -71,6 +71,7 @@ import com.andromeda.ara.util.CardOnClick;
 import com.andromeda.ara.util.GetSettings;
 import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.JsonParse;
+import com.andromeda.ara.util.GetDataFromFeed;
 import com.andromeda.ara.util.LogIn;
 import com.andromeda.ara.util.RecyclerTouchListener;
 import com.andromeda.ara.util.SetFeedData;
@@ -413,7 +414,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     @Override
     public void setData(@NotNull Feed feedModel) {
         runOnUiThread(() -> {
-            recyclerView.setAdapter(new Adapter(feedModel.feed, this));
+            recyclerView.setAdapter(new Adapter(new GetDataFromFeed().getFeedArray(feedModel), this));
 
         });
     }

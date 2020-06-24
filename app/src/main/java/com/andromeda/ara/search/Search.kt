@@ -82,6 +82,7 @@ fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: 
                             searchFunctions.addTabData(data)
 
                         }
+			println(feedData.feed)
 			setFeedData.setData(feedData)
                     }
 

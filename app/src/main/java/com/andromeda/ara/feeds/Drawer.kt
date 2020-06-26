@@ -155,8 +155,6 @@ class Drawer {
             news.setSubItems(tech, domestic, money)
             materialDrawerSliderView.onDrawerItemClickListener = { view: View?, iDrawerItem: IDrawerItem<*>, i: Int ->
                 act.runOnUiThread{
-                val tabs = act.findViewById<RecyclerView>(R.id.tabs);
-                tabs.setVisibility(View.INVISIBLE);
                 try {
                     Drawer().main(iDrawerItem.identifier,act, setFeedData);
                 } catch (e:Exception) {

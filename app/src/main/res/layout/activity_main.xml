@@ -27,11 +27,13 @@
 
     <com.google.android.material.bottomappbar.BottomAppBar
             android:layout_width="match_parent"
-            android:layout_height="@dimen/app_bar_height"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
+	        android:layout_gravity="bottom"
         android:id="@+id/bar"
+	     app:menu="@menu/menu_main"
             android:background="@color/colorPrimary"
-	    android:theme="@style/AppTheme.AppBarOverlay"/>
+	   style="@style/Widget.MaterialComponents.BottomAppBar.Colored" />
     <include layout="@layout/content_main"
          />
 

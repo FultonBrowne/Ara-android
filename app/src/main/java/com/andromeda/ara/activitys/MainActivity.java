@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         permissions();
-        new LogIn().logIn(this);
         act = this;
         System.out.println("done part 1");
         new CacheData().main(this);
@@ -143,15 +142,8 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         System.out.println("prefs");
 
         Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mActionBarToolbar);
-        recyclerView = findViewById(R.id.list);
-        drawer = findViewById(R.id.slider);
-        Drawer.Companion.drawer(this, drawer, this);
-        System.out.println("drawer");
-        Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ham);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         StrictMode.setThreadPolicy(policy);
+	recyclerView = findViewById(R.id.list);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -301,19 +293,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
 
     }
 
-    @Override
-    public void onBackPressed() {
-        //handle the back press :D close the Drawer first and if the Drawer is closed close the activity
-        DrawerLayout viewById = (DrawerLayout) findViewById(R.id.root);
-        if (viewById != null && viewById.isOpen()) {
-            viewById.close();
-        } else if (viewById != null && !viewById.isOpen()) {
-            viewById.open();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     @RequiresApi(26)
     public void time() {
 
@@ -393,10 +372,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
 
     @Override
     public void addTabData(@NotNull List<TabModel> data) {
-        RecyclerView tabs = findViewById(R.id.tabs);
-        tabs.setVisibility(View.VISIBLE);
-        tabs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-        tabs.setAdapter(new TabAdapter(data, this));
 
     }
 

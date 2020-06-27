@@ -28,13 +28,14 @@ class CacheData {
         IotData.urlToApi = sharedPreferences.getString("url", "")!!
         IotData.accessKey= sharedPreferences.getString("key", "")!!
         try {
-            getFromCloud(act)
+            //getFromCloud(act)
         }
         catch (e:Exception){
             e.printStackTrace()
         }
     }
     fun getFromCloud(act:Activity){
+	Thread{
         val data = URL("${ServerUrl.url}getha/").readText()
         val parse = JsonParse().iot(data)
         val url = parse[0].link
@@ -45,5 +46,6 @@ class CacheData {
         edit.putString("url", url)
         edit.putString("key", key)
         edit.apply()
+}.start()
     }
 }

@@ -27,9 +27,10 @@
                 android:orientation="vertical"
                 tools:showIn="@layout/activity_main">
 
-	<SearchView
+	<androidx.appcompat.widget.SearchView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+                android:id="@+id/searchview"
     android:background="@color/colorAccent"
     android:layout_margin="10dp"
     android:focusable="auto"

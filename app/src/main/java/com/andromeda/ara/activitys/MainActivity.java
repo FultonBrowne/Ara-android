@@ -163,6 +163,28 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
                 new CardOnClick().longClick( adapter.getMFeedModels().get(position), getApplicationContext(), main53, mode, act);
             }
         }));
+	SearchView searchView = findViewById(R.id.searchview);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+                        assert locationManager != null;
+                    }
+                    try {
+                        new Search().main(s, MainActivity.this, MainActivity.this, null, feedModel1, MainActivity.this, MainActivity.this);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
+    }
+});
         System.out.println("pre feed");
         feedModel1 = (new News().newsGeneral(this));
         System.out.println("feed done");

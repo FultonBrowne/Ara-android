@@ -267,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         runOnUiThread(() -> {
             System.out.println("menu 1");
             getMenuInflater().inflate(R.menu.menu_main, menu);
+		    
             SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
             SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search)
                     .getActionView();

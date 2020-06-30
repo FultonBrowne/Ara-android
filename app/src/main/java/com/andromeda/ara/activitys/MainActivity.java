@@ -80,6 +80,7 @@ import com.andromeda.ara.util.TagManager;
 import com.andromeda.ara.voice.VoiceMain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView;
+import com.google.android.material.bottomappbar.BottomAppBar;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -141,8 +142,9 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         }
         System.out.println("prefs");
 
-        Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
+        BottomAppBar mActionBarToolbar = findViewById(R.id.toolbar);
         StrictMode.setThreadPolicy(policy);
+        setSupportActionBar(mActionBarToolbar);
 	recyclerView = findViewById(R.id.list);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override

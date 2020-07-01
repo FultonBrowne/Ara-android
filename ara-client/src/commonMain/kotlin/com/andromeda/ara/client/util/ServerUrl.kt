@@ -25,7 +25,7 @@ object ServerUrl {
         return "$url/v1/search${searchDataParser(term, log, lat, locale)}"
     }
     fun getFeed(log:String, lat:String, locale:String): String {
-	    return "$url/v1/search${feedDataParser(log, lat, locale)}"
+	    return "$url/v1/feed${feedDataParser(log, lat, locale)}"
     }
 
         fun getWebSearch(term:String, log:String, lat:String, locale:String): String {

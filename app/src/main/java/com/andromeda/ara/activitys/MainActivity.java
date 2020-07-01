@@ -189,10 +189,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     }
 });
         System.out.println("pre feed");
-        feedModel1 = (new News().newsGeneral(this));
-        System.out.println("feed done");
-        Adapter mAdapter = new Adapter(feedModel1, this);
-        recyclerView.setAdapter(mAdapter);
+	new News().feed(this);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> launchVoice());
 
@@ -268,6 +265,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         runOnUiThread(() -> {
+            System.out.println("menu 1");
             getMenuInflater().inflate(R.menu.menu_main, menu);
         });
         return true;

@@ -41,7 +41,7 @@ class JsonParse {
     fun feed(text:String):Feed{
 	    val obj  =  Json.parseJson(text).jsonObject
 	    val action  = obj.getArrayOrNull("action")
-	    val mainFeed = obj.getArray("feed")
+	    val mainFeed = obj.getObject("data").getArray("feed")
 	    val actionsArray = arrayListOf<SkillsModel>()
 	    val feedArray = arrayListOf<FeedModel>()
 	    action?.forEach{
@@ -53,7 +53,7 @@ class JsonParse {
 		    val jo = it.jsonObject
 		    feedArray.add(FeedModel(jo.get("title")!!.content, jo.get("description")!!.content, jo.get("link")?.contentOrNull, jo.get("image")?.contentOrNull, jo.get("longText")!!.primitive.boolean, jo.get("color")?.primitive?.intOrNull))
 	    }
-	    return Feed(obj.get("type")!!.content, actionsArray, obj.get("voice")?.contentOrNull, feedArray)
+	    return Feed(obj.getObject("data").get("type")!!.content, actionsArray, obj.get("voice")?.contentOrNull, feedArray)
     }
     fun reminder(text:String): RemindersModel {
         val array = arrayListOf<RemindersModel>()

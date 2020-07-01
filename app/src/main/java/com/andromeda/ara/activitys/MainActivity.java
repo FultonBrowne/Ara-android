@@ -268,37 +268,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         runOnUiThread(() -> {
-            System.out.println("menu 1");
             getMenuInflater().inflate(R.menu.menu_main, menu);
-		    
-            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-            SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search)
-                    .getActionView();
-            assert searchManager != null;
-            searchView.setSearchableInfo(searchManager
-                    .getSearchableInfo(getComponentName()));
-            searchView.setIconifiedByDefault(true);
-
-
-            SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
-                public boolean onQueryTextChange(String newText) {
-                    // this is your adapter that will be filtered
-                    return true;
-                }
-                public boolean onQueryTextSubmit(String query) {
-                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-                        assert locationManager != null;
-                    }
-                    try {
-                        new Search().main(query, MainActivity.this, MainActivity.this, null, feedModel1, MainActivity.this, MainActivity.this);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return true;
-                }
-            };
-            searchView.setOnQueryTextListener(queryTextListener);
         });
         return true;
     }

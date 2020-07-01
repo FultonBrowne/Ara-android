@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         StrictMode.setThreadPolicy(policy);
         setSupportActionBar(mActionBarToolbar);
 	recyclerView = findViewById(R.id.list);
+	recyclerView.setNestedScrollingEnabled(false);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {

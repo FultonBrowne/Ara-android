@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andromeda.ara.R;
 import com.andromeda.ara.client.models.FeedModel;
+import com.andromeda.ara.client.models.Feed;
 import com.andromeda.ara.client.models.SkillsModel;
 import com.andromeda.ara.client.search.Actions;
 import com.andromeda.ara.models.OutputModel;
@@ -46,6 +47,7 @@ import com.andromeda.ara.util.Adapter;
 import com.andromeda.ara.util.ApiOutputToRssFeed;
 import com.andromeda.ara.util.DownloadTask;
 import com.andromeda.ara.util.GetUrlAra;
+import com.andromeda.ara.util.GetDataFromFeed;
 import com.andromeda.ara.util.JsonParse;
 import com.andromeda.ara.util.SetFeedData;
 import com.andromeda.ara.util.SpellChecker;
@@ -428,10 +430,6 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions, Act
         tabs.setAdapter(new TabAdapter(data, this));
 
     }
-    @Override
-    public <T> T parseYaml(@NotNull String s) {
-        return (T) new Parse().yamlArrayToObject(s, SkillsModel.class);
-    }
 
     @Override
     public void runActions(@NotNull ArrayList<SkillsModel> arrayList, String term) {
@@ -439,9 +437,9 @@ public class VoiceMain extends AppCompatActivity implements SearchFunctions, Act
     }
 
     @Override
-    public void setData(@NotNull ArrayList<FeedModel> feedModel) {
+    public void setData(@NotNull Feed feedModel) {
         runOnUiThread(() -> {
-            recyclerView.setAdapter(new Adapter(feedModel, this));
+            recyclerView.setAdapter(new Adapter(new GetDataFromFeed().getFeedArray(feedModel), this));
 
         });
     }

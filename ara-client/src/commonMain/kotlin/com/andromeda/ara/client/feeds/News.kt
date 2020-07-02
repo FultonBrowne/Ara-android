@@ -17,6 +17,7 @@
 package com.andromeda.ara.client.feeds
 
 import com.andromeda.ara.client.models.FeedModel
+import com.andromeda.ara.client.models.Feed
 import com.andromeda.ara.client.models.NewsData
 import com.andromeda.ara.client.util.JsonParse
 import com.andromeda.ara.client.util.ReadURL
@@ -48,5 +49,9 @@ class News {
     private fun linkMapGeneral(locale: String): String? {
         val map = mapOf("us" to "news/us", "uk" to "news/uk")
         return map.getOrElse(locale, { return "news/us"})
+    }
+    suspend fun feed(log:String, lat:String, locale:String):Feed{
+	    val json = ReadURL().get(ServerUrl.getFeed(log, lat, locale))
+	    return JsonParse().feed(json)
     }
 }

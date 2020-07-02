@@ -52,6 +52,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andromeda.ara.R;
 import com.andromeda.ara.client.iot.GetNewInputs;
 import com.andromeda.ara.client.models.FeedModel;
+import com.andromeda.ara.client.models.Feed;
 import com.andromeda.ara.client.models.SkillsModel;
 import com.andromeda.ara.client.search.Actions;
 import com.andromeda.ara.feeds.Drawer;;
@@ -70,6 +71,7 @@ import com.andromeda.ara.util.CardOnClick;
 import com.andromeda.ara.util.GetSettings;
 import com.andromeda.ara.util.GetUrlAra;
 import com.andromeda.ara.util.JsonParse;
+import com.andromeda.ara.util.GetDataFromFeed;
 import com.andromeda.ara.util.LogIn;
 import com.andromeda.ara.util.RecyclerTouchListener;
 import com.andromeda.ara.util.SetFeedData;
@@ -78,6 +80,7 @@ import com.andromeda.ara.util.TagManager;
 import com.andromeda.ara.voice.VoiceMain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView;
+import com.google.android.material.bottomappbar.BottomAppBar;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -117,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         permissions();
-        new LogIn().logIn(this);
         act = this;
         System.out.println("done part 1");
         new CacheData().main(this);
@@ -140,16 +142,11 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         }
         System.out.println("prefs");
 
-        Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mActionBarToolbar);
-        recyclerView = findViewById(R.id.list);
-        drawer = findViewById(R.id.slider);
-        Drawer.Companion.drawer(this, drawer, this);
-        System.out.println("drawer");
-        Objects.requireNonNull(getSupportActionBar()).setTitle(mTime);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ham);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        BottomAppBar mActionBarToolbar = findViewById(R.id.toolbar);
         StrictMode.setThreadPolicy(policy);
+        setSupportActionBar(mActionBarToolbar);
+	recyclerView = findViewById(R.id.list);
+	recyclerView.setNestedScrollingEnabled(false);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -169,11 +166,30 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
                 new CardOnClick().longClick( adapter.getMFeedModels().get(position), getApplicationContext(), main53, mode, act);
             }
         }));
+	SearchView searchView = findViewById(R.id.searchview);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+                        assert locationManager != null;
+                    }
+                    try {
+                        new Search().main(s, MainActivity.this, MainActivity.this, null, feedModel1, MainActivity.this, MainActivity.this);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
+    }
+});
         System.out.println("pre feed");
-        feedModel1 = (new News().newsGeneral(this));
-        System.out.println("feed done");
-        Adapter mAdapter = new Adapter(feedModel1, this);
-        recyclerView.setAdapter(mAdapter);
+	new News().feed(this);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> launchVoice());
 
@@ -251,34 +267,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         runOnUiThread(() -> {
             System.out.println("menu 1");
             getMenuInflater().inflate(R.menu.menu_main, menu);
-            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-            SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search)
-                    .getActionView();
-            assert searchManager != null;
-            searchView.setSearchableInfo(searchManager
-                    .getSearchableInfo(getComponentName()));
-            searchView.setIconifiedByDefault(true);
-
-
-            SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
-                public boolean onQueryTextChange(String newText) {
-                    // this is your adapter that will be filtered
-                    return true;
-                }
-                public boolean onQueryTextSubmit(String query) {
-                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-                        assert locationManager != null;
-                    }
-                    try {
-                        new Search().main(query, MainActivity.this, MainActivity.this, null, feedModel1, MainActivity.this, MainActivity.this);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return true;
-                }
-            };
-            searchView.setOnQueryTextListener(queryTextListener);
         });
         return true;
     }
@@ -297,19 +285,6 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
         }
         return super.onOptionsItemSelected(item);
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        //handle the back press :D close the Drawer first and if the Drawer is closed close the activity
-        DrawerLayout viewById = (DrawerLayout) findViewById(R.id.root);
-        if (viewById != null && viewById.isOpen()) {
-            viewById.close();
-        } else if (viewById != null && !viewById.isOpen()) {
-            viewById.open();
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @RequiresApi(26)
@@ -391,20 +366,11 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
 
     @Override
     public void addTabData(@NotNull List<TabModel> data) {
-        RecyclerView tabs = findViewById(R.id.tabs);
-        tabs.setVisibility(View.VISIBLE);
-        tabs.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-        tabs.setAdapter(new TabAdapter(data, this));
 
     }
 
     public void newReminder(MenuItem item) {
         new AraPopUps().newReminder(this);
-    }
-
-    @Override
-    public <T> T parseYaml(@NotNull String s) {
-        return (T) new Parse().yamlArrayToObject(s, SkillsModel.class);
     }
 
 
@@ -415,10 +381,9 @@ public class MainActivity extends AppCompatActivity implements SearchFunctions, 
     }
 
     @Override
-    public void setData(@NotNull ArrayList<FeedModel> feedModel) {
+    public void setData(@NotNull Feed feedModel) {
         runOnUiThread(() -> {
-            System.out.println(feedModel);
-            recyclerView.setAdapter(new Adapter(feedModel, this));
+            recyclerView.setAdapter(new Adapter(new GetDataFromFeed().getFeedArray(feedModel), this));
 
         });
     }

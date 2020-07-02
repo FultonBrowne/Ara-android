@@ -14,21 +14,33 @@
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
+<androidx.core.widget.NestedScrollView
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/scroll" 
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/content_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:context="com.andromeda.ara.activitys.MainActivity"
+                android:orientation="vertical"
                 tools:showIn="@layout/activity_main">
+
+	<androidx.appcompat.widget.SearchView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+                android:id="@+id/searchview"
+    android:background="@color/colorAccent"
+    android:layout_margin="10dp"
+    android:focusable="auto"
+    android:iconifiedByDefault="false" />
 
 
         <include
@@ -39,4 +51,5 @@
                 android:layout_height="wrap_content"/>
 
 
-</RelativeLayout>
+</LinearLayout>
+	 </androidx.core.widget.NestedScrollView>

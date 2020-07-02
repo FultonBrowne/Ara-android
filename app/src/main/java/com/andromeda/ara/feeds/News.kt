@@ -35,7 +35,7 @@ class News {
         GlobalScope.launch {
 		try{
             generalAsFeed.addAll(News().generalAsFeed(Locale.getDefault().country))
-            setFeedData.setData(generalAsFeed)
+//            setFeedData.setData(generalAsFeed)
     		}
 	catch(e:Exception){
 	}
@@ -53,7 +53,7 @@ class News {
                     0,
                     CalUtility().getClosestEvents(ctx)
                 )
-                setFeedData.setData(feedData)
+//                setFeedData.setData(feedData)
             }
 	    catch(e:Exception){
 	    }
@@ -66,7 +66,7 @@ class News {
         val generalAsFeed = arrayListOf<FeedModel>()
         GlobalScope.launch {
             generalAsFeed.addAll(News().tech())
-            setFeedData.setData(generalAsFeed)
+//            setFeedData.setData(generalAsFeed)
         }
         return generalAsFeed
 
@@ -76,7 +76,7 @@ class News {
         GlobalScope.launch {
 		try{
             generalAsFeed.addAll(News().money())
-            setFeedData.setData(generalAsFeed)
+//            setFeedData.setData(generalAsFeed)
     }
     catch(e:Exception){
 }
@@ -90,6 +90,12 @@ class News {
         val feedData = arrayListOf<FeedModel>()
         parse(news, feedData)
         return feedData
+    }
+
+    fun feed(setFeedData:SetFeedData){
+	    GlobalScope.launch{
+		    setFeedData.setData(News().feed("", "", Locale.getDefault().country))
+	    }
     }
 
     private fun parse(news: ArrayList<NewsData>, feedData: ArrayList<FeedModel>) {

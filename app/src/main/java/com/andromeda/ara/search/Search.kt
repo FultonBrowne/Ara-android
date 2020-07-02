@@ -64,17 +64,15 @@ fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: 
         }
 
                     val launch = GlobalScope.launch {
-                        outputList.addAll(
-                            SearchAra().search(
+                            val feedData = SearchAra().search(
                                 lat.toString(),
                                 log.toString(),
                                 mainval,
                                 Locale.getDefault().country,
                                 actions
                             )
-                        )
                         act.runOnUiThread {
-                            tts?.start(act, outputList[0].out)
+				tts?.start(act, feedData.voice)
                             val elements = TabModel("ara", ServerUrl.getStandardSearch(mainval, log.toString(), lat.toString(), Locale.getDefault().country))
                             val web = TabModel("web", ServerUrl.getWebSearch(mainval, log.toString(), lat.toString(), Locale.getDefault().country))
                             val image = TabModel("images", ServerUrl.getImageSearch(mainval, log.toString(), lat.toString(), Locale.getDefault().country))
@@ -84,9 +82,9 @@ fun main(mainval: String, act: Activity, searchFunctions: SearchFunctions, tts: 
                             searchFunctions.addTabData(data)
 
                         }
-                        setFeedData.setData(outputList)
+			println(feedData.feed)
+			setFeedData.setData(feedData)
                     }
-                    println(R.string.done_search)
 
 
 

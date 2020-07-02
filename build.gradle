@@ -23,10 +23,11 @@ buildscript {
     }
     repositories {
         google()
+	mavenCentral()
+	jcenter()
     }
 }
 plugins {
-    id("de.fayard.buildSrcVersions").version("0.6.1")
     // :refreshVersions see https://github.com/jmfayard/buildSrcVersions/issues/77
 
 }

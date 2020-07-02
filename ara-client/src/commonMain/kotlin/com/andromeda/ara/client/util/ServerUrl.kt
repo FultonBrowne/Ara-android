@@ -22,14 +22,17 @@ package com.andromeda.ara.client.util
 object ServerUrl {
     var url = "https://ara-server.azurewebsites.net/"
     fun getStandardSearch(term:String, log:String, lat:String, locale:String): String {
-        return "$url/api/${searchDataParser(term, log, lat, locale)}"
+        return "$url/v1/search${searchDataParser(term, log, lat, locale)}"
+    }
+    fun getFeed(log:String, lat:String, locale:String): String {
+	    return "$url/v1/feed${feedDataParser(log, lat, locale)}"
     }
 
         fun getWebSearch(term:String, log:String, lat:String, locale:String): String {
-        return "$url/searchb/${searchDataParser(term, log, lat, locale)}"
+        return "$url/v1/search/web${searchDataParser(term, log, lat, locale)}"
     }
     fun getImageSearch(term:String, log:String, lat:String, locale:String): String {
-        return "$url/searchi/${searchDataParser(term, log, lat, locale)}"
+	    return "$url/v1/search/image${searchDataParser(term, log, lat, locale)}"
     }
     fun getNewsSearch(term:String, log:String, lat:String,locale:String): String {
         return "$url/searchn/${searchDataParser(term, log, lat, locale)}"
@@ -41,8 +44,12 @@ object ServerUrl {
         return "$url/remindergaapi/${searchDataParser(term, log, lat, locale)}"
     }
     private fun searchDataParser(term:String, log:String, lat:String, locale:String): String {
-        return "$term&log=$log&lat=$lat&key=${User.id}".replace(" ", "%20")
+	    return "?term=$term&log=$log&lat=$lat&key=${User.id}&cc=$locale".replace(" ", "%20")
     }
+    private fun feedDataParser(log:String, lat:String, locale:String): String {
+	    return "?log=$log&lat=$lat&key=${User.id}&cc=$locale".replace(" ", "%20")
+    }
+    
     fun getReminder(id:String): String {
         return "$url/reminderg/user=${User.id}&id=$id"
     }

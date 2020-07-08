@@ -39,6 +39,7 @@ class JsonParse {
                 return array
     }
     fun feed(text:String):Feed{
+       println(text)
 	    val obj  =  Json.parseJson(text).jsonObject
 	    val action  = obj.getArrayOrNull("action")
 	    val mainFeed = obj.getObject("data").getArray("feed")

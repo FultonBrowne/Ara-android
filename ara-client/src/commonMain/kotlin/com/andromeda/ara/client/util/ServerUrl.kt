@@ -20,7 +20,7 @@ package com.andromeda.ara.client.util
 
 
 object ServerUrl {
-    var url = "https://ara-server.azurewebsites.net/"
+    var url = "http://192.168.1.128/"
     fun getStandardSearch(term:String, log:String, lat:String, locale:String): String {
         return "$url/v1/search${searchDataParser(term, log, lat, locale)}"
     }

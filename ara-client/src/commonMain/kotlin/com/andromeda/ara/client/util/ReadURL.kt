@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 
 class ReadURL {
     suspend fun get(url:String): String {
+       println(url)
         val client = HttpClient()
         return client.get(url)
     }

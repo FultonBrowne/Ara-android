@@ -20,7 +20,7 @@ package com.andromeda.ara.client.util
 
 
 object ServerUrl {
-    var url = "http://192.168.1.128/"
+    var url = "http://192.168.0.45/"
     fun getStandardSearch(term:String, log:String, lat:String, locale:String): String {
         return "$url/v1/search${searchDataParser(term, log, lat, locale)}"
     }

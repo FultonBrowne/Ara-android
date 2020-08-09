@@ -110,7 +110,7 @@ dependencies {
     testImplementation "io.mockk:mockk:1.10.0"
 
 
-    implementation group: 'org.mozilla.deepspeech', name: 'libdeepspeech', version: '0.7.4'
+    implementation group: 'org.mozilla.deepspeech', name: 'libdeepspeech', version: '0.8.0'
 
 
     implementation 'androidx.ui:ui-layout:0.1.0-dev10'

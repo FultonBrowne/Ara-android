@@ -80,7 +80,7 @@
     <string name="hi">hi</string>
     <string name="msg_onHandleScreenshot">onHandleScreenshot</string>
     <string name="log_out">log out</string>
-    <string name="title_activity_prefs">PrefsActivity</string>
+    <string name="title_activity_prefs">Settings</string>
     <string name="send_crash_reports_to_andromeda">Send crash reports to andromeda</string>
     <string name="enchanced_ara_server_coming_soon">Enhanced Ara server (coming soon)</string>
     <string name="ara_account">Ara account</string>

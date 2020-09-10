@@ -143,7 +143,7 @@ dependencies {
 
 
     implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.11.2'
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.0"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.10"
 
 }
 
